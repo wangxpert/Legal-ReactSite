@@ -1,6 +1,11 @@
 export default {
   locale: 'en',
   messages: {
+    appName: 'Legal Maven',
+    legalTopics: 'Legal Topics',
+    legalForms: 'Legal Forms',
+    services: 'Services',
+    contact: 'Contact',
     siteTitle: 'MERN Starter Blog',
     addPost: 'Add Post',
     switchLanguage: 'Switch Language',
@@ -26,6 +31,6 @@ export default {
     	  =0 {does not have any comments}
     	  =1 {has # comment}
     	  other {has # comments}
-    	} as of {date}`,
-  },
+    	} as of {date}`
+  }
 };

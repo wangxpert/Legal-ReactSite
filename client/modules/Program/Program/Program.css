@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+
+.program {
+  width: 100%;
+  height: 100%;
+  background: #e5e8ed;
+  padding: 50px;
+  text-align: center;
+}
+
+.page-title-container {
+  padding: 19px 180px;
+  background: #cacfd6;
+}
+
+.page-title-container .title {
+  display: inline-block;
+  font-family: 'Roboto';
+  font-weight: 700;
+  font-size: 30px;
+  color: #202d42;
+}
+
+.page-title-container .category {
+  display: inline-block;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 21px;
+  margin-top: 9px;
+  color: #202d42;
+  float: right;
+}
+
+.container {
+  background: #ffffff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, .5);
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: left;
+  display: inline-block;
+}
+
+.title-container {
+  background: #202d4e;
+  padding: 19px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.title-container .title {
+  color: #ffffff;
+  font-size: 30px;
+  font-family: 'Roboto';
+  font-weight: 500;
+}
+
+.title-container .description {
+  color: #ffffff;
+  font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: 500;
+}
+
+.container .main-container {
+  padding: 22.5px 70px;
+  background: #ffffff
+}
+
+.container .progress{
+  margin: 0px;
+  height: 24px;
+}
+
+.main-container .question {
+  margin-top: 17.5px;
+  padding: 5px;
+  font-family: 'Roboto';
+  font-size: 25px;
+  font-weight: 500;
+  width: 680px;
+  word-wrap: break-word;
+  color: #202d42;
+  padding-left: 1.0em;
+  text-indent: -1.0em;
+}
+
+.main-container .description {
+  margin-bottom: 5px;
+  color: #a2a6ac;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 18px;
+  padding-left: 1.6em;
+}
+
+.main-container .answer-container {
+  padding: 20px 0;
+}
+
+.answer-container .answer {
+  margin: 10px 0;
+  padding: 9.5px 9.5px 9.5px 65px;
+  width: 680px;
+  height: 45px;
+  background: #ffffff;
+  border: 2px solid #cacfd6;
+  border-radius: 7px;
+  font-size: 20px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #213255;
+  cursor: pointer;
+}
+
+.answer-container .answer:hover {
+  color: #ffffff;
+  background: #cacfd6;
+  box-shadow: 0px 2px 5px rgb(0, 0, 0, .5);
+}
+
+.answer-container .answer.active {
+  background-color: #202d42;
+  background-image: url('./green_check.png');
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  color: #ffffff;
+}
+
+.main-container .button-group {
+  padding: 7px 0 24px;
+  vertical-align: middle;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #a2a6ac;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background: #e5e8ed;
+  padding: 7px 39px;
+  border-radius: 7px;
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+  color: #202d42;
+  cursor: pointer;
+}
+
+.button.big {
+  padding: 8px 68px;
+  font-size: 20px;
+  background: #50d6ff;
+}
+
+.button.help {
+  background: #202d42;
+  font-weight: normal;
+  font-size: 14px;
+  color: white;
+}
+
+.button:hover {
+  color: white;
+}
+
+.button.help:hover {
+  color: rgb(255, 255, 255, .8);
+}
+
+.button:active {
+  box-shadow: 0 0;
+}
+
+.main-container .help-container {
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.help-container .help-text {
+  display: inline-block;
+  padding: 7px 0;
+}

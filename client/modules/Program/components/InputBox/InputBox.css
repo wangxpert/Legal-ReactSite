@@ -1,0 +1,123 @@
+.inputbox {
+  display: inline-block;
+  border: 2px solid #ccc;
+  background-color: #fff;
+  padding: 30px;
+}
+
+.title {
+  color: #0059a5;
+  font-size: 30px;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.main-container {
+  padding: 10px 30px;
+  text-align: left;
+}
+
+.main-container .question {
+  font-size: 25px;
+  font-weight: 500;
+  word-wrap: break-word;
+  color: #202d42;
+  padding-left: 1.0em;
+  text-indent: -1.0em;
+}
+
+.main-container .description {
+  padding: 6px 1.6em;
+  color: #a2a6ac;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.main-container .answer-container {
+  padding: 20px 0;
+}
+
+.answer-container .answer {
+  margin: 10px 0;
+  padding: 9.5px 9.5px 9.5px 65px;
+  width: 720px;
+  height: 45px;
+  background: #ffffff;
+  border: 2px solid #cacfd6;
+  border-radius: 7px;
+  font-size: 20px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #213255;
+  cursor: pointer;
+}
+
+.answer-container .answer:hover {
+  background: #cacfd6;
+  box-shadow: 0px 2px 5px rgb(0, 0, 0, .5);
+}
+
+.answer-container .answer.active {
+  background-color: #0059a5;
+  background-image: url('./green_check.png');
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  color: #ffffff;
+}
+
+.main-container .button-group {
+  padding: 7px 0 24px;
+  vertical-align: middle;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #a2a6ac;
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background: #e5e8ed;
+  padding: 7px 39px;
+  border-radius: 7px;
+  font-family: 'Roboto';
+  font-size: 18px;
+  font-weight: 500;
+  color: #202d42;
+  cursor: pointer;
+}
+
+.button.big {
+  padding: 8px 68px;
+  font-size: 20px;
+  background: #50d6ff;
+}
+
+.button.help {
+  background: #202d42;
+  font-weight: normal;
+  font-size: 14px;
+  color: white;
+}
+
+.button:hover {
+  color: white;
+}
+
+.button.help:hover {
+  color: rgb(255, 255, 255, .8);
+}
+
+.button:active {
+  box-shadow: 0 0;
+}
+
+.main-container .help-container {
+  padding: 20px 0;
+  font-size: 14px;
+}
+
+.help-container .help-text {
+  display: inline-block;
+  padding: 7px 0;
+}

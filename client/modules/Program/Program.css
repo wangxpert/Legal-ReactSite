@@ -1,0 +1,9 @@
+.program {
+  padding: 0px;
+}
+
+.inputbox-container {
+  width: 100%;
+  text-align: center;
+  padding: 32px 12px;
+}
