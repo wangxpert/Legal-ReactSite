@@ -33,6 +33,7 @@ const programSchema = new Schema({
   name: { type: 'String', default: '', required: true },
   start: { type: 'String', default: 'action_1', required: true },
   description: { type: 'String', default: '', required: true },
+  kind: { type: 'String', default: 'Topic', required: true },
   node: Array
 });
 

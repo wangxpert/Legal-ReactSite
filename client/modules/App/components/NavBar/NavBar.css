@@ -43,6 +43,16 @@
   margin-left: -16px;
 }
 
+.dropdown .section {
+
+}
+
+.section .section-title {
+  padding: 10px 0px;
+  background: #eee;
+  font-weight: 700;
+}
+
 .nav-item:hover .dropdown {
   transition: opacity .25s ease-in-out;
   visibility: visible;
