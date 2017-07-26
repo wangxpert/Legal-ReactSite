@@ -32,7 +32,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
+        {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development'}
         <div>
           <Helmet
             title="MERN Starter - Blog App"

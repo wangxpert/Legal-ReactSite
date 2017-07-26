@@ -5,6 +5,8 @@ import { Link, browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import ReactHtmlParser from 'react-html-parser';
 import CAFormArticlesOfIncorporation1 from './output/CAFormArticlesOfIncorporation1';
+import CAFormArticlesOfIncorporation2 from './output/CAFormArticlesOfIncorporation2';
+import NoteDialog from './NoteDialog';
 
 // Import Actions
 import { addProgram, setCurrentProgram, fetchProgram } from '../../ProgramActions';
@@ -24,7 +26,8 @@ class InputBox extends Component {
       current: 1,
       index: 1,
       selectedAnswer: 0,
-      initialInput: ''
+      initialInput: '',
+      showNote: false
     };
 
     this.store = {
@@ -184,7 +187,7 @@ class InputBox extends Component {
           <div key={index} className={`${styles.answer} ${this.state.selectedAnswer === index ? styles.active : ''} `} value={this.state.initialInput} onClick={() => this.onSelect(index)}>
             { field.label }
             { field.kind === 'number' ? <input type='number' className={styles.input} onChange={(event) => {this.onInput(event, node)}} /> : null  }
-            <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={()=>{alert('info')}}></i>
+            { field.note && <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
           </div>
         );
     }
@@ -196,12 +199,22 @@ class InputBox extends Component {
     }
   }
 
+  closeNote() {
+    this.setState({ showNote: false });
+  };
+
+  openNote() {
+    this.setState({ showNote: true });
+  };
+
   render() {
     var lstEle = null;
     var question = null;
     var title = null;
     var description = null;
     var node = null;
+    var eleNote = null;
+    var note = { title: '', content: '' };
     if (this.props.program) {
 
       node = this.props.program.node[this.state.current];
@@ -219,6 +232,11 @@ class InputBox extends Component {
         }
         description = this.getDescription(node.kind);
 
+        if (node.content.note) {
+          eleNote = <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={this.openNote.bind(this)}></i>;
+          note = node.content.note;
+        }
+
         lstEle = node.content.fields.map((elt, i) => {
           return this.createElement(node, elt, i);
         });
@@ -227,11 +245,18 @@ class InputBox extends Component {
 
     if (node && node.kind === 'Form') {
       if (node.content.name === 'ca_form_articles_of_professional_incorporation_1')
-      return (
-        <div className={styles.inputbox}>
-          <CAFormArticlesOfIncorporation1 input={this.store} />
-        </div>
-      )
+        return (
+          <div className={styles.inputbox}>
+            <CAFormArticlesOfIncorporation1 input={this.store} />
+          </div>
+        )
+
+      if (node.content.name === 'ca_form_articles_of_professional_incorporation_2')
+        return (
+          <div className={styles.inputbox}>
+            <CAFormArticlesOfIncorporation2 input={this.store} />
+          </div>
+        )
     }
     else {
       return (
@@ -244,6 +269,7 @@ class InputBox extends Component {
             <div className={styles['question']}>
               <span>{`${this.history.length}. `}</span>
               <span>{ ReactHtmlParser(question) }</span>
+              { eleNote }
             </div>
             <div className={styles['description']}>
               { description }
@@ -277,6 +303,8 @@ class InputBox extends Component {
 
             </div>
           </div>
+
+          <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={note.title} content={note.content} />
         </div>
       );
     }
