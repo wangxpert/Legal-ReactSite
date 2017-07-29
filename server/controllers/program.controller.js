@@ -1,7 +1,4 @@
 import Program from '../models/program';
-import cuid from 'cuid';
-import slug from 'limax';
-import sanitizeHtml from 'sanitize-html';
 
 /**
  * Save a program

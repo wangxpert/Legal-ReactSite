@@ -10,8 +10,8 @@ export default {
       content: {
         question: "In which state would you like to incorporate your company?",
         fields: [
-          { kind: "select", label: "California", next: "single_2" },
-          { kind: "select", label: "Delaware", next: "Creating the Delware" }
+          { kind: "choice", label: "California", next: "single_2" },
+          { kind: "choice", label: "Delaware", next: "Creating the Delware" }
         ],
         note: {
           title: 'State of incorporation',
@@ -36,20 +36,20 @@ export default {
       content: {
         question: "What will be the primary business of your company?",
         fields: [
-          { kind: "select", label: "Real Estate Investment" },
-          { kind: "select", label: "A Profession", next: "yesno_2" },
-          { kind: "select", label: "Personal Services (other than a Profession)" },
-          { kind: "select", label: "Restaurant" },
-          { kind: "select", label: "Hotel" },
-          { kind: "select", label: "Farming" },
-          { kind: "select", label: "Retail" },
-          { kind: "select", label: "Construction" },
-          { kind: "select", label: "A Brokerage" },
-          { kind: "select", label: "Finance" },
-          { kind: "select", label: "Insurance" },
-          { kind: "select", label: "Manufacturing" },
-          { kind: "select", label: "Mineral Extraction" },
-          { kind: "select", label: "Other" }
+          { kind: "choice", label: "Real Estate Investment" },
+          { kind: "choice", label: "A Profession", next: "yesno_2" },
+          { kind: "choice", label: "Personal Services (other than a Profession)" },
+          { kind: "choice", label: "Restaurant" },
+          { kind: "choice", label: "Hotel" },
+          { kind: "choice", label: "Farming" },
+          { kind: "choice", label: "Retail" },
+          { kind: "choice", label: "Construction" },
+          { kind: "choice", label: "A Brokerage" },
+          { kind: "choice", label: "Finance" },
+          { kind: "choice", label: "Insurance" },
+          { kind: "choice", label: "Manufacturing" },
+          { kind: "choice", label: "Mineral Extraction" },
+          { kind: "choice", label: "Other" }
         ],
         next: "input_4"
       }
@@ -60,8 +60,8 @@ export default {
       content: {
         question: "Does your profession require a license, certification, or registration authorized by the Business and Professional Code, the Chiropractic Act, or the Osteopathic Act?",
         fields: [
-          { kind: "select", label: "Yes", next: "yesno_3" },
-          { kind: "select", label: "No", next: "input_4" }
+          { kind: "choice", label: "Yes", next: "yesno_3" },
+          { kind: "choice", label: "No", next: "input_4" }
         ],
         note: {
           title: 'Requires license, certification, or registration?',
@@ -77,8 +77,8 @@ export default {
       content: {
         question: "Does your profession required a corporation to be a professional corporation?<br /><small>Check with your regulatory board whether your profession requires a professional corporation (as opposed to a traditional corporation), and for restrictions on the name of your professional corporation. A list of California  regulatory boards is available <a href='http://www.dca.ca.gov/about_dca/entities.html'>here</a></small>",
         fields: [
-          { kind: "select", label: "Yes", next: "goto_1" },
-          { kind: "select", label: "No", next: "input_4" }
+          { kind: "choice", label: "Yes", next: "goto_1" },
+          { kind: "choice", label: "No", next: "input_4" }
         ],
         note: {
           title: 'Professional Corporation?',
@@ -134,8 +134,8 @@ export default {
       content: {
         question: "What is the total number of shares the corporation will be authorized to issue?",
         fields: [
-          { kind: "select", label: "1,000,000", value: 1000000 },
-          { kind: "select", label: "100,00", value: 10000 },
+          { kind: "choice", label: "1,000,000", value: 1000000 },
+          { kind: "choice", label: "100,00", value: 10000 },
           { kind: "number", label: "Other" },
         ],
         store: "number_of_shares",
@@ -214,8 +214,8 @@ export default {
       content: {
         question: "Is <strong>${registered_agent_name}</strong> a person or a corporation?",
         fields: [
-          { kind: "select", label: "Person", next: "input_10" },
-          { kind: "select", label: "Corporation", next: "yesno_11" }
+          { kind: "choice", label: "Person", next: "input_10" },
+          { kind: "choice", label: "Corporation", next: "yesno_11" }
         ],
         note: {
           title: 'Person or corporation',
@@ -256,8 +256,8 @@ export default {
       content: {
         question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
         fields: [
-          { kind: "select", label: "Yes", next: "form_2" },
-          { kind: "select", label: "No", next: "input_12" }
+          { kind: "choice", label: "Yes", next: "form_2" },
+          { kind: "choice", label: "No", next: "input_12" }
         ],
         note: {
           title: 'Corporate Registered Agent',

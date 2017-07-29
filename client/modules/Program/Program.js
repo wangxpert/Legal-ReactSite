@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
@@ -6,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './Program.css';
 
 // Import Components
-import SideBar from './components/SideBar/SideBar';
+import SideBar from '../Form/components/SideBar/SideBar';
 import InputBox from './components/InputBox/InputBox';
 
 export function Program(props, context) {

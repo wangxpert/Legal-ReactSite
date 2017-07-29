@@ -68,8 +68,8 @@ export default {
       content: {
         question: "What is the total number of shares the corporation will be authorized to issue?",
         fields: [
-          { kind: "select", label: "1,000,000", value: 1000000 },
-          { kind: "select", label: "100,00", value: 10000 },
+          { kind: "choice", label: "1,000,000", value: 1000000 },
+          { kind: "choice", label: "100,00", value: 10000 },
           { kind: "number", label: "Other" },
         ],
         store: "number_of_shares",
@@ -148,8 +148,8 @@ export default {
       content: {
         question: "Who will incorporate the company?",
         fields: [
-          { kind: "select", label: "Person", next: "input_8" },
-          { kind: "select", label: "Corporation", next: "yesno_9" }
+          { kind: "choice", label: "Person", next: "input_8" },
+          { kind: "choice", label: "Corporation", next: "yesno_9" }
         ],
         note: {
           title: 'Person or corporation',
@@ -190,8 +190,8 @@ export default {
       content: {
         question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
         fields: [
-          { kind: "select", label: "Yes", next: "form_2" },
-          { kind: "select", label: "No", next: "input_10" }
+          { kind: "choice", label: "Yes", next: "form_2" },
+          { kind: "choice", label: "No", next: "input_10" }
         ],
         note: {
           title: 'Corporate Registered Agent',

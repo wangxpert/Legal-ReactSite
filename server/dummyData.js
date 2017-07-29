@@ -2,6 +2,8 @@ import Program from './models/program';
 import ca_professional_corporation from './decisions/forms/incorporate';
 import ca_s_corporation from './decisions/forms/s-incorporate';
 
+import transfertax from './decisions/topics/transfertax.js';
+
 export default function () {
   Program.count().exec((err, count) => {
     if (count > 0) {
@@ -730,10 +732,11 @@ export default function () {
     const program1 = new Program(incorporate);
     const program2 = new Program(payroll);
     const program3 = new Program(trademark);
+    const topic4 = new Program(transfertax);
     const form1 = new Program(ca_professional_corporation);
     const form2 = new Program(ca_s_corporation);
 
-    Program.create([program1, program2, program3, form1, form2], (error) => {
+    Program.create([program1, program2, program3, topic4, form1, form2], (error) => {
       if (!error) {
         console.log('ready to go....');
       }

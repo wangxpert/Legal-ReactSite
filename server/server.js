@@ -120,7 +120,6 @@ passport.use(new FacebookStrategy({
       if (user) {
         done(null, user);
       } else {
-        console.log(profile);
         const newUser = User(profile);
         newUser.save()
           .then( user => done(null, user) )
@@ -136,12 +135,10 @@ passport.use(new GoogleStrategy({
     callbackURL: "/api/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
     User.findOne({id: profile.id, provider: profile.provider}, function(err, user) {
       if (user) {
         done(null, user);
       } else {
-        console.log(profile);
         const newUser = User(profile);
         newUser.save()
           .then( user => done(null, user) )

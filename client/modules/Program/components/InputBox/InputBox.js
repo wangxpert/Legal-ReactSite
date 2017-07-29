@@ -6,10 +6,10 @@ import { FormattedMessage } from 'react-intl';
 import ReactHtmlParser from 'react-html-parser';
 
 // Import Actions
-import { addProgram, setCurrentProgram, fetchProgram } from '../../ProgramActions';
+import { addProgram, setCurrentProgram, fetchProgram } from '../../../Form/ProgramActions';
 
 // Import Selectors
-import { getCurrentProgram } from '../../ProgramReducer';
+import { getCurrentProgram } from '../../../Form/ProgramReducer';
 
 // Import Style
 import styles from './InputBox.css';
@@ -99,8 +99,6 @@ class InputBox extends Component {
         }
         break;
       case 'SWITCH_INDEX':
-        console.log('SWITCH_INDEX');
-        console.log(this.state.index);
 
         let value = action.action.value;
         var i;
@@ -121,7 +119,6 @@ class InputBox extends Component {
 
     const question = this.props.program.node[this.state.current];
     const next = question.content.decision[this.state.selectedAnswer].next;
-    console.log(next);
     const nextIndex = this.getNodeIndex(this.props.program.node, next);
     this.setCurrent(this.props.program, nextIndex);
   }

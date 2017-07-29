@@ -6,7 +6,7 @@
 }
 
 .title {
-  color: #0059a5;
+  color: #004a8a;
   font-size: 30px;
   font-weight: 700;
   padding: 10px;
@@ -59,7 +59,7 @@
 }
 
 .answer-container .answer.active {
-  background-color: #0059a5;
+  background-color: #004a8a;
   background-image: url('./green_check.png');
   background-repeat: no-repeat;
   background-position: 12px center;

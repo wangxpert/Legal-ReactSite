@@ -1,13 +1,14 @@
 .sidebar {
   display: inline-block;
-  position: relative;
+  position: fixed;
   width: 325px;
   margin: 0;
-  height: 1000px;
-  padding: 80px 40px;
+  bottom: 0;
+  top: 0;
+  height: auto;
+  padding: 166px 40px;
   color: #fff;
-  background-color: #0059a5;
-  float: left;
+  background-color: #004a8a;
 }
 
 .block {

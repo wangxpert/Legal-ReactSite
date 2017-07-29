@@ -7,7 +7,10 @@ import ReactHtmlParser from 'react-html-parser';
 import CAFormArticlesOfIncorporation1 from './output/CAFormArticlesOfIncorporation1';
 import CAFormArticlesOfIncorporation2 from './output/CAFormArticlesOfIncorporation2';
 import NoteDialog from './NoteDialog';
-
+import County from './datasource/county';
+import City from './datasource/city';
+import county_exemption from './datasource/county_exemption';
+import city_exemption from './datasource/city_exemption';
 // Import Actions
 import { addProgram, setCurrentProgram, fetchProgram } from '../../ProgramActions';
 
@@ -22,20 +25,18 @@ class InputBox extends Component {
     super(props);
 
     this.state = {
-      isFirst: true,
       current: 1,
       index: 1,
-      selectedAnswer: 0,
+      singleChoice: 0,
+      multiChoice: [],
       initialInput: '',
-      showNote: false
-    };
-
-    this.store = {
-
+      showNote: false,
+      noteTitle: '',
+      noteContent: '',
+      store: {}
     };
 
     this.history = [];
-
   }
 
   componentWillMount() {
@@ -72,26 +73,92 @@ class InputBox extends Component {
     }
   }
 
+  getNextId(node) {
+    if (node.kind === 'Input' || node.kind === 'Multi') {
+      return node.content.next;
+    }
+
+    if (node.kind === 'Single' || node.kind === 'YesNo') {
+      var next = node.content.fields[this.state.singleChoice].next;
+      if (!next) next = node.content.next;
+      return next;
+    }
+  }
+
+  doAction(node) {
+    const store = this.state.store;
+    if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
+      var i;
+      for (i = 2; i < county_exemption.length; i++) {
+        const county = county_exemption[i][0].split(';')[1];
+        if (county === store['county']) {
+          break;
+        }
+      }
+
+      var next = 1;
+      for (let j = 1; j < store['county_exemption'].length; j++ ) {
+        if (store['county_exemption'][j]) {
+          if (county_exemption[i][j]) {
+            next = 0;
+            break;
+          }
+        }
+      }
+
+      const nextIndex = this.getNodeIndex(this.props.program.node, node.content.next[next]);
+      this.setCurrent(this.props.program, nextIndex);
+    } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
+      var next = 1;
+      if (store['city']) {
+        var i;
+        for (i = 2; i < city_exemption.length; i++) {
+          const region = city_exemption[i][0].split(';');
+          const county = region[1];
+          const city = region[2];
+
+          if (county === store['county'] && city === store['city']) {
+            break;
+          }
+        }
+
+
+        for (let j = 1; j < store['city_exemption'].length; j++ ) {
+          if (store['city_exemption'][j]) {
+            if (city_exemption[i][j]) {
+              next = 0;
+              break;
+            }
+          }
+        }
+      }
+
+      const nextIndex = this.getNodeIndex(this.props.program.node, node.content.next[next]);
+      this.setCurrent(this.props.program, nextIndex);
+    }
+  }
+
   setCurrent(program, curIndex) {
     const node = program.node[curIndex];
     const kind = node.kind.toLowerCase();
 
-    if (kind === 'input' || kind === 'single' || kind === 'yesno') {
-      this.setState({ current: curIndex, selectedAnswer: 0, initialInput: '' });
+    if (kind === 'input' || kind === 'single' || kind === 'yesno' || kind === 'multi') {
+      this.setState({ current: curIndex, singleChoice: 0, multiChoice: [], initialInput: '' });
       this.history.push({
         index: this.state.index,
         current: curIndex,
-        selectedAnswer: this.state.selectedAnswer
+        singleChoice: this.state.singleChoice,
+        multiChoice: this.state.multiChoice
       });
       return;
     }
 
     if (kind === 'form') {
-      this.setState({ current: curIndex, selectedAnswer: 0, initialInput: '' });
+      this.setState({ current: curIndex, singleChoice: 0, multiChoice: [], initialInput: '' });
       this.history.push({
         index: this.state.index,
         current: curIndex,
-        selectedAnswer: this.state.selectedAnswer
+        singleChoice: this.state.singleChoice
       });
       return;
     }
@@ -104,27 +171,31 @@ class InputBox extends Component {
       path += node.content.id;
       browserHistory.push(path);
     }
-  }
 
-  getNextId(node) {
-    if (node.kind === 'Input') {
-      return node.content.next;
+    if (kind === 'action') {
+      this.doAction(node);
     }
 
-    if (node.kind === 'Single' || node.kind === 'YesNo') {
-      var next = node.content.fields[this.state.selectedAnswer].next;
-      if (!next) next = node.content.next;
-      return next;
+    if (kind === 'display' || kind === 'result') {
+      alert(node.content.message);
     }
   }
 
   setInput(node) {
     if (node.kind === 'Single') {
       if (node.content.store) {
-        const field = node.content.fields[this.state.selectedAnswer];
-        if (field.kind === 'select') {
-          this.store[node.content.store] = field.value;
+        const field = node.content.fields[this.state.singleChoice];
+        if (field.kind === 'choice') {
+          const store = this.state.store;
+          store[node.content.store] = field.value;
+          this.setState({store: store});
         }
+      }
+    } else if (node.kind === 'Multi') {
+      if (node.content.store) {
+        const store = this.state.store;
+        store[node.content.store] = this.state.multiChoice;
+        this.setState({store: store});
       }
     }
   }
@@ -149,14 +220,21 @@ class InputBox extends Component {
       this.history.pop();
       const state = this.history[this.history.length - 1];
       if (state) {
-        this.setState({ current: state.current, selectedAnswer: state.selectedAnswer, index: state.index });
+        this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, index: state.index });
       }
     }
   }
 
-  onSelect(index) {
-    this.setState({ selectedAnswer: index });
-    this.history[this.history.length - 1].selectedAnswer = index;
+  onSingleSelect(index) {
+    this.setState({ singleChoice: index });
+    this.history[this.history.length - 1].singleChoice = index;
+  }
+
+  onMultiSelect(index, node) {
+    const multiChoice = this.state.multiChoice;
+    multiChoice[index] = !multiChoice[index];
+    this.setState({ multiChoice });
+    this.history[this.history.length - 1].multiChoice[index] = multiChoice[index];
   }
 
   getDescription(kind) {
@@ -169,33 +247,97 @@ class InputBox extends Component {
 
       case 'YesNo':
         return '';
-        break;
+
+      case 'Multi':
+        return 'Please check any that apply.';
     }
   }
 
   onInput(event, node) {
     this.setState({initialInput: event.target.value});
     if (node.content.store) {
-      this.store[node.content.store] = event.target.value;
+      const store = this.state.store;
+      store[node.content.store] = event.target.value;
+      this.setState({store: store});
     }
   }
 
-  createElement(node, field, index) {
+  onSelectChange(event, field) {
+    const store = this.state.store;
+    if (field.store === 'county') {
+      store['city'] = undefined;
+    }
+    store[field.store] = event.target.value;
+    this.setState({store});
+  }
+
+
+  buildField(node, field, index) {
     const kind = node.kind;
     if (kind === 'Single' || kind === 'YesNo' ) {
         return (
-          <div key={index} className={`${styles.answer} ${this.state.selectedAnswer === index ? styles.active : ''} `} value={this.state.initialInput} onClick={() => this.onSelect(index)}>
+          <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)}>
             { field.label }
             { field.kind === 'number' ? <input type='number' className={styles.input} onChange={(event) => {this.onInput(event, node)}} /> : null  }
-            { field.note && <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
+            { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
           </div>
         );
     }
 
     if (kind === 'Input') {
-      return (
-        <input type={field.kind} key={index} className={`${styles.input}`} value={this.state.initialInput} onChange={(event) => {this.onInput(event, node)}} />
-      );
+      if (field.kind === 'select') {
+        var datasource = null;
+        const store = this.state.store;
+
+        if (field.datasource === 'county') {
+          if (!store['county']) store['county'] = County[0].name;
+          datasource = County.map((elt, i) => {
+            return (<option key={i} value={elt.name}>{elt.name}</option>)
+          });
+        } else if (field.datasource === 'city') {
+          const city = City.filter(elt => (elt.county === store['county']));
+
+          if (!store['city']) store['city'] = city.length ? city[0].city: '';
+          datasource = city.map((elt, i) => {
+            return (<option key={i} value={elt.city}>{elt.city}</option>)
+          });
+        }
+
+        return (
+          <select key={index} className={styles.input} value={store[field.store]} onChange={event => this.onSelectChange(event, field)}>
+            { datasource }
+          </select>
+        );
+      }
+      else {
+        return (
+          <input type={field.kind} key={index} className={`${styles.input}`} onChange={(event) => {this.onInput(event, node)}} />
+        );
+      }
+    }
+
+    if (kind === 'Multi') {
+      if (field.datasource === 'county_exemption_list') {
+        return county_exemption[0].map( (elt, i) => {
+          if (i > 0)
+          return (
+            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
+              { elt }
+              { <i className="fa fa-info-circle" aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][i])} />}
+            </div>
+          );
+        });
+      } else if (field.datasource === 'city_exemption_list') {
+        return city_exemption[0].map( (elt, i) => {
+          if (i > 0)
+          return (
+            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
+              { elt }
+              { <i className="fa fa-info-circle" aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][i])} />}
+            </div>
+          );
+        });
+      }
     }
   }
 
@@ -203,8 +345,9 @@ class InputBox extends Component {
     this.setState({ showNote: false });
   };
 
-  openNote() {
-    this.setState({ showNote: true });
+  openNote(e, title, content) {
+    e.stopPropagation();
+    this.setState({ noteTitle: title, noteContent: content, showNote: true });
   };
 
   render() {
@@ -228,17 +371,16 @@ class InputBox extends Component {
         question = `${node.content.question}`;
         var vName = reg.exec(question);
         if (vName) {
-          question = question.replace(reg, this.store[vName[1]]);
+          question = question.replace(reg, this.state.store[vName[1]]);
         }
         description = this.getDescription(node.kind);
 
         if (node.content.note) {
-          eleNote = <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={this.openNote.bind(this)}></i>;
-          note = node.content.note;
+          eleNote = <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={(e) => this.openNote(e, node.content.note.title, node.content.note.content)}></i>;
         }
 
         lstEle = node.content.fields.map((elt, i) => {
-          return this.createElement(node, elt, i);
+          return this.buildField(node, elt, i);
         });
       }
     }
@@ -247,14 +389,14 @@ class InputBox extends Component {
       if (node.content.name === 'ca_form_articles_of_professional_incorporation_1')
         return (
           <div className={styles.inputbox}>
-            <CAFormArticlesOfIncorporation1 input={this.store} />
+            <CAFormArticlesOfIncorporation1 input={this.state.store} />
           </div>
         )
 
       if (node.content.name === 'ca_form_articles_of_professional_incorporation_2')
         return (
           <div className={styles.inputbox}>
-            <CAFormArticlesOfIncorporation2 input={this.store} />
+            <CAFormArticlesOfIncorporation2 input={this.state.store} />
           </div>
         )
     }
@@ -304,7 +446,7 @@ class InputBox extends Component {
             </div>
           </div>
 
-          <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={note.title} content={note.content} />
+          <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={this.state.noteTitle} content={this.state.noteContent} />
         </div>
       );
     }

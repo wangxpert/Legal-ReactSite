@@ -9,7 +9,6 @@ import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import NavBar from './components/NavBar/NavBar';
 
 // Import Actions
 import { toggleAddPost } from './AppActions';
@@ -49,8 +48,7 @@ export class App extends Component {
               },
             ]}
           />
-          <Header />
-          <NavBar />
+          <Header location={this.props.location}/>
           <div className={styles.container}>
             {this.props.children}
           </div>

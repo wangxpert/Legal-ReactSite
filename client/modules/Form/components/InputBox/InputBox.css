@@ -6,7 +6,7 @@
 }
 
 .title {
-  color: #0059a5;
+  color: #004a8a;
   font-size: 30px;
   font-weight: 700;
   padding: 10px;
@@ -36,13 +36,13 @@
 
 .main-container .answer-container {
   padding: 20px 0;
+  position: relative;
 }
 
 .answer-container .answer {
   margin: 10px 0;
-  padding: 9.5px 9.5px 9.5px 65px;
+  padding: 9.5px 40px 9.5px 65px;
   width: 720px;
-  height: 45px;
   background: #ffffff;
   border: 2px solid #cacfd6;
   border-radius: 7px;
@@ -51,6 +51,7 @@
   font-weight: 500;
   color: #213255;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 .answer-container .answer:hover {
@@ -59,7 +60,7 @@
 }
 
 .answer-container .answer.active {
-  background-color: #0059a5;
+  background-color: #004a8a;
   background-image: url('./green_check.png');
   background-repeat: no-repeat;
   background-position: 12px center;
@@ -69,6 +70,8 @@
 .answer i {
   font-size: 24px;
   line-height: 24px;
+  position: absolute;
+  right: 10px;
 }
 
 .answer > .input {
@@ -100,6 +103,7 @@
   font-weight: 500;
   color: #213255;
   cursor: pointer;
+  display: block;
 }
 
 .answer-container .input:hover {
