@@ -34,8 +34,8 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development'}
         <div>
           <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            title="Legal Maven"
+            titleTemplate="Legal Maven - %s"
             meta={[
               { charset: 'utf-8' },
               {

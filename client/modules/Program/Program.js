@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './Program.css';
 
 // Import Components
-import SideBar from '../Form/components/SideBar/SideBar';
+import SideBar from './components/SideBar/SideBar';
 import InputBox from './components/InputBox/InputBox';
 
 export function Program(props, context) {
@@ -19,8 +19,10 @@ export function Program(props, context) {
   }
 
   return (
-    <div className={styles.program}>
-      <SideBar />
+    <div className={`${styles.program} wow fadeIn`}>
+      <div className={styles['sidebar-container']}>
+        <SideBar />
+      </div>
       <div className={`${styles['inputbox-container']}`}>
         { inputBox }
       </div>

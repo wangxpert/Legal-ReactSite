@@ -1,11 +1,24 @@
 .program {
-  padding-top: 86px;
+  min-width: 900px;
+  padding-top: 150px;
 }
 
 .inputbox-container {
   width: 100%;
   text-align: center;
-  margin-top: 86px;
   padding: 32px 12px;
-  padding-left: 325px;
+  padding-left: 337px;
+}
+
+@media (max-width: 1200px) {
+  .sidebar-container {
+    display: none;
+  }
+
+  .inputbox-container {
+    width: 100%;
+    text-align: center;
+    padding: 32px 12px;
+    padding-left: 12px;
+  }
 }

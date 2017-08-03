@@ -6,7 +6,7 @@ export default {
     legalForms: 'Legal Forms',
     services: 'Services',
     contact: 'Contact',
-    siteTitle: 'MERN Starter Blog',
+    siteTitle: 'Legal Maven',
     addPost: 'Add Post',
     switchLanguage: 'Switch Language',
     twitterMessage: 'We are on Twitter',

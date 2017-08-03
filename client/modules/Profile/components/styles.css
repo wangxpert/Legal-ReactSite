@@ -1,0 +1,131 @@
+.container {
+  box-shadow: 0 0 2px rgb(0, 0, 0, .5);
+  padding: 30px;
+  margin: 8px -7px;
+}
+
+.container .container-title {
+  font-size: 28px;
+  font-weight: 700;
+  padding: 0;
+  margin-bottom: 20px;
+  color: #02b2fb;
+}
+
+.container .avatar-container {
+  margin: 0 auto;
+  width: 240px;
+  height: 230px;
+  margin-bottom: 20px;
+}
+
+.avatar-container .avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container .info-container {
+
+}
+
+.container .text-box {
+  padding: 3px 0;
+  color: #000;
+}
+
+.container .tip-text {
+  margin-left: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 30px;
+  height: 30px;
+  display: inline-block;
+}
+
+.container .title {
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.text {
+  font-size: 18px;
+  line-height: 30px;
+  color: #000;
+}
+
+.text-box .icon {
+  border-radius: 3px;
+  font-size: 18px;
+  font-weight: 500;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  background: #02b2fb;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.button-container {
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.button-container2 {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+
+.container .activity-container {
+  border: 1px solid rgba(0, 0, 0, .15);
+  padding: 15px 16px 10px 16px;
+  margin: 6px 0;
+}
+
+.activity-container .icon {
+  color: #000;
+  font-size: 24px;
+}
+
+.activity-container .link {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.activity-seemore {
+  text-align: center;
+  font-size: 80px;
+  margin-top: -30px;
+  margin-bottom: 10px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.activity-seemore i {
+  color: #02b2fb;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, .3);
+}
+
+.activity-seemore i:active {
+  color: #02b2fb;
+  text-shadow: 0 0;
+}
+
+@media (max-width: 992px) and (min-width: 600px) {
+  .container .avatar-container {
+    float: left;
+  }
+
+  .container .info-container {
+    margin-top: 30px;
+    margin-left: 50px;
+    display: inline-block;
+  }
+}

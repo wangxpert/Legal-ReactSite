@@ -14,7 +14,7 @@ export default function(props) {
     <div className={styles.footer}>
       <div className="container">
         <div className="row">
-          <div className="col-md-4 col-sm-12">
+          <div className="col-sm-4 col-xs-12">
             <div className={styles['service-box']}>
               <div className={styles['service-icon']}>
                 <i className="fa fa-graduation-cap" aria-hidden="true"></i>
@@ -28,7 +28,7 @@ export default function(props) {
             </div>
           </div>
 
-          <div className="col-md-4 col-sm-12">
+          <div className="col-sm-4 col-xs-12">
             <div className={styles['service-box']}>
               <div className={styles['service-icon']}>
                 <i className="fa fa-exchange" aria-hidden="true"></i>
@@ -42,7 +42,7 @@ export default function(props) {
             </div>
           </div>
 
-          <div className="col-md-4 col-sm-12">
+          <div className="col-sm-4 col-xs-12">
             <div className={styles['service-box']}>
               <div className={styles['service-icon']}>
                 <i className="fa fa-building-o" aria-hidden="true"></i>

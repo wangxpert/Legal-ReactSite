@@ -1,7 +1,7 @@
 .inputbox {
   display: inline-block;
-  border: 2px solid #ccc;
   background-color: #fff;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
   padding: 30px;
 }
 
@@ -36,13 +36,13 @@
 
 .main-container .answer-container {
   padding: 20px 0;
+  position: relative;
 }
 
 .answer-container .answer {
   margin: 10px 0;
-  padding: 9.5px 9.5px 9.5px 65px;
+  padding: 9.5px 40px 9.5px 65px;
   width: 720px;
-  height: 45px;
   background: #ffffff;
   border: 2px solid #cacfd6;
   border-radius: 7px;
@@ -51,6 +51,7 @@
   font-weight: 500;
   color: #213255;
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 .answer-container .answer:hover {
@@ -69,6 +70,52 @@
 .answer i {
   font-size: 24px;
   line-height: 24px;
+  position: absolute;
+  right: 10px;
+}
+
+.answer > .input {
+  color: #202d42;
+  outline: none;
+  margin-left: 20px;
+  margin-top: -15px;
+  padding: 0 10px;
+}
+
+.answer > .input:hover {
+  border-color: #02b2fb;
+}
+
+.answer > .input:active {
+  border-color: #02b2fb;
+}
+
+.answer-container > .input {
+  margin: 10px 0;
+  padding: 9.5px 15px;
+  width: 720px;
+  height: 45px;
+  background: #ffffff;
+  border: 2px solid #cacfd6;
+  border-radius: 5px;
+  font-size: 20px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #213255;
+  cursor: pointer;
+  display: block;
+}
+
+.answer-container .input:hover {
+  border-color: #02b2fb;
+}
+
+.answer-container .input:active {
+  border-color: #02b2fb;
+}
+
+.input:focus {
+  outline: none;
 }
 
 .main-container .button-group {
@@ -126,4 +173,43 @@
 .help-container .help-text {
   display: inline-block;
   padding: 7px 0;
+}
+
+.result {
+  width: 720px;
+}
+
+.modal-header {
+  padding: 16px 30px;
+  font-size: 24px;
+  color: #68717d;
+  border-bottom: 2px solid #cacfd6;
+}
+
+.modal-body {
+  padding: 24px 30px;
+  color: #68717d;
+}
+
+.modal-body li {
+  padding: 3px;
+}
+
+.modal-footer {
+  text-align: right;
+  background: #02b2fb;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  color: #fff;
+  padding: 10px 24px;
+}
+
+.button.note {
+  background: #e5e8ed;
+  font-weight: normal;
+  font-size: 14px;
+  color: #202d42;
+  margin: 0px 10px;
+  padding: 6px 16px;
+  border-radius: 3px;
 }

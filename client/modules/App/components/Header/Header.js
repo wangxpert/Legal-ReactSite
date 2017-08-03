@@ -24,29 +24,47 @@ class Header extends Component {
 
   render() {
     const items = {
-      legalTopics: (<a className={styles['nav-item']} href="/legaltopics">Legal Topics</a>),
-      legalForms: (<a className={styles['nav-item']} href="/legalforms">Legal Forms</a>),
-      services: (<a className={styles['nav-item']}>Services</a>),
-      contact: (<a className={styles['nav-item']}>Contact</a>),
+      legalTopics: (<li className={styles['nav-item']} ><a href="/legaltopics">Legal Topics</a></li>),
+      legalForms: (<li  className={styles['nav-item']} ><a href="/legalforms">Legal Forms</a></li>),
+      services: (<li className={styles['nav-item']}><a>Services</a></li>),
+      contact: (<li className={styles['nav-item']}><a>Contact</a></li>),
       search: (
-        <a className={styles['nav-item']}>
-          <i className="fa fa-search"></i> &nbsp;Search
-        </a>
+        <li className={styles['nav-item']}>
+          <a>
+            <i className="fa fa-search"></i> &nbsp;Search
+          </a>
+        </li>
+      ),
+      signIn: (
+        <li className={styles['nav-item']}>
+          <a href="/signin">
+            <i className={`fa fa-user`}></i> &nbsp;Sign In &nbsp;
+          </a>
+        </li>
       ),
       account: (
-        <div className={styles['nav-item']}>
-          <i className="fa fa-user"></i> &nbsp;Sign In &nbsp;
-          <span className="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-        </div>
+
+        <li className={styles['nav-item']}>
+          <a href="">
+            <i className={`fa fa-user ${styles['icon']}`}></i> &nbsp;Account <i className="fa fa-caret-down"></i>
+          </a>
+
+          <ul className={styles['dropdown']}>
+            <li><a href="">Account</a></li>
+            <li><a href="">Sign Out</a></li>
+          </ul>
+        </li>
       ),
       setting: (
-        <div className={styles['nav-item']}>
+        <li className={styles['nav-item']}>
+          <a>
           <i className={`fa fa-bars ${styles['setting']}`}></i>
-        </div>
+          </a>
+        </li>
       )
     };
     return (
-      <div className={styles.header}>
+      /*<div className={styles.header}>
         <a className={styles.logo} href="/">
           Legal Maven
         </a>
@@ -60,6 +78,30 @@ class Header extends Component {
           {items.setting}
         </div>
         {this.state.showSubNav && <Navbar />}
+      </div>*/
+      <div>
+      <nav className={`navbar ${styles.header}`}>
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">
+              <i className="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <a className={`navbar-brand ${styles.logo}`} href="/">Legal Maven</a>
+          </div>
+          <div className="collapse navbar-collapse" id="myNavbar">
+
+            <ul className="nav navbar-nav navbar-right">
+              {!this.state.showSubNav && items.legalTopics}
+              {!this.state.showSubNav && items.legalForms}
+              {!this.state.showSubNav && items.services}
+              {!this.state.showSubNav && items.contact}
+              {this.state.showSubNav && items.search}
+              {items.account}
+            </ul>
+          </div>
+        </div>
+      </nav>
+      {this.state.showSubNav && <Navbar />}
       </div>
     );
   }

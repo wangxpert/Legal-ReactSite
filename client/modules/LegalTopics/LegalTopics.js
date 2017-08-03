@@ -13,13 +13,86 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 class LegalTopics extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      keyword: ''
+    };
+
+    this.category = [
+      {
+        title: 'Start-Ups',
+        topics: [
+          {
+            title: 'Should I incorporate?',
+            href: '/legaltopics/incorporate'
+          },
+          {
+            title: 'Can I trademark?',
+            href: '/legaltopics/trademark'
+          },
+          {
+            title: 'Do I need to set up payroll?',
+            href: '/legaltopics/payroll'
+          },
+          {
+            title: "Do I need worker's compensation insurance?",
+            href: ''
+          }
+        ]
+      },
+      {
+        title: 'Real Estate',
+        topics: [
+          {
+            title: 'Do I owe transfer tax? (CA only)',
+            href: '/legaltopics/transfertax'
+          },
+          {
+            title: 'Am I entitled to a refund of my security deposit?',
+            href: '/'
+          }
+        ]
+      }
+    ];
+  }
+
+  onSearch(event) {
+    this.setState({ keyword: event.target.value });
   }
 
   render() {
+    const categories = this.category.map((category, index) => {
+      const topics = category.topics
+      .filter((topic) => {
+        return topic.title.toLowerCase().includes(this.state.keyword.toLowerCase());
+      })
+      .map((topic, index) => {
+        return (
+          <a key={index} className={styles['item']} href={topic.href}>
+            {topic.title}
+          </a>
+        );
+      });
+
+      if (topics.length)
+        return (
+          <div key={index} className={styles['category']}>
+            <div className={styles['category-title']}>
+                { category.title }
+            </div>
+            { topics }
+          </div>
+        )
+      else
+        return null;
+    });
+
     return (
-      <div className={styles.legaltopics}>
-        <div className={styles['search-box-container']}>
-          <SearchBox placeholder="Search Legal Topics"/>
+      <div className={`${styles.legaltopics} wow fadeIn`}>
+        <div className={`${styles['search-box-container']}`}>
+          <div className='container'>
+            <SearchBox placeholder="Search Legal Forms" onChange={this.onSearch.bind(this)}/>
+          </div>
         </div>
         <div className={styles['title-container']}>
           <div className={styles['main-title']}>
@@ -27,23 +100,7 @@ class LegalTopics extends Component {
           </div>
         </div>
         <div className={`${styles['main-container']} container`}>
-
-          <div className={styles['category']}>
-            <div className={styles['category-title']}>Start-Ups</div>
-
-            <a className={styles['item']} href="/legaltopics/incorporate">Should I incorporate?</a>
-            <a className={styles['item']} href="/legaltopics/trademark">Can I trademark?</a>
-            <a className={styles['item']} href="/legaltopics/payroll">Do I need to set up payroll?</a>
-            <a className={styles['item']} href="">Do I need worker&apos;s compensation insurance?</a>
-          </div>
-
-          <div className={styles['category']}>
-            <div className={styles['category-title']}>Real Estate</div>
-
-            <a className={styles['item']} href="/legalforms/transfertax">Do I owe transfer tax? (CA only)</a>
-            <a className={styles['item']} href="/">Am I entitled to a refund of my security deposit?</a>
-          </div>
-
+          { categories }
         </div>
       </div>
     );

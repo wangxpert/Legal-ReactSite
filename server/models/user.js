@@ -7,22 +7,62 @@ const userSchema = new Schema({
     default: 'local',
     required: true
   },
+
   id: {
-    type: String
+    type: String,
+    unique: true
   },
+
   displayName: {
+    type: String,
+    trim: true,
+  },
+
+  name: {
+    familyName: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    givenName: {
+      type: String,
+      trim: true,
+      default: ''
+    },
+    middleName: {
+      type: String,
+      trim: true,
+      default: ''
+    }
+  },
+
+  emails: [{ value: String, kind: String }],
+
+  phone: {
     type: String,
     default: ''
   },
-  name: {
-    familyName: String,
-    givenName: String,
-    middleName: String
+
+  address: {
+    type: String,
+    default: ''
   },
-  emails: [{ value: String, kind: String }],
+
+  memberShip: {
+    type: String,
+    default: 'free',
+    enum: ['free', 'premium']
+  },
+
   password: {
     type: String
   },
+
+  profileImageURL: {
+    type: String,
+    default: ''
+  },
+
   created: {
     type: Date,
     default: Date.now

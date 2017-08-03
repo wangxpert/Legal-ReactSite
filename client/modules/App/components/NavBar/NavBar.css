@@ -6,7 +6,9 @@
   position: fixed;
   font-size: 20px;
   font-weight: 400;
-  top: 86px;
+  border-bottom: 1px solid #ccc;
+  z-index: 998;
+  margin-top: 82px;
 }
 
 .nav {
@@ -21,6 +23,7 @@
 }
 
 .nav .nav-item:hover {
+  transition: background-color 0.5s ease;
   background-color: #0078c5;
   color: #fff;
 }
@@ -30,7 +33,6 @@
   text-decoration: none;
   color: #0078c5;
 }
-
 
 .nav-item:hover > a {
   color: #fff;
