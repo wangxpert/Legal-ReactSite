@@ -26,7 +26,7 @@ class InputBox extends Component {
 
     this.state = {
       current: 1,
-      singleChoice: 0,
+      singleChoice: -1,
       multiChoice: [],
       initialInput: '',
       showNote: false,
@@ -171,7 +171,7 @@ class InputBox extends Component {
     const kind = node.kind.toLowerCase();
 
     if (kind === 'input' || kind === 'single' || kind === 'yesno' || kind === 'multi') {
-      this.setState({ current: curIndex, singleChoice: 0, multiChoice: [], initialInput: '' });
+      this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
       this.history.push({
         current: curIndex,
         singleChoice: this.state.singleChoice,
@@ -182,7 +182,7 @@ class InputBox extends Component {
     }
 
     if (kind === 'form') {
-      this.setState({ current: curIndex, singleChoice: 0, multiChoice: [], initialInput: '' });
+      this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
       this.history.push({
         index: this.state.index,
         current: curIndex,

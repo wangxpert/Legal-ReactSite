@@ -10,8 +10,12 @@ class Button extends Component {
   }
 
   render() {
+    var className = styles.button;
+    if (this.props.isFullWidth) {
+      className += ` ${styles['full-width']}`
+    }
     return (
-      <div className={styles.button} onClick={this.props.onClick}>
+      <div className={className} onClick={this.props.onClick} style={this.props.style}>
         {this.props.title}
       </div>
     );

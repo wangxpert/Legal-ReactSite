@@ -1,0 +1,172 @@
+.page {
+  margin-top: 82px;
+  padding-top: 100px;
+}
+
+.container {
+  background: white;
+  box-shadow: 0 0 3px rgb(0, 0, 0, .5);
+  max-width: 500px;
+  margin: 36px auto;
+  padding: 20px 50px;
+  text-align: center;
+  position: relative;
+}
+
+.container a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.title-container {
+  text-align: center;
+}
+
+.title-container .title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.title-container .description {
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 3px;
+  padding: 0 50px;
+}
+
+.container .link {
+  color: #02b2fb;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.container .help-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: #02b2fb;
+}
+
+.input-container {
+  padding: 30px 0 0 0;
+  text-align: left;
+}
+
+.label {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.input {
+  border: 2px solid #cacfd6;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 20px;
+}
+
+.input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+
+}
+
+.input:focus {
+  outline: none;
+  outline-width: 0;
+}
+
+.check {
+  color: #cacfd6;
+}
+
+.check-container {
+  padding-top: 9px;
+  padding-bottom: 0px;
+  color: #cacfd6;
+}
+
+.button-container {
+  display: inline-block;
+  width: 100%;
+  border-bottom: 2px solid #cacfd6;
+  margin: 0;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.page-link {
+  display: inline-block;
+  color: #02b2fb;
+  font-size: 18px;
+  font-weight: 300;
+  padding-bottom: 5px
+}
+
+.policy-text {
+  display: inline-block;
+  color: #808080;
+  font-size: 16px;
+  font-weight: 400px;
+  margin: 10px 0;
+  position: static;
+}
+
+
+.btn {
+  padding: 12px 20px;
+  margin-top: 6px;
+  background: #02b2fb;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+
+.btn:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn i {
+  font-size: 120%;
+  font-weight: bold;
+  float: left;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn:active {
+  opacity: 0.5;
+}
+
+.btn-login {
+  font-size: 20px;
+}
+
+.btn-facebook {
+  background: #3B5998;
+  width: 48%
+}
+
+.btn-google {
+  background: #DD4B39;
+  width: 48%;
+}
+
+@media (max-height: 900px) {
+  .page {
+    padding-top: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 20px 20px;
+  }
+}

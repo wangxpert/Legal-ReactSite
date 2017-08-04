@@ -21,6 +21,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/LegalForms/LegalForms');
   require('./modules/LegalTopics/LegalTopics');
   require('./modules/Profile/Profile');
+  require('./modules/Auth/Login');
 }
 
 // react-router setup with code-splitting
@@ -63,6 +64,14 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Program/Program').default);
+        });
+      }}
+    />
+    <Route
+      path="/signin"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Auth/Login').default);
         });
       }}
     />

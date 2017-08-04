@@ -96,7 +96,7 @@ class Header extends Component {
               {!this.state.showSubNav && items.services}
               {!this.state.showSubNav && items.contact}
               {this.state.showSubNav && items.search}
-              {items.account}
+              {items.signIn}
             </ul>
           </div>
         </div>

@@ -52,7 +52,7 @@ export default {
       id: "result_1",
       kind: "Result",
       content: {
-        description: "Form An LLC - Add explanatory note1"
+        message: "Form An LLC - Add explanatory note1"
       }
     },
     {
