@@ -8,7 +8,6 @@ var postcssReporter = require('postcss-reporter');
 var cssnano = require('cssnano');
 
 module.exports = {
-  devtool: 'hidden-source-map',
 
   entry: {
     app: [
@@ -39,7 +38,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        loader: 'style-loader!css-loader?localIdentName=[name]__[local]__[hash:base64:5]&modules&importLoaders=1&sourceMap!postcss-loader',
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader?localIdentName=[hash:base64]&modules&importLoaders=1!postcss-loader'),
       }, {
         test: /\.css$/,
         include: /node_modules/,
