@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import styles from './styles.css';
-import Button from '../../components/Button/Button';
 
 class Login extends Component {
   render() {

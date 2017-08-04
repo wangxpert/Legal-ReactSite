@@ -23,7 +23,8 @@ export default function(props) {
                 Legal Mavens
               </div>
               <div className={styles['service-text']}>
-                Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+                Our Mavens are specialized attorneys who can answer your specific legal questions and concerns.
+                <br /> Have a question? &nbsp;<a>Consult an expert now</a>
               </div>
             </div>
           </div>
@@ -37,7 +38,8 @@ export default function(props) {
                 Transfer Tax Made Easy
               </div>
               <div className={styles['service-text']}>
-                Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+              Conducting a deed or entity transfer? Figure out whether your transaction qualifies for an exemption, or how much tax you may owe.
+              &nbsp;<a>Calculate now</a>.
               </div>
             </div>
           </div>
@@ -51,7 +53,7 @@ export default function(props) {
                 Start-Ups
               </div>
               <div className={styles['service-text']}>
-                Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,
+              Decide what type of entity is right for your business, obtain formation paperwork, and get answers to important legal questions relating to your business. &nbsp;<a>Get started now</a>.
               </div>
             </div>
           </div>
