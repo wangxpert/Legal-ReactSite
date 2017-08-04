@@ -8,6 +8,7 @@ var postcssReporter = require('postcss-reporter');
 var cssnano = require('cssnano');
 
 module.exports = {
+  devtool: 'hidden-source-map',
 
   entry: {
     app: [
