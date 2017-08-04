@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 87);
+/******/ 	return __webpack_require__(__webpack_require__.s = 95);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -193,11 +193,11 @@
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
-	var _SideBar = __webpack_require__(75);
+	var _SideBar = __webpack_require__(76);
 	
 	var _SideBar2 = _interopRequireDefault(_SideBar);
 	
-	var _InputBox = __webpack_require__(67);
+	var _InputBox = __webpack_require__(68);
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
@@ -370,21 +370,21 @@
 	
 	var _reactIntl = __webpack_require__(2);
 	
-	var _intl = __webpack_require__(90);
+	var _intl = __webpack_require__(98);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(91);
+	var _intlLocalesSupported = __webpack_require__(99);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(92);
+	__webpack_require__(100);
 	
-	var _en = __webpack_require__(99);
+	var _en = __webpack_require__(107);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(52);
+	var _en3 = __webpack_require__(53);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -562,13 +562,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(100);
+	var _reduxDevtools = __webpack_require__(108);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(102);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(110);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(101);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(109);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -739,6 +739,13 @@
 
 /***/ },
 /* 19 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+
+/***/ },
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -783,7 +790,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(58);
+	var _Footer = __webpack_require__(59);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -858,7 +865,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -885,7 +892,7 @@
 	}
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1028,7 +1035,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalForms);
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1161,13 +1168,13 @@
 	      }, void 0, _jsx('div', {
 	        className: 'container'
 	      }, void 0, _jsx(_SearchBox2.default, {
-	        placeholder: 'Search Legal Forms',
+	        placeholder: 'Search Legal Topics',
 	        onChange: this.onSearch.bind(this)
 	      }))), _jsx('div', {
 	        className: _LegalTopics2.default['title-container']
 	      }, void 0, _jsx('div', {
 	        className: _LegalTopics2.default['main-title']
-	      }, void 0, 'Let\'s get started, please select a form.')), _jsx('div', {
+	      }, void 0, 'Let\'s get started, please select a topic.')), _jsx('div', {
 	        className: _LegalTopics2.default['main-container'] + ' container'
 	      }, void 0, categories));
 	    }
@@ -1186,7 +1193,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalTopics);
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1220,23 +1227,23 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _UserInfo = __webpack_require__(66);
+	var _UserInfo = __webpack_require__(67);
 	
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 	
-	var _Membership = __webpack_require__(65);
+	var _Membership = __webpack_require__(66);
 	
 	var _Membership2 = _interopRequireDefault(_Membership);
 	
-	var _Conversation = __webpack_require__(63);
+	var _Conversation = __webpack_require__(64);
 	
 	var _Conversation2 = _interopRequireDefault(_Conversation);
 	
-	var _Activity = __webpack_require__(62);
+	var _Activity = __webpack_require__(63);
 	
 	var _Activity2 = _interopRequireDefault(_Activity);
 	
-	var _Document = __webpack_require__(64);
+	var _Document = __webpack_require__(65);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
@@ -1327,7 +1334,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1341,9 +1348,13 @@
 	exports.setCurrentProgram = setCurrentProgram;
 	exports.fetchProgram = fetchProgram;
 	
-	var _apiCaller = __webpack_require__(26);
+	var _apiCaller = __webpack_require__(27);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
+	
+	var _model = __webpack_require__(79);
+	
+	var _model2 = _interopRequireDefault(_model);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1369,14 +1380,15 @@
 	
 	function fetchProgram(name) {
 	  return function (dispatch) {
-	    return (0, _apiCaller2.default)('programs/' + name).then(function (program) {
+	    /*return callApi(`programs/${name}`).then(program => {
 	      dispatch(addProgram(name, program));
-	    });
+	    });*/
+	    dispatch(addProgram(name, _model2.default[name]));
 	  };
 	}
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1389,7 +1401,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _ProgramActions = __webpack_require__(24);
+	var _ProgramActions = __webpack_require__(25);
 	
 	// Initial State
 	var initialState = { programs: {}, current: '' };
@@ -1432,7 +1444,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1444,7 +1456,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(93);
+	var _isomorphicFetch = __webpack_require__(101);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
@@ -1485,7 +1497,7 @@
 	}
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1547,7 +1559,7 @@
 	};
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1604,19 +1616,19 @@
 	exports.default = _mongoose2.default.model('Program', programSchema);
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-html-parser");
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1659,7 +1671,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1678,7 +1690,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _App = __webpack_require__(53);
+	var _App = __webpack_require__(54);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -1697,12 +1709,13 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(19);
+	  __webpack_require__(20);
 	  __webpack_require__(8);
-	  __webpack_require__(21);
 	  __webpack_require__(22);
 	  __webpack_require__(23);
+	  __webpack_require__(24);
 	  __webpack_require__(18);
+	  __webpack_require__(19);
 	}
 	
 	// react-router setup with code-splitting
@@ -1713,21 +1726,21 @@
 	}, void 0, _jsx(_reactRouter.IndexRoute, {
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(19).default);
+	      cb(null, __webpack_require__(20).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(22).default);
+	      cb(null, __webpack_require__(23).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(21).default);
+	      cb(null, __webpack_require__(22).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
@@ -1752,16 +1765,23 @@
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
+	  path: '/register',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, __webpack_require__(19).default);
+	    }).bind(null, __webpack_require__));
+	  }
+	}), _jsx(_reactRouter.Route, {
 	  path: '/profile',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(23).default);
+	      cb(null, __webpack_require__(24).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}));
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1772,9 +1792,9 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(30);
+	var _redux = __webpack_require__(31);
 	
-	var _reduxThunk = __webpack_require__(103);
+	var _reduxThunk = __webpack_require__(111);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -1782,7 +1802,7 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(76);
+	var _reducers = __webpack_require__(84);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -1817,7 +1837,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1848,38 +1868,38 @@
 	  });
 	};
 	
-	var _program = __webpack_require__(28);
+	var _program = __webpack_require__(29);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _incorporate = __webpack_require__(80);
+	var _incorporate = __webpack_require__(88);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(81);
+	var _sIncorporate = __webpack_require__(89);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(85);
+	var _transfertax = __webpack_require__(93);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(82);
+	var _incorporate3 = __webpack_require__(90);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(83);
+	var _payroll = __webpack_require__(91);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(84);
+	var _trademark = __webpack_require__(92);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1913,7 +1933,7 @@
 	
 	var _express = __webpack_require__(6);
 	
-	var _auth = __webpack_require__(77);
+	var _auth = __webpack_require__(85);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -1924,7 +1944,7 @@
 	;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1936,7 +1956,7 @@
 	
 	var _express = __webpack_require__(6);
 	
-	var _post = __webpack_require__(78);
+	var _post = __webpack_require__(86);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -1959,7 +1979,7 @@
 	exports.default = router;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1971,7 +1991,7 @@
 	
 	var _express = __webpack_require__(6);
 	
-	var _program = __webpack_require__(79);
+	var _program = __webpack_require__(87);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -1991,7 +2011,7 @@
 	exports.default = router;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2002,7 +2022,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(88);
+	var _promiseUtils = __webpack_require__(96);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -2018,16 +2038,16 @@
 	  */
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(13);
-	var cssnext = __webpack_require__(95);
-	var postcssFocus = __webpack_require__(96);
-	var postcssReporter = __webpack_require__(97);
+	var cssnext = __webpack_require__(103);
+	var postcssFocus = __webpack_require__(104);
+	var postcssReporter = __webpack_require__(105);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -2092,79 +2112,79 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-facebook");
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-google-oauth");
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2199,7 +2219,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2234,17 +2254,17 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(56);
+	var _Header = __webpack_require__(57);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(55);
+	var _Footer = __webpack_require__(56);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
 	var _AppActions = __webpack_require__(16);
 	
-	var _IntlActions = __webpack_require__(20);
+	var _IntlActions = __webpack_require__(21);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2318,7 +2338,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2363,7 +2383,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2420,7 +2440,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2461,7 +2481,7 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _NavBar = __webpack_require__(57);
+	var _NavBar = __webpack_require__(58);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
@@ -2621,7 +2641,7 @@
 	exports.default = Header;
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2706,7 +2726,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2812,7 +2832,7 @@
 	});
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2826,7 +2846,7 @@
 	
 	var _setup = __webpack_require__(14);
 	
-	var _IntlActions = __webpack_require__(20);
+	var _IntlActions = __webpack_require__(21);
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
@@ -2859,7 +2879,7 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2877,7 +2897,7 @@
 	exports.deletePost = deletePost;
 	exports.deletePostRequest = deletePostRequest;
 	
-	var _apiCaller = __webpack_require__(26);
+	var _apiCaller = __webpack_require__(27);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
@@ -2949,7 +2969,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2960,7 +2980,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(60);
+	var _PostActions = __webpack_require__(61);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -3012,7 +3032,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3139,7 +3159,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3242,7 +3262,7 @@
 	exports.default = Conversation;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3345,7 +3365,7 @@
 	exports.default = Document;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3454,7 +3474,7 @@
 	exports.default = Membership;
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3576,7 +3596,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3606,41 +3626,41 @@
 	
 	var _reactIntl = __webpack_require__(2);
 	
-	var _reactHtmlParser = __webpack_require__(29);
+	var _reactHtmlParser = __webpack_require__(30);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormArticlesOfIncorporation = __webpack_require__(73);
+	var _CAFormArticlesOfIncorporation = __webpack_require__(74);
 	
 	var _CAFormArticlesOfIncorporation2 = _interopRequireDefault(_CAFormArticlesOfIncorporation);
 	
-	var _CAFormArticlesOfIncorporation3 = __webpack_require__(74);
+	var _CAFormArticlesOfIncorporation3 = __webpack_require__(75);
 	
 	var _CAFormArticlesOfIncorporation4 = _interopRequireDefault(_CAFormArticlesOfIncorporation3);
 	
-	var _NoteDialog = __webpack_require__(68);
+	var _NoteDialog = __webpack_require__(69);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county2 = __webpack_require__(71);
+	var _county2 = __webpack_require__(72);
 	
 	var _county3 = _interopRequireDefault(_county2);
 	
-	var _city = __webpack_require__(69);
+	var _city = __webpack_require__(70);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption = __webpack_require__(72);
+	var _county_exemption = __webpack_require__(73);
 	
 	var _county_exemption2 = _interopRequireDefault(_county_exemption);
 	
-	var _city_exemption = __webpack_require__(70);
+	var _city_exemption = __webpack_require__(71);
 	
 	var _city_exemption2 = _interopRequireDefault(_city_exemption);
 	
-	var _ProgramActions = __webpack_require__(24);
+	var _ProgramActions = __webpack_require__(25);
 	
-	var _ProgramReducer = __webpack_require__(25);
+	var _ProgramReducer = __webpack_require__(26);
 	
 	var _InputBox = {
 	  "inputbox": "_252oDSSw6rez-ligl-plwk",
@@ -3673,8 +3693,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -3701,7 +3719,6 @@
 	      current: 1,
 	      singleChoice: -1,
 	      multiChoice: [],
-	      initialInput: '',
 	      showNote: false,
 	      noteTitle: '',
 	      noteContent: '',
@@ -3873,7 +3890,7 @@
 	
 	      if (kind === 'goto') {
 	        var path = '/';
-	        if (node.content.kind === 'form') path += 'forms/';
+	        if (node.content.kind === 'form') path += 'legalforms/';
 	
 	        path += node.content.id;
 	        _reactRouter.browserHistory.push(path);
@@ -3919,7 +3936,6 @@
 	      var next = this.getNextId(node);
 	      var nextIndex = this.getNodeIndex(this.props.program.node, next);
 	      this.setCurrent(this.props.program, nextIndex);
-	      console.log(this.state.store['index']);
 	    }
 	  }, {
 	    key: 'onBack',
@@ -3952,10 +3968,10 @@
 	    value: function getDescription(kind) {
 	      switch (kind) {
 	        case 'Input':
-	          return 'Fill in the blank';
+	          return '';
 	
 	        case 'Single':
-	          return 'Please select one of the following choices.';
+	          return '';
 	
 	        case 'YesNo':
 	          return '';
@@ -3966,11 +3982,12 @@
 	    }
 	  }, {
 	    key: 'onInput',
-	    value: function onInput(event, node) {
-	      this.setState({ initialInput: event.target.value });
-	      if (node.content.store) {
+	    value: function onInput(event, node, field) {
+	      var storeName = field.store;
+	      if (!storeName) storeName = node.content.store;
+	      if (storeName) {
 	        var store = this.state.store;
-	        store[node.content.store] = event.target.value;
+	        store[storeName] = event.target.value;
 	        this.setState({ store: store });
 	      }
 	    }
@@ -3993,7 +4010,11 @@
 	      var check_url = this.state.singleChoice === index ? 'url(' + _green_check2.default + ')' : '';
 	
 	      if (kind === 'Single' || kind === 'YesNo') {
-	        var _jsx2;
+	        if (field.kind === 'number') {
+	          if (this.state.store[node.content.store] === undefined) {
+	            this.state.store[node.content.store] = '';
+	          }
+	        }
 	
 	        return _jsx('div', {
 	          className: _InputBox2.default.answer + ' ' + (this.state.singleChoice === index ? _InputBox2.default.active : '') + ' ',
@@ -4001,13 +4022,14 @@
 	            return _this2.onSingleSelect(index);
 	          },
 	          style: { backgroundImage: check_url }
-	        }, index, field.label, field.kind === 'number' ? _jsx('input', (_jsx2 = {
+	        }, index, field.label, field.kind === 'number' ? _jsx('input', {
 	          type: 'number',
 	          className: _InputBox2.default.input,
-	          value: this.state.initialInput
-	        }, _defineProperty(_jsx2, 'value', this.state.initialInput), _defineProperty(_jsx2, 'onChange', function onChange(event) {
-	          _this2.onInput(event, node);
-	        }), _jsx2)) : null, field.note && _jsx('i', {
+	          value: this.state.store[node.content.store],
+	          onChange: function onChange(event) {
+	            _this2.onInput(event, node, field);
+	          }
+	        }) : null, field.note && _jsx('i', {
 	          className: 'fa fa-info-circle',
 	          'aria-hidden': 'true',
 	          onClick: function onClick() {
@@ -4049,13 +4071,17 @@
 	            }
 	          }, index, datasource);
 	        } else {
+	          if (this.state.store[field.store] === undefined) {
+	            this.state.store[field.store] = '';
+	          }
 	          return _jsx('input', {
 	            type: field.kind,
 	            className: '' + _InputBox2.default.input,
-	            value: this.state.initialInput,
+	            value: this.state.store[field.store],
 	            onChange: function onChange(event) {
-	              _this2.onInput(event, node);
-	            }
+	              _this2.onInput(event, node, field);
+	            },
+	            placeholder: field.placeholder
 	          }, index);
 	        }
 	      }
@@ -4219,7 +4245,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InputBox);
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4241,9 +4267,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(98);
+	var _reactBootstrap = __webpack_require__(106);
 	
-	var _reactHtmlParser = __webpack_require__(29);
+	var _reactHtmlParser = __webpack_require__(30);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -4323,7 +4349,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4335,7 +4361,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4345,7 +4371,7 @@
 	  value: true
 	});
 	
-	var _csv2array = __webpack_require__(27);
+	var _csv2array = __webpack_require__(28);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
@@ -4356,7 +4382,7 @@
 	exports.default = (0, _csv2array2.default)(csv, ',');
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4368,7 +4394,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4378,7 +4404,7 @@
 	  value: true
 	});
 	
-	var _csv2array = __webpack_require__(27);
+	var _csv2array = __webpack_require__(28);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
@@ -4389,7 +4415,7 @@
 	exports.default = (0, _csv2array2.default)(csv, ',');
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4465,7 +4491,7 @@
 	exports.default = CAFormArticlesOfIncorporation1;
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4539,7 +4565,7 @@
 	exports.default = CAFormArticlesOfIncorporation2;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4621,284 +4647,7 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(30);
-	
-	var _AppReducer = __webpack_require__(54);
-	
-	var _AppReducer2 = _interopRequireDefault(_AppReducer);
-	
-	var _PostReducer = __webpack_require__(61);
-	
-	var _PostReducer2 = _interopRequireDefault(_PostReducer);
-	
-	var _IntlReducer = __webpack_require__(59);
-	
-	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
-	
-	var _ProgramReducer = __webpack_require__(25);
-	
-	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// Combine all reducers into one root reducer
-	
-	
-	// Import Reducers
-	exports.default = (0, _redux.combineReducers)({
-	  app: _AppReducer2.default,
-	  posts: _PostReducer2.default,
-	  intl: _IntlReducer2.default,
-	  programs: _ProgramReducer2.default
-	}); /**
-	     * Root Reducer
-	     */
-
-/***/ },
 /* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.loginSuccess = loginSuccess;
-	exports.loginFailure = loginFailure;
-	exports.register = register;
-	
-	var _user = __webpack_require__(10);
-	
-	var _user2 = _interopRequireDefault(_user);
-	
-	var _passport = __webpack_require__(11);
-	
-	var _passport2 = _interopRequireDefault(_passport);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/**
-	 * Login a User
-	 */
-	function loginSuccess(req, res) {
-	  //login process is done by passport.authenticate, so we only send success message here.
-	  res.status(200).json({ status: 200, message: 'Login Successfully !', user: req.user });
-	}
-	
-	function loginFailure(req, res) {
-	  res.status(400).json({ status: 400, message: 'Login Failure !' });
-	}
-	
-	/**
-	 * Register a User
-	 */
-	function register(req, res) {
-	
-	  var newUser = new _user2.default({
-	    id: req.body.email,
-	    emails: [{
-	      value: req.body.email
-	    }],
-	    password: req.body.password
-	  });
-	
-	  newUser.save().then(function (user) {
-	    return res.status(201).json({ status: 201, message: 'User Registered Successfully !', user: user });
-	  }).catch(function (err) {
-	    if (err.code == 11000) {
-	      res.status(409).json({ status: 409, message: 'The User Already Registerd !' });
-	    } else {
-	      res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
-	    }
-	  });
-	}
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getPosts = getPosts;
-	exports.addPost = addPost;
-	exports.getPost = getPost;
-	exports.deletePost = deletePost;
-	
-	var _post = __webpack_require__(86);
-	
-	var _post2 = _interopRequireDefault(_post);
-	
-	var _cuid = __webpack_require__(89);
-	
-	var _cuid2 = _interopRequireDefault(_cuid);
-	
-	var _limax = __webpack_require__(94);
-	
-	var _limax2 = _interopRequireDefault(_limax);
-	
-	var _sanitizeHtml = __webpack_require__(104);
-	
-	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/**
-	 * Get all posts
-	 * @param req
-	 * @param res
-	 * @returns void
-	 */
-	function getPosts(req, res) {
-	  _post2.default.find().sort('-dateAdded').exec(function (err, posts) {
-	    if (err) {
-	      res.status(500).send(err);
-	    }
-	    res.json({ posts: posts });
-	  });
-	}
-	
-	/**
-	 * Save a post
-	 * @param req
-	 * @param res
-	 * @returns void
-	 */
-	function addPost(req, res) {
-	  if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
-	    res.status(403).end();
-	  }
-	
-	  var newPost = new _post2.default(req.body.post);
-	
-	  // Let's sanitize inputs
-	  newPost.title = (0, _sanitizeHtml2.default)(newPost.title);
-	  newPost.name = (0, _sanitizeHtml2.default)(newPost.name);
-	  newPost.content = (0, _sanitizeHtml2.default)(newPost.content);
-	
-	  newPost.slug = (0, _limax2.default)(newPost.title.toLowerCase(), { lowercase: true });
-	  newPost.cuid = (0, _cuid2.default)();
-	  newPost.save(function (err, saved) {
-	    if (err) {
-	      res.status(500).send(err);
-	    }
-	    res.json({ post: saved });
-	  });
-	}
-	
-	/**
-	 * Get a single post
-	 * @param req
-	 * @param res
-	 * @returns void
-	 */
-	function getPost(req, res) {
-	  _post2.default.findOne({ cuid: req.params.cuid }).exec(function (err, post) {
-	    if (err) {
-	      res.status(500).send(err);
-	    }
-	    res.json({ post: post });
-	  });
-	}
-	
-	/**
-	 * Delete a post
-	 * @param req
-	 * @param res
-	 * @returns void
-	 */
-	function deletePost(req, res) {
-	  _post2.default.findOne({ cuid: req.params.cuid }).exec(function (err, post) {
-	    if (err) {
-	      res.status(500).send(err);
-	    }
-	
-	    post.remove(function () {
-	      res.status(200).end();
-	    });
-	  });
-	}
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.add = add;
-	exports.get = get;
-	exports.remove = remove;
-	
-	var _program = __webpack_require__(28);
-	
-	var _program2 = _interopRequireDefault(_program);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	/**
-	 * Save a program
-	 */
-	function add(req, res) {
-	  var program = req.body.program;
-	  if (!program || !program.name) {
-	    res.status(403).end();
-	  }
-	
-	  var newProg = new _program2.default(program);
-	
-	  newProg.save().then(function (prog) {
-	    return res.json(prog.toJSON());
-	  }).catch(function (err) {
-	    return res.json({ post: saved });
-	  });
-	}
-	
-	/**
-	 * Get a single program
-	 */
-	function get(req, res) {
-	  var name = req.params.name;
-	
-	  _program2.default.findOne({ name: name }).then(function (program) {
-	    return res.json(program.toJSON());
-	  }).catch(function (err) {
-	    return res.status(500).send(err);
-	  });
-	}
-	
-	/**
-	 * Delete a post
-	 */
-	function remove(req, res) {
-	  var name = req.params.name;
-	
-	  _program2.default.remove({ name: name }).then(function () {
-	    return res.status(200).end();
-	  }).catch(function (err) {
-	    return res.status(500).send(err);
-	  });
-	}
-
-/***/ },
-/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4917,8 +4666,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What will be the profession of your corporation?",
-	      fields: [{ kind: "text" }],
-	      store: "company_profession",
+	      fields: [{ kind: "text", store: "company_profession" }],
 	      next: "input_2",
 	      note: {
 	        title: 'What will be the profession of your corporation?',
@@ -4929,9 +4677,8 @@
 	    id: "input_2",
 	    kind: "Input",
 	    content: {
-	      question: "What will be the name of your company?\n                <small>Note - your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
-	      fields: [{ kind: "text" }],
-	      store: "company_name",
+	      question: "What will be the name of your company?<br />\n                <small>Your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
+	      fields: [{ kind: "text", store: "company_name" }],
 	      next: "input_3",
 	      note: {
 	        title: 'Name of Corporation',
@@ -4943,8 +4690,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What will be the primary address of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_address",
+	      fields: [{ kind: "text", store: "company_address_street", placeholder: "Street" }, { kind: "text", store: "company_address_city", placeholder: "City" }, { kind: "text", store: "company_address_state", placeholder: "State" }, { kind: "text", store: "company_address_zipcode", placeholder: "ZIP Code" }],
 	      next: "single_4",
 	      note: {
 	        title: 'Address of Corporation',
@@ -4969,8 +4715,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "Who will incorporate the company?",
-	      fields: [{ kind: "text" }],
-	      store: "incorporator_name",
+	      fields: [{ kind: "text", store: "incorporator_name_firstname", placeholder: "First Name" }, { kind: "text", store: "incorporator_name_lastname", placeholder: "Last Name" }],
 	      next: "input_6",
 	      note: {
 	        title: 'Name of incorporator',
@@ -4982,8 +4727,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "Who will serve as the registered agent of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
 	      next: "single_7",
 	      note: {
 	        title: 'Name of registered agent',
@@ -5006,8 +4750,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_address",
+	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
 	      next: "form_1",
 	      note: {
 	        title: 'Address of registered agent',
@@ -5030,8 +4773,7 @@
 	    kind: "Input",
 	    content: {
 	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
 	      next: "input_8",
 	      note: {
 	        title: 'Individual registered agent',
@@ -5054,7 +4796,7 @@
 	};
 
 /***/ },
-/* 81 */
+/* 78 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5121,8 +4863,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What will be the name of your company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_name",
+	      fields: [{ kind: "text", store: "company_name" }],
 	      next: "input_5",
 	      note: {
 	        title: 'Name of Corporation',
@@ -5134,8 +4875,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What will be the primary address of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_address",
+	      fields: [{ kind: "text", store: "company_address_street", placeholder: "Street" }, { kind: "text", store: "company_address_city", placeholder: "City" }, { kind: "text", store: "company_address_state", placeholder: "State" }, { kind: "text", store: "company_address_zipcode", placeholder: "ZIP Code" }],
 	      next: "single_6",
 	      note: {
 	        title: 'Address of Corporation',
@@ -5160,8 +4900,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "Who will incorporate the company?",
-	      fields: [{ kind: "text" }],
-	      store: "incorporator_name",
+	      fields: [{ kind: "text", store: "incorporator_name_firstname", placeholder: "First Name" }, { kind: "text", store: "incorporator_name_lastname", placeholder: "Last Name" }],
 	      next: "input_8",
 	      note: {
 	        title: 'Name of incorporator',
@@ -5173,8 +4912,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "Who will serve as the registered agent of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
 	      next: "single_9",
 	      note: {
 	        title: 'Name of registered agent',
@@ -5197,8 +4935,7 @@
 	    kind: "Input",
 	    content: {
 	      question: "What is <strong>${registered_agent_name}</strong>'s address?'",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_address",
+	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
 	      next: "form_1",
 	      note: {
 	        title: 'Address of registered agent',
@@ -5221,8 +4958,7 @@
 	    kind: "Input",
 	    content: {
 	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
 	      next: "input_8",
 	      note: {
 	        title: 'Individual registered agent',
@@ -5245,7 +4981,50 @@
 	};
 
 /***/ },
-/* 82 */
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _ca_professional_corp;
+	
+	var _incorporate = __webpack_require__(77);
+	
+	var _incorporate2 = _interopRequireDefault(_incorporate);
+	
+	var _sIncorporate = __webpack_require__(78);
+	
+	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
+	
+	var _transfertax = __webpack_require__(83);
+	
+	var _transfertax2 = _interopRequireDefault(_transfertax);
+	
+	var _incorporate3 = __webpack_require__(80);
+	
+	var _incorporate4 = _interopRequireDefault(_incorporate3);
+	
+	var _payroll = __webpack_require__(81);
+	
+	var _payroll2 = _interopRequireDefault(_payroll);
+	
+	var _trademark = __webpack_require__(82);
+	
+	var _trademark2 = _interopRequireDefault(_trademark);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _ca_professional_corp);
+
+/***/ },
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5451,7 +5230,7 @@
 	};
 
 /***/ },
-/* 83 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5548,7 +5327,7 @@
 	};
 
 /***/ },
-/* 84 */
+/* 82 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5808,7 +5587,7 @@
 	};
 
 /***/ },
-/* 85 */
+/* 83 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5975,7 +5754,1361 @@
 	};
 
 /***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(31);
+	
+	var _AppReducer = __webpack_require__(55);
+	
+	var _AppReducer2 = _interopRequireDefault(_AppReducer);
+	
+	var _PostReducer = __webpack_require__(62);
+	
+	var _PostReducer2 = _interopRequireDefault(_PostReducer);
+	
+	var _IntlReducer = __webpack_require__(60);
+	
+	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
+	
+	var _ProgramReducer = __webpack_require__(26);
+	
+	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Combine all reducers into one root reducer
+	
+	
+	// Import Reducers
+	exports.default = (0, _redux.combineReducers)({
+	  app: _AppReducer2.default,
+	  posts: _PostReducer2.default,
+	  intl: _IntlReducer2.default,
+	  programs: _ProgramReducer2.default
+	}); /**
+	     * Root Reducer
+	     */
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.loginSuccess = loginSuccess;
+	exports.loginFailure = loginFailure;
+	exports.register = register;
+	
+	var _user = __webpack_require__(10);
+	
+	var _user2 = _interopRequireDefault(_user);
+	
+	var _passport = __webpack_require__(11);
+	
+	var _passport2 = _interopRequireDefault(_passport);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Login a User
+	 */
+	function loginSuccess(req, res) {
+	  //login process is done by passport.authenticate, so we only send success message here.
+	  res.status(200).json({ status: 200, message: 'Login Successfully !', user: req.user });
+	}
+	
+	function loginFailure(req, res) {
+	  res.status(400).json({ status: 400, message: 'Login Failure !' });
+	}
+	
+	/**
+	 * Register a User
+	 */
+	function register(req, res) {
+	
+	  var newUser = new _user2.default({
+	    id: req.body.email,
+	    emails: [{
+	      value: req.body.email
+	    }],
+	    password: req.body.password
+	  });
+	
+	  newUser.save().then(function (user) {
+	    return res.status(201).json({ status: 201, message: 'User Registered Successfully !', user: user });
+	  }).catch(function (err) {
+	    if (err.code == 11000) {
+	      res.status(409).json({ status: 409, message: 'The User Already Registerd !' });
+	    } else {
+	      res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
+	    }
+	  });
+	}
+
+/***/ },
 /* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getPosts = getPosts;
+	exports.addPost = addPost;
+	exports.getPost = getPost;
+	exports.deletePost = deletePost;
+	
+	var _post = __webpack_require__(94);
+	
+	var _post2 = _interopRequireDefault(_post);
+	
+	var _cuid = __webpack_require__(97);
+	
+	var _cuid2 = _interopRequireDefault(_cuid);
+	
+	var _limax = __webpack_require__(102);
+	
+	var _limax2 = _interopRequireDefault(_limax);
+	
+	var _sanitizeHtml = __webpack_require__(112);
+	
+	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Get all posts
+	 * @param req
+	 * @param res
+	 * @returns void
+	 */
+	function getPosts(req, res) {
+	  _post2.default.find().sort('-dateAdded').exec(function (err, posts) {
+	    if (err) {
+	      res.status(500).send(err);
+	    }
+	    res.json({ posts: posts });
+	  });
+	}
+	
+	/**
+	 * Save a post
+	 * @param req
+	 * @param res
+	 * @returns void
+	 */
+	function addPost(req, res) {
+	  if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
+	    res.status(403).end();
+	  }
+	
+	  var newPost = new _post2.default(req.body.post);
+	
+	  // Let's sanitize inputs
+	  newPost.title = (0, _sanitizeHtml2.default)(newPost.title);
+	  newPost.name = (0, _sanitizeHtml2.default)(newPost.name);
+	  newPost.content = (0, _sanitizeHtml2.default)(newPost.content);
+	
+	  newPost.slug = (0, _limax2.default)(newPost.title.toLowerCase(), { lowercase: true });
+	  newPost.cuid = (0, _cuid2.default)();
+	  newPost.save(function (err, saved) {
+	    if (err) {
+	      res.status(500).send(err);
+	    }
+	    res.json({ post: saved });
+	  });
+	}
+	
+	/**
+	 * Get a single post
+	 * @param req
+	 * @param res
+	 * @returns void
+	 */
+	function getPost(req, res) {
+	  _post2.default.findOne({ cuid: req.params.cuid }).exec(function (err, post) {
+	    if (err) {
+	      res.status(500).send(err);
+	    }
+	    res.json({ post: post });
+	  });
+	}
+	
+	/**
+	 * Delete a post
+	 * @param req
+	 * @param res
+	 * @returns void
+	 */
+	function deletePost(req, res) {
+	  _post2.default.findOne({ cuid: req.params.cuid }).exec(function (err, post) {
+	    if (err) {
+	      res.status(500).send(err);
+	    }
+	
+	    post.remove(function () {
+	      res.status(200).end();
+	    });
+	  });
+	}
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.add = add;
+	exports.get = get;
+	exports.remove = remove;
+	
+	var _program = __webpack_require__(29);
+	
+	var _program2 = _interopRequireDefault(_program);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	/**
+	 * Save a program
+	 */
+	function add(req, res) {
+	  var program = req.body.program;
+	  if (!program || !program.name) {
+	    res.status(403).end();
+	  }
+	
+	  var newProg = new _program2.default(program);
+	
+	  newProg.save().then(function (prog) {
+	    return res.json(prog.toJSON());
+	  }).catch(function (err) {
+	    return res.json({ post: saved });
+	  });
+	}
+	
+	/**
+	 * Get a single program
+	 */
+	function get(req, res) {
+	  var name = req.params.name;
+	
+	  _program2.default.findOne({ name: name }).then(function (program) {
+	    return res.json(program.toJSON());
+	  }).catch(function (err) {
+	    return res.status(500).send(err);
+	  });
+	}
+	
+	/**
+	 * Delete a post
+	 */
+	function remove(req, res) {
+	  var name = req.params.name;
+	
+	  _program2.default.remove({ name: name }).then(function () {
+	    return res.status(200).end();
+	  }).catch(function (err) {
+	    return res.status(500).send(err);
+	  });
+	}
+
+/***/ },
+/* 88 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "ca_professional_corporation",
+	  description: "Creating The California Professional Corporation",
+	  start: "input_1",
+	  kind: "Form",
+	  node: [{
+	    id: "input_1",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the profession of your corporation?",
+	      fields: [{ kind: "text" }],
+	      store: "company_profession",
+	      next: "input_2",
+	      note: {
+	        title: 'What will be the profession of your corporation?',
+	        content: "You should write the formal name of your profession, describing your profession as what the profession is, not what the professionals are called. For example, a lawyer would indicate “law”, a dentist would indicate “dentistry”, an accountant would indicate “accountancy”, a marriage and family therapist would indicate “marriage and family therapy”. You can ask yourself, I engage in the profession of ..."
+	      }
+	    }
+	  }, {
+	    id: "input_2",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the name of your company?\n                <small>Note - your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
+	      fields: [{ kind: "text" }],
+	      store: "company_name",
+	      next: "input_3",
+	      note: {
+	        title: 'Name of Corporation',
+	        content: "<ul>\n            <li>The name of your professional corporation must meet any requirements of the state board or agency which controls your profession. There may be words that are specifically prohibited, authorized, or required to be included in the name of your professional corporation. For example, a lawyer\u2019s corporation must be a professional corporation and must include the words \u201Cprofessional corporation\u201D or \u201Claw corporation.\u201D By contrast, an acupuncturist\u2019s corporation must contain the word \u201Cacupuncture\u201D or \u201Cacupuncturist\u201D along with wording or abbreviations that denote corporate existence. (See California Business and Professions Code \xA7 4978, available here - http://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=2.&title=&part=&chapter=12.&article=7.) Check with your governing body for any naming restrictions on your professional corporation. A list of state boards and agencies is available here - http://www.dca.ca.gov/about_dca/entities.shtml.</li>\n            <li>Further, the name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and https://businesssearch.sos.ca.gov/ to see if there is a preexisting corporation with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D. Registering a new corporation with a substantially similar name to an existing corporation requires written consent and approval by the California Secretary of State.</li>\n            <li>Your corporate name cannot include the words \u201Cbank\u201D, \u201Ccredit union\u201D, \u201Ctrust\u201D, \u201Ctrustee\u201D, or related words unless you have a certificate of approval of the Commissioner of Business Oversight, or are forming a corporation pursuant to California Banking Law.</li>\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the California Secretary of State.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_3",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the primary address of the company?",
+	      fields: [{ kind: "text" }],
+	      store: "company_address",
+	      next: "single_4",
+	      note: {
+	        title: 'Address of Corporation',
+	        content: "<ul>\n            <li>You must provide the initial street address and the initial mailing address if different from the street address.</li>\n            <li>You should note this address will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_4",
+	    kind: "Single",
+	    content: {
+	      question: "What is the total number of shares the corporation will be authorized to issue?",
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
+	      store: "number_of_shares",
+	      next: "input_5",
+	      note: {
+	        title: 'Number of Shares',
+	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone. All shareholders of your professional corporation must be licensed.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_5",
+	    kind: "Input",
+	    content: {
+	      question: "Who will incorporate the company?",
+	      fields: [{ kind: "text" }],
+	      store: "incorporator_name",
+	      next: "input_6",
+	      note: {
+	        title: 'Name of incorporator',
+	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_6",
+	    kind: "Input",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_name",
+	      next: "single_7",
+	      note: {
+	        title: 'Name of registered agent',
+	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>The registered agent can be either an individual who resides in California or an active California corporation. Your corporation cannot be its own registered agent.\n              <ul>\n                <li>The individual can be an officer, director, or shareholder of the company, or any other adult.</li>\n                <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.\n                  <ul>\n                    <li>You can check https://businessfilings.sos.ca.gov/frmlist1505s.asp to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n                    <li>If the corporation has not filed a 1505 Certificate, it must register, which requires the corporation:\n                      <ul>\n                        <li>Be an active, registered California corporation,</li>\n                        <li>Pay a $30 filing fee, and</li>\n                        <li>Fill out and submit a form.</li>\n                      </ul>\n                    </li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n\n            <li>There are services which will serve as your corporation\u2019s registered agent for a fee.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_7",
+	    kind: "Single",
+	    content: {
+	      question: "Who will incorporate the company?",
+	      fields: [{ kind: "choice", label: "Person", next: "input_8" }, { kind: "choice", label: "Corporation", next: "yesno_9" }],
+	      note: {
+	        title: 'Person or corporation',
+	        content: "<ul>\n            <li>As noted, your registered agent can be either a person or a certified corporation</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_8",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_address",
+	      next: "form_1",
+	      note: {
+	        title: 'Address of registered agent',
+	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "yesno_9",
+	    kind: "YesNo",
+	    content: {
+	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
+	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_10" }],
+	      note: {
+	        title: 'Corporate Registered Agent',
+	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_10",
+	    kind: "Input",
+	    content: {
+	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_name",
+	      next: "input_8",
+	      note: {
+	        title: 'Individual registered agent',
+	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>Please select an individual who resides in California to be your registered agent. You can select any adult; your registered agent can, but does not have to be, a founder, director, or shareholder of your corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "form_1",
+	    kind: "Form",
+	    content: {
+	      name: "ca_form_articles_of_professional_incorporation_1"
+	    }
+	  }, {
+	    id: "form_2",
+	    kind: "Form",
+	    content: {
+	      name: "ca_form_articles_of_professional_incorporation_2"
+	    }
+	  }]
+	};
+
+/***/ },
+/* 89 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "ca_s_corporation",
+	  description: "Creating The California S-Corporation",
+	  start: "single_1",
+	  kind: "Form",
+	  node: [{
+	    id: "single_1",
+	    kind: "Single",
+	    content: {
+	      question: "In which state would you like to incorporate your company?",
+	      fields: [{ kind: "choice", label: "California", next: "single_2" }, { kind: "choice", label: "Delaware", next: "Creating the Delware" }],
+	      note: {
+	        title: 'State of incorporation',
+	        content: "<ul>\n            <li>You can incorporate your business in any state, even if you are not actually going to be conducting business there. However, you will be required to provide an address in the state of incorporation. If you want to incorporate in Delaware but do not have a Delaware address, there are services which will provide a registered agent address in Delaware.</li>\n            <li>In deciding in which state to incorporate, it is important to note that there may be adverse tax consequences to incorporating in one state over another. For example, if you incorporate in Delaware, but conduct all of your business in California, you will still be required to pay a Delaware franchise tax in addition to California taxes. If you incorporate in California and conduct all of your business in California, you will not pay Delaware taxes.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "goto_1",
+	    kind: "Goto",
+	    content: {
+	      kind: "form",
+	      id: "ca_professional_corporation"
+	    }
+	  }, {
+	    id: "single_2",
+	    kind: "Single",
+	    content: {
+	      question: "What will be the primary business of your company?",
+	      fields: [{ kind: "choice", label: "Real Estate Investment" }, { kind: "choice", label: "A Profession", next: "yesno_2" }, { kind: "choice", label: "Personal Services (other than a Profession)" }, { kind: "choice", label: "Restaurant" }, { kind: "choice", label: "Hotel" }, { kind: "choice", label: "Farming" }, { kind: "choice", label: "Retail" }, { kind: "choice", label: "Construction" }, { kind: "choice", label: "A Brokerage" }, { kind: "choice", label: "Finance" }, { kind: "choice", label: "Insurance" }, { kind: "choice", label: "Manufacturing" }, { kind: "choice", label: "Mineral Extraction" }, { kind: "choice", label: "Other" }],
+	      next: "input_4"
+	    }
+	  }, {
+	    id: "yesno_2",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does your profession require a license, certification, or registration authorized by the Business and Professional Code, the Chiropractic Act, or the Osteopathic Act?",
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_3" }, { kind: "choice", label: "No", next: "input_4" }],
+	      note: {
+	        title: 'Requires license, certification, or registration?',
+	        content: "<ul>\n            <li>If your profession requires a license, certification, or other registration from the state, there may be additional requirements in forming your corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "yesno_3",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does your profession required a corporation to be a professional corporation?<br /><small>Check with your regulatory board whether your profession requires a professional corporation (as opposed to a traditional corporation), and for restrictions on the name of your professional corporation. A list of California  regulatory boards is available <a href='http://www.dca.ca.gov/about_dca/entities.html'>here</a></small>",
+	      fields: [{ kind: "choice", label: "Yes", next: "goto_1" }, { kind: "choice", label: "No", next: "input_4" }],
+	      note: {
+	        title: 'Professional Corporation?',
+	        content: "<ul>\n            <li>California law generally permits professionals to organize as corporations. Many professions, if they incorporate, must form a professional corporation, as opposed to a traditional corporation under the General Corporation Law. For example, the corporations of dentists, certified public accountants, doctors, veterinarians, lawyers, optometrists, marriage and family therapists, psychiatrists, and psychologists (all of whom require state licensure), are all required to be professional corporations. You should confirm with the board governing your profession whether your corporation must be a professional corporation. If your profession does not require a professional corporation, you are generally authorized to incorporate under the General Corporation Law.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_4",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the name of your company?",
+	      fields: [{ kind: "text" }],
+	      store: "company_name",
+	      next: "input_5",
+	      note: {
+	        title: 'Name of Corporation',
+	        content: "<ul>\n            <li>The name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and https://businesssearch.sos.ca.gov/ to see if there is a preexisting corporation with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D. Registering a new corporation with a substantially similar name to an existing corporation requires written consent and approval by the California Secretary of State.</li>\n            <li>Your corporate name cannot include the words \u201Cbank\u201D, \u201Ccredit union\u201D, \u201Ctrust\u201D, \u201Ctrustee\u201D, or related words unless you have a certificate of approval of the Commissioner of Business Oversight, or are forming a corporation pursuant to California Banking Law.</li>\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the California Secretary of State.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_5",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the primary address of the company?",
+	      fields: [{ kind: "text" }],
+	      store: "company_address",
+	      next: "single_6",
+	      note: {
+	        title: 'Address of Corporation',
+	        content: "<ul>\n            <li>You must provide the initial street address and the initial mailing address if different from the street address.</li>\n            <li>You should note this address will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_6",
+	    kind: "Single",
+	    content: {
+	      question: "What is the total number of shares the corporation will be authorized to issue?",
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
+	      store: "number_of_shares",
+	      next: "input_7",
+	      note: {
+	        title: 'Number of Shares',
+	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone. All shareholders of your professional corporation must be licensed.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_7",
+	    kind: "Input",
+	    content: {
+	      question: "Who will incorporate the company?",
+	      fields: [{ kind: "text" }],
+	      store: "incorporator_name",
+	      next: "input_8",
+	      note: {
+	        title: 'Name of incorporator',
+	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_8",
+	    kind: "Input",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_name",
+	      next: "single_9",
+	      note: {
+	        title: 'Name of registered agent',
+	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>The registered agent can be either an individual who resides in California or an active California corporation. Your corporation cannot be its own registered agent.\n              <ul>\n                <li>The individual can be an officer, director, or shareholder of the company, or any other adult.</li>\n                <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.\n                  <ul>\n                    <li>You can check https://businessfilings.sos.ca.gov/frmlist1505s.asp to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n                    <li>If the corporation has not filed a 1505 Certificate, it must register, which requires the corporation:\n                      <ul>\n                        <li>Be an active, registered California corporation,</li>\n                        <li>Pay a $30 filing fee, and</li>\n                        <li>Fill out and submit a form.</li>\n                      </ul>\n                    </li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n\n            <li>There are services which will serve as your corporation\u2019s registered agent for a fee.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_9",
+	    kind: "Single",
+	    content: {
+	      question: "Is <strong>${registered_agent_name}</strong> a person or a corporation?",
+	      fields: [{ kind: "choice", label: "Person", next: "input_10" }, { kind: "choice", label: "Corporation", next: "yesno_11" }],
+	      note: {
+	        title: 'Person or corporation',
+	        content: "<ul>\n            <li>As noted, your registered agent can be either a person or a certified corporation</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_10",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${registered_agent_name}</strong>'s address?'",
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_address",
+	      next: "form_1",
+	      note: {
+	        title: 'Address of registered agent',
+	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "yesno_11",
+	    kind: "YesNo",
+	    content: {
+	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
+	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_12" }],
+	      note: {
+	        title: 'Corporate Registered Agent',
+	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_12",
+	    kind: "Input",
+	    content: {
+	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
+	      fields: [{ kind: "text" }],
+	      store: "registered_agent_name",
+	      next: "input_8",
+	      note: {
+	        title: 'Individual registered agent',
+	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>Please select an individual who resides in California to be your registered agent. You can select any adult; your registered agent can, but does not have to be, a founder, director, or shareholder of your corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "form_1",
+	    kind: "Form",
+	    content: {
+	      name: "ca_form_articles_of_professional_incorporation_1"
+	    }
+	  }, {
+	    id: "form_2",
+	    kind: "Form",
+	    content: {
+	      name: "ca_form_articles_of_professional_incorporation_2"
+	    }
+	  }]
+	};
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "incorporate",
+	  description: "Should I incorporate ( or become an LLC )?",
+	  start: "action_1",
+	  kind: "Topic",
+	  node: [{
+	    id: "action_1",
+	    kind: "Action",
+	    content: {
+	      kind: "SET_VALUE",
+	      store: "index",
+	      value: 0,
+	      next: "single_1"
+	    }
+	  }, {
+	    id: "single_1",
+	    kind: "Single",
+	    content: {
+	      question: "What will be the primary business of your company?",
+	      fields: [{ label: "Real Estate Investment", next: "result_1" }, { label: "A Profession", next: "yesno_2" }, { label: "Personal Services (other than a Profession)", next: "yesno_2" }, { label: "Restaurant", next: "yesno_2" }, { label: "Hotel", next: "yesno_2" }, { label: "Farming", next: "yesno_2" }, { label: "Retail", next: "yesno_2.5" }, { label: "Construction", next: "yesno_2.5" }, { label: "A Brokerage", next: "yesno_2" }, { label: "Finance", next: "yesno_2" }, { label: "Insurance", next: "yesno_2" }, { label: "Manufacturing", next: "yesno_2.5" }, { label: "Mineral Extraction", next: "yesno_2" }, { label: "Other", next: "yesno_2" }]
+	    }
+	  }, {
+	    id: "yesno_2.5",
+	    kind: "YesNo",
+	    content: {
+	      question: "Do you expect to sell the business form a profit of at least $100,100, five or more years from now?",
+	      fields: [{ label: "Yes", next: "result_2" }, { label: "No", next: "yesno_2" }]
+	    }
+	  }, {
+	    id: "result_1",
+	    kind: "Result",
+	    content: {
+	      message: "Form An LLC - Add explanatory note1"
+	    }
+	  }, {
+	    id: "result_2",
+	    kind: "Result",
+	    content: {
+	      message: "You should consider forming a corporation - add explantory note 5"
+	    }
+	  }, {
+	    id: "yesno_2",
+	    kind: "YesNo",
+	    content: {
+	      question: "Do you have, or expect to have, any partners or investors in the business?",
+	      fields: [{ label: "Yes", next: "yesno_2.1" }, { label: "No", next: "single_3" }]
+	    }
+	  }, {
+	    id: "yesno_2.1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Do you expect to receive venture capital funding?",
+	      fields: [{ label: "Yes", next: "result_6" }, { label: "No", next: "yesno_2.2" }]
+	    }
+	  }, {
+	    id: "result_6",
+	    kind: "Result",
+	    content: {
+	      message: "FORM A C CORPORATION - Go to explanatory note 6"
+	    }
+	  }, {
+	    id: "yesno_2.2",
+	    kind: "YesNo",
+	    content: {
+	      question: "Will income and losses be allocated proportionally to all owners?(For example, would a 25% owner be allocated 25% of all income and losses?)",
+	      fields: [{ label: "Yes", next: "result_7" }, { label: "No", next: "result_8" }]
+	    }
+	  }, {
+	    id: "result_7",
+	    kind: "Result",
+	    content: {
+	      message: "FORM AN S CORPORATION - Go to explanatory note 7"
+	    }
+	  }, {
+	    id: "result_8",
+	    kind: "Result",
+	    content: {
+	      message: "FORM AN LLC. Go to explanatory note 8"
+	    }
+	  }, {
+	    id: "single_3",
+	    kind: "Single",
+	    content: {
+	      question: "How much have you invested or do you expect to invest in the business?",
+	      fields: [{ label: "Under $10,000", next: "single_4" }, { label: "$10,000 to $50,000", next: "action_2" }, { label: "Over $50,000", next: "result_3" }]
+	    }
+	  }, {
+	    id: "action_2",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "single_4"
+	    }
+	  }, {
+	    id: "result_3",
+	    kind: "Result",
+	    content: {
+	      message: "FORMS CORPORATION. Add explanatory note 4."
+	    }
+	  }, {
+	    id: "single_4",
+	    kind: "Single",
+	    content: {
+	      question: "What do you expect the business to earn next year (before payment of any salary to you)?",
+	      fields: [{ label: "I don't know", next: "single_5" }, { label: "Expect to either lose money or have earnings of less than $25,000", next: "single_5" }, { label: "$25,000 to $50,000", next: "action_3" }, { label: "$50,000 to $100,000", next: "action_4" }, { label: "$100,000 to $250,000", next: "action_5" }, { label: "Expects earnings of over $250,000", next: "result_3" }]
+	    }
+	  }, {
+	    id: "action_3",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "yesno_8"
+	    }
+	  }, {
+	    id: "action_4",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 2,
+	      next: "yesno_8"
+	    }
+	  }, {
+	    id: "action_5",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 3,
+	      next: "action_6"
+	    }
+	  }, {
+	    id: "action_6",
+	    kind: "Action",
+	    content: {
+	      kind: "SWITCH_VALUE",
+	      store: "index",
+	      value: [3],
+	      next: ["yesno_8", "result_3"]
+	    }
+	  }, {
+	    id: "single_5",
+	    kind: "Single",
+	    content: {
+	      question: "What is your net worth?",
+	      fields: [{ label: "Over $100,000", next: "yesno_7" }, { label: "Under $100,000", next: "result_4" }]
+	    }
+	  }, {
+	    id: "result_4",
+	    kind: "Result",
+	    content: {
+	      message: "DON'T INCORPORATE - Add explanatory note 3."
+	    }
+	  }, {
+	    id: "yesno_7",
+	    kind: "YesNo",
+	    content: {
+	      question: "Do you have, or expect to have, any employees or agents?",
+	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "yesno_10" }]
+	    }
+	  }, {
+	    id: "result_5",
+	    kind: "Result",
+	    content: {
+	      message: "FORM AN LLC - Add explanatory note 2"
+	    }
+	  }, {
+	    id: "yesno_8",
+	    kind: "YesNo",
+	    content: {
+	      question: "Do you have, or expect to have, any employees or agents?",
+	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "yesno_10" }]
+	    }
+	  }, {
+	    id: "action_7",
+	    kind: "Action",
+	    content: {
+	      kind: "SWITCH_VALUE",
+	      store: "index",
+	      value: [1],
+	      next: ["result_5", "result_3"]
+	    }
+	  }, {
+	    id: "yesno_10",
+	    kind: "YesNo",
+	    content: {
+	      question: "Is primary business manufacturing, construction, mineral extraction, farming, restaurant or hotel?",
+	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "result_4" }]
+	    }
+	  }]
+	};
+
+/***/ },
+/* 91 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "payroll",
+	  description: "Do I need to set up Payroll?",
+	  start: "yesno_1",
+	  kind: "Topic",
+	  node: [{
+	    id: "yesno_1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Will any of the business owners work in the business?",
+	      fields: [{ label: "Yes", next: "single_2" }, { label: "No", next: "single_5" }]
+	    }
+	  }, {
+	    id: "single_2",
+	    kind: "Single",
+	    content: {
+	      question: "Is the business a corporation, partnership, limited liability company or sole proprietorship?",
+	      fields: [{ label: "LLC", next: "single_3" }, { label: "Corporation", next: "result_1" }, { label: "Partnership or Sole proprietorship", next: "single_5" }]
+	    }
+	  }, {
+	    id: "result_1",
+	    kind: "Result",
+	    content: {
+	      message: "It appears that you should treat your owners as employees and set up payroll. [Explanation 2]"
+	    }
+	  }, {
+	    id: "single_3",
+	    kind: "Single",
+	    content: {
+	      question: "Has the LLC elected to be taxed as a corporation?",
+	      fields: [{ label: "Yes", next: "result_1" }, { label: "No", next: "single_5" }]
+	    }
+	  }, {
+	    id: "single_5",
+	    kind: "Single",
+	    content: {
+	      question: "Will the business have any workers, not employed by some other company, that will work regularly for the business?",
+	      fields: [{ label: "Yes", next: "yesno_6" }, { label: "No", next: "result_2" }]
+	    }
+	  }, {
+	    id: "result_2",
+	    kind: "Result",
+	    content: {
+	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
+	    }
+	  }, {
+	    id: "yesno_6",
+	    kind: "YesNo",
+	    content: {
+	      question: "As to any workers performing services for the business, will the business control  what work is done by the worker and how the work is done? [Explanation 3]",
+	      fields: [{ label: "Yes", next: "result_3" }, { label: "No", next: "yesno_7" }]
+	    }
+	  }, {
+	    id: "result_3",
+	    kind: "Result",
+	    content: {
+	      message: "It appears that you will have employees. Therefor you should set up payroll for the business. [Explanation1]"
+	    }
+	  }, {
+	    id: "yesno_7",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does the business have or expect to have any of the following workers?<br/>\n                <small>A. A driver who distributes beverages (other than milk) or meat, vegetable, fruit, or bakery products; or who picks up and delivers laundry or dry cleaning, if the driver is your agent or is paid on commission.<br/>\n                B. A full-time life insurance sales agent whose principal business activity is selling life insurance or annuity contracts, or both, primarily for one life insurance company.<br/>\n                C. An individual who works at home on materials or goods that you supply and that must be returned to you or to a person you name, if you also furnish specifications for the work to be done.<br/>\n                D. A traveling or city salesperson who works for you full-time and turns in orders to you from wholesalers, retailers, contractors, or operators of hotels, restaurants, or other similar establishments for goods that are purchased for resale or as supplies for use in the buyer's business operation.</small>",
+	      fields: [{ label: "No", next: "result_4" }, { label: "Yes", next: "yesno_8" }]
+	    }
+	  }, {
+	    id: "result_4",
+	    kind: "Result",
+	    content: {
+	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
+	    }
+	  }, {
+	    id: "yesno_8",
+	    kind: "YesNo",
+	    content: {
+	      question: "For your workers who fall into any of the four previously mentioned categories, do any such workers meet ALL of the following three conditions:\n              <small>1. The service contract states or implies that substantially all the services are to be performed personally by them<br/>.\n              2. They don't have a substantial investment in the equipment and property used to perform the services (other than an investment in facilities for transportation, such as a car or truck)<br/>.\n              3. The services are performed for you on a continuing basis.</small>",
+	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "result_4" }]
+	    }
+	  }, {
+	    id: "result_5",
+	    kind: "Result",
+	    content: {
+	      message: "It appears that you will have statutory employees. Therefore, you will need to set up payrool for the business. Although federal income tax is not withheld from the wages of statutory employees, social security taxes and medicare taxes are.."
+	    }
+	  }]
+	};
+
+/***/ },
+/* 92 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "trademark",
+	  description: "TradeMark",
+	  start: "action_1",
+	  kind: "Topic",
+	  node: [{
+	    id: "action_1",
+	    kind: "Action",
+	    content: {
+	      kind: "SET_VALUE",
+	      store: "index",
+	      value: 0,
+	      next: "single_1.1"
+	    }
+	  }, {
+	    id: "single_1.1",
+	    kind: "Single",
+	    content: {
+	      question: "Does your mark consist solely of words or does it include design?",
+	      fields: [{ label: "Includes design", next: "yesno_3.34" }, { label: "Solely words", next: "yesno_1.3" }]
+	    }
+	  }, {
+	    id: "yesno_1.3",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does your mark include a foreign term?",
+	      fields: [{ label: "Yes", next: "single_1.4" }, { label: "No", next: "single_1.5" }]
+	    }
+	  }, {
+	    id: "single_1.4",
+	    kind: "Single",
+	    content: {
+	      question: "Use the English translation for all of the following questions.",
+	      fields: [{ label: "OK", next: "single_1.5" }]
+	    }
+	  }, {
+	    id: "single_1.5",
+	    kind: "Single",
+	    content: {
+	      question: "Is it generic?",
+	      fields: [{ label: "Yes", next: "result_1.6" }, { label: "Probably", next: "action_1.7" }, { label: "No", next: "single_1.9" }, { label: "Probably Not", next: "action_1.8" }]
+	    }
+	  }, {
+	    id: "result_1.6",
+	    kind: "Result",
+	    content: {
+	      message: "Your mark is not registrable."
+	    }
+	  }, {
+	    id: "action_1.7",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 5,
+	      next: "single_1.9"
+	    }
+	  }, {
+	    id: "action_1.8",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "single_1.9"
+	    }
+	  }, {
+	    id: "single_1.9",
+	    kind: "Single",
+	    content: {
+	      question: "Is your mark descriptive, or arbitrary, suggestive or fanciful?",
+	      fields: [{ label: "Arbitrary", next: "single_1.11" }, { label: "Suggestive", next: "single_1.11" }, { label: "Fanciful", next: "single_1.11" }, { label: "Descriptive", next: "result_1.10" }]
+	    }
+	  }, {
+	    id: "result_1.10",
+	    kind: "Result",
+	    content: {
+	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 10]"
+	    }
+	  }, {
+	    id: "single_1.11",
+	    kind: "Single",
+	    content: {
+	      question: "Is it geographically descriptive?",
+	      fields: [{ label: "Yes", next: "result_1.10" }, { label: "Probably", next: "action_1.12" }, { label: "No", next: "yesno_2.16" }, { label: "Probably Not", next: "action_1.13" }]
+	    }
+	  }, {
+	    id: "action_1.12",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 3,
+	      next: "yesno_2.16"
+	    }
+	  }, {
+	    id: "action_1.13",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "yesno_2.16"
+	    }
+	  }, {
+	    id: "yesno_2.16",
+	    kind: "YesNo",
+	    content: {
+	      question: "Is it a surname, an individual's name or likeness, or the title of a single book and/or movie?",
+	      fields: [{ label: "Yes", next: "result_2.17" }, { label: "No", next: "single_2.18" }]
+	    }
+	  }, {
+	    id: "result_2.17",
+	    kind: "Result",
+	    content: {
+	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 17]"
+	    }
+	  }, {
+	    id: "single_2.18",
+	    kind: "Single",
+	    content: {
+	      question: "Is it deceptive, scandalous, immoral or disparaging?",
+	      fields: [{ label: "Yes", next: "result_2.19" }, { label: "Probably", next: "action_2.20" }, { label: "No", next: "single_2.22" }, { label: "Probably Not", next: "action_2.21" }]
+	    }
+	  }, {
+	    id: "result_2.19",
+	    kind: "Result",
+	    content: {
+	      message: "Your mark is likely not registrable"
+	    }
+	  }, {
+	    id: "action_2.20",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 5,
+	      next: "single_2.22"
+	    }
+	  }, {
+	    id: "action_2.21",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "single_2.22"
+	    }
+	  }, {
+	    id: "single_2.22",
+	    kind: "Single",
+	    content: {
+	      question: "Check for similar existing trademarks used on similar products or services. [Insert text from Trademark supplement Note 22]",
+	      fields: [{ label: "OK", next: "single_2.23" }]
+	    }
+	  }, {
+	    id: "single_2.23",
+	    kind: "Single",
+	    content: {
+	      question: "Were you able to find a similar trademark in sound, meaning, appearance or impression?",
+	      fields: [{ label: "Yes", next: "single_2.24" }, { label: "Probably", next: "single_2.24" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "single_2.27" }]
+	    }
+	  }, {
+	    id: "single_2.24",
+	    kind: "Single",
+	    content: {
+	      question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
+	      fields: [{ label: "Yes", next: "result_2.25" }, { label: "Probably", next: "result_2.25" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.26" }]
+	    }
+	  }, {
+	    id: "result_2.25",
+	    kind: "Result",
+	    content: {
+	      message: "Your mark is likely not registrable"
+	    }
+	  }, {
+	    id: "action_2.26",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "action_2.29"
+	    }
+	  }, {
+	    id: "single_2.27",
+	    kind: "Single",
+	    content: {
+	      question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
+	      fields: [{ label: "Yes", next: "action_2.28" }, { label: "Probably", next: "action_2.28" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.28" }]
+	    }
+	  }, {
+	    id: "action_2.28",
+	    kind: "Action",
+	    content: {
+	      kind: "ADD_VALUE",
+	      store: "index",
+	      value: 1,
+	      next: "action_2.29"
+	    }
+	  }, {
+	    id: "action_2.29",
+	    kind: "Action",
+	    content: {
+	      kind: "SWITCH_VALUE",
+	      store: "index",
+	      value: [0, 4],
+	      content: ["result_2.30", "result_2.31", "result_2.32"]
+	    }
+	  }, {
+	    id: "result_2.30",
+	    kind: "Result",
+	    content: {
+	      message: "Great. If you are ready to file your trademark application <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
+	    }
+	  }, {
+	    id: "result_2.31",
+	    kind: "Result",
+	    content: {
+	      message: "It appears your mark is registrable based upone your responses. However, as you expressed some uncertainty as to [link to supplement, display section from the source of the points] there is higher risk of rejection. If you're ready to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
+	    }
+	  }, {
+	    id: "result_2.32",
+	    kind: "Result",
+	    content: {
+	      message: "You mark is probably not registrable based upon your responses. If you still wish to register, you may want to consult an attorney. Here are some ways you could increase the likelihood your trademark is accepteed [link to suuplement, display section from the source of the points] If you still wish to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
+	    }
+	  }, {
+	    id: "yesno_3.34",
+	    kind: "YesNo",
+	    content: {
+	      question: "Is it functional?",
+	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_3.36" }]
+	    }
+	  }, {
+	    id: "result_3.35",
+	    kind: "Result",
+	    content: {
+	      message: "Your mark is not registrable"
+	    }
+	  }, {
+	    id: "yesno_3.36",
+	    kind: "YesNo",
+	    content: {
+	      question: "Is it matter that is used in a purely ornamental manner?",
+	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_1.3" }]
+	    }
+	  }]
+	};
+
+/***/ },
+/* 93 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "transfertax",
+	  description: "California Documentary Transfer Tax",
+	  start: "input_1",
+	  kind: "Topic",
+	  node: [{
+	    id: "input_1",
+	    kind: "Input",
+	    content: {
+	      question: "Please select country and city.",
+	      fields: [{ kind: "select", label: "Select County", datasource: "county", store: "county" }, { kind: "select", label: "Select City", datasource: "city", store: "city" }],
+	      next: "single_2"
+	    }
+	  }, {
+	    id: "single_2",
+	    kind: "Single",
+	    content: {
+	      question: "Is this a deed transfer or entity transfer?",
+	      fields: [{ kind: "choice", label: "Entity", next: "single_3" }, { kind: "choice", label: "Deed", next: "multi_2" }]
+	    }
+	  }, {
+	    id: "multi_2",
+	    kind: "Multi",
+	    content: {
+	      question: "County Exemptions",
+	      fields: [{ datasource: "county_exemption_list" }],
+	      store: "county_exemption",
+	      next: "multi_3"
+	    }
+	  }, {
+	    id: "multi_3",
+	    kind: "Multi",
+	    content: {
+	      question: "City Exemptions",
+	      fields: [{ datasource: "city_exemption_list" }],
+	      store: "city_exemption",
+	      next: "action_1"
+	    }
+	  }, {
+	    id: "action_1",
+	    kind: "Action",
+	    content: {
+	      kind: "CHECK_COUNTY_EXEMPTION",
+	      store: "county_exemption",
+	      next: ["action_2", "yesno_1"]
+	    }
+	  }, {
+	    id: "action_2",
+	    kind: "Action",
+	    content: {
+	      kind: "CHECK_CITY_EXEMPTION",
+	      store: "city_exemption",
+	      next: ["result_1", "yesno_1"]
+	    }
+	  }, {
+	    id: "yesno_1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "result_2" }]
+	    }
+	  }, {
+	    id: "yesno_2",
+	    kind: "YesNo",
+	    content: {
+	      question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
+	      fields: [{ kind: "choice", label: "Yes", next: "result_2" }, { kind: "choice", label: "No", next: "result_1" }]
+	    }
+	  }, {
+	    id: "result_1",
+	    kind: "Result",
+	    content: {
+	      message: "Congratulation! This transaction is exempt and no transfer taxes are due."
+	    }
+	  }, {
+	    id: "result_2",
+	    kind: "Result",
+	    content: {
+	      message: "Calculation"
+	    }
+	  }, {
+	    id: "single_3",
+	    kind: "Single",
+	    content: {
+	      question: "What kind of entity is the property owner at the time of the transfer?",
+	      fields: [{ kind: "choice", label: "Partnership", next: "yesno_3" }, { kind: "choice", label: "Corporation", next: "yesno_4" }, { kind: "choice", label: "Disregarded", next: "yesno_4" }]
+	    }
+	  }, {
+	    id: "yesno_3",
+	    kind: "YesNo",
+	    content: {
+	      question: "Was there a transfer of 50% or more of the capital and profits of the partnership within a 12-month period?",
+	      fields: [{ kind: "choice", label: "Yes", next: "display_1" }, { kind: "choice", label: "No", next: "display_2" }]
+	    }
+	  }, {
+	    id: "display_1",
+	    kind: "Display",
+	    content: {
+	      message: "100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.\n              <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>"
+	    },
+	    next: "result_2"
+	  }, {
+	    id: "display_2",
+	    kind: "Display",
+	    content: {
+	      message: "Exempt from transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, Section 11925(a))</small>"
+	    }
+	  }, {
+	    id: "yesno_4",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does grantee own over 50% of the entity?",
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_5" }, { kind: "choice", label: "No", next: "yesno_6" }]
+	    }
+	  }, {
+	    id: "yesno_5",
+	    kind: "YesNo",
+	    content: {
+	      question: "Did grantee own over 50% of the entity before the transaction?",
+	      fields: [{ kind: "choice", label: "Yes", next: "display_3" }, { kind: "choice", label: "No", next: "display_4" }]
+	    }
+	  }, {
+	    id: "display_3",
+	    kind: "Display",
+	    content: {
+	      message: "Exempt from transfer tax"
+	    }
+	  }, {
+	    id: "display_4",
+	    kind: "Display",
+	    content: {
+	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(c)(1))</small>"
+	    }
+	  }, {
+	    id: "yesno_6",
+	    kind: "YesNo",
+	    content: {
+	      question: "Was there a prior excluded proportional interest transfer?",
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "display_3" }]
+	    }
+	  }, {
+	    id: "yesno_7",
+	    kind: "YesNo",
+	    content: {
+	      question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
+	      fields: [{ kind: "choice", label: "Yes", next: "display_5" }, { kind: "choice", label: "No", next: "display_3" }]
+	    }
+	  }, {
+	    id: "display_5",
+	    kind: "Display",
+	    content: {
+	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>"
+	    },
+	    next: "result_2"
+	  }]
+	};
+
+/***/ },
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6005,7 +7138,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 87 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6021,7 +7154,7 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(41);
+	var _compression = __webpack_require__(42);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
@@ -6029,27 +7162,27 @@
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(40);
+	var _bodyParser = __webpack_require__(41);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(48);
+	var _path = __webpack_require__(49);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(31);
+	var _IntlWrapper = __webpack_require__(32);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(42);
+	var _connectFlash = __webpack_require__(43);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(43);
+	var _cookieParser = __webpack_require__(44);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(44);
+	var _expressSession = __webpack_require__(45);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
@@ -6061,19 +7194,19 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(39);
+	var _webpackConfig = __webpack_require__(40);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(50);
+	var _webpackDevMiddleware = __webpack_require__(51);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(51);
+	var _webpackHotMiddleware = __webpack_require__(52);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(33);
+	var _store = __webpack_require__(34);
 	
 	var _reactRedux = __webpack_require__(4);
 	
@@ -6081,7 +7214,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(49);
+	var _server = __webpack_require__(50);
 	
 	var _reactRouter = __webpack_require__(3);
 	
@@ -6089,21 +7222,21 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(32);
+	var _routes = __webpack_require__(33);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(38);
+	var _fetchData = __webpack_require__(39);
 	
-	var _post = __webpack_require__(36);
+	var _post = __webpack_require__(37);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _program = __webpack_require__(37);
+	var _program = __webpack_require__(38);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(35);
+	var _auth = __webpack_require__(36);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
@@ -6111,7 +7244,7 @@
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(34);
+	var _dummyData = __webpack_require__(35);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
@@ -6121,9 +7254,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(47).Strategy;
-	var FacebookStrategy = __webpack_require__(45).Strategy;
-	var GoogleStrategy = __webpack_require__(46).OAuth2Strategy;
+	var LocalStrategy = __webpack_require__(48).Strategy;
+	var FacebookStrategy = __webpack_require__(46).Strategy;
+	var GoogleStrategy = __webpack_require__(47).OAuth2Strategy;
 	
 	// Webpack Requirements
 	
@@ -6155,7 +7288,7 @@
 	  }
 	
 	  // feed some dummy data in DB.
-	  (0, _dummyData2.default)();
+	  // dummyData();
 	});
 	
 	// Apply body Parser and server public assets and routes
@@ -6304,7 +7437,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 88 */
+/* 96 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6335,97 +7468,97 @@
 	}
 
 /***/ },
-/* 89 */
+/* 97 */
 /***/ function(module, exports) {
 
 	module.exports = require("cuid");
 
 /***/ },
-/* 90 */
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl");
 
 /***/ },
-/* 91 */
+/* 99 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl-locales-supported");
 
 /***/ },
-/* 92 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
-/* 93 */
+/* 101 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
 
 /***/ },
-/* 94 */
+/* 102 */
 /***/ function(module, exports) {
 
 	module.exports = require("limax");
 
 /***/ },
-/* 95 */
+/* 103 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 96 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 97 */
+/* 105 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 98 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap");
 
 /***/ },
-/* 99 */
+/* 107 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
-/* 100 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 101 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 102 */
+/* 110 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 103 */
+/* 111 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 104 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");

@@ -91,12 +91,12 @@ class LegalTopics extends Component {
       <div className={`${styles.legaltopics} wow fadeIn`}>
         <div className={`${styles['search-box-container']}`}>
           <div className='container'>
-            <SearchBox placeholder="Search Legal Forms" onChange={this.onSearch.bind(this)}/>
+            <SearchBox placeholder="Search Legal Topics" onChange={this.onSearch.bind(this)}/>
           </div>
         </div>
         <div className={styles['title-container']}>
           <div className={styles['main-title']}>
-            Let&apos;s get started, please select a form.
+            Let&apos;s get started, please select a topic.
           </div>
         </div>
         <div className={`${styles['main-container']} container`}>

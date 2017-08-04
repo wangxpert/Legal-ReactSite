@@ -1,4 +1,5 @@
 import callApi from '../../util/apiCaller';
+import model from './model';
 
 // Export Constants
 export const ADD_PROGRAM = 'ADD_PROGRAM';
@@ -22,8 +23,9 @@ export function setCurrentProgram(name) {
 
 export function fetchProgram(name) {
   return (dispatch) => {
-    return callApi(`programs/${name}`).then(program => {
+    /*return callApi(`programs/${name}`).then(program => {
       dispatch(addProgram(name, program));
-    });
+    });*/
+    dispatch(addProgram(name, model[name]));
   }
 }

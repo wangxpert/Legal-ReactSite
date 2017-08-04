@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/LegalTopics/LegalTopics');
   require('./modules/Profile/Profile');
   require('./modules/Auth/Login');
+  require('./modules/Auth/Register');
 }
 
 // react-router setup with code-splitting
@@ -72,6 +73,14 @@ export default (
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Auth/Login').default);
+        });
+      }}
+    />
+    <Route
+      path="/register"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Auth/Register').default);
         });
       }}
     />

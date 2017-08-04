@@ -30,7 +30,6 @@ class InputBox extends Component {
       current: 1,
       singleChoice: -1,
       multiChoice: [],
-      initialInput: '',
       showNote: false,
       noteTitle: '',
       noteContent: '',
@@ -197,7 +196,7 @@ class InputBox extends Component {
     if (kind === 'goto') {
       var path = '/';
       if (node.content.kind === 'form')
-        path += 'forms/';
+        path += 'legalforms/';
 
       path += node.content.id;
       browserHistory.push(path);
@@ -242,7 +241,6 @@ class InputBox extends Component {
     const next = this.getNextId(node);
     const nextIndex = this.getNodeIndex(this.props.program.node, next);
     this.setCurrent(this.props.program, nextIndex);
-    console.log(this.state.store['index']);
   }
 
   onBack() {
@@ -271,10 +269,10 @@ class InputBox extends Component {
   getDescription(kind) {
     switch (kind) {
       case 'Input':
-        return 'Fill in the blank';
+        return '';
 
       case 'Single':
-        return 'Please select one of the following choices.';
+        return '';
 
       case 'YesNo':
         return '';
@@ -284,11 +282,12 @@ class InputBox extends Component {
     }
   }
 
-  onInput(event, node) {
-    this.setState({initialInput: event.target.value});
-    if (node.content.store) {
+  onInput(event, node, field) {
+    var storeName = field.store;
+    if (!storeName) storeName = node.content.store;
+    if (storeName) {
       const store = this.state.store;
-      store[node.content.store] = event.target.value;
+      store[storeName] = event.target.value;
       this.setState({store: store});
     }
   }
@@ -308,10 +307,16 @@ class InputBox extends Component {
     const check_url = this.state.singleChoice === index ? `url(${check_img})` : '';
 
     if (kind === 'Single' || kind === 'YesNo' ) {
+        if (field.kind === 'number') {
+          if (this.state.store[node.content.store] === undefined) {
+            this.state.store[node.content.store] = '';
+          }
+        }
+
         return (
           <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)} style={{ backgroundImage: check_url }}>
             { field.label }
-            { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.initialInput} value={this.state.initialInput} onChange={(event) => {this.onInput(event, node)}} /> : null  }
+            { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.store[node.content.store]} onChange={(event) => {this.onInput(event, node, field)}} /> : null  }
             { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
           </div>
         );
@@ -343,8 +348,11 @@ class InputBox extends Component {
         );
       }
       else {
+        if (this.state.store[field.store] === undefined) {
+          this.state.store[field.store] = '';
+        }
         return (
-          <input type={field.kind} key={index} className={`${styles.input}`} value={this.state.initialInput} onChange={(event) => {this.onInput(event, node)}} />
+          <input type={field.kind} key={index} className={`${styles.input}`} value={this.state.store[field.store]} onChange={(event) => {this.onInput(event, node, field)}} placeholder={field.placeholder} />
         );
       }
     }
