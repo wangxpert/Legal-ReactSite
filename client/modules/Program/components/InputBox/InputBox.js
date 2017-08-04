@@ -20,6 +20,8 @@ import { getCurrentProgram } from '../../ProgramReducer';
 // Import Style
 import styles from './InputBox.css';
 
+import check_img from './green_check.png';
+
 class InputBox extends Component {
   constructor(props) {
     super(props);
@@ -303,9 +305,11 @@ class InputBox extends Component {
 
   buildField(node, field, index) {
     const kind = node.kind;
+    const check_url = this.state.singleChoice === index ? `url(${check_img})` : '';
+
     if (kind === 'Single' || kind === 'YesNo' ) {
         return (
-          <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)}>
+          <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)} style={{ backgroundImage: check_url }}>
             { field.label }
             { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.initialInput} value={this.state.initialInput} onChange={(event) => {this.onInput(event, node)}} /> : null  }
             { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}

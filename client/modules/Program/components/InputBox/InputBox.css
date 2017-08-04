@@ -61,7 +61,6 @@
 
 .answer-container .answer.active {
   background-color: #004a8a;
-  background-image: url('./green_check.png');
   background-repeat: no-repeat;
   background-position: 12px center;
   color: #ffffff;

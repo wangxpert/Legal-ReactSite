@@ -10,6 +10,8 @@ import styles from './Home.css';
 // Import Components
 import Footer from './Footer.js';
 
+import bg from './bg.png';
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className={`${styles.home} wow fadeIn`}>
+      <div className={`${styles.home} wow fadeIn`} style={{ background: `#FFF url(${bg}) repeat` }}>
         <div className={`${styles['main-container']} container wow zoomIn`} data-wow-delay="0.2s" data-wow-duration="0.5s">
           <div className='row'>
             <div className={`${styles['title']} col-xs-12`}>
