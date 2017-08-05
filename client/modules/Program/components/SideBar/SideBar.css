@@ -10,8 +10,7 @@
   color: #fff;
   background-color: #004a8a;
   -webkit-transition: width 0.5s; /* Safari */
-  transition: width 0.5s;
-  z-index: 997;
+  transition: width 0.5s; 
 }
 
 .sidebar.hide {
