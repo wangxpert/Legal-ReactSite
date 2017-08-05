@@ -79,7 +79,7 @@ class Header extends Component {
         </div>
         {this.state.showSubNav && <Navbar />}
       </div>*/
-      <div className={styles.header}>
+      <div className={styles.header} style={{ zIndex: 999 }}>
         <nav className={`navbar ${styles.navbar}`}>
           <div className="container-fluid">
             <div className="navbar-header">
