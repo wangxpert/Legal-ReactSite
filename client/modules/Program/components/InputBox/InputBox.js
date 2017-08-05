@@ -27,7 +27,7 @@ class InputBox extends Component {
     super(props);
 
     this.state = {
-      current: 1,
+      current: 0,
       singleChoice: -1,
       multiChoice: [],
       showNote: false,
@@ -364,7 +364,7 @@ class InputBox extends Component {
           return (
             <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
               { elt }
-              { <i className="fa fa-info-circle" aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][i])} />}
+              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][i])} />}
             </div>
           );
         });
@@ -374,7 +374,7 @@ class InputBox extends Component {
           return (
             <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
               { elt }
-              { <i className="fa fa-info-circle" aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][i])} />}
+              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][i])} />}
             </div>
           );
         });
@@ -403,7 +403,7 @@ class InputBox extends Component {
 
       node = this.props.program.node[this.state.current];
 
-      if (node.kind !== 'Form') {
+      if (node.kind !== 'Form' && node.kind !== 'Action') {
 
         title = this.props.program.description;
 
@@ -417,7 +417,7 @@ class InputBox extends Component {
         description = this.getDescription(node.kind);
 
         if (node.content.note) {
-          eleNote = <i className="fa fa-info-circle pull-right" aria-hidden="true" onClick={(e) => this.openNote(e, node.content.note.title, node.content.note.content)}></i>;
+          eleNote = <i className={`fa fa-info-circle ${styles['note-icon-global']}`} aria-hidden="true" onClick={(e) => this.openNote(e, node.content.note.title, node.content.note.content)}></i>;
         }
 
         lstEle = node.content.fields.map((elt, i) => {

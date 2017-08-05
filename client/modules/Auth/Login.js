@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 
 import styles from './styles.css';
 
 class Login extends Component {
   render() {
     return (
-      <div className={`${styles.page} container-fluid`}>
+      <div className={`${styles.page} container-fluid wow fadeIn`}>
         <div className='row'>
           <div className='col-xs-12'>
             <div className={`${styles.container} row`}>
@@ -39,18 +40,16 @@ class Login extends Component {
 
               <div className={styles['button-container']}>
                 <a href="/api/auth/google" className={`${styles['btn-login']} ${styles['btn']}`}>Login</a>
+                <div className={styles['social-container']}>
+                  <a href="/api/auth/google" className={`${styles['btn-facebook']} ${styles['btn']} pull-left`}><i className="fa fa-facebook"></i> Facebook</a>
+                  <a href="/api/auth/google" className={`${styles['btn-google']} ${styles['btn']} pull-right`}><i className="fa fa-google"></i> Google</a>
+                </div>
+
+                <div style={{marginTop: 20}}><Link className={styles['page-link']} to="/signup">Do not have account? Register</Link></div>
               </div>
-
-
-              <div style={{display: 'inline-block', width: '100%'}}>
-                <a href="/api/auth/google" className={`${styles['btn-facebook']} ${styles['btn']} pull-left`}><i className="fa fa-facebook"></i> Facebook</a>
-                <a href="/api/auth/google" className={`${styles['btn-google']} ${styles['btn']} pull-right`}><i className="fa fa-google"></i> Google</a>
-              </div>
-
-              <div style={{marginTop: 30}}><a className={styles['page-link']}>Do not have account? Register</a></div>
 
               <div className={styles['policy-text']}>
-                By clicking Create Account, you agree to our <br /><a className={styles['link']}>License Agreement</a> and <a className={styles['link']}>Privacy Statement.</a>
+                By clicking Create Account, you agree to our <a className={styles['link']}>License Agreement</a> and <a className={styles['link']}>Privacy Policy.</a>
               </div>
 
             </div>

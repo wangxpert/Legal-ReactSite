@@ -77,7 +77,7 @@ export default (
       }}
     />
     <Route
-      path="/register"
+      path="/signup"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
           cb(null, require('./modules/Auth/Register').default);

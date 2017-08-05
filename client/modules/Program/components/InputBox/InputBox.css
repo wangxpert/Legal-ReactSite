@@ -27,6 +27,26 @@
   width: 720px;
 }
 
+.note-icon {
+  color: #202d42;
+  cursor: pointer;
+}
+
+.note-icon:hover {
+  text-shadow: 0 0px 10px #fff;
+}
+
+.note-icon-global {
+  color: #50d6ff;
+  margin-left: 1.0em;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.note-icon-global:hover {
+  text-shadow: 0 0 6px #50d6ff88;
+}
+
 .main-container .description {
   padding: 6px 1.6em;
   color: #a2a6ac;

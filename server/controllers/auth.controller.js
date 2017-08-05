@@ -20,11 +20,18 @@ export function register(req, res) {
 
   const newUser = new User({
     id: req.body.email,
+
     emails: [
       {
         value: req.body.email
       }
     ],
+
+    name: {
+      familyName: req.body.firstName,
+      givenName: req.body.lastName
+    },
+
     password: req.body.password
   });
 

@@ -1,6 +1,6 @@
 .page {
   margin-top: 82px;
-  padding-top: 100px;
+  padding-top: 60px;
 }
 
 .container {
@@ -31,7 +31,6 @@
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 3px;
-  padding: 0 50px;
 }
 
 .container .link {
@@ -92,8 +91,15 @@
   width: 100%;
   border-bottom: 2px solid #cacfd6;
   margin: 0;
-  padding-bottom: 10px;
+  padding: 20px 0;
   text-align: center;
+}
+
+.social-container {
+  display: inline-block;
+  margin-top: 6px;
+  border-top: 2px solid #cacfd6;
+  width: 100%;
 }
 
 .page-link {
@@ -110,6 +116,7 @@
   font-size: 16px;
   font-weight: 400px;
   margin: 10px 0;
+  margin-bottom: 10px;
   position: static;
 }
 
@@ -123,6 +130,8 @@
   cursor: pointer;
   text-align: center;
   display: inline-block;
+  outline-width: 0;
+  outline: none;
   width: 100%;
 }
 
@@ -151,17 +160,17 @@
 
 .btn-facebook {
   background: #3B5998;
-  width: 48%
+  width: 49%
 }
 
 .btn-google {
   background: #DD4B39;
-  width: 48%;
+  width: 49%;
 }
 
 @media (max-height: 900px) {
   .page {
-    padding-top: 20px;
+    padding-top: 10px;
   }
 }
 

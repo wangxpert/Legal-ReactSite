@@ -18,7 +18,7 @@ export default class NoteDialog extends React.Component {
           <Modal.Title>{this.props.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body bsClass={styles['modal-body']}>
-          <p>{ ReactHtmlParser(this.props.content) }</p>
+          <div>{ ReactHtmlParser(this.props.content) }</div>
         </Modal.Body>
         <Modal.Footer bsClass={styles['modal-footer']}>
           <span style={{float:'left', marginTop: 6}}>Was this helpful?</span>
