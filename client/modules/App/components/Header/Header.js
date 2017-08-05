@@ -79,8 +79,8 @@ class Header extends Component {
         </div>
         {this.state.showSubNav && <Navbar />}
       </div>*/
-      <div className={styles.header} style={{ zIndex: 999 }}>
-        <nav className={`navbar ${styles.navbar}`}>
+      <div className={styles.header}>
+        <nav className={`navbar ${styles.navbar}`} style={{ zIndex: 999 }}>
           <div className="container-fluid">
             <div className="navbar-header">
               <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">

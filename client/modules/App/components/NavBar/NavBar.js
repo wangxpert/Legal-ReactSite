@@ -8,7 +8,7 @@ import styles from './NavBar.css';
 
 export function NavBar(props, context) {
   return (
-    <div className={styles.navbar}>
+    <div className={styles.navbar} style={{ zIndex: 999 }}>
       <div className={styles.nav}>
 
         <div className={styles['nav-item']}>
