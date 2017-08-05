@@ -11,6 +11,7 @@ export function SideBar(props) {
 
   return (
     <div className={`${styles.sidebar} ${props.show ? '' : styles.hide}`}>
+    <div className={styles['content-container']}>
       <div className={styles.content}>
         <div className={styles.block}>
           <div className={styles.title}>
@@ -47,6 +48,7 @@ export function SideBar(props) {
       <div className={styles['hover-icon']} onClick={ props.toggle }>
         <i className={`fa ${arrow}`} aria-hidden="true"></i>
       </div>
+    </div>
     </div>
   );
 }

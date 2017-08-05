@@ -4,6 +4,7 @@
   text-align: center;
   min-height: 600px;
   padding-top: 82px;
+  z-index: 997;
 }
 
 /* footer */
