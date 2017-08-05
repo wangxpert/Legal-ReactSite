@@ -4,6 +4,7 @@ import model from './model';
 // Export Constants
 export const ADD_PROGRAM = 'ADD_PROGRAM';
 export const SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 
 // Export Actions
 export function addProgram(name, program) {
@@ -27,5 +28,11 @@ export function fetchProgram(name) {
       dispatch(addProgram(name, program));
     });*/
     dispatch(addProgram(name, model[name]));
+  }
+}
+
+export function toggleSideBar() {
+  return {
+    type: TOGGLE_SIDEBAR
   }
 }

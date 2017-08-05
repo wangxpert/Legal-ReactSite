@@ -7,13 +7,9 @@
   width: 100%;
   text-align: center;
   padding: 32px 12px;
-  padding-left: 337px;
 }
 
 @media (max-width: 1200px) {
-  .sidebar-container {
-    display: none;
-  }
 
   .inputbox-container {
     width: 100%;

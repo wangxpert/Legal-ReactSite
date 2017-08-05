@@ -1,7 +1,7 @@
-import { ADD_PROGRAM, SET_CURRENT_PROGRAM } from './ProgramActions';
+import { ADD_PROGRAM, SET_CURRENT_PROGRAM, TOGGLE_SIDEBAR } from './ProgramActions';
 
 // Initial State
-const initialState = { programs: {}, current: '' };
+const initialState = { programs: {}, current: '', showSideBar: false };
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -18,6 +18,12 @@ const PostReducer = (state = initialState, action) => {
         ...state,
         current: action.name
       }
+
+    case TOGGLE_SIDEBAR:
+        return {
+          ...state,
+          showSideBar: !state.showSideBar
+        }
 
     default:
       return state;
