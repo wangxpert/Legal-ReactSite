@@ -79,29 +79,29 @@ class Header extends Component {
         </div>
         {this.state.showSubNav && <Navbar />}
       </div>*/
-      <div>
-      <nav className={`navbar ${styles.header}`}>
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">
-              <i className="fa fa-bars" aria-hidden="true"></i>
-            </button>
-            <a className={`navbar-brand ${styles.logo}`} href="/">Legal Maven</a>
-          </div>
-          <div className="collapse navbar-collapse" id="myNavbar">
+      <div className={styles.header}>
+        <nav className={`navbar ${styles.navbar}`}>
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">
+                <i className="fa fa-bars" aria-hidden="true"></i>
+              </button>
+              <a className={`navbar-brand ${styles.logo}`} href="/">Legal Maven</a>
+            </div>
+            <div className="collapse navbar-collapse" id="myNavbar">
 
-            <ul className="nav navbar-nav navbar-right">
-              {!this.state.showSubNav && items.legalTopics}
-              {!this.state.showSubNav && items.legalForms}
-              {!this.state.showSubNav && items.services}
-              {!this.state.showSubNav && items.contact}
-              {this.state.showSubNav && items.search}
-              {items.signIn}
-            </ul>
+              <ul className="nav navbar-nav navbar-right">
+                {!this.state.showSubNav && items.legalTopics}
+                {!this.state.showSubNav && items.legalForms}
+                {!this.state.showSubNav && items.services}
+                {!this.state.showSubNav && items.contact}
+                {this.state.showSubNav && items.search}
+                {items.signIn}
+              </ul>
+            </div>
           </div>
-        </div>
-      </nav>
-      {this.state.showSubNav && <Navbar />}
+        </nav>
+        {this.state.showSubNav && <Navbar />}
       </div>
     );
   }
