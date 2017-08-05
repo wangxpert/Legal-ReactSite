@@ -39,7 +39,6 @@ class Login extends Component {
         <div className='row'>
           <div className='col-xs-12'>
             <div className={`${styles.container} row`}>
-              <a><i className={`fa fa-question-circle ${styles['help-icon']}`} aria-hidden="true"></i></a>
               <div className={styles['title-container']}>
                 <h1 className={styles['title']}>Member Login</h1>
                 <h2 className={styles['description']}>
@@ -52,12 +51,12 @@ class Login extends Component {
               <form className={styles['input-container']}>
                 <div className="form-group">
                   <label htmlFor="email" className={styles['label']}>Email</label>
-                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="Enter Email Address" value={this.state.email} onChange={this.onChangeEmail.bind(this)} />
+                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="" value={this.state.email} onChange={this.onChangeEmail.bind(this)} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="password" className={styles['label']}>Password</label>
-                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="Must be at least 7 characters" value={this.state.password} onChange={this.onChangePassword.bind(this)}  />
+                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="" value={this.state.password} onChange={this.onChangePassword.bind(this)}  />
                   <div className={styles['check-container']}><input type="checkbox" className={`${styles['check']}`} value=""/>
                     &nbsp;Remember me
                   <a className={`pull-right`}>Forgot password?</a>

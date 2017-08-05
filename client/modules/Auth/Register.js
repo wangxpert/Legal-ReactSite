@@ -36,7 +36,7 @@ class Register extends Component {
         <div className='row'>
           <div className='col-xs-12'>
             <div className={`${styles.container} row`}>
-              <a><i className={`fa fa-question-circle ${styles['help-icon']}`} aria-hidden="true"></i></a>
+              { /*<a><i className={`fa fa-question-circle ${styles['help-icon']}`} aria-hidden="true"></i></a>*/ }
               <div className={styles['title-container']}>
                 <h1 className={styles['title']}>Create Account</h1>
                 <h2 className={styles['description']}>
@@ -49,21 +49,21 @@ class Register extends Component {
               <form className={styles['input-container']}>
                 <div className="form-group">
                   <label htmlFor="firstname" className={styles['label']}>First Name</label>
-                  <input type="text" className={`${styles['input']} form-control`} id="firstname" placeholder="Enter First Name" value={this.state.firstName} onChange={e=>this.setState({firstName: e.target.value})} />
+                  <input type="text" className={`${styles['input']} form-control`} id="firstname" placeholder="" value={this.state.firstName} onChange={e=>this.setState({firstName: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="lastname" className={styles['label']}>Last Name</label>
-                  <input type="text" className={`${styles['input']} form-control`} id="lastname" placeholder="Enter Last Name" value={this.state.lastName} onChange={e=>this.setState({lastName: e.target.value})} />
+                  <input type="text" className={`${styles['input']} form-control`} id="lastname" placeholder="" value={this.state.lastName} onChange={e=>this.setState({lastName: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email" className={styles['label']}>Email</label>
-                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="Enter Email Address" value={this.state.email} onChange={e=>this.setState({email: e.target.value})} />
+                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="" value={this.state.email} onChange={e=>this.setState({email: e.target.value})} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="password" className={styles['label']}>Password</label>
-                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="Must be at least 7 characters" value={this.state.password} onChange={e=>this.setState({password: e.target.value})} />
-                  <input type="password" className={`${styles['input']} form-control`} id="repassword" placeholder="Confirm Password" style={{ marginTop: 6 }} value={this.state.rePassword} onChange={e=>this.setState({rePassword: e.target.value})} />
+                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="" value={this.state.password} onChange={e=>this.setState({password: e.target.value})} />
+                  <input type="password" className={`${styles['input']} form-control`} id="repassword" placeholder="" style={{ marginTop: 6 }} value={this.state.rePassword} onChange={e=>this.setState({rePassword: e.target.value})} />
                 </div>
 
               </form>
