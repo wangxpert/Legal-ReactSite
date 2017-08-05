@@ -1,6 +1,7 @@
 .program {
   min-width: 900px;
   padding-top: 150px;
+  z-index: 997;
 }
 
 .inputbox-container {
