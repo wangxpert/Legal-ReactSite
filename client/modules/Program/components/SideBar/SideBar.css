@@ -1,6 +1,6 @@
 .sidebar {
   display: inline-block;
-  position: fixed;
+  position: absolute;
   width: 325px;
   margin: 0;
   bottom: 0;
@@ -10,7 +10,7 @@
   color: #fff;
   background-color: #004a8a;
   -webkit-transition: width 0.5s; /* Safari */
-  transition: width 0.5s; 
+  transition: width 0.5s;
 }
 
 .sidebar.hide {

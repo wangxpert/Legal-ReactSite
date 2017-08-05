@@ -1,9 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import styles from './styles.css';
 
+import { registerRequest } from './AuthActions.js';
+
 class Register extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      rePassword: ''
+    }
+  }
+
+  register() {
+    this.props.dispatch(registerRequest({
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      password: this.state.password
+    }));
+  }
+
   render() {
     return (
       <div className={`${styles.page} container-fluid wow fadeIn`}>
@@ -23,27 +49,27 @@ class Register extends Component {
               <form className={styles['input-container']}>
                 <div className="form-group">
                   <label htmlFor="firstname" className={styles['label']}>First Name</label>
-                  <input type="text" className={`${styles['input']} form-control`} id="firstname" placeholder="Enter First Name" required />
+                  <input type="text" className={`${styles['input']} form-control`} id="firstname" placeholder="Enter First Name" value={this.state.firstName} onChange={e=>this.setState({firstName: e.target.value})} />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="lastname" className={styles['label']}>Email</label>
-                  <input type="text" className={`${styles['input']} form-control`} id="lastname" placeholder="Enter Last Name" required />
+                  <label htmlFor="lastname" className={styles['label']}>Last Name</label>
+                  <input type="text" className={`${styles['input']} form-control`} id="lastname" placeholder="Enter Last Name" value={this.state.lastName} onChange={e=>this.setState({lastName: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label htmlFor="email" className={styles['label']}>Email</label>
-                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="Enter Email Address" required />
+                  <input type="email" className={`${styles['input']} form-control`} id="email" placeholder="Enter Email Address" value={this.state.email} onChange={e=>this.setState({email: e.target.value})} />
                 </div>
 
                 <div className="form-group">
                   <label htmlFor="password" className={styles['label']}>Password</label>
-                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="Must be at least 7 characters" />
-                  <input type="password" className={`${styles['input']} form-control`} id="repassword" placeholder="Confirm Password" style={{ marginTop: 6 }} />
+                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="Must be at least 7 characters" value={this.state.password} onChange={e=>this.setState({password: e.target.value})} />
+                  <input type="password" className={`${styles['input']} form-control`} id="repassword" placeholder="Confirm Password" style={{ marginTop: 6 }} value={this.state.rePassword} onChange={e=>this.setState({rePassword: e.target.value})} />
                 </div>
 
               </form>
 
               <div className={styles['button-container']}>
-                <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={()=>{alert('book')}}>Create Account</a>
+                <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.register.bind(this)}>Create Account</a>
 
                 <div style={{marginTop: 20}}><Link className={styles['page-link']} to={'/signin'}>Already have an account? Sign in</Link></div>
               </div>
@@ -60,4 +86,15 @@ class Register extends Component {
   }
 }
 
-export default Register;
+// Retrieve data from store as props
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+Register.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps)(Register);

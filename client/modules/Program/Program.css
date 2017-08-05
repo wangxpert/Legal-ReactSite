@@ -7,10 +7,12 @@
   width: 100%;
   text-align: center;
   padding: 32px 12px;
-
+  -webkit-transition: padding 0.5s; /* Safari */
+  transition: padding 0.5s;
 }
 
 .sidebar-container {
+
 }
 
 .sidebar-container * {
@@ -22,7 +24,5 @@
   .inputbox-container {
     width: 100%;
     text-align: center;
-    padding: 32px 12px;
-    padding-left: 12px;
   }
 }

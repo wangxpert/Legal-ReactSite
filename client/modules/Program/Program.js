@@ -25,6 +25,13 @@ class Program extends Component {
   }
 
   render() {
+    var paddingLeft = 12;
+    var minWidth = 900;
+    if ( this.props.state.showSideBar ) {
+      paddingLeft += 325;
+      minWidth += 325;
+    }
+
     var inputBox = null;
     if (!this.context.router.isActive('/', true)) {
       inputBox = (
@@ -33,11 +40,11 @@ class Program extends Component {
     }
 
     return (
-      <div className={`${styles.program} wow fadeIn`}>
+      <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>
         <div className={styles['sidebar-container']}>
           <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } />
         </div>
-        <div className={`${styles['inputbox-container']}`}>
+        <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
           { inputBox }
         </div>
       </div>
