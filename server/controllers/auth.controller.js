@@ -28,8 +28,8 @@ export function register(req, res) {
     ],
 
     name: {
-      familyName: req.body.firstName,
-      givenName: req.body.lastName
+      familyName: req.body.lastName,
+      givenName: req.body.firstName
     },
 
     password: req.body.password
@@ -39,7 +39,7 @@ export function register(req, res) {
     .then( user => res.status(201).json({ status: 201, message: 'User Registered Successfully !', user: user }) )
     .catch( err => {
       if (err.code == 11000) {
-        res.status(409).json({ status: 409, message: 'The User Already Registerd !' });
+        res.status(409).json({ status: 409, message: 'The User Already Registered !' });
       } else {
         res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
       }

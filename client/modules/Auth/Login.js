@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import validator from 'validator';
+import Notifications from 'react-notification-system-redux';
+
 import styles from './styles.css';
 
 import { loginRequest } from './AuthActions.js';
@@ -15,9 +18,57 @@ class Login extends Component {
       email: '',
       password: ''
     }
+
+    this.vMessage = {
+      empty: {
+        title: 'Validation Error',
+        message: 'Please input all fields.',
+        position: 'br',
+        autoDismiss: 3
+      },
+      email: {
+        title: 'Validation Error',
+        message: 'Please enter correct email... !',
+        position: 'br',
+        autoDismiss: 3
+      },
+      password: {
+        title: 'Validation Error',
+        message: 'Password length must be greater than 6.',
+        position: 'br',
+        autoDismiss: 3
+      }
+    };
+  }
+
+  validation() {
+    if (this.state.email === '' || this.state.password === '') {
+      this.props.dispatch(
+        Notifications.error(this.vMessage.empty)
+      );
+      return false;
+    }
+
+    if (!validator.isEmail(this.state.email)) {
+      this.props.dispatch(
+        Notifications.error(this.vMessage.email)
+      );
+      return false;
+    }
+
+    if (this.state.password.length < 7) {
+      this.props.dispatch(
+        Notifications.error(this.vMessage.password)
+      );
+      return false;
+    }
+
+    return true;
   }
 
   login() {
+    if (!this.validation()) return;
+
     if (this.props.auth.isLogging) return;
     this.props.dispatch(loginRequest({
       email: this.state.email,

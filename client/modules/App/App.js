@@ -14,6 +14,8 @@ import Footer from './components/Footer/Footer';
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
 
+import Notifications from 'react-notification-system-redux';
+
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +31,21 @@ export class App extends Component {
   };
 
   render() {
+    const { notifications } = this.props;
+
+    //Optional styling
+    const style = {
+      NotificationItem: { // Override the notification item
+        DefaultStyle: { // Applied to every notification, regardless of the notification level
+          margin: '10px 5px 2px 1px'
+        },
+
+        success: { // Applied only to the success notification item
+
+        }
+      }
+    };
+
     return (
       <div>
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development'}
@@ -51,6 +68,12 @@ export class App extends Component {
           <Header location={this.props.location}/>
           <div className={styles.container}>
             {this.props.children}
+
+              <Notifications
+                notifications={notifications}
+                style={style}
+              />
+
           </div>
         </div>
       </div>
@@ -62,12 +85,14 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
+  notifications: PropTypes.array
 };
 
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
     intl: store.intl,
+    notifications: store.notifications
   };
 }
 

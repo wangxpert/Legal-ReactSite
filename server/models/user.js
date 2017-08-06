@@ -10,7 +10,7 @@ const userSchema = new Schema({
 
   id: {
     type: String,
-    unique: true
+    index: { unique: true }
   },
 
   displayName: {

@@ -56,12 +56,15 @@
     "react-helmet": "^3.1.0",
     "react-html-parser": "^1.0.3",
     "react-intl": "^2.1.2",
+    "react-notification-system": "^0.2.15",
+    "react-notification-system-redux": "^1.1.4",
     "react-notifications": "^1.4.3",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-    "sanitize-html": "^1.11.4"
+    "sanitize-html": "^1.11.4",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "ava": "^0.15.2",
