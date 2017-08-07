@@ -3,27 +3,27 @@
   background: #fff;
   height: 100vh;
   color: #202d42;
-  padding-top: 82px;
+  padding-top: 82rem;
 }
 
 .search-box-container {
   width: 100vw;
   background: #d3dae4;
-  padding: 15px;
+  padding: 15rem;
 }
 
 .title-container {
-  padding: 30px;
+  padding: 30rem;
   text-align: center;
 }
 
 .main-title {
   display: inline-block;
-  font-size: 32px;
+  font-size: 32rem;
   font-weight: 700;
   text-align: center;
-  padding: 15px 50px;
-  border-bottom: 3px solid #cacfd6;
+  padding: 15rem 50rem;
+  border-bottom: 3rem solid #cacfd6;
 }
 
 .main-container {
@@ -31,23 +31,23 @@
 }
 
 .main-container .category {
-  margin: 10px 0;
+  margin: 10rem 0;
 }
 
 .category .category-title {
   display: inline-block;
-  font-size: 30px;
+  font-size: 30rem;
   font-weight: 700;
-  border-bottom: 5px solid #02b2fb;
-  padding: 10px 20px 10px 0;
-  margin: 10px 0 10px 0;
+  border-bottom: 5rem solid #02b2fb;
+  padding: 10rem 20rem 10rem 0;
+  margin: 10rem 0 10rem 0;
 }
 
 .category .item {
   display: block;
-  font-size: 24px;
+  font-size: 24rem;
   font-weight: 500;
-  padding: 5px 0;
+  padding: 5rem 0;
   color: #202d42;
   text-decoration: none;
   cursor: pointer;

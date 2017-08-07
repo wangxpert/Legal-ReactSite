@@ -37,7 +37,7 @@ export class App extends Component {
     const style = {
       NotificationItem: { // Override the notification item
         DefaultStyle: { // Applied to every notification, regardless of the notification level
-          margin: '10px 5px 2px 1px'
+          margin: '10rem 5rem 2rem 1rem'
         },
 
         success: { // Applied only to the success notification item

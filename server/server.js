@@ -143,7 +143,7 @@ const renderFullPage = (html, initialState) => {
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
 
         <style>
-        @media (max-width: 1100px) {
+        @media (max-width: 991px) {
             .navbar-header {
                 float: none;
             }

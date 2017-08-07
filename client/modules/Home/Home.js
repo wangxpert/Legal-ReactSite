@@ -29,7 +29,7 @@ class Home extends Component {
               Get to the right answer. Faster.
             </div>
 
-            <div className={`${styles['search-box-container']} col-sm-push-2 col-sm-8 col-xs-push-1 col-xs-10`}>
+            <div className={`${styles['search-box-container']} col-md-push-3 col-md-6 col-sm-push-2 col-sm-8 col-xs-push-1 col-xs-10`}>
               <input type="text" className={styles['search-box']} placeholder="How may we help you today?" />
               <i className={`fa fa-search ${styles['search-icon']}`} aria-hidden="true"></i>
             </div>

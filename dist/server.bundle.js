@@ -505,7 +505,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(103);
+	var _isomorphicFetch = __webpack_require__(104);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
@@ -682,17 +682,17 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _intl = __webpack_require__(100);
+	var _intl = __webpack_require__(101);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(101);
+	var _intlLocalesSupported = __webpack_require__(102);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(102);
+	__webpack_require__(103);
 	
-	var _en = __webpack_require__(111);
+	var _en = __webpack_require__(112);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
@@ -874,13 +874,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(112);
+	var _reduxDevtools = __webpack_require__(113);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(114);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(115);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(113);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(114);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -926,13 +926,15 @@
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(109);
+	var _reactFacebookLogin = __webpack_require__(110);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(110);
+	var _reactGoogleLogin = __webpack_require__(111);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
+	
+	var _betterReactSpinkit = __webpack_require__(99);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -974,7 +976,12 @@
 	
 	var _ref = _jsx('strong', {}, void 0, 'Welcome back! ');
 	
-	var _ref2 = _jsx('i', {
+	var _ref2 = _jsx(_betterReactSpinkit.ThreeBounce, {
+	  size: 15,
+	  color: 'white'
+	});
+	
+	var _ref3 = _jsx('i', {
 	  className: 'fa fa-google'
 	});
 	
@@ -1072,6 +1079,8 @@
 	        return;
 	      }
 	
+	      if (this.props.auth.isLogging) return;
+	
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('google', {
 	        id: response.googleId,
 	        givenName: response.profileObj.givenName,
@@ -1094,7 +1103,7 @@
 	        className: _styles2.default['title-container']
 	      }, void 0, _jsx('h1', {
 	        className: _styles2.default['title']
-	      }, void 0, 'Log In'), _jsx('h2', {
+	      }, void 0, 'Sign In'), _jsx('h2', {
 	        className: _styles2.default['description']
 	      }, void 0, _ref, 'Please sign in to access and review your account.')), _jsx('form', {
 	        className: _styles2.default['input-container']
@@ -1136,7 +1145,7 @@
 	        href: 'javascript:void(0)',
 	        className: _styles2.default['btn-login'] + ' ' + _styles2.default['btn'],
 	        onClick: this.login.bind(this)
-	      }, void 0, this.props.auth.isLogging ? '' : 'Log in'), _jsx('div', {
+	      }, void 0, this.props.auth.isLogging ? _ref2 : 'Sign in'), !this.props.auth.isLogging && _jsx('div', {
 	        className: _styles2.default['social-container']
 	      }, void 0, _jsx(_reactFacebookLogin2.default, {
 	        appId: '128968304375975',
@@ -1153,7 +1162,7 @@
 	        className: _styles2.default['btn-google'] + ' ' + _styles2.default['btn'] + ' pull-right',
 	        onSuccess: this.googleLogin.bind(this),
 	        onFailure: this.googleLogin.bind(this)
-	      }, void 0, _ref2, 'Google')), _jsx('div', {
+	      }, void 0, _ref3, 'Google')), _jsx('div', {
 	        style: { marginTop: 20 }
 	      }, void 0, _jsx(_reactRouter.Link, {
 	        className: _styles2.default['page-link'],
@@ -1410,14 +1419,14 @@
 	        type: 'password',
 	        className: _styles2.default['input'] + ' form-control',
 	        id: 'password',
-	        placeholder: '',
+	        placeholder: 'Must be at least 7 characters',
 	        value: this.state.password,
 	        onChange: this.onChange.bind(this)
 	      }), _jsx('input', {
 	        type: 'password',
 	        className: _styles2.default['input'] + ' form-control',
 	        id: 'rePassword',
-	        placeholder: '',
+	        placeholder: 'Confirm password',
 	        style: { marginTop: 6 },
 	        value: this.state.rePassword,
 	        onChange: this.onChange.bind(this)
@@ -1550,7 +1559,7 @@
 	      }, void 0, 'Legal Maven'), _jsx('div', {
 	        className: _Home2.default['description'] + ' col-xs-12'
 	      }, void 0, 'Get to the right answer. Faster.'), _jsx('div', {
-	        className: _Home2.default['search-box-container'] + ' col-sm-push-2 col-sm-8 col-xs-push-1 col-xs-10'
+	        className: _Home2.default['search-box-container'] + ' col-md-push-3 col-md-6 col-sm-push-2 col-sm-8 col-xs-push-1 col-xs-10'
 	      }, void 0, _jsx('input', {
 	        type: 'text',
 	        className: _Home2.default['search-box'],
@@ -2408,7 +2417,7 @@
 	
 	var _redux = __webpack_require__(33);
 	
-	var _reduxThunk = __webpack_require__(115);
+	var _reduxThunk = __webpack_require__(116);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -2655,9 +2664,9 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(17);
-	var cssnext = __webpack_require__(105);
-	var postcssFocus = __webpack_require__(106);
-	var postcssReporter = __webpack_require__(107);
+	var cssnext = __webpack_require__(106);
+	var postcssFocus = __webpack_require__(107);
+	var postcssReporter = __webpack_require__(108);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -2916,7 +2925,7 @@
 	      var style = {
 	        NotificationItem: { // Override the notification item
 	          DefaultStyle: { // Applied to every notification, regardless of the notification level
-	            margin: '10px 5px 2px 1px'
+	            margin: '10rem 5rem 2rem 1rem'
 	          },
 	
 	          success: {// Applied only to the success notification item
@@ -3096,6 +3105,9 @@
 	  "nav-item": "_1Ku52NhsgU-a4xvFlv3f_o",
 	  "navbar-toggle": "_1HU_4Z5TtN69fVUjB_Sq2L",
 	  "icon": "_3tIvuM0J0LUnGEyiyq4ofL",
+	  "circular-border": "_3i1SG3fLSwrAieVBUV6CTu",
+	  "signin": "aUFVwBhybvm5kKfskFs8i",
+	  "signup": "_11msVEXcr_aXstnJ66x20T",
 	  "dropdown": "_3-5-TWSoP6e9_LppIBTwlk",
 	  "section": "_38LtvyCSPSIl57o4tje_oV",
 	  "section-title": "_3uLUOCcG4NqgMGWmLv6AEt"
@@ -3136,24 +3148,32 @@
 	  className: 'fa fa-search'
 	}), ' \xA0Search'));
 	
-	var _ref6 = _jsx('i', {
+	var _ref6 = _jsx(_reactRouter.Link, {
+	  to: '/signin'
+	}, void 0, 'Sign In');
+	
+	var _ref7 = _jsx(_reactRouter.Link, {
+	  to: '/signup'
+	}, void 0, 'Sign Up');
+	
+	var _ref8 = _jsx('i', {
 	  className: 'fa fa-caret-down'
 	});
 	
-	var _ref7 = _jsx('li', {}, void 0, _jsx('a', {
+	var _ref9 = _jsx('li', {}, void 0, _jsx('a', {
 	  href: ''
 	}, void 0, 'Account'));
 	
-	var _ref8 = _jsx('li', {}, void 0, _jsx('a', {
+	var _ref10 = _jsx('li', {}, void 0, _jsx('a', {
 	  href: ''
 	}, void 0, 'Sign Out'));
 	
-	var _ref9 = _jsx('i', {
+	var _ref11 = _jsx('i', {
 	  className: 'fa fa-bars',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref10 = _jsx(_NavBar2.default, {});
+	var _ref12 = _jsx(_NavBar2.default, {});
 	
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
@@ -3199,21 +3219,20 @@
 	          className: _Header2.default['nav-item']
 	        }, void 0, _ref5),
 	        signIn: _jsx('li', {
-	          className: _Header2.default['nav-item']
-	        }, void 0, _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
-	          to: '/signin'
-	        }, void 0, _jsx('i', {
-	          className: 'fa fa-user'
-	        }), ' \xA0Sign In \xA0'))),
+	          className: _Header2.default['nav-item'] + ' ' + _Header2.default['circular-border'] + ' ' + _Header2.default['signin']
+	        }, void 0, _ref6),
+	        signUp: _jsx('li', {
+	          className: _Header2.default['nav-item'] + ' ' + _Header2.default['circular-border'] + ' ' + _Header2.default['signup']
+	        }, void 0, _ref7),
 	        account: _jsx('li', {
 	          className: _Header2.default['nav-item']
-	        }, void 0, _jsx('a', {
+	        }, void 0, _jsx('div', {}, void 0, _jsx('a', {
 	          href: ''
 	        }, void 0, _jsx('i', {
 	          className: 'fa fa-user ' + _Header2.default['icon']
-	        }), ' \xA0Account ', _ref6), _jsx('ul', {
+	        }), ' \xA0Account ', _ref8)), _jsx('ul', {
 	          className: _Header2.default['dropdown']
-	        }, void 0, _ref7, _ref8)),
+	        }, void 0, _ref9, _ref10)),
 	        setting: _jsx('li', {
 	          className: _Header2.default['nav-item']
 	        }, void 0, _jsx('a', {}, void 0, _jsx('i', {
@@ -3250,7 +3269,7 @@
 	          className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
 	          'data-toggle': 'collapse',
 	          'data-target': '#myNavbar'
-	        }, void 0, _ref9), _jsx('a', {
+	        }, void 0, _ref11), _jsx('a', {
 	          className: 'navbar-brand ' + _Header2.default.logo,
 	          href: '/'
 	        }, void 0, 'Legal Maven')), _jsx('div', {
@@ -3258,7 +3277,7 @@
 	          id: 'myNavbar'
 	        }, void 0, _jsx('ul', {
 	          className: 'nav navbar-nav navbar-right'
-	        }, void 0, !this.state.showSubNav && items.legalTopics, !this.state.showSubNav && items.legalForms, !this.state.showSubNav && items.services, !this.state.showSubNav && items.contact, this.state.showSubNav && items.search, items.signIn)))), this.state.showSubNav && _ref10)
+	        }, void 0, !this.state.showSubNav && items.legalTopics, !this.state.showSubNav && items.legalForms, !this.state.showSubNav && items.services, !this.state.showSubNav && items.contact, this.state.showSubNav && items.search, items.signIn, items.signUp)))), this.state.showSubNav && _ref12)
 	      );
 	    }
 	  }]);
@@ -3454,27 +3473,27 @@
 	    className: _Home2.default['service-title']
 	  }, void 0, 'Legal Mavens'), _jsx('div', {
 	    className: _Home2.default['service-text']
-	  }, void 0, 'Our Mavens are specialized attorneys who can answer your specific legal questions and concerns.', _ref2, ' Have a question? \xA0', _ref3))), _jsx('div', {
+	  }, void 0, 'Our Mavens are specialized attorneys who can answer your specific legal questions and concerns.', _ref2, ' Have a question?', _ref3, _ref4, '.'))), _jsx('div', {
 	    className: 'col-sm-4 col-xs-12'
 	  }, void 0, _jsx('div', {
 	    className: _Home2.default['service-box']
 	  }, void 0, _jsx('div', {
 	    className: _Home2.default['service-icon']
-	  }, void 0, _ref4), _jsx('div', {
+	  }, void 0, _ref5), _jsx('div', {
 	    className: _Home2.default['service-title']
 	  }, void 0, 'Transfer Tax Made Easy'), _jsx('div', {
 	    className: _Home2.default['service-text']
-	  }, void 0, 'Conducting a deed or entity transfer? Figure out whether your transaction qualifies for an exemption, or how much tax you may owe. \xA0', _ref5, '.'))), _jsx('div', {
+	  }, void 0, 'Conducting a deed or entity transfer? Figure out whether your transaction qualifies for an exemption, or how much tax you may owe.', _ref6, _ref7, '.'))), _jsx('div', {
 	    className: 'col-sm-4 col-xs-12'
 	  }, void 0, _jsx('div', {
 	    className: _Home2.default['service-box']
 	  }, void 0, _jsx('div', {
 	    className: _Home2.default['service-icon']
-	  }, void 0, _ref6), _jsx('div', {
+	  }, void 0, _ref8), _jsx('div', {
 	    className: _Home2.default['service-title']
 	  }, void 0, 'Start-Ups'), _jsx('div', {
 	    className: _Home2.default['service-text']
-	  }, void 0, 'Decide what type of entity is right for your business, obtain formation paperwork, and get answers to important legal questions relating to your business. \xA0', _ref7, '.'))))));
+	  }, void 0, 'Decide what type of entity is right for your business, obtain formation paperwork, and get answers to important legal questions relating to your business.', _ref9, _ref10, '.'))))));
 	};
 	
 	var _react = __webpack_require__(0);
@@ -3519,21 +3538,27 @@
 	
 	var _ref2 = _jsx('br', {});
 	
-	var _ref3 = _jsx('a', {}, void 0, 'Consult an expert now');
+	var _ref3 = _jsx('br', {});
 	
-	var _ref4 = _jsx('i', {
+	var _ref4 = _jsx('a', {}, void 0, 'Consult an expert now');
+	
+	var _ref5 = _jsx('i', {
 	  className: 'fa fa-exchange',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref5 = _jsx('a', {}, void 0, 'Calculate now');
+	var _ref6 = _jsx('br', {});
 	
-	var _ref6 = _jsx('i', {
+	var _ref7 = _jsx('a', {}, void 0, 'Calculate now');
+	
+	var _ref8 = _jsx('i', {
 	  className: 'fa fa-building-o',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref7 = _jsx('a', {}, void 0, 'Get started now');
+	var _ref9 = _jsx('br', {});
+	
+	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
 /* 62 */
@@ -4979,7 +5004,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(108);
+	var _reactBootstrap = __webpack_require__(109);
 	
 	var _reactHtmlParser = __webpack_require__(32);
 	
@@ -6664,15 +6689,15 @@
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _cuid = __webpack_require__(99);
+	var _cuid = __webpack_require__(100);
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(104);
+	var _limax = __webpack_require__(105);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(116);
+	var _sanitizeHtml = __webpack_require__(117);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -8136,7 +8161,7 @@
 	  var assetsManifest = process.env.webpackAssets && JSON.parse(process.env.webpackAssets);
 	  var chunkManifest = process.env.webpackChunkAssets && JSON.parse(process.env.webpackChunkAssets);
 	
-	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        <link href=\'https://fonts.googleapis.com/css?family=Roboto:500,400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />\n\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />\n        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>\n        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>\n\n        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">\n\n        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n\n        <style>\n        @media (max-width: 1100px) {\n            .navbar-header {\n                float: none;\n            }\n            .navbar-toggle {\n                display: block;\n            }\n            .navbar-collapse {\n                border-top: 1px solid transparent;\n                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);\n            }\n            .navbar-collapse.collapse {\n                display: none!important;\n            }\n            .navbar-nav {\n                float: none!important;\n                margin: 7.5px -15px;\n            }\n            .navbar-nav>li {\n                float: none;\n            }\n            .navbar-nav>li>a {\n                padding-top: 10px;\n                padding-bottom: 10px;\n            }\n            .navbar-text {\n                float: none;\n                margin: 15px 0;\n            }\n            /* since 3.1.0 */\n            .navbar-collapse.collapse.in {\n                display: block!important;\n            }\n            .collapsing {\n                overflow: hidden!important;\n            }\n        }\n        </style>\n      </head>\n      <body>\n        <div id="root">' + (process.env.NODE_ENV === 'production' ? html : '<div>' + html + '</div>') + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>\n        <script>\n          new WOW().init();\n        </script>\n      </body>\n    </html>\n  ';
+	  return '\n    <!doctype html>\n    <html>\n      <head>\n        ' + head.title.toString() + '\n        ' + head.meta.toString() + '\n        ' + head.link.toString() + '\n        ' + head.script.toString() + '\n\n        <link href=\'https://fonts.googleapis.com/css?family=Roboto:500,400,300,700\' rel=\'stylesheet\' type=\'text/css\'/>\n        <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />\n\n        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />\n        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>\n        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>\n\n        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">\n\n        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />\n        ' + (process.env.NODE_ENV === 'production' ? '<link rel=\'stylesheet\' href=\'' + assetsManifest['/app.css'] + '\' />' : '') + '\n\n        <style>\n        @media (max-width: 991px) {\n            .navbar-header {\n                float: none;\n            }\n            .navbar-toggle {\n                display: block;\n            }\n            .navbar-collapse {\n                border-top: 1px solid transparent;\n                box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);\n            }\n            .navbar-collapse.collapse {\n                display: none!important;\n            }\n            .navbar-nav {\n                float: none!important;\n                margin: 7.5px -15px;\n            }\n            .navbar-nav>li {\n                float: none;\n            }\n            .navbar-nav>li>a {\n                padding-top: 10px;\n                padding-bottom: 10px;\n            }\n            .navbar-text {\n                float: none;\n                margin: 15px 0;\n            }\n            /* since 3.1.0 */\n            .navbar-collapse.collapse.in {\n                display: block!important;\n            }\n            .collapsing {\n                overflow: hidden!important;\n            }\n        }\n        </style>\n      </head>\n      <body>\n        <div id="root">' + (process.env.NODE_ENV === 'production' ? html : '<div>' + html + '</div>') + '</div>\n        <script>\n          window.__INITIAL_STATE__ = ' + JSON.stringify(initialState) + ';\n          ' + (process.env.NODE_ENV === 'production' ? '//<![CDATA[\n          window.webpackManifest = ' + JSON.stringify(chunkManifest) + ';\n          //]]>' : '') + '\n        </script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/vendor.js'] : '/vendor.js') + '\'></script>\n        <script src=\'' + (process.env.NODE_ENV === 'production' ? assetsManifest['/app.js'] : '/app.js') + '\'></script>\n        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>\n        <script>\n          new WOW().init();\n        </script>\n      </body>\n    </html>\n  ';
 	};
 	
 	var renderError = function renderError(err) {
@@ -8220,106 +8245,112 @@
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = require("cuid");
+	module.exports = require("better-react-spinkit");
 
 /***/ },
 /* 100 */
 /***/ function(module, exports) {
 
-	module.exports = require("intl");
+	module.exports = require("cuid");
 
 /***/ },
 /* 101 */
 /***/ function(module, exports) {
 
-	module.exports = require("intl-locales-supported");
+	module.exports = require("intl");
 
 /***/ },
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = require("intl/locale-data/jsonp/en");
+	module.exports = require("intl-locales-supported");
 
 /***/ },
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = require("isomorphic-fetch");
+	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
 /* 104 */
 /***/ function(module, exports) {
 
-	module.exports = require("limax");
+	module.exports = require("isomorphic-fetch");
 
 /***/ },
 /* 105 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("limax");
 
 /***/ },
 /* 106 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 107 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-bootstrap");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 109 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-facebook-login");
+	module.exports = require("react-bootstrap");
 
 /***/ },
 /* 110 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-login");
+	module.exports = require("react-facebook-login");
 
 /***/ },
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-intl/locale-data/en");
+	module.exports = require("react-google-login");
 
 /***/ },
 /* 112 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 116 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 117 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");

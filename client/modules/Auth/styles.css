@@ -1,14 +1,14 @@
 .page {
-  margin-top: 82px;
-  padding-top: 60px;
+  margin-top: 82rem;
+  padding-top: 10vh;
 }
 
 .container {
   background: white;
-  box-shadow: 0 0 6px rgb(0, 0, 0, .1);
-  max-width: 500px;
-  margin: 36px auto;
-  padding: 20px 50px;
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  max-width: 500rem;
+  margin: 36rem auto;
+  padding: 20rem 50rem;
   text-align: center;
   position: relative;
   color: #555;
@@ -24,15 +24,15 @@
 }
 
 .title-container .title {
-  font-size: 36px;
+  font-size: 36rem;
   font-weight: 700;
-  padding: 10px 0;
+  padding: 10rem 0;
 }
 
 .title-container .description {
-  font-size: 20px;
+  font-size: 20rem;
   font-weight: 400;
-  margin-bottom: 3px;
+  margin-bottom: 3rem;
 }
 
 .container .link {
@@ -42,33 +42,33 @@
 
 .container .help-icon {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 30px;
+  top: 20rem;
+  right: 20rem;
+  font-size: 30rem;
   color: #02b2fb;
 }
 
 .input-container {
-  padding: 30px 0 0 0;
+  padding: 30rem 0 0 0;
   text-align: left;
 }
 
 .label {
   color: #666;
-  font-size: 20px;
+  font-size: 20rem;
   font-weight: 500;
 }
 
 .input {
-  border: 1px solid #cacfd6;
-  border-radius: 5px;
-  font-size: 18px;
+  border: 1rem solid #cacfd6;
+  border-radius: 5rem;
+  font-size: 18rem;
   font-weight: 500;
-  padding: 20px;
+  padding: 20rem;
 }
 
 .input::placeholder {
-  font-size: 16px;
+  font-size: 16rem;
   font-weight: 400;
 
 }
@@ -83,49 +83,49 @@
 }
 
 .check-container {
-  padding-top: 9px;
-  padding-bottom: 0px;
+  padding-top: 9rem;
+  padding-bottom: 0rem;
   color: #cacfd6;
 }
 
 .button-container {
   display: inline-block;
   width: 100%;
-  border-bottom: 2px solid #cacfd6;
+  border-bottom: 2rem solid #cacfd6;
   margin: 0;
-  padding: 20px 0;
+  padding: 20rem 0;
   text-align: center;
 }
 
 .social-container {
   display: inline-block;
-  margin-top: 6px;
-  border-top: 2px solid #cacfd6;
+  margin-top: 6rem;
+  border-top: 2rem solid #cacfd6;
   width: 100%;
 }
 
 .page-link {
   display: inline-block;
   color: #02b2fb;
-  font-size: 18px;
+  font-size: 18rem;
   font-weight: 300;
-  padding-bottom: 5px
+  padding-bottom: 5rem;
 }
 
 .policy-text {
   display: inline-block;
   color: #808080;
-  font-size: 16px;
-  font-weight: 400px;
-  margin: 10px 0;
-  margin-bottom: 10px;
+  font-size: 16rem;
+  font-weight: 400rem;
+  margin: 10rem 0;
+  margin-bottom: 10rem;
   position: static;
 }
 
 
 .btn {
-  padding: 12px 20px;
-  margin-top: 6px;
+  padding: 12rem 20rem;
+  margin-top: 6rem;
   background: #02b2fb;
   color: #fff;
   text-decoration: none;
@@ -157,7 +157,7 @@
 }
 
 .btn-login {
-  font-size: 20px;
+  font-size: 20rem;
 }
 
 .btn-facebook {
@@ -178,12 +178,12 @@
 
 @media (max-height: 900px) {
   .page {
-    padding-top: 10px;
+    padding-top: 3vh;
   }
 }
 
 @media (max-width: 500px) {
   .container {
-    padding: 20px 20px;
+    padding: 20rem 20rem;
   }
 }

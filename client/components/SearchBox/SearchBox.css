@@ -1,7 +1,7 @@
 .search-box-container {
   margin: 0 auto;
-  height: 40px;
-  line-height: 40px;
+  height: 40rem;
+  line-height: 40rem;
   text-align: center;
   position: relative;
   width: 100%;
@@ -10,21 +10,21 @@
 .search-box-container .search-icon {
   display: inline-block;
   color: #1278c1;
-  font-size: 20px;
+  font-size: 20rem;
   font-weight: 500;
-  padding: 10px 10px;
+  padding: 10rem 10rem;
   vertical-align: middle;
   position: absolute;
-  left: 10px;
+  left: 10rem;
 }
 
 .search-box-container .search-box {
-  height: 40px;
-  padding: 5px 50px;
-  font-size: 20px;
+  height: 40rem;
+  padding: 5rem 50rem;
+  font-size: 20rem;
   font-weight: 500;
-  border: 0px solid #d3dae4;
-  border-radius: 10px;
+  border: 0rem solid #d3dae4;
+  border-radius: 10rem;
   text-align: left;
   outline: none;
   width: 100%;
@@ -32,7 +32,7 @@
 }
 
 .search-box::placeholder {
-  font-size: 20px;
+  font-size: 20rem;
   font-weight: 500;
   text-transform: uppercase;
 }

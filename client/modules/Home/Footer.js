@@ -24,7 +24,7 @@ export default function(props) {
               </div>
               <div className={styles['service-text']}>
                 Our Mavens are specialized attorneys who can answer your specific legal questions and concerns.
-                <br /> Have a question? &nbsp;<a>Consult an expert now</a>.
+                <br /> Have a question?<br /><a>Consult an expert now</a>.
               </div>
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function(props) {
               </div>
               <div className={styles['service-text']}>
               Conducting a deed or entity transfer? Figure out whether your transaction qualifies for an exemption, or how much tax you may owe.
-              &nbsp;<a>Calculate now</a>.
+              <br /><a>Calculate now</a>.
               </div>
             </div>
           </div>
@@ -53,7 +53,8 @@ export default function(props) {
                 Start-Ups
               </div>
               <div className={styles['service-text']}>
-              Decide what type of entity is right for your business, obtain formation paperwork, and get answers to important legal questions relating to your business. &nbsp;<a>Get started now</a>.
+              Decide what type of entity is right for your business, obtain formation paperwork, and get answers to important legal questions relating to your business.
+              <br /><a>Get started now</a>.
               </div>
             </div>
           </div>

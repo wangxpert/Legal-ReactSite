@@ -1,12 +1,12 @@
 .program {
-  min-width: 900px;
-  padding-top: 152px;
+  min-width: 900rem;
+  padding-top: 152rem;
 }
 
 .inputbox-container {
   width: 100%;
   text-align: center;
-  padding: 32px 12px;
+  padding: 32rem 12rem;
   -webkit-transition: padding 0.5s; /* Safari */
   transition: padding 0.5s;
 }

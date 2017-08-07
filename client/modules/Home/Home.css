@@ -2,8 +2,8 @@
   height: 100vh;
   position: relative;
   text-align: center;
-  min-height: 600px;
-  padding-top: 82px;
+  min-height: 600rem;
+  padding-top: 82rem;
 }
 
 /* footer */
@@ -16,40 +16,40 @@
   background: #d3dae4;
   color: #fff;
   text-align: center;
-  padding: 24px 0;
+  padding: 24rem 0;
   z-index: 2;
 }
 
 .footer .service-box {
-  padding: 20px 0;
+  padding: 20rem 0;
   text-align: left;
 }
 
 .service-box .service-icon {
-  border: 3px solid #202d42;
-  border-radius: 40px;
+  border: 3rem solid #202d42;
+  border-radius: 40rem;
   color: #202d42;
   float: left;
-  font-size: 36px;
-  height: 80px;
-  line-height: 80px;
+  font-size: 36rem;
+  height: 80rem;
+  line-height: 80rem;
   margin: 0;
-  margin-top: 10px;
-  margin-right: 25px;
-  width: 80px;
+  margin-top: 10rem;
+  margin-right: 25rem;
+  width: 80rem;
   text-align: center;
 }
 
 .service-box .service-title {
   color: #004a8a;
-  font-size: 18px;
-  margin-bottom: 3px;
+  font-size: 18rem;
+  margin-bottom: 3rem;
   text-transform: uppercase;
 }
 
 .service-box .service-text {
   color: #202d42;
-  font-size: 14px;
+  font-size: 14rem;
   font-weight: 300;
 }
 
@@ -57,43 +57,43 @@
 
 .main-container {
   text-align: center;
-  padding-top: 20vh;
+  padding-top: 24vh;
 }
 
 .main-container .title {
-  font-size: 70px;
+  font-size: 70rem;
   text-transform: uppercase;
   font-weight: 700;
   color: #004a8a;
 }
 
 .main-container .description {
-  font-size: 30px;
+  font-size: 30rem;
   color: #04b2fb;
 }
 
 .search-box-container {
-  margin: 24px auto;
+  margin: 24rem auto;
 }
 
 .search-box-container .search-icon {
   display: inline-block;
   background: transparent;
   color: #cacfd6;
-  font-size: 24px;
+  font-size: 24rem;
   font-weight: 500;
-  padding: 9.5px 10px;
+  padding: 12rem 12rem;
   vertical-align: middle;
   position: absolute;
-  left: 20px;
+  left: 20rem;
 }
 
 .search-box-container .search-box {
-  padding: 9.5px 46px;
-  font-size: 24px;
+  padding: 9.5rem 46rem;
+  font-size: 24rem;
   font-weight: 500;
-  border: 2px solid #cacfd6;
-  border-radius: 5px;
+  border: 2rem solid #cacfd6;
+  border-radius: 5rem;
   text-align: center;
   outline: none;
   width: 100%;
@@ -127,22 +127,22 @@
 
 @media (max-width: 992px) {
   .home {
-    min-height: 720px;
+    min-height: 720rem;
   }
 
   .main-container .title {
-    font-size: 56px;
+    font-size: 56rem;
   }
 
   .main-container .description {
-    font-size: 24px;
+    font-size: 24rem;
   }
 }
 
 @media (max-width: 768px) {
 
   .home {
-    min-height: 720px;
+    min-height: 720rem;
   }
 
   .main-container {
@@ -150,20 +150,20 @@
   }
 
   .main-container .title {
-    font-size: 45px;
+    font-size: 45rem;
     color: #004a8a;
   }
 
   .main-container .description {
-    font-size: 20px;
+    font-size: 20rem;
   }
 
   .search-box-container .search-icon {
-    font-size: 18px;
+    font-size: 18rem;
   }
 
   .search-box-container .search-box {
-    font-size: 18px;
+    font-size: 18rem;
   }
 }
 

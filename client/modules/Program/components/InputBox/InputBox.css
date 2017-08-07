@@ -1,30 +1,30 @@
 .inputbox {
   display: inline-block;
   background-color: #fff;
-  box-shadow: 0 0 6px rgb(0, 0, 0, .1);
-  padding: 30px;
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  padding: 30rem;
 }
 
 .title {
   color: #004a8a;
-  font-size: 30px;
+  font-size: 30rem;
   font-weight: 700;
-  padding: 10px;
+  padding: 10rem;
 }
 
 .main-container {
-  padding: 10px 30px;
+  padding: 10rem 30rem;
   text-align: left;
 }
 
 .main-container .question {
-  font-size: 25px;
+  font-size: 25rem;
   font-weight: 500;
   word-wrap: break-word;
   color: #202d42;
   padding-left: 1.0em;
   text-indent: -1.0em;
-  width: 720px;
+  width: 720rem;
 }
 
 .note-icon {
@@ -32,41 +32,41 @@
 }
 
 .note-icon:hover {
-  text-shadow: 0 0px 10px #fff;
+  text-shadow: 0 0rem 10rem #fff;
 }
 
 .note-icon-global {
   color: #50d6ff;
   margin-left: 1.0em;
-  font-size: 30px;
+  font-size: 30rem;
   vertical-align: bottom;
   cursor: pointer;
 }
 
 .note-icon-global:hover {
-  text-shadow: 0 0 6px #50d6ff88;
+  text-shadow: 0 0 6rem #50d6ff88;
 }
 
 .main-container .description {
-  padding: 6px 1.6em;
+  padding: 6rem 1.6em;
   color: #a2a6ac;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 18rem;
 }
 
 .main-container .answer-container {
-  padding: 20px 0;
+  padding: 20rem 0;
   position: relative;
 }
 
 .answer-container .answer {
-  margin: 10px 0;
-  padding: 9.5px 40px 9.5px 65px;
-  width: 720px;
+  margin: 10rem 0;
+  padding: 9.5rem 40rem 9.5rem 65rem;
+  width: 720rem;
   background: #ffffff;
-  border: 2px solid #cacfd6;
-  border-radius: 7px;
-  font-size: 20px;
+  border: 2rem solid #cacfd6;
+  border-radius: 7rem;
+  font-size: 20rem;
   font-family: 'Roboto';
   font-weight: 500;
   color: #213255;
@@ -76,29 +76,29 @@
 
 .answer-container .answer:hover {
   background: #cacfd6;
-  box-shadow: 0px 2px 5px rgb(0, 0, 0, .5);
+  box-shadow: 0rem 2rem 5rem rgb(0, 0, 0, .5);
 }
 
 .answer-container .answer.active {
   background-color: #004a8a;
   background-repeat: no-repeat;
-  background-position: 12px center;
+  background-position: 12rem center;
   color: #ffffff;
 }
 
 .answer i {
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 24rem;
+  line-height: 24rem;
   position: absolute;
-  right: 10px;
+  right: 10rem;
 }
 
 .answer > .input {
   color: #202d42;
   outline: none;
-  margin-left: 20px;
-  margin-top: -15px;
-  padding: 0 10px;
+  margin-left: 20rem;
+  margin-top: -15rem;
+  padding: 0 10rem;
 }
 
 .answer > .input:hover {
@@ -110,14 +110,14 @@
 }
 
 .answer-container > .input {
-  margin: 10px 0;
-  padding: 9.5px 15px;
-  width: 720px;
-  height: 45px;
+  margin: 10rem 0;
+  padding: 9.5rem 15rem;
+  width: 720rem;
+  height: 45rem;
   background: #ffffff;
-  border: 2px solid #cacfd6;
-  border-radius: 5px;
-  font-size: 20px;
+  border: 2rem solid #cacfd6;
+  border-radius: 5rem;
+  font-size: 20rem;
   font-family: 'Roboto';
   font-weight: 500;
   color: #213255;
@@ -138,37 +138,37 @@
 }
 
 .main-container .button-group {
-  padding: 7px 0 24px;
+  padding: 7rem 0 24rem;
   vertical-align: middle;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #a2a6ac;
+  border-bottom: 2rem solid #a2a6ac;
   text-align: center;
 }
 
 .button {
   display: inline-block;
   background: #e5e8ed;
-  padding: 7px 39px;
-  border-radius: 7px;
+  padding: 7rem 39rem;
+  border-radius: 7rem;
   font-family: 'Roboto';
-  font-size: 18px;
+  font-size: 18rem;
   font-weight: 500;
   color: #202d42;
   cursor: pointer;
 }
 
 .button.big {
-  padding: 8px 68px;
-  font-size: 20px;
+  padding: 8rem 68rem;
+  font-size: 20rem;
   background: #50d6ff;
 }
 
 .button.help {
   background: #202d42;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 14rem;
   color: white;
 }
 
@@ -185,50 +185,50 @@
 }
 
 .main-container .help-container {
-  padding: 20px 0;
-  font-size: 14px;
+  padding: 20rem 0;
+  font-size: 14rem;
 }
 
 .help-container .help-text {
   display: inline-block;
-  padding: 7px 0;
+  padding: 7rem 0;
 }
 
 .result {
-  width: 720px;
+  width: 720rem;
 }
 
 .modal-header {
-  padding: 16px 30px;
-  font-size: 24px;
+  padding: 16rem 30rem;
+  font-size: 24rem;
   color: #68717d;
-  border-bottom: 2px solid #cacfd6;
+  border-bottom: 2rem solid #cacfd6;
 }
 
 .modal-body {
-  padding: 24px 30px;
+  padding: 24rem 30rem;
   color: #68717d;
 }
 
 .modal-body li {
-  padding: 3px;
+  padding: 3rem;
 }
 
 .modal-footer {
   text-align: right;
   background: #02b2fb;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6rem;
+  border-bottom-right-radius: 6rem;
   color: #fff;
-  padding: 10px 24px;
+  padding: 10rem 24rem;
 }
 
 .button.note {
   background: #e5e8ed;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 14rem;
   color: #202d42;
-  margin: 0px 10px;
-  padding: 6px 16px;
-  border-radius: 3px;
+  margin: 0rem 10rem;
+  padding: 6rem 16rem;
+  border-radius: 3rem;
 }
