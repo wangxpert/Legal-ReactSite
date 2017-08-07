@@ -131,8 +131,8 @@ class Register extends Component {
 
                 <div className="form-group">
                   <label htmlFor="password" className={styles['label']}>Password</label>
-                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="" value={this.state.password} onChange={this.onChange.bind(this)} />
-                  <input type="password" className={`${styles['input']} form-control`} id="rePassword" placeholder="" style={{ marginTop: 6 }} value={this.state.rePassword} onChange={this.onChange.bind(this)} />
+                  <input type="password" className={`${styles['input']} form-control`} id="password" placeholder="Must be at least 7 characters" value={this.state.password} onChange={this.onChange.bind(this)} />
+                  <input type="password" className={`${styles['input']} form-control`} id="rePassword" placeholder="Confirm password" style={{ marginTop: 6 }} value={this.state.rePassword} onChange={this.onChange.bind(this)} />
                 </div>
 
               </form>

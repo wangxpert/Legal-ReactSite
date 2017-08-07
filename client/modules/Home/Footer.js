@@ -24,7 +24,7 @@ export default function(props) {
               </div>
               <div className={styles['service-text']}>
                 Our Mavens are specialized attorneys who can answer your specific legal questions and concerns.
-                <br /> Have a question? &nbsp;<a>Consult an expert now</a>
+                <br /> Have a question? &nbsp;<a>Consult an expert now</a>.
               </div>
             </div>
           </div>

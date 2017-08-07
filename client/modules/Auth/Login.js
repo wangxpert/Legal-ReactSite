@@ -160,7 +160,7 @@ class Login extends Component {
                 <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.login.bind(this)}>
                   { this.props.auth.isLogging ? <ThreeBounce size={15} color='white' /> : 'Sign in' }
                 </a>
-                {
+                { !this.props.auth.isLogging &&
                 <div className={styles['social-container']}>
                   <FacebookLogin
                     appId="128968304375975"
