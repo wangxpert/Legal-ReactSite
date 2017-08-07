@@ -42,20 +42,29 @@ class Header extends Component {
         </li>
       ),
       signIn: (
-        <li className={styles['nav-item']}>
-          <div>
+        <li className={`${styles['nav-item']} ${styles['circular-border']} ${styles['signin']}`}>
+
             <Link to="/signin">
-              <i className={`fa fa-user`}></i> &nbsp;Sign In &nbsp;
+              Sign In
             </Link>
-          </div>
+
+        </li>
+      ),
+      signUp: (
+        <li className={`${styles['nav-item']} ${styles['circular-border']} ${styles['signup']}`}>
+            <Link to="/signup">
+              Sign Up
+            </Link>
+
         </li>
       ),
       account: (
-
         <li className={styles['nav-item']}>
-          <a href="">
-            <i className={`fa fa-user ${styles['icon']}`}></i> &nbsp;Account <i className="fa fa-caret-down"></i>
-          </a>
+          <div>
+            <a href="">
+              <i className={`fa fa-user ${styles['icon']}`}></i> &nbsp;Account <i className="fa fa-caret-down"></i>
+            </a>
+          </div>
 
           <ul className={styles['dropdown']}>
             <li><a href="">Account</a></li>
@@ -66,7 +75,7 @@ class Header extends Component {
       setting: (
         <li className={styles['nav-item']}>
           <a>
-          <i className={`fa fa-bars ${styles['setting']}`}></i>
+            <i className={`fa fa-bars ${styles['setting']}`}></i>
           </a>
         </li>
       )
@@ -105,6 +114,7 @@ class Header extends Component {
                 {!this.state.showSubNav && items.contact}
                 {this.state.showSubNav && items.search}
                 {items.signIn}
+                {items.signUp}
               </ul>
             </div>
           </div>
