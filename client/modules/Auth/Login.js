@@ -7,6 +7,19 @@ import validator from 'validator';
 import Notifications from 'react-notification-system-redux';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
+import {
+  ChasingDots,
+  Circle,
+  CubeGrid,
+  DoubleBounce,
+  FadingCircle,
+  FoldingCube,
+  Pulse,
+  RotatingPlane,
+  ThreeBounce,
+  WanderingCubes,
+  Wave
+} from 'better-react-spinkit'
 
 import styles from './styles.css';
 
@@ -100,6 +113,8 @@ class Login extends Component {
       return;
     }
 
+    if (this.props.auth.isLogging) return;
+
     this.props.dispatch(socialLoginRequest('google', {
       id: response.googleId,
       givenName: response.profileObj.givenName,
@@ -115,7 +130,7 @@ class Login extends Component {
           <div className='col-xs-12'>
             <div className={`${styles.container} row`}>
               <div className={styles['title-container']}>
-                <h1 className={styles['title']}>Log In</h1>
+                <h1 className={styles['title']}>Sign In</h1>
                 <h2 className={styles['description']}>
                   <strong>Welcome back! </strong>
                   Please sign in to access and review your account.
@@ -143,8 +158,9 @@ class Login extends Component {
 
               <div className={styles['button-container']}>
                 <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.login.bind(this)}>
-                  { this.props.auth.isLogging ? '' : 'Log in' }
+                  { this.props.auth.isLogging ? <ThreeBounce size={15} color='white' /> : 'Sign in' }
                 </a>
+                {
                 <div className={styles['social-container']}>
                   <FacebookLogin
                     appId="128968304375975"
@@ -166,6 +182,7 @@ class Login extends Component {
                     <i className="fa fa-google"></i>Google
                   </GoogleLogin>
                 </div>
+                }
 
                 <div style={{marginTop: 20}}><Link className={styles['page-link']} to="/signup">Do not have account? Create account</Link></div>
               </div>
