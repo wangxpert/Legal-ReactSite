@@ -43,6 +43,12 @@ class InputBox extends Component {
     if (this.props.name) {
       this.props.dispatch(fetchProgram(this.props.name));
       this.props.dispatch(setCurrentProgram(this.props.name));
+
+      if (this.props.program) {
+        this.history = [];
+        var initIndex = this.getNodeIndex(this.props.program.node, this.props.program.start);
+        this.setCurrent(this.props.program, initIndex);
+      }
     }
   }
 

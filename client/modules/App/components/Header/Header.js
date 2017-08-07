@@ -15,31 +15,39 @@ class Header extends Component {
     this.state = {
       showSubNav: false
     };
+  }
 
-    const path = props.location.pathname.split('/');
+  componentWillReceiveProps(nextProps) {
+    const path = nextProps.location.pathname.split('/');
     if (path.length > 2 && (path[1] === 'legalforms' || path[1] === 'legaltopics')) {
-      this.state.showSubNav = true;
+      this.setState({ showSubNav: true });
+    } else {
+      this.setState({ showSubNav: false });
     }
   }
 
   render() {
     const items = {
-      legalTopics: (<li className={styles['nav-item']} ><a href="/legaltopics">Legal Topics</a></li>),
-      legalForms: (<li  className={styles['nav-item']} ><a href="/legalforms">Legal Forms</a></li>),
-      services: (<li className={styles['nav-item']}><a>Services</a></li>),
-      contact: (<li className={styles['nav-item']}><a>Contact</a></li>),
+      legalTopics: (<li className={styles['nav-item']} ><div><Link href="/legaltopics">Legal Topics</Link></div></li>),
+      legalForms: (<li  className={styles['nav-item']} ><div><Link href="/legalforms">Legal Forms</Link></div></li>),
+      services: (<li className={styles['nav-item']}><div><a href="">Services</a></div></li>),
+      contact: (<li className={styles['nav-item']}><div><a>Contact</a></div></li>),
       search: (
         <li className={styles['nav-item']}>
-          <a>
-            <i className="fa fa-search"></i> &nbsp;Search
-          </a>
+          <div>
+            <Link>
+              <i className="fa fa-search"></i> &nbsp;Search
+            </Link>
+          </div>
         </li>
       ),
       signIn: (
         <li className={styles['nav-item']}>
-          <a href="/signin">
-            <i className={`fa fa-user`}></i> &nbsp;Sign In &nbsp;
-          </a>
+          <div>
+            <Link to="/signin">
+              <i className={`fa fa-user`}></i> &nbsp;Sign In &nbsp;
+            </Link>
+          </div>
         </li>
       ),
       account: (

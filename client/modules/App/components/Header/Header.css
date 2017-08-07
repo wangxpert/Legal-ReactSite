@@ -30,9 +30,9 @@
 }
 
 .nav-item {
-  padding: 14px 10px;
+  padding: 14px 25px;
   font-size: 20px;
-  background-color: #004a8a;
+  background: #004a8a;
 }
 
 .navbar-toggle {
@@ -41,30 +41,29 @@
   padding: 15px 5px;
 }
 
-.nav-item a {
-  margin: 0px;
-  padding: 20px 25px;
-  font-size: 20px;
-  color: #fff;
-  background-color: #004a8a;
-}
-
-.nav-item:hover a:hover {
-  background-color: #004a8a;
-}
-
 .nav-item:hover {
   border-bottom: 4px solid #02b2fb;
+  background: #004a8a;
 }
 
 .nav-item .icon {
   color: #1278c1;
 }
 
-.nav-item .setting {
+.nav-item div {
+  margin: 0px;
+  padding: 14px 0px;
+  font-size: 20px;
   color: #fff;
+  background: transparent;
+  text-decoration: none;
 }
 
+.nav-item a {
+  padding: 28px 0;
+  text-decoration: none;
+  color: white;
+}
 
 .dropdown {
   position: absolute;

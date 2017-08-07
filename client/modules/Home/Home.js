@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-
 // Import Style
 import styles from './Home.css';
 
@@ -19,28 +17,6 @@ class Home extends Component {
     super(props);
   }
 
-  createNotification = (type) => {
-  alert('book');
-    return () => {
-      switch (type) {
-        case 'info':
-          NotificationManager.info('Info message');
-          break;
-        case 'success':
-          NotificationManager.success('Success message', 'Title here');
-          break;
-        case 'warning':
-          NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-          break;
-        case 'error':
-          NotificationManager.error('Error message', 'Click me!', 5000, () => {
-            alert('callback');
-          });
-          break;
-      }
-    };
-  };
-
   render() {
     return (
       <div className={`${styles.home} wow fadeIn`} style={{ background: `#FFF url(${bg}) repeat` }}>
@@ -49,7 +25,7 @@ class Home extends Component {
             <div className={`${styles['title']} col-xs-12`}>
               Legal Maven
             </div>
-            <div className={`${styles['description']} col-xs-12`} onClick={e=>this.createNotification('info').bind(this)}>
+            <div className={`${styles['description']} col-xs-12`}>
               Get to the right answer. Faster.
             </div>
 
@@ -59,8 +35,6 @@ class Home extends Component {
             </div>
           </div>
         </div>
-
-        <NotificationContainer/>
         <Footer />
       </div>
     );

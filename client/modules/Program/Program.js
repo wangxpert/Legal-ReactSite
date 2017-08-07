@@ -32,20 +32,13 @@ class Program extends Component {
       minWidth += 325;
     }
 
-    var inputBox = null;
-    if (!this.context.router.isActive('/', true)) {
-      inputBox = (
-        <InputBox name={ this.props.params.name }/>
-      );
-    }
-
     return (
       <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>
         <div className={styles['sidebar-container']}>
           <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { inputBox }
+          <InputBox name={ this.props.params.name }/>
         </div>
       </div>
     );

@@ -12,11 +12,11 @@ export function NavBar(props, context) {
       <div className={styles.nav}>
 
         <div className={styles['nav-item']}>
-          <a href='/legaltopics'><FormattedMessage id="legalTopics" /></a>
+          <Link to='/legaltopics'><FormattedMessage id="legalTopics" /></Link>
         </div>
 
         <div className={styles['nav-item']}>
-          <a href='/legalforms'><FormattedMessage id="legalForms" /></a>
+          <Link to='/legalforms'><FormattedMessage id="legalForms" /></Link>
         </div>
 
         <div className={styles['nav-item']}><FormattedMessage id="services" /></div>

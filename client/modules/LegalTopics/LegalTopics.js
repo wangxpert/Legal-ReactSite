@@ -68,9 +68,9 @@ class LegalTopics extends Component {
       })
       .map((topic, index) => {
         return (
-          <a key={index} className={styles['item']} href={topic.href}>
+          <Link key={index} className={styles['item']} to={topic.href}>
             {topic.title}
-          </a>
+          </Link>
         );
       });
 

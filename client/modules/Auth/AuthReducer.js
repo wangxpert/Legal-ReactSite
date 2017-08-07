@@ -22,7 +22,7 @@ const AuthReducer = (state = initialState, action) => {
     case REGISTER_FAILED:
       return {
         ...state,
-        err: action.err
+        err: action.err,
       }
 
     case LOGIN_REQUESTED:
