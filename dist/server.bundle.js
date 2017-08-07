@@ -395,13 +395,6 @@
 	        minWidth += 325;
 	      }
 	
-	      var inputBox = null;
-	      if (!this.context.router.isActive('/', true)) {
-	        inputBox = _jsx(_InputBox2.default, {
-	          name: this.props.params.name
-	        });
-	      }
-	
 	      return _jsx('div', {
 	        className: _Program2.default.program + ' wow fadeIn',
 	        style: { minWidth: minWidth }
@@ -413,7 +406,9 @@
 	      })), _jsx('div', {
 	        className: '' + _Program2.default['inputbox-container'],
 	        style: { paddingLeft: paddingLeft }
-	      }, void 0, inputBox));
+	      }, void 0, _jsx(_InputBox2.default, {
+	        name: this.props.params.name
+	      })));
 	    }
 	  }]);
 	
@@ -879,13 +874,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(113);
+	var _reduxDevtools = __webpack_require__(112);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(115);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(114);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(114);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(113);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -1488,8 +1483,6 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _reactNotifications = __webpack_require__(112);
-	
 	var _Home = {
 	  "home": "_37C9HJPUzY52Ex490y87_h",
 	  "footer": "_1wZ1wZ-UlievGrJUWIxiJC",
@@ -1529,9 +1522,7 @@
 	// Import Components
 	
 	
-	var _ref = _jsx(_reactNotifications.NotificationContainer, {});
-	
-	var _ref2 = _jsx(_Footer2.default, {});
+	var _ref = _jsx(_Footer2.default, {});
 	
 	var Home = function (_Component) {
 	  _inherits(Home, _Component);
@@ -1539,38 +1530,12 @@
 	  function Home(props) {
 	    _classCallCheck(this, Home);
 	
-	    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
-	
-	    _this.createNotification = function (type) {
-	      alert('book');
-	      return function () {
-	        switch (type) {
-	          case 'info':
-	            _reactNotifications.NotificationManager.info('Info message');
-	            break;
-	          case 'success':
-	            _reactNotifications.NotificationManager.success('Success message', 'Title here');
-	            break;
-	          case 'warning':
-	            _reactNotifications.NotificationManager.warning('Warning message', 'Close after 3000ms', 3000);
-	            break;
-	          case 'error':
-	            _reactNotifications.NotificationManager.error('Error message', 'Click me!', 5000, function () {
-	              alert('callback');
-	            });
-	            break;
-	        }
-	      };
-	    };
-	
-	    return _this;
+	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 	  }
 	
 	  _createClass(Home, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _jsx('div', {
 	        className: _Home2.default.home + ' wow fadeIn',
 	        style: { background: '#FFF url(' + _bg2.default + ') repeat' }
@@ -1583,10 +1548,7 @@
 	      }, void 0, _jsx('div', {
 	        className: _Home2.default['title'] + ' col-xs-12'
 	      }, void 0, 'Legal Maven'), _jsx('div', {
-	        className: _Home2.default['description'] + ' col-xs-12',
-	        onClick: function onClick(e) {
-	          return _this2.createNotification('info').bind(_this2);
-	        }
+	        className: _Home2.default['description'] + ' col-xs-12'
 	      }, void 0, 'Get to the right answer. Faster.'), _jsx('div', {
 	        className: _Home2.default['search-box-container'] + ' col-sm-push-2 col-sm-8 col-xs-push-1 col-xs-10'
 	      }, void 0, _jsx('input', {
@@ -1596,7 +1558,7 @@
 	      }), _jsx('i', {
 	        className: 'fa fa-search ' + _Home2.default['search-icon'],
 	        'aria-hidden': 'true'
-	      })))), _ref, _ref2);
+	      })))), _ref);
 	    }
 	  }]);
 	
@@ -1738,9 +1700,9 @@
 	        var topics = category.topics.filter(function (topic) {
 	          return topic.title.toLowerCase().includes(_this2.state.keyword.toLowerCase());
 	        }).map(function (topic, index) {
-	          return _jsx('a', {
+	          return _jsx(_reactRouter.Link, {
 	            className: _LegalForms2.default['item'],
-	            href: topic.href
+	            to: topic.href
 	          }, index, topic.title);
 	        });
 	
@@ -1896,9 +1858,9 @@
 	        var topics = category.topics.filter(function (topic) {
 	          return topic.title.toLowerCase().includes(_this2.state.keyword.toLowerCase());
 	        }).map(function (topic, index) {
-	          return _jsx('a', {
+	          return _jsx(_reactRouter.Link, {
 	            className: _LegalTopics2.default['item'],
-	            href: topic.href
+	            to: topic.href
 	          }, index, topic.title);
 	        });
 	
@@ -2446,7 +2408,7 @@
 	
 	var _redux = __webpack_require__(33);
 	
-	var _reduxThunk = __webpack_require__(116);
+	var _reduxThunk = __webpack_require__(115);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -3134,7 +3096,6 @@
 	  "nav-item": "_1Ku52NhsgU-a4xvFlv3f_o",
 	  "navbar-toggle": "_1HU_4Z5TtN69fVUjB_Sq2L",
 	  "icon": "_3tIvuM0J0LUnGEyiyq4ofL",
-	  "setting": "_3IbsmUx5ak1DXfXWPb_Uz4",
 	  "dropdown": "_3-5-TWSoP6e9_LppIBTwlk",
 	  "section": "_38LtvyCSPSIl57o4tje_oV",
 	  "section-title": "_3uLUOCcG4NqgMGWmLv6AEt"
@@ -3157,21 +3118,23 @@
 	// Import Style
 	
 	
-	var _ref = _jsx('a', {
+	var _ref = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
 	  href: '/legaltopics'
-	}, void 0, 'Legal Topics');
+	}, void 0, 'Legal Topics'));
 	
-	var _ref2 = _jsx('a', {
+	var _ref2 = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
 	  href: '/legalforms'
-	}, void 0, 'Legal Forms');
+	}, void 0, 'Legal Forms'));
 	
-	var _ref3 = _jsx('a', {}, void 0, 'Services');
+	var _ref3 = _jsx('div', {}, void 0, _jsx('a', {
+	  href: ''
+	}, void 0, 'Services'));
 	
-	var _ref4 = _jsx('a', {}, void 0, 'Contact');
+	var _ref4 = _jsx('div', {}, void 0, _jsx('a', {}, void 0, 'Contact'));
 	
-	var _ref5 = _jsx('a', {}, void 0, _jsx('i', {
+	var _ref5 = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {}, void 0, _jsx('i', {
 	  className: 'fa fa-search'
-	}), ' \xA0Search');
+	}), ' \xA0Search'));
 	
 	var _ref6 = _jsx('i', {
 	  className: 'fa fa-caret-down'
@@ -3203,15 +3166,20 @@
 	    _this.state = {
 	      showSubNav: false
 	    };
-	
-	    var path = props.location.pathname.split('/');
-	    if (path.length > 2 && (path[1] === 'legalforms' || path[1] === 'legaltopics')) {
-	      _this.state.showSubNav = true;
-	    }
 	    return _this;
 	  }
 	
 	  _createClass(Header, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var path = nextProps.location.pathname.split('/');
+	      if (path.length > 2 && (path[1] === 'legalforms' || path[1] === 'legaltopics')) {
+	        this.setState({ showSubNav: true });
+	      } else {
+	        this.setState({ showSubNav: false });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var items = {
@@ -3232,11 +3200,11 @@
 	        }, void 0, _ref5),
 	        signIn: _jsx('li', {
 	          className: _Header2.default['nav-item']
-	        }, void 0, _jsx('a', {
-	          href: '/signin'
+	        }, void 0, _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
+	          to: '/signin'
 	        }, void 0, _jsx('i', {
 	          className: 'fa fa-user'
-	        }), ' \xA0Sign In \xA0')),
+	        }), ' \xA0Sign In \xA0'))),
 	        account: _jsx('li', {
 	          className: _Header2.default['nav-item']
 	        }, void 0, _jsx('a', {
@@ -3347,14 +3315,14 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _ref = _jsx('a', {
-	  href: '/legaltopics'
+	var _ref = _jsx(_reactRouter.Link, {
+	  to: '/legaltopics'
 	}, void 0, _jsx(_reactIntl.FormattedMessage, {
 	  id: 'legalTopics'
 	}));
 	
-	var _ref2 = _jsx('a', {
-	  href: '/legalforms'
+	var _ref2 = _jsx(_reactRouter.Link, {
+	  to: '/legalforms'
 	}, void 0, _jsx(_reactIntl.FormattedMessage, {
 	  id: 'legalForms'
 	}));
@@ -4473,6 +4441,12 @@
 	      if (this.props.name) {
 	        this.props.dispatch((0, _ProgramActions.fetchProgram)(this.props.name));
 	        this.props.dispatch((0, _ProgramActions.setCurrentProgram)(this.props.name));
+	
+	        if (this.props.program) {
+	          this.history = [];
+	          var initIndex = this.getNodeIndex(this.props.program.node, this.props.program.start);
+	          this.setCurrent(this.props.program, initIndex);
+	        }
 	      }
 	    }
 	  }, {
@@ -6698,7 +6672,7 @@
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(117);
+	var _sanitizeHtml = __webpack_require__(116);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -8324,34 +8298,28 @@
 /* 112 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-notifications");
+	module.exports = require("redux-devtools");
 
 /***/ },
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
-
-/***/ },
-/* 116 */
-/***/ function(module, exports) {
-
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 117 */
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");
