@@ -4,6 +4,52 @@ import passport from 'passport';
 /**
  * Login a User
  */
+
+function social(provider, req, res) {
+  const info = req.body[provider];
+
+  User.findOne({id: info.id, provider: provider})
+    .then(user => {
+      if (user) {
+        return user;
+
+      } else {
+        const newUser = User({
+          provider: provider,
+          id: info.id,
+          emails: [
+            {
+              value: info.email
+            }
+          ],
+
+          name: {
+            familyName: info.familyName,
+            givenName: info.givenName
+          },
+
+          photo: info.photo
+        })
+
+        return newUser.save();
+      }
+    })
+    .then(user => {
+      req.login(user, function(err) {
+        if (err) loginFailure(req, res);
+        loginSuccess(loginSuccess(req, res));
+      });
+    });
+}
+
+export function google(req, res) {
+  social('google', req, res);
+}
+
+export function facebook(req, res) {
+  social('facebook', req, res);
+}
+
 export function loginSuccess(req, res) {
   //login process is done by passport.authenticate, so we only send success message here.
   res.status(200).json({ status: 200, message: 'Login Successfully !', user: req.user });
@@ -19,8 +65,8 @@ export function loginFailure(req, res) {
 export function register(req, res) {
 
   const newUser = new User({
+    provider: 'local',
     id: req.body.email,
-
     emails: [
       {
         value: req.body.email

@@ -11,8 +11,6 @@ import session from 'express-session';
 
 import passport from 'passport';
 const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // Webpack Requirements
 import webpack from 'webpack';
@@ -81,11 +79,13 @@ app.use(passport.session());
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 
 passport.serializeUser(function(user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(user, done) {
-  done(null, user);
+passport.deserializeUser(function(id, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
 });
 
 passport.use(new LocalStrategy({
@@ -105,45 +105,6 @@ passport.use(new LocalStrategy({
       }
 
       return done(null, user);
-    });
-  }
-));
-
-passport.use(new FacebookStrategy({
-    clientID: '128968304375975',
-    clientSecret: '8d10dc8128f5c11f4dff8e369b74556a',
-    callbackURL: "/api/auth/facebook/callback",
-    profileFields: ['id', 'displayName', 'name', 'gender', 'email']
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOne({id: profile.id, provider: profile.provider}, function(err, user) {
-      if (user) {
-        done(null, user);
-      } else {
-        const newUser = User(profile);
-        newUser.save()
-          .then( user => done(null, user) )
-          .catch( err=> done(err) );
-      }
-    });
-  }
-));
-
-passport.use(new GoogleStrategy({
-    clientID: '780379680107-bqtmfo0u414j9iokobjfvjcdq9v1e7ue.apps.googleusercontent.com',
-    clientSecret: 'iHsrJEtEcsEGexIvQPiWGD_Q',
-    callbackURL: "/api/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOne({id: profile.id, provider: profile.provider}, function(err, user) {
-      if (user) {
-        done(null, user);
-      } else {
-        const newUser = User(profile);
-        newUser.save()
-          .then( user => done(null, user) )
-          .catch( err=> done(err) );
-      }
     });
   }
 ));

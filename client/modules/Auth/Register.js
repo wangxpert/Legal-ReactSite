@@ -140,7 +140,7 @@ class Register extends Component {
               <div className={styles['button-container']}>
                 <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.register.bind(this)}>Create Account</a>
 
-                <div style={{marginTop: 20}}><Link className={styles['page-link']} to={'/signin'}>Already have an account? Sign in</Link></div>
+                <div style={{marginTop: 20}}><Link className={styles['page-link']} to={'/signin'}>Already have an account? Log in</Link></div>
               </div>
 
               <div className={styles['policy-text']}>

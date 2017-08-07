@@ -5,12 +5,13 @@
 
 .container {
   background: white;
-  box-shadow: 0 0 3px rgb(0, 0, 0, .5);
+  box-shadow: 0 0 6px rgb(0, 0, 0, .1);
   max-width: 500px;
   margin: 36px auto;
   padding: 20px 50px;
   text-align: center;
   position: relative;
+  color: #666;
 }
 
 .container a {
@@ -25,6 +26,7 @@
 .title-container .title {
   font-size: 36px;
   font-weight: 700;
+  padding: 10px 0;
 }
 
 .title-container .description {
@@ -35,7 +37,6 @@
 
 .container .link {
   color: #02b2fb;
-  font-style: italic;
   font-weight: 500;
 }
 
@@ -53,12 +54,13 @@
 }
 
 .label {
-  font-size: 22px;
-  font-weight: 700;
+  color: #666;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .input {
-  border: 2px solid #cacfd6;
+  border: 1px solid #cacfd6;
   border-radius: 5px;
   font-size: 18px;
   font-weight: 500;

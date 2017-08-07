@@ -1,7 +1,7 @@
 .inputbox {
   display: inline-block;
   background-color: #fff;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 6px rgb(0, 0, 0, .1);
   padding: 30px;
 }
 

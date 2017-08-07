@@ -4,6 +4,8 @@ import Notifications from 'react-notification-system-redux';
 
 // Export Constants
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
+export const SOCIAL_LOGIN_REQUEST = 'SOCIAL_LOGIN_REQUEST';
+
 export const REGISTER_SUCCEEDED = 'REGISTER_SUCCEEDED';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
@@ -46,6 +48,9 @@ export function loginFailed(err) {
 
 export function registerRequest(user) {
   return (dispatch) => {
+    dispatch({
+      type: LOGIN_REQUESTED
+    });
     return callApi('auth/register', 'post', {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -72,29 +77,51 @@ export function registerRequest(user) {
   };
 }
 
+function handleLogin(dispatch, promise) {
+  promise.then(res => {
+    sessionStorage.clientId = res.user.id;
+    dispatch(loginSucceeded(res.user));
+    dispatch(Notifications.success({
+      title: 'Welcome',
+      message: `Welcome back, ${res.user.name.givenName} ${res.user.name.familyName}`,
+      position: 'br',
+      autoDismiss: 3
+    }));
+  }, err => {
+    dispatch(loginFailed(err));
+    dispatch(Notifications.error({
+      title: 'Login Failure',
+      message: 'Invalid crendential ! Please try again.',
+      position: 'br',
+      autoDismiss: 3
+    }));
+  });
+}
+
 export function loginRequest(user) {
   return (dispatch) => {
-    callApi('auth/login', 'post', {
+    dispatch({
+      type: LOGIN_REQUESTED
+    });
+    handleLogin(dispatch, callApi('auth/login', 'post', {
       email: user.email,
       password: user.password
-    }).then(res => {
-      sessionStorage.clientId = res.user.id;
-      dispatch(loginSucceeded(res.user));
-      dispatch(Notifications.success({
-        title: 'Welcome',
-        message: `Welcome back, ${res.user.name.givenName} ${res.user.name.familyName}`,
-        position: 'br',
-        autoDismiss: 3
-      }));
-    }, err => {
-      dispatch(loginFailed(err));
-      dispatch(Notifications.error({
-        title: 'Login Failure',
-        message: 'Invalid crendential ! Please try again.',
-        position: 'br',
-        autoDismiss: 3
-      }));
+    }));
+
+  };
+}
+
+export function socialLoginRequest(provider, user) {
+  return (dispatch) => {
+    dispatch({
+      type: LOGIN_REQUESTED
     });
+    console.log({
+      [provider]: user
+    });
+    handleLogin(dispatch, callApi(`auth/${provider}`, 'post', {
+      [provider]: user
+    }));
 
   };
 }

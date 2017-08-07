@@ -1,6 +1,6 @@
 .sidebar {
   display: inline-block;
-  position: absolute;
+  position: fixed;
   width: 325px;
   margin: 0;
   bottom: 0;

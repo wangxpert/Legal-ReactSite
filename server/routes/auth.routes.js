@@ -10,23 +10,14 @@ export default function(passport) {
 
   router.get('/login_failure', authController.loginFailure);
 
-  // Register new User.
+  // Register new User
   router.route('/register').post(authController.register);
 
   // Facebook Login
-  router.get('/facebook', passport.authenticate('facebook', { scope : ['email'] }));
-
-  router.get('/facebook/callback',
-      passport.authenticate('facebook', { failureRedirect: '/api/auth/login_failure' }),
-      authController.loginSuccess);
+  router.post('/facebook', authController.facebook);
 
   // Google Login
-  router.get('/google',
-      passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'] }));
-
-  router.get('/google/callback',
-      passport.authenticate('google', { failureRedirect: '/login' }),
-      authController.loginSuccess);
+  router.post('/google', authController.google);
 
   return router;
 };
