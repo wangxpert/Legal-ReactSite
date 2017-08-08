@@ -31,6 +31,8 @@ class Program extends Component {
       paddingLeft += 325;
       minWidth += 325;
     }
+    paddingLeft += 'rem';
+    minWidth += 'rem';
 
     return (
       <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>

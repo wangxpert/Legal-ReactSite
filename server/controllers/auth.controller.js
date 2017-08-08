@@ -91,3 +91,8 @@ export function register(req, res) {
       }
     });
 }
+
+export function logout(req, res) {
+  req.logout();
+  res.status(200).json({ status: 200, message: 'Logout' });
+}

@@ -5,11 +5,12 @@ import { Link } from 'react-router';
 
 import validator from 'validator';
 import Notifications from 'react-notification-system-redux';
+import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
 import styles from './styles.css';
 
-import { registerRequest } from './AuthActions.js';
-
+import { registerRequest, socialLoginRequest } from './AuthActions.js';
 
 class Register extends Component {
 
@@ -99,6 +100,33 @@ class Register extends Component {
     this.setState({[e.target.id]: e.target.value});
   }
 
+  facebookLogin(response) {
+    if (this.props.auth.state === 'LOGGING') return;
+
+    this.props.dispatch(socialLoginRequest('facebook', {
+      id: response.id,
+      givenName: response.first_name,
+      familyName: response.last_name,
+      photo: response.picture.data.url
+    }));
+  }
+
+  googleLogin(response) {
+    if (typeof response === 'string') { // error occurs
+      console.log('Google Login Failure');
+      return;
+    }
+
+    if (this.props.auth.state === 'LOGGING') return;
+
+    this.props.dispatch(socialLoginRequest('google', {
+      id: response.googleId,
+      givenName: response.profileObj.givenName,
+      familyName: response.profileObj.familyName,
+      photo: response.profileObj.imageUrl
+    }));
+  }
+
   render() {
     return (
       <div className={`${styles.page} container-fluid wow fadeIn`}>
@@ -139,7 +167,29 @@ class Register extends Component {
 
               <div className={styles['button-container']}>
                 <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.register.bind(this)}>Create Account</a>
+                { !(this.props.auth.state === 'LOGGING') &&
+                <div className={styles['social-container']}>
+                  <FacebookLogin
+                    appId="128968304375975"
+                    fields="first_name,last_name,email,picture"
+                    tag="a"
+                    icon="fa-facebook"
+                    textButton="Facebook"
+                    cssClass={`${styles['btn-facebook']} ${styles['btn']} pull-left`}
+                    callback={this.facebookLogin.bind(this)} />
 
+                  <GoogleLogin
+                    clientId="1057707658731-er6vr8sf5psl1uh3sjtsio5t2ooaljpi.apps.googleusercontent.com"
+                    buttonText="Google"
+                    tag="a"
+                    className={`${styles['btn-google']} ${styles['btn']} pull-right`}
+                    onSuccess={this.googleLogin.bind(this)}
+                    onFailure={this.googleLogin.bind(this)}
+                  >
+                    <i className="fa fa-google"></i>Google
+                  </GoogleLogin>
+                </div>
+                }
                 <div style={{marginTop: 20}}><Link className={styles['page-link']} to={'/signin'}>Already have an account? Log in</Link></div>
               </div>
 
@@ -158,7 +208,7 @@ class Register extends Component {
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-
+    auth: state.auth
   };
 }
 

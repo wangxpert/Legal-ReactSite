@@ -19,5 +19,7 @@ export default function(passport) {
   // Google Login
   router.post('/google', authController.google);
 
+  // Log out
+  router.get('/logout', authController.logout);
   return router;
 };

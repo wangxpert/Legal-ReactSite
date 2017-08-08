@@ -3,6 +3,8 @@ import callApi from '../../util/apiCaller';
 import Notifications from 'react-notification-system-redux';
 
 // Export Constants
+export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';
+
 export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 export const SOCIAL_LOGIN_REQUEST = 'SOCIAL_LOGIN_REQUEST';
 
@@ -10,8 +12,18 @@ export const REGISTER_SUCCEEDED = 'REGISTER_SUCCEEDED';
 export const REGISTER_FAILED = 'REGISTER_FAILED';
 export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
+export const LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
+
+import { browserHistory } from 'react-router';
 
 // Export Actions
+export function setLoginState() {
+  return {
+    type: SET_LOGIN_STATE
+  }
+
+}
+
 export function registerSucceeded(user) {
   return {
     type: REGISTER_SUCCEEDED,
@@ -33,6 +45,8 @@ export function loginRequested() {
 }
 
 export function loginSucceeded(user) {
+  browserHistory.push('/');
+  localStorage.setItem('clientId', user.id)
   return {
     type: LOGIN_SUCCEEDED,
     user: user
@@ -46,24 +60,30 @@ export function loginFailed(err) {
   }
 }
 
+export function logoutSucceeded() {
+  localStorage.removeItem('clientId');
+  browserHistory.push('/');
+  return {
+    type: LOGOUT_SUCCEEDED,
+  };
+}
+
 export function registerRequest(user) {
   return (dispatch) => {
-    dispatch({
-      type: LOGIN_REQUESTED
-    });
     return callApi('auth/register', 'post', {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       password: user.password
     }).then(res => {
-      dispatch(registerSucceeded(res.user))
-      dispatch(Notifications.success({
+      dispatch(registerSucceeded(res.user));
+      dispatch(loginRequest(user));
+      /*dispatch(Notifications.success({
         title: 'Welcome',
         message: `You created account. Enjoy yourself.`,
         position: 'br',
         autoDismiss: 3
-      }));
+      })*/
     }, err => {
       dispatch(registerFailed(err));
       dispatch(Notifications.error({
@@ -79,11 +99,10 @@ export function registerRequest(user) {
 
 function handleLogin(dispatch, promise) {
   promise.then(res => {
-    sessionStorage.clientId = res.user.id;
     dispatch(loginSucceeded(res.user));
     dispatch(Notifications.success({
       title: 'Welcome',
-      message: `Welcome back, ${res.user.name.givenName} ${res.user.name.familyName}`,
+      message: `Welcome, ${res.user.name.givenName} ${res.user.name.familyName}`,
       position: 'br',
       autoDismiss: 3
     }));
@@ -100,9 +119,7 @@ function handleLogin(dispatch, promise) {
 
 export function loginRequest(user) {
   return (dispatch) => {
-    dispatch({
-      type: LOGIN_REQUESTED
-    });
+    dispatch(loginRequested());
     handleLogin(dispatch, callApi('auth/login', 'post', {
       email: user.email,
       password: user.password
@@ -113,15 +130,29 @@ export function loginRequest(user) {
 
 export function socialLoginRequest(provider, user) {
   return (dispatch) => {
-    dispatch({
-      type: LOGIN_REQUESTED
-    });
-    console.log({
-      [provider]: user
-    });
+    dispatch(loginRequested());
+
     handleLogin(dispatch, callApi(`auth/${provider}`, 'post', {
       [provider]: user
     }));
+
+  };
+}
+
+export function logoutRequested() {
+  return (dispatch) => {
+    callApi('auth/logout', 'get')
+    .then(res => {
+      dispatch(logoutSucceeded());
+      dispatch(Notifications.success({
+        title: 'Logout',
+        message: `Bye`,
+        position: 'br',
+        autoDismiss: 3
+      }));
+    }, err => {
+
+    });
 
   };
 }

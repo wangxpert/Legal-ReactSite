@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 97);
+/******/ 	return __webpack_require__(__webpack_require__.s = 99);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -142,24 +142,6 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-notification-system-redux");
-
-/***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = require("express");
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = require("mongoose");
-
-/***/ },
-/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -168,29 +150,36 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LOGIN_FAILED = exports.LOGIN_SUCCEEDED = exports.REGISTER_FAILED = exports.REGISTER_SUCCEEDED = exports.SOCIAL_LOGIN_REQUEST = exports.LOGIN_REQUESTED = undefined;
+	exports.LOGOUT_SUCCEEDED = exports.LOGIN_FAILED = exports.LOGIN_SUCCEEDED = exports.REGISTER_FAILED = exports.REGISTER_SUCCEEDED = exports.SOCIAL_LOGIN_REQUEST = exports.LOGIN_REQUESTED = exports.SET_LOGIN_STATE = undefined;
+	exports.setLoginState = setLoginState;
 	exports.registerSucceeded = registerSucceeded;
 	exports.registerFailed = registerFailed;
 	exports.loginRequested = loginRequested;
 	exports.loginSucceeded = loginSucceeded;
 	exports.loginFailed = loginFailed;
+	exports.logoutSucceeded = logoutSucceeded;
 	exports.registerRequest = registerRequest;
 	exports.loginRequest = loginRequest;
 	exports.socialLoginRequest = socialLoginRequest;
+	exports.logoutRequested = logoutRequested;
 	
 	var _apiCaller = __webpack_require__(12);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(6);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
+	
+	var _reactRouter = __webpack_require__(2);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	// Export Constants
+	var SET_LOGIN_STATE = exports.SET_LOGIN_STATE = 'SET_LOGIN_STATE';
+	
 	var LOGIN_REQUESTED = exports.LOGIN_REQUESTED = 'LOGIN_REQUESTED';
 	var SOCIAL_LOGIN_REQUEST = exports.SOCIAL_LOGIN_REQUEST = 'SOCIAL_LOGIN_REQUEST';
 	
@@ -198,8 +187,15 @@
 	var REGISTER_FAILED = exports.REGISTER_FAILED = 'REGISTER_FAILED';
 	var LOGIN_SUCCEEDED = exports.LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
 	var LOGIN_FAILED = exports.LOGIN_FAILED = 'LOGIN_FAILED';
+	var LOGOUT_SUCCEEDED = exports.LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
 	
 	// Export Actions
+	function setLoginState() {
+	  return {
+	    type: SET_LOGIN_STATE
+	  };
+	}
+	
 	function registerSucceeded(user) {
 	  return {
 	    type: REGISTER_SUCCEEDED,
@@ -221,6 +217,8 @@
 	}
 	
 	function loginSucceeded(user) {
+	  _reactRouter.browserHistory.push('/');
+	  localStorage.setItem('clientId', user.id);
 	  return {
 	    type: LOGIN_SUCCEEDED,
 	    user: user
@@ -234,11 +232,16 @@
 	  };
 	}
 	
+	function logoutSucceeded() {
+	  localStorage.removeItem('clientId');
+	  _reactRouter.browserHistory.push('/');
+	  return {
+	    type: LOGOUT_SUCCEEDED
+	  };
+	}
+	
 	function registerRequest(user) {
 	  return function (dispatch) {
-	    dispatch({
-	      type: LOGIN_REQUESTED
-	    });
 	    return (0, _apiCaller2.default)('auth/register', 'post', {
 	      firstName: user.firstName,
 	      lastName: user.lastName,
@@ -246,12 +249,13 @@
 	      password: user.password
 	    }).then(function (res) {
 	      dispatch(registerSucceeded(res.user));
-	      dispatch(_reactNotificationSystemRedux2.default.success({
+	      dispatch(loginRequest(user));
+	      /*dispatch(Notifications.success({
 	        title: 'Welcome',
-	        message: 'You created account. Enjoy yourself.',
+	        message: `You created account. Enjoy yourself.`,
 	        position: 'br',
 	        autoDismiss: 3
-	      }));
+	      })*/
 	    }, function (err) {
 	      dispatch(registerFailed(err));
 	      dispatch(_reactNotificationSystemRedux2.default.error({
@@ -266,11 +270,10 @@
 	
 	function handleLogin(dispatch, promise) {
 	  promise.then(function (res) {
-	    sessionStorage.clientId = res.user.id;
 	    dispatch(loginSucceeded(res.user));
 	    dispatch(_reactNotificationSystemRedux2.default.success({
 	      title: 'Welcome',
-	      message: 'Welcome back, ' + res.user.name.givenName + ' ' + res.user.name.familyName,
+	      message: 'Welcome, ' + res.user.name.givenName + ' ' + res.user.name.familyName,
 	      position: 'br',
 	      autoDismiss: 3
 	    }));
@@ -287,9 +290,7 @@
 	
 	function loginRequest(user) {
 	  return function (dispatch) {
-	    dispatch({
-	      type: LOGIN_REQUESTED
-	    });
+	    dispatch(loginRequested());
 	    handleLogin(dispatch, (0, _apiCaller2.default)('auth/login', 'post', {
 	      email: user.email,
 	      password: user.password
@@ -299,13 +300,43 @@
 	
 	function socialLoginRequest(provider, user) {
 	  return function (dispatch) {
-	    dispatch({
-	      type: LOGIN_REQUESTED
-	    });
-	    console.log(_defineProperty({}, provider, user));
+	    dispatch(loginRequested());
+	
 	    handleLogin(dispatch, (0, _apiCaller2.default)('auth/' + provider, 'post', _defineProperty({}, provider, user)));
 	  };
 	}
+	
+	function logoutRequested() {
+	  return function (dispatch) {
+	    (0, _apiCaller2.default)('auth/logout', 'get').then(function (res) {
+	      dispatch(logoutSucceeded());
+	      dispatch(_reactNotificationSystemRedux2.default.success({
+	        title: 'Logout',
+	        message: 'Bye',
+	        position: 'br',
+	        autoDismiss: 3
+	      }));
+	    }, function (err) {});
+	  };
+	}
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-notification-system-redux");
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	module.exports = require("express");
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = require("mongoose");
 
 /***/ },
 /* 10 */
@@ -344,11 +375,11 @@
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
-	var _SideBar = __webpack_require__(78);
+	var _SideBar = __webpack_require__(80);
 	
 	var _SideBar2 = _interopRequireDefault(_SideBar);
 	
-	var _InputBox = __webpack_require__(70);
+	var _InputBox = __webpack_require__(72);
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
@@ -394,6 +425,8 @@
 	        paddingLeft += 325;
 	        minWidth += 325;
 	      }
+	      paddingLeft += 'rem';
+	      minWidth += 'rem';
 	
 	      return _jsx('div', {
 	        className: _Program2.default.program + ' wow fadeIn',
@@ -450,7 +483,7 @@
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _model = __webpack_require__(81);
+	var _model = __webpack_require__(83);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
@@ -505,7 +538,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(104);
+	var _isomorphicFetch = __webpack_require__(106);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
@@ -568,7 +601,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(8);
+	var _mongoose = __webpack_require__(9);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -682,21 +715,21 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _intl = __webpack_require__(101);
+	var _intl = __webpack_require__(103);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(102);
+	var _intlLocalesSupported = __webpack_require__(104);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(103);
+	__webpack_require__(105);
 	
 	var _en = __webpack_require__(112);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(54);
+	var _en3 = __webpack_require__(56);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -918,23 +951,23 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _validator = __webpack_require__(34);
+	var _validator = __webpack_require__(36);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(6);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(110);
+	var _reactFacebookLogin = __webpack_require__(32);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(111);
+	var _reactGoogleLogin = __webpack_require__(33);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
-	var _betterReactSpinkit = __webpack_require__(99);
+	var _betterReactSpinkit = __webpack_require__(101);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -962,7 +995,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(9);
+	var _AuthActions = __webpack_require__(6);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1046,7 +1079,7 @@
 	    value: function login() {
 	      if (!this.validation()) return;
 	
-	      if (this.props.auth.isLogging) return;
+	      if (this.props.auth.state === 'LOGGING') return;
 	
 	      this.props.dispatch((0, _AuthActions.loginRequest)({
 	        email: this.state.email,
@@ -1061,7 +1094,7 @@
 	  }, {
 	    key: 'facebookLogin',
 	    value: function facebookLogin(response) {
-	      if (this.props.auth.isLogging) return;
+	      if (this.props.auth.state === 'LOGGING') return;
 	
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('facebook', {
 	        id: response.id,
@@ -1079,7 +1112,7 @@
 	        return;
 	      }
 	
-	      if (this.props.auth.isLogging) return;
+	      if (this.props.auth.state === 'LOGGING') return;
 	
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('google', {
 	        id: response.googleId,
@@ -1145,7 +1178,7 @@
 	        href: 'javascript:void(0)',
 	        className: _styles2.default['btn-login'] + ' ' + _styles2.default['btn'],
 	        onClick: this.login.bind(this)
-	      }, void 0, this.props.auth.isLogging ? _ref2 : 'Sign in'), !this.props.auth.isLogging && _jsx('div', {
+	      }, void 0, this.props.auth.state === 'LOGGING' ? _ref2 : 'Sign in'), !(this.props.auth.state === 'LOGGING') && _jsx('div', {
 	        className: _styles2.default['social-container']
 	      }, void 0, _jsx(_reactFacebookLogin2.default, {
 	        appId: '128968304375975',
@@ -1218,13 +1251,21 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _validator = __webpack_require__(34);
+	var _validator = __webpack_require__(36);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(6);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
+	
+	var _reactFacebookLogin = __webpack_require__(32);
+	
+	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
+	
+	var _reactGoogleLogin = __webpack_require__(33);
+	
+	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -1252,7 +1293,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(9);
+	var _AuthActions = __webpack_require__(6);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1266,7 +1307,11 @@
 	
 	var _ref = _jsx('strong', {}, void 0, 'Great choice! ');
 	
-	var _ref2 = _jsx('br', {});
+	var _ref2 = _jsx('i', {
+	  className: 'fa fa-google'
+	});
+	
+	var _ref3 = _jsx('br', {});
 	
 	var Register = function (_Component) {
 	  _inherits(Register, _Component);
@@ -1356,6 +1401,36 @@
 	      this.setState(_defineProperty({}, e.target.id, e.target.value));
 	    }
 	  }, {
+	    key: 'facebookLogin',
+	    value: function facebookLogin(response) {
+	      if (this.props.auth.state === 'LOGGING') return;
+	
+	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('facebook', {
+	        id: response.id,
+	        givenName: response.first_name,
+	        familyName: response.last_name,
+	        photo: response.picture.data.url
+	      }));
+	    }
+	  }, {
+	    key: 'googleLogin',
+	    value: function googleLogin(response) {
+	      if (typeof response === 'string') {
+	        // error occurs
+	        console.log('Google Login Failure');
+	        return;
+	      }
+	
+	      if (this.props.auth.state === 'LOGGING') return;
+	
+	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('google', {
+	        id: response.googleId,
+	        givenName: response.profileObj.givenName,
+	        familyName: response.profileObj.familyName,
+	        photo: response.profileObj.imageUrl
+	      }));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {
@@ -1436,14 +1511,31 @@
 	        href: 'javascript:void(0)',
 	        className: _styles2.default['btn-login'] + ' ' + _styles2.default['btn'],
 	        onClick: this.register.bind(this)
-	      }, void 0, 'Create Account'), _jsx('div', {
+	      }, void 0, 'Create Account'), !(this.props.auth.state === 'LOGGING') && _jsx('div', {
+	        className: _styles2.default['social-container']
+	      }, void 0, _jsx(_reactFacebookLogin2.default, {
+	        appId: '128968304375975',
+	        fields: 'first_name,last_name,email,picture',
+	        tag: 'a',
+	        icon: 'fa-facebook',
+	        textButton: 'Facebook',
+	        cssClass: _styles2.default['btn-facebook'] + ' ' + _styles2.default['btn'] + ' pull-left',
+	        callback: this.facebookLogin.bind(this)
+	      }), _jsx(_reactGoogleLogin2.default, {
+	        clientId: '1057707658731-er6vr8sf5psl1uh3sjtsio5t2ooaljpi.apps.googleusercontent.com',
+	        buttonText: 'Google',
+	        tag: 'a',
+	        className: _styles2.default['btn-google'] + ' ' + _styles2.default['btn'] + ' pull-right',
+	        onSuccess: this.googleLogin.bind(this),
+	        onFailure: this.googleLogin.bind(this)
+	      }, void 0, _ref2, 'Google')), _jsx('div', {
 	        style: { marginTop: 20 }
 	      }, void 0, _jsx(_reactRouter.Link, {
 	        className: _styles2.default['page-link'],
 	        to: '/signin'
 	      }, void 0, 'Already have an account? Log in'))), _jsx('div', {
 	        className: _styles2.default['policy-text']
-	      }, void 0, 'By clicking Create Account, you agree to our ', _ref2, _jsx('a', {
+	      }, void 0, 'By clicking Create Account, you agree to our ', _ref3, _jsx('a', {
 	        className: _styles2.default['link']
 	      }, void 0, 'License Agreement'), ' and ', _jsx('a', {
 	        className: _styles2.default['link']
@@ -1458,7 +1550,9 @@
 	
 	
 	function mapStateToProps(state) {
-	  return {};
+	  return {
+	    auth: state.auth
+	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Register);
@@ -1509,7 +1603,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(61);
+	var _Footer = __webpack_require__(63);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -1946,23 +2040,23 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _UserInfo = __webpack_require__(69);
+	var _UserInfo = __webpack_require__(71);
 	
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 	
-	var _Membership = __webpack_require__(68);
+	var _Membership = __webpack_require__(70);
 	
 	var _Membership2 = _interopRequireDefault(_Membership);
 	
-	var _Conversation = __webpack_require__(66);
+	var _Conversation = __webpack_require__(68);
 	
 	var _Conversation2 = _interopRequireDefault(_Conversation);
 	
-	var _Activity = __webpack_require__(65);
+	var _Activity = __webpack_require__(67);
 	
 	var _Activity2 = _interopRequireDefault(_Activity);
 	
-	var _Document = __webpack_require__(67);
+	var _Document = __webpack_require__(69);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
@@ -2017,7 +2111,7 @@
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {
-	        className: _Profile2.default.profile + ' container'
+	        className: _Profile2.default.profile + ' container wow fadeIn'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
 	      }, void 0, _jsx('div', {
@@ -2062,16 +2156,16 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getCurrentProgram = exports.getPrograms = undefined;
+	exports.getCurrentProgram = exports.getPrograms = exports.initialState = undefined;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _ProgramActions = __webpack_require__(11);
 	
 	// Initial State
-	var initialState = { programs: {}, current: '', showSideBar: false };
+	var initialState = exports.initialState = { programs: {}, current: '', showSideBar: true };
 	
-	var PostReducer = function PostReducer() {
+	var ProgramReducer = function ProgramReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 	
@@ -2111,7 +2205,7 @@
 	};
 	
 	// Export Reducer
-	exports.default = PostReducer;
+	exports.default = ProgramReducer;
 
 /***/ },
 /* 30 */
@@ -2186,7 +2280,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(8);
+	var _mongoose = __webpack_require__(9);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2236,22 +2330,34 @@
 /* 32 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-html-parser");
+	module.exports = require("react-facebook-login");
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-google-login");
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = require("validator");
+	module.exports = require("react-html-parser");
 
 /***/ },
 /* 35 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux");
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	module.exports = require("validator");
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2294,7 +2400,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2313,7 +2419,7 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _App = __webpack_require__(55);
+	var _App = __webpack_require__(57);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -2404,7 +2510,7 @@
 	}));
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2415,7 +2521,7 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(33);
+	var _redux = __webpack_require__(35);
 	
 	var _reduxThunk = __webpack_require__(116);
 	
@@ -2425,7 +2531,7 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(86);
+	var _reducers = __webpack_require__(88);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -2460,7 +2566,7 @@
 	}
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2495,34 +2601,34 @@
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _incorporate = __webpack_require__(90);
+	var _incorporate = __webpack_require__(92);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(91);
+	var _sIncorporate = __webpack_require__(93);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(95);
+	var _transfertax = __webpack_require__(97);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(92);
+	var _incorporate3 = __webpack_require__(94);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(93);
+	var _payroll = __webpack_require__(95);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(94);
+	var _trademark = __webpack_require__(96);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2547,12 +2653,14 @@
 	  // Google Login
 	  router.post('/google', authController.google);
 	
+	  // Log out
+	  router.get('/logout', authController.logout);
 	  return router;
 	};
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(8);
 	
-	var _auth = __webpack_require__(87);
+	var _auth = __webpack_require__(89);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -2563,7 +2671,7 @@
 	;
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2573,9 +2681,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(8);
 	
-	var _post = __webpack_require__(88);
+	var _post = __webpack_require__(90);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -2598,7 +2706,7 @@
 	exports.default = router;
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2608,9 +2716,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(8);
 	
-	var _program = __webpack_require__(89);
+	var _program = __webpack_require__(91);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -2630,7 +2738,7 @@
 	exports.default = router;
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2641,7 +2749,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(98);
+	var _promiseUtils = __webpack_require__(100);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -2657,16 +2765,16 @@
 	  */
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(17);
-	var cssnext = __webpack_require__(106);
-	var postcssFocus = __webpack_require__(107);
-	var postcssReporter = __webpack_require__(108);
+	var cssnext = __webpack_require__(108);
+	var postcssFocus = __webpack_require__(109);
+	var postcssReporter = __webpack_require__(110);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -2731,67 +2839,67 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2826,7 +2934,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2861,11 +2969,11 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(58);
+	var _Header = __webpack_require__(60);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(57);
+	var _Footer = __webpack_require__(59);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -2873,7 +2981,9 @@
 	
 	var _IntlActions = __webpack_require__(25);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(6);
+	
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -2914,6 +3024,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.setState({ isMounted: true }); // eslint-disable-line
+	      this.props.dispatch((0, _AuthActions.setLoginState)());
 	    }
 	  }, {
 	    key: 'render',
@@ -2969,7 +3080,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3014,7 +3125,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3071,7 +3182,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3093,9 +3204,13 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
+	var _reactRedux = __webpack_require__(3);
+	
 	var _reactRouter = __webpack_require__(2);
 	
 	var _reactIntl = __webpack_require__(4);
+	
+	var _AuthActions = __webpack_require__(6);
 	
 	var _Header = {
 	  "header": "_2sEZYfHlvDy9uXqVIXG1aM",
@@ -3106,16 +3221,16 @@
 	  "navbar-toggle": "_1HU_4Z5TtN69fVUjB_Sq2L",
 	  "icon": "_3tIvuM0J0LUnGEyiyq4ofL",
 	  "circular-border": "_3i1SG3fLSwrAieVBUV6CTu",
-	  "signin": "aUFVwBhybvm5kKfskFs8i",
-	  "signup": "_11msVEXcr_aXstnJ66x20T",
 	  "dropdown": "_3-5-TWSoP6e9_LppIBTwlk",
 	  "section": "_38LtvyCSPSIl57o4tje_oV",
-	  "section-title": "_3uLUOCcG4NqgMGWmLv6AEt"
+	  "section-title": "_3uLUOCcG4NqgMGWmLv6AEt",
+	  "signin": "aUFVwBhybvm5kKfskFs8i",
+	  "signup": "_11msVEXcr_aXstnJ66x20T"
 	};
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _NavBar = __webpack_require__(59);
+	var _NavBar = __webpack_require__(61);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
@@ -3131,11 +3246,11 @@
 	
 	
 	var _ref = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
-	  href: '/legaltopics'
+	  to: '/legaltopics'
 	}, void 0, 'Legal Topics'));
 	
 	var _ref2 = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {
-	  href: '/legalforms'
+	  to: '/legalforms'
 	}, void 0, 'Legal Forms'));
 	
 	var _ref3 = _jsx('div', {}, void 0, _jsx('a', {
@@ -3160,20 +3275,16 @@
 	  className: 'fa fa-caret-down'
 	});
 	
-	var _ref9 = _jsx('li', {}, void 0, _jsx('a', {
-	  href: ''
-	}, void 0, 'Account'));
+	var _ref9 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
+	  to: '/profile'
+	}, void 0, 'Profile'));
 	
-	var _ref10 = _jsx('li', {}, void 0, _jsx('a', {
-	  href: ''
-	}, void 0, 'Sign Out'));
-	
-	var _ref11 = _jsx('i', {
+	var _ref10 = _jsx('i', {
 	  className: 'fa fa-bars',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref12 = _jsx(_NavBar2.default, {});
+	var _ref11 = _jsx('div', {}, void 0);
 	
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
@@ -3183,21 +3294,24 @@
 	
 	    var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 	
-	    _this.state = {
-	      showSubNav: false
-	    };
+	    _this.state = {};
 	    return _this;
 	  }
 	
 	  _createClass(Header, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var path = nextProps.location.pathname.split('/');
+	      /*const path = nextProps.location.pathname.split('/');
 	      if (path.length > 2 && (path[1] === 'legalforms' || path[1] === 'legaltopics')) {
 	        this.setState({ showSubNav: true });
 	      } else {
 	        this.setState({ showSubNav: false });
-	      }
+	      }*/
+	    }
+	  }, {
+	    key: 'onLogout',
+	    value: function onLogout() {
+	      this.props.dispatch((0, _AuthActions.logoutRequested)());
 	    }
 	  }, {
 	    key: 'render',
@@ -3232,13 +3346,18 @@
 	          className: 'fa fa-user ' + _Header2.default['icon']
 	        }), ' \xA0Account ', _ref8)), _jsx('ul', {
 	          className: _Header2.default['dropdown']
-	        }, void 0, _ref9, _ref10)),
+	        }, void 0, _ref9, _jsx('li', {}, void 0, _jsx('a', {
+	          href: 'javascript:void(0)',
+	          onClick: this.onLogout.bind(this)
+	        }, void 0, 'Log Out')))),
 	        setting: _jsx('li', {
 	          className: _Header2.default['nav-item']
 	        }, void 0, _jsx('a', {}, void 0, _jsx('i', {
 	          className: 'fa fa-bars ' + _Header2.default['setting']
 	        })))
 	      };
+	
+	      var isLogged = this.props.auth.state === 'LOGGED';
 	      return (
 	        /*<div className={styles.header}>
 	          <a className={styles.logo} href="/">
@@ -3269,7 +3388,7 @@
 	          className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
 	          'data-toggle': 'collapse',
 	          'data-target': '#myNavbar'
-	        }, void 0, _ref11), _jsx('a', {
+	        }, void 0, _ref10), _jsx('a', {
 	          className: 'navbar-brand ' + _Header2.default.logo,
 	          href: '/'
 	        }, void 0, 'Legal Maven')), _jsx('div', {
@@ -3277,7 +3396,7 @@
 	          id: 'myNavbar'
 	        }, void 0, _jsx('ul', {
 	          className: 'nav navbar-nav navbar-right'
-	        }, void 0, !this.state.showSubNav && items.legalTopics, !this.state.showSubNav && items.legalForms, !this.state.showSubNav && items.services, !this.state.showSubNav && items.contact, this.state.showSubNav && items.search, items.signIn, items.signUp)))), this.state.showSubNav && _ref12)
+	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref11)
 	      );
 	    }
 	  }]);
@@ -3289,10 +3408,17 @@
 	  router: _react2.default.PropTypes.object
 	};
 	
-	exports.default = Header;
+	// Retrieve data from store as props
+	function mapStateToProps(store) {
+	  return {
+	    auth: store.auth
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3378,7 +3504,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3390,18 +3516,24 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _AuthActions = __webpack_require__(9);
+	var _AuthActions = __webpack_require__(6);
 	
 	var _reactRouter = __webpack_require__(2);
 	
 	// Initial State
-	var initialState = { user: {}, isLogging: false };
+	var initialState = { user: {}, state: 'NOT_LOGGED' };
 	
 	var AuthReducer = function AuthReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	    case _AuthActions.SET_LOGIN_STATE:
+	      var clientId = localStorage.getItem('clientId');
+	      return _extends({}, state, {
+	        state: clientId ? 'LOGGED' : 'NOT_LOGGED'
+	      });
+	
 	    case _AuthActions.REGISTER_SUCCEEDED:
 	      return _extends({}, state, {
 	        user: action.user
@@ -3414,20 +3546,24 @@
 	
 	    case _AuthActions.LOGIN_REQUESTED:
 	      return _extends({}, state, {
-	        isLogging: true
+	        state: 'LOGGING'
 	      });
 	
 	    case _AuthActions.LOGIN_SUCCEEDED:
-	      _reactRouter.browserHistory.push('/');
 	      return _extends({}, state, {
 	        user: action.user,
-	        isLogging: false
+	        state: 'LOGGED'
 	      });
 	
 	    case _AuthActions.LOGIN_FAILED:
 	      return _extends({}, state, {
 	        err: action.err,
-	        isLogging: false
+	        state: 'NOT_LOGGED'
+	      });
+	
+	    case _AuthActions.LOGOUT_SUCCEEDED:
+	      return _extends({}, state, {
+	        state: 'NOT_LOGGED'
 	      });
 	
 	    default:
@@ -3441,7 +3577,7 @@
 	exports.default = AuthReducer;
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3561,7 +3697,7 @@
 	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3608,7 +3744,7 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3698,7 +3834,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3709,7 +3845,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(63);
+	var _PostActions = __webpack_require__(65);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -3761,7 +3897,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3888,7 +4024,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3991,7 +4127,7 @@
 	exports.default = Conversation;
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4094,7 +4230,7 @@
 	exports.default = Document;
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4203,7 +4339,7 @@
 	exports.default = Membership;
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4325,7 +4461,7 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4355,35 +4491,35 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _reactHtmlParser = __webpack_require__(32);
+	var _reactHtmlParser = __webpack_require__(34);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormArticlesOfIncorporation = __webpack_require__(76);
+	var _CAFormArticlesOfIncorporation = __webpack_require__(78);
 	
 	var _CAFormArticlesOfIncorporation2 = _interopRequireDefault(_CAFormArticlesOfIncorporation);
 	
-	var _CAFormArticlesOfIncorporation3 = __webpack_require__(77);
+	var _CAFormArticlesOfIncorporation3 = __webpack_require__(79);
 	
 	var _CAFormArticlesOfIncorporation4 = _interopRequireDefault(_CAFormArticlesOfIncorporation3);
 	
-	var _NoteDialog = __webpack_require__(71);
+	var _NoteDialog = __webpack_require__(73);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county2 = __webpack_require__(74);
+	var _county2 = __webpack_require__(76);
 	
 	var _county3 = _interopRequireDefault(_county2);
 	
-	var _city = __webpack_require__(72);
+	var _city = __webpack_require__(74);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption = __webpack_require__(75);
+	var _county_exemption = __webpack_require__(77);
 	
 	var _county_exemption2 = _interopRequireDefault(_county_exemption);
 	
-	var _city_exemption = __webpack_require__(73);
+	var _city_exemption = __webpack_require__(75);
 	
 	var _city_exemption2 = _interopRequireDefault(_city_exemption);
 	
@@ -4418,7 +4554,7 @@
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
-	var _green_check = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAiCAYAAAA3WXuFAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAJ/SURBVHjazJdNSFRRFMfvfZm1EIkRdDEt2rRxEUKBKKhgGBGJ5MaQRHAVacsJlFy4cjGgK6GNG1EiSBCFEiJFxTAqceFCghYRQ+BCwUIJdOx/5p2Rw50349N33xsv/A+8cz/mN+fecz+0uggllXBge6Dfly4AzA3YL1A3AZUUOSovoGHoEGqClnWRYGKwH6Ea6DtUp+LJHarSEYOQrYeWIJqdN9ATwBxmmzgRw5BZZZiX0GMJE12EUglKnimogz1d0CRgcprqCGCu8BTVsuceQD7ka65DhimDXYdusocW71qhLjpEmGuwm1DcL4zixRVWZH5AMfY88AMTTpa5MFsChtL6vd/ujmWYq7xmstM0wNnlu2jLqf0Zus2eyUx6e6R2+ECpBI3zFmpnzwZ0BzBHZx3KsQBDdkjA7EMN54GxtYZaoUHxXQuYv+cdzAkYneuws8LzHDCbQYYsMe4nFdAeBv3nA6YU9qvw0PEwFjTcmtfAQ+g1VMb+ZkAtnrJuJviQVHzBiqHPn6BATmbjUmpOwFBZwI9WF+jXImCotNmAcYHiSdovquh/G3UrgLrsEZ1y2HfCM298B44Q9tXkNuwtKC3qaOt/5jFVc8YZ2HnWzc9flrl32g6jfoTvM+rkkFSqUXz3od+uzdPHTPtp6KdR/1RctKZFHf2BV7bPZu2xRupgPwkPTSMdmqNQr/DfRXQWbAN53Yfo3kJrqlJEiTa/+6LNL2gxjKtU7k4dTx4bkVAGjMq8Mt12EQC5ZYY3O6+yw7uyig7IfSv15+lDmZWOFsgt4wWip4oBtMvvb5ltrYjOQZhA+pQTvZ6fvgT2yNZ5FeQ+9I3f4y1RwFD5L8AAJa2e4Sl5ptUAAAAASUVORK5CYII=";
+	var _green_check = '/' + "43e94895d9f5f0c58b2c26d21a9a41f2.png";
 	
 	var _green_check2 = _interopRequireDefault(_green_check);
 	
@@ -4982,7 +5118,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InputBox);
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5004,9 +5140,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(109);
+	var _reactBootstrap = __webpack_require__(111);
 	
-	var _reactHtmlParser = __webpack_require__(32);
+	var _reactHtmlParser = __webpack_require__(34);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -5088,7 +5224,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5100,7 +5236,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5121,7 +5257,7 @@
 	exports.default = (0, _csv2array2.default)(csv, ',');
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5133,7 +5269,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5154,7 +5290,7 @@
 	exports.default = (0, _csv2array2.default)(csv, ',');
 
 /***/ },
-/* 76 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5230,7 +5366,7 @@
 	exports.default = CAFormArticlesOfIncorporation1;
 
 /***/ },
-/* 77 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5304,7 +5440,7 @@
 	exports.default = CAFormArticlesOfIncorporation2;
 
 /***/ },
-/* 78 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5402,7 +5538,7 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 79 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5551,7 +5687,7 @@
 	};
 
 /***/ },
-/* 80 */
+/* 82 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5736,7 +5872,7 @@
 	};
 
 /***/ },
-/* 81 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5748,27 +5884,27 @@
 	
 	var _ca_professional_corp;
 	
-	var _incorporate = __webpack_require__(79);
+	var _incorporate = __webpack_require__(81);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(80);
+	var _sIncorporate = __webpack_require__(82);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(85);
+	var _transfertax = __webpack_require__(87);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(82);
+	var _incorporate3 = __webpack_require__(84);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(83);
+	var _payroll = __webpack_require__(85);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(84);
+	var _trademark = __webpack_require__(86);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
@@ -5779,7 +5915,7 @@
 	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _ca_professional_corp);
 
 /***/ },
-/* 82 */
+/* 84 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5985,7 +6121,7 @@
 	};
 
 /***/ },
-/* 83 */
+/* 85 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6082,7 +6218,7 @@
 	};
 
 /***/ },
-/* 84 */
+/* 86 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6342,7 +6478,7 @@
 	};
 
 /***/ },
-/* 85 */
+/* 87 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6360,7 +6496,7 @@
 	    id: "input_1",
 	    kind: "Input",
 	    content: {
-	      question: "Please select country and city.",
+	      question: "Please select county and city.",
 	      fields: [{ kind: "select", label: "Select County", datasource: "county", store: "county" }, { kind: "select", label: "Select City", datasource: "city", store: "city" }],
 	      next: "single_2"
 	    }
@@ -6509,7 +6645,7 @@
 	};
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6519,17 +6655,17 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(33);
+	var _redux = __webpack_require__(35);
 	
-	var _AppReducer = __webpack_require__(56);
+	var _AppReducer = __webpack_require__(58);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
-	var _PostReducer = __webpack_require__(64);
+	var _PostReducer = __webpack_require__(66);
 	
 	var _PostReducer2 = _interopRequireDefault(_PostReducer);
 	
-	var _IntlReducer = __webpack_require__(62);
+	var _IntlReducer = __webpack_require__(64);
 	
 	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
 	
@@ -6537,11 +6673,11 @@
 	
 	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
 	
-	var _AuthReducer = __webpack_require__(60);
+	var _AuthReducer = __webpack_require__(62);
 	
 	var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(6);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -6561,7 +6697,7 @@
 	     */
 
 /***/ },
-/* 87 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6575,6 +6711,7 @@
 	exports.loginSuccess = loginSuccess;
 	exports.loginFailure = loginFailure;
 	exports.register = register;
+	exports.logout = logout;
 	
 	var _user = __webpack_require__(14);
 	
@@ -6669,9 +6806,14 @@
 	    }
 	  });
 	}
+	
+	function logout(req, res) {
+	  req.logout();
+	  res.status(200).json({ status: 200, message: 'Logout' });
+	}
 
 /***/ },
-/* 88 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6685,15 +6827,15 @@
 	exports.getPost = getPost;
 	exports.deletePost = deletePost;
 	
-	var _post = __webpack_require__(96);
+	var _post = __webpack_require__(98);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _cuid = __webpack_require__(100);
+	var _cuid = __webpack_require__(102);
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(105);
+	var _limax = __webpack_require__(107);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
@@ -6780,7 +6922,7 @@
 	}
 
 /***/ },
-/* 89 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6844,7 +6986,7 @@
 	}
 
 /***/ },
-/* 90 */
+/* 92 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7000,7 +7142,7 @@
 	};
 
 /***/ },
-/* 91 */
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7191,7 +7333,7 @@
 	};
 
 /***/ },
-/* 92 */
+/* 94 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7397,7 +7539,7 @@
 	};
 
 /***/ },
-/* 93 */
+/* 95 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7494,7 +7636,7 @@
 	};
 
 /***/ },
-/* 94 */
+/* 96 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7754,7 +7896,7 @@
 	};
 
 /***/ },
-/* 95 */
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7772,7 +7914,7 @@
 	    id: "input_1",
 	    kind: "Input",
 	    content: {
-	      question: "Please select country and city.",
+	      question: "Please select county and city.",
 	      fields: [{ kind: "select", label: "Select County", datasource: "county", store: "county" }, { kind: "select", label: "Select City", datasource: "city", store: "city" }],
 	      next: "single_2"
 	    }
@@ -7921,7 +8063,7 @@
 	};
 
 /***/ },
-/* 96 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7931,7 +8073,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(8);
+	var _mongoose = __webpack_require__(9);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -7951,7 +8093,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 97 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7963,39 +8105,39 @@
 	
 	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 	
-	var _express = __webpack_require__(7);
+	var _express = __webpack_require__(8);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(45);
+	var _compression = __webpack_require__(47);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _mongoose = __webpack_require__(8);
+	var _mongoose = __webpack_require__(9);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(44);
+	var _bodyParser = __webpack_require__(46);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(50);
+	var _path = __webpack_require__(52);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(35);
+	var _IntlWrapper = __webpack_require__(37);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(46);
+	var _connectFlash = __webpack_require__(48);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(47);
+	var _cookieParser = __webpack_require__(49);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(48);
+	var _expressSession = __webpack_require__(50);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
@@ -8007,19 +8149,19 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(43);
+	var _webpackConfig = __webpack_require__(45);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(52);
+	var _webpackDevMiddleware = __webpack_require__(54);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(53);
+	var _webpackHotMiddleware = __webpack_require__(55);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(37);
+	var _store = __webpack_require__(39);
 	
 	var _reactRedux = __webpack_require__(3);
 	
@@ -8027,7 +8169,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(51);
+	var _server = __webpack_require__(53);
 	
 	var _reactRouter = __webpack_require__(2);
 	
@@ -8035,21 +8177,21 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(36);
+	var _routes = __webpack_require__(38);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(42);
+	var _fetchData = __webpack_require__(44);
 	
-	var _post = __webpack_require__(40);
+	var _post = __webpack_require__(42);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _program = __webpack_require__(41);
+	var _program = __webpack_require__(43);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(39);
+	var _auth = __webpack_require__(41);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
@@ -8057,7 +8199,7 @@
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(38);
+	var _dummyData = __webpack_require__(40);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
@@ -8067,7 +8209,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(49).Strategy;
+	var LocalStrategy = __webpack_require__(51).Strategy;
 	
 	// Webpack Requirements
 	
@@ -8211,7 +8353,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 98 */
+/* 100 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8242,82 +8384,70 @@
 	}
 
 /***/ },
-/* 99 */
+/* 101 */
 /***/ function(module, exports) {
 
 	module.exports = require("better-react-spinkit");
 
 /***/ },
-/* 100 */
+/* 102 */
 /***/ function(module, exports) {
 
 	module.exports = require("cuid");
 
 /***/ },
-/* 101 */
+/* 103 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl");
 
 /***/ },
-/* 102 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl-locales-supported");
 
 /***/ },
-/* 103 */
+/* 105 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
-/* 104 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
 
 /***/ },
-/* 105 */
+/* 107 */
 /***/ function(module, exports) {
 
 	module.exports = require("limax");
 
 /***/ },
-/* 106 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 107 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 108 */
+/* 110 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 109 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-bootstrap");
-
-/***/ },
-/* 110 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-facebook-login");
-
-/***/ },
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-login");
+	module.exports = require("react-bootstrap");
 
 /***/ },
 /* 112 */

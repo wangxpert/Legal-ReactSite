@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
+
+import { logoutRequested } from '../../../Auth/AuthActions';
 
 // Import Style
 import styles from './Header.css';
@@ -13,23 +16,27 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      showSubNav: false
+
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const path = nextProps.location.pathname.split('/');
+    /*const path = nextProps.location.pathname.split('/');
     if (path.length > 2 && (path[1] === 'legalforms' || path[1] === 'legaltopics')) {
       this.setState({ showSubNav: true });
     } else {
       this.setState({ showSubNav: false });
-    }
+    }*/
+  }
+
+  onLogout() {
+    this.props.dispatch(logoutRequested());
   }
 
   render() {
     const items = {
-      legalTopics: (<li className={styles['nav-item']} ><div><Link href="/legaltopics">Legal Topics</Link></div></li>),
-      legalForms: (<li  className={styles['nav-item']} ><div><Link href="/legalforms">Legal Forms</Link></div></li>),
+      legalTopics: (<li className={styles['nav-item']} ><div><Link to="/legaltopics">Legal Topics</Link></div></li>),
+      legalForms: (<li  className={styles['nav-item']} ><div><Link to="/legalforms">Legal Forms</Link></div></li>),
       services: (<li className={styles['nav-item']}><div><a href="">Services</a></div></li>),
       contact: (<li className={styles['nav-item']}><div><a>Contact</a></div></li>),
       search: (
@@ -67,8 +74,8 @@ class Header extends Component {
           </div>
 
           <ul className={styles['dropdown']}>
-            <li><a href="">Account</a></li>
-            <li><a href="">Sign Out</a></li>
+            <li><Link to="/profile">Profile</Link></li>
+            <li><a href="javascript:void(0)" onClick={this.onLogout.bind(this)}>Log Out</a></li>
           </ul>
         </li>
       ),
@@ -80,6 +87,8 @@ class Header extends Component {
         </li>
       )
     };
+
+    const isLogged = (this.props.auth.state === 'LOGGED');
     return (
       /*<div className={styles.header}>
         <a className={styles.logo} href="/">
@@ -108,18 +117,20 @@ class Header extends Component {
             <div className="collapse navbar-collapse" id="myNavbar">
 
               <ul className="nav navbar-nav navbar-right">
-                {!this.state.showSubNav && items.legalTopics}
-                {!this.state.showSubNav && items.legalForms}
-                {!this.state.showSubNav && items.services}
-                {!this.state.showSubNav && items.contact}
-                {this.state.showSubNav && items.search}
-                {items.signIn}
-                {items.signUp}
+                {items.legalTopics}
+                {items.legalForms}
+                {items.services}
+                {items.contact}
+                {items.search}
+                {!isLogged && items.signIn}
+                {!isLogged && items.signUp}
+                {isLogged && items.account}
               </ul>
             </div>
           </div>
         </nav>
-        {this.state.showSubNav && <Navbar />}
+        <div>
+        </div>
       </div>
     );
   }
@@ -129,8 +140,11 @@ Header.contextTypes = {
   router: React.PropTypes.object,
 };
 
-Header.propTypes = {
+// Retrieve data from store as props
+function mapStateToProps(store) {
+  return {
+    auth: store.auth
+  };
+}
 
-};
-
-export default Header;
+export default connect(mapStateToProps)(Header);

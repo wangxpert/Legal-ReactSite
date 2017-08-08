@@ -8,17 +8,7 @@ import Notifications from 'react-notification-system-redux';
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 import {
-  ChasingDots,
-  Circle,
-  CubeGrid,
-  DoubleBounce,
-  FadingCircle,
-  FoldingCube,
-  Pulse,
-  RotatingPlane,
   ThreeBounce,
-  WanderingCubes,
-  Wave
 } from 'better-react-spinkit'
 
 import styles from './styles.css';
@@ -84,7 +74,7 @@ class Login extends Component {
   login() {
     if (!this.validation()) return;
 
-    if (this.props.auth.isLogging) return;
+    if (this.props.auth.state === 'LOGGING') return;
 
     this.props.dispatch(loginRequest({
       email: this.state.email,
@@ -97,7 +87,7 @@ class Login extends Component {
   }
 
   facebookLogin(response) {
-    if (this.props.auth.isLogging) return;
+    if (this.props.auth.state === 'LOGGING') return;
 
     this.props.dispatch(socialLoginRequest('facebook', {
       id: response.id,
@@ -113,7 +103,7 @@ class Login extends Component {
       return;
     }
 
-    if (this.props.auth.isLogging) return;
+    if (this.props.auth.state === 'LOGGING') return;
 
     this.props.dispatch(socialLoginRequest('google', {
       id: response.googleId,
@@ -158,9 +148,9 @@ class Login extends Component {
 
               <div className={styles['button-container']}>
                 <a href="javascript:void(0)" className={`${styles['btn-login']} ${styles['btn']}`} onClick={this.login.bind(this)}>
-                  { this.props.auth.isLogging ? <ThreeBounce size={15} color='white' /> : 'Sign in' }
+                  { this.props.auth.state === 'LOGGING' ? <ThreeBounce size={15} color='white' /> : 'Sign in' }
                 </a>
-                { !this.props.auth.isLogging &&
+                { !(this.props.auth.state === 'LOGGING') &&
                 <div className={styles['social-container']}>
                   <FacebookLogin
                     appId="128968304375975"

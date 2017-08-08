@@ -13,6 +13,7 @@ import Footer from './components/Footer/Footer';
 // Import Actions
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
+import { setLoginState } from '../../modules/Auth/AuthActions';
 
 import Notifications from 'react-notification-system-redux';
 
@@ -21,9 +22,10 @@ export class App extends Component {
     super(props);
     this.state = { isMounted: false };
   }
-
+  
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
+    this.props.dispatch(setLoginState());
   }
 
   toggleAddPostSection = () => {

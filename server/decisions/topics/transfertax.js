@@ -8,7 +8,7 @@ export default {
       id: "input_1",
       kind: "Input",
       content: {
-        question: "Please select country and city.",
+        question: "Please select county and city.",
         fields: [
           { kind: "select", label: "Select County", datasource: "county", store: "county" },
           { kind: "select", label: "Select City", datasource: "city", store: "city" }

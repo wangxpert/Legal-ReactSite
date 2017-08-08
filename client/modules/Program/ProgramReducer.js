@@ -1,9 +1,9 @@
 import { ADD_PROGRAM, SET_CURRENT_PROGRAM, TOGGLE_SIDEBAR } from './ProgramActions';
 
 // Initial State
-const initialState = { programs: {}, current: '', showSideBar: false };
+export const initialState = { programs: {}, current: '', showSideBar: true };
 
-const PostReducer = (state = initialState, action) => {
+const ProgramReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_PROGRAM :
       const newPrograms = Object.assign({}, state.programs);
@@ -39,4 +39,4 @@ export const getPrograms = state => state.programs.programs;
 export const getCurrentProgram = (state) => state.programs.programs[state.programs.current];
 
 // Export Reducer
-export default PostReducer;
+export default ProgramReducer;

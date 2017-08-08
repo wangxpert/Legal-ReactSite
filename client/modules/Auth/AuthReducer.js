@@ -1,18 +1,27 @@
 import {
+  SET_LOGIN_STATE,
   LOGIN_REQUESTED,
   LOGIN_SUCCEEDED,
   LOGIN_FAILED,
   REGISTER_SUCCEEDED,
-  REGISTER_FAILED
+  REGISTER_FAILED,
+  LOGOUT_SUCCEEDED
 } from './AuthActions';
 
 import { browserHistory } from 'react-router';
 
 // Initial State
-const initialState = { user: {}, isLogging: false };
+const initialState = { user: {}, state: 'NOT_LOGGED' };
 
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_LOGIN_STATE:
+      const clientId = localStorage.getItem('clientId');
+      return {
+        ...state,
+        state: clientId ? 'LOGGED' : 'NOT_LOGGED'
+      }
+
     case REGISTER_SUCCEEDED:
       return {
         ...state,
@@ -28,22 +37,27 @@ const AuthReducer = (state = initialState, action) => {
     case LOGIN_REQUESTED:
       return {
         ...state,
-        isLogging: true
+        state: 'LOGGING'
       }
 
     case LOGIN_SUCCEEDED:
-      browserHistory.push('/');
       return {
         ...state,
         user: action.user,
-        isLogging: false
+        state: 'LOGGED'
       }
 
     case LOGIN_FAILED:
       return {
         ...state,
         err: action.err,
-        isLogging: false
+        state: 'NOT_LOGGED'
+      }
+
+    case LOGOUT_SUCCEEDED:
+      return {
+        ...state,
+        state: 'NOT_LOGGED'
       }
 
     default:

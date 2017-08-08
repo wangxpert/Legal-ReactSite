@@ -36,7 +36,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className={`${styles.profile} container`}>
+      <div className={`${styles.profile} container wow fadeIn`}>
         <div className='row'>
           <div className='col-md-4 col-xs-12'>
             <UserInfo onUpdate={this.onUpdateInfo.bind(this)}/>

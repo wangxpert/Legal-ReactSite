@@ -1,11 +1,11 @@
 .header {
+
 }
 
 .navbar {
   background-color: #004a8a;
   color: #fff;
   box-shadow: 2rem 2rem 10rem rgb(0, 0, 0, .4);
-  z-index: 999;
   border-radius: 0;
   margin: 0;
   position: fixed;
@@ -61,65 +61,13 @@
 
 .nav-item a {
   padding: 28rem 0;
+  width: 100%;
   text-decoration: none;
   color: white;
 }
 
 .nav-item.circular-border a:hover {
   background: transparent;
-}
-
-
-@media (min-width: 991px) {
-  .nav-item.circular-border {
-    padding-left: 10rem;
-  }
-  .nav-item.circular-border:hover {
-      border-bottom: 0;
-
-  }
-  .nav-item.circular-border a {
-    font-size: 18rem;
-    border: 1rem solid white;
-    border-radius: 50rem;
-    padding: 8rem 20rem;
-    margin: 5rem auto;
-  }
-
-  .nav-item.signin {
-    padding-left: 30rem;
-  }
-
-  .nav-item.signin a {
-    border-color: white;
-  }
-
-  .nav-item.signin a:focus {
-    background: transparent;
-  }
-
-  .nav-item.signup a {
-    border-color: #04b2fb;
-    background: #04b2fb;
-    color: 04b2fb;
-  }
-
-  .nav-item.circular-border.signin a:hover {
-    border: 1rem solid #04b2fb;
-    color: #04b2fb;
-    background: rgba(255, 255, 255, .1);
-  }
-
-  .nav-item.circular-border.signin a:active {
-    text-decoration: none;
-    background: transparent;
-  }
-
-  .nav-item.circular-border.signup a:hover {
-    color: white;
-    background: rgba(4, 178, 251, .2);
-    color: #04b2fb;
-  }
 }
 
 .dropdown {
@@ -132,8 +80,8 @@
   text-align: center;
   list-style: none;
   background: #004a8a;
+  border-width: 0;
   width: 165rem;
-  margin-left: -10rem;
 }
 
 .dropdown .section {
@@ -175,13 +123,74 @@
   background: rgba(255, 255, 255, .3);
 }
 
-@media (max-width: 1100px) {
-  .dropdown {
 
+@media (max-width: 991px) {
+
+  .dropdown {
+    padding: 0rem;
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .nav-item {
+    padding: 4rem;
   }
 
   .nav-item:hover .dropdown {
     position: static;
+  }
+}
+
+@media (min-width: 992px) {
+
+  .nav-item.circular-border {
+    padding-left: 10rem;
+  }
+  .nav-item.circular-border:hover {
+      border-bottom: 0;
+
+  }
+  .nav-item.circular-border a {
+    font-size: 18rem;
+    border: 1rem solid white;
+    border-radius: 50rem;
+    padding: 7.5rem 20rem;
+    margin: 5rem auto;
+  }
+
+  .nav-item.signin {
+    padding-left: 30rem;
+  }
+
+  .nav-item.signin a {
+    border-color: white;
+  }
+
+  .nav-item.signin a:focus {
+    background: transparent;
+  }
+
+  .nav-item.signup a {
+    border-color: #04b2fb;
+    background: #04b2fb;
+    color: 04b2fb;
+  }
+
+  .nav-item.circular-border.signin a:hover {
+    border: 1rem solid #04b2fb;
+    color: #04b2fb;
+    background: rgba(255, 255, 255, .1);
+  }
+
+  .nav-item.circular-border.signin a:active {
+    text-decoration: none;
+    background: transparent;
+  }
+
+  .nav-item.circular-border.signup a:hover {
+    color: white;
+    background: rgba(4, 178, 251, .2);
+    color: #04b2fb;
   }
 }
