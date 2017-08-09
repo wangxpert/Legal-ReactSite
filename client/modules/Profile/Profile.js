@@ -13,9 +13,16 @@ import Conversation from './components/Conversation';
 import Activity from './components/Activity';
 import Document from './components/Document';
 
+// Import Actions
+import { fetchUserProfileRequested } from '../Auth/AuthActions';
+
 class Profile extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.dispatch(fetchUserProfileRequested());
   }
 
   onUpdateInfo() {
@@ -39,7 +46,7 @@ class Profile extends Component {
       <div className={`${styles.profile} container wow fadeIn`}>
         <div className='row'>
           <div className='col-md-4 col-xs-12'>
-            <UserInfo onUpdate={this.onUpdateInfo.bind(this)}/>
+            <UserInfo user={this.props.auth.user} onUpdate={this.onUpdateInfo.bind(this)}/>
           </div>
           <div className='col-md-8 col-xs-12'>
             <Membership onUpgrade={this.onUpgradeMembership.bind(this)}/>
@@ -61,9 +68,9 @@ class Profile extends Component {
 }
 
 // Retrieve data from store as props
-function mapStateToProps(state) {
+function mapStateToProps(store) {
   return {
-
+    auth: store.auth
   };
 }
 

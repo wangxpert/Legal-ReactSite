@@ -5,6 +5,7 @@ import topic_transfertax from './topics/transfertax';
 import topic_incorporate from './topics/incorporate';
 import topic_payroll from './topics/payroll';
 import topic_trademark from './topics/trademark';
+import topic_securitydeposit from './topics/securitydeposit';
 
 export default {
   ['ca_professional_corporation']: ca_professional_corporation,
@@ -13,5 +14,6 @@ export default {
   ['incorporate']: topic_incorporate,
   ['payroll']: topic_payroll,
   ['trademark']: topic_trademark,
-  ['transfertax']: topic_transfertax
+  ['transfertax']: topic_transfertax,
+  ['securitydeposit']: topic_securitydeposit
 };

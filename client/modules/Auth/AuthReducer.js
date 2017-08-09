@@ -5,7 +5,10 @@ import {
   LOGIN_FAILED,
   REGISTER_SUCCEEDED,
   REGISTER_FAILED,
-  LOGOUT_SUCCEEDED
+  LOGOUT_SUCCEEDED,
+  FETCH_USER_PROFILE_SUCCEEDED,
+  FETCH_USER_PROFILE_FAILED,
+  SET_REDIRECT_URL
 } from './AuthActions';
 
 import { browserHistory } from 'react-router';
@@ -41,6 +44,12 @@ const AuthReducer = (state = initialState, action) => {
       }
 
     case LOGIN_SUCCEEDED:
+      if (state.redirectUrl) {
+        browserHistory.push(state.redirectUrl);
+      } else {
+        browserHistory.push('/');
+      }
+
       return {
         ...state,
         user: action.user,
@@ -59,6 +68,25 @@ const AuthReducer = (state = initialState, action) => {
         ...state,
         state: 'NOT_LOGGED'
       }
+
+    case FETCH_USER_PROFILE_SUCCEEDED:
+      return {
+        ...state,
+        user: action.user
+      }
+
+    case FETCH_USER_PROFILE_FAILED:
+      return {
+        ...state,
+        err: action.err
+      }
+
+    case SET_REDIRECT_URL:
+      return {
+        ...state,
+        redirectUrl: action.url
+      }
+
 
     default:
       return state;

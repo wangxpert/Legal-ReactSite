@@ -13,7 +13,7 @@ import {
 
 import styles from './styles.css';
 
-import { loginRequest, socialLoginRequest } from './AuthActions.js';
+import { loginRequest, socialLoginRequest, setRedirectUrl } from './AuthActions.js';
 
 class Login extends Component {
   constructor(props) {
@@ -76,6 +76,7 @@ class Login extends Component {
 
     if (this.props.auth.state === 'LOGGING') return;
 
+    this.props.dispatch(setRedirectUrl('/'));
     this.props.dispatch(loginRequest({
       email: this.state.email,
       password: this.state.password
@@ -89,11 +90,13 @@ class Login extends Component {
   facebookLogin(response) {
     if (this.props.auth.state === 'LOGGING') return;
 
+    this.props.dispatch(setRedirectUrl('/'));
     this.props.dispatch(socialLoginRequest('facebook', {
       id: response.id,
       givenName: response.first_name,
       familyName: response.last_name,
-      photo: response.picture.data.url
+      photo: response.picture.data.url,
+      email: response.email
     }));
   }
 
@@ -105,11 +108,13 @@ class Login extends Component {
 
     if (this.props.auth.state === 'LOGGING') return;
 
+    this.props.dispatch(setRedirectUrl('/'));
     this.props.dispatch(socialLoginRequest('google', {
       id: response.googleId,
       givenName: response.profileObj.givenName,
       familyName: response.profileObj.familyName,
-      photo: response.profileObj.imageUrl
+      photo: response.profileObj.imageUrl,
+      email: response.profileObj.email
     }));
   }
 

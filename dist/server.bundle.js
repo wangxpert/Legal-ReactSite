@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 99);
+/******/ 	return __webpack_require__(__webpack_require__.s = 100);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -150,7 +150,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LOGOUT_SUCCEEDED = exports.LOGIN_FAILED = exports.LOGIN_SUCCEEDED = exports.REGISTER_FAILED = exports.REGISTER_SUCCEEDED = exports.SOCIAL_LOGIN_REQUEST = exports.LOGIN_REQUESTED = exports.SET_LOGIN_STATE = undefined;
+	exports.SET_REDIRECT_URL = exports.FETCH_USER_PROFILE_FAILED = exports.FETCH_USER_PROFILE_SUCCEEDED = exports.LOGOUT_SUCCEEDED = exports.LOGIN_FAILED = exports.LOGIN_SUCCEEDED = exports.REGISTER_FAILED = exports.REGISTER_SUCCEEDED = exports.SOCIAL_LOGIN_REQUEST = exports.LOGIN_REQUESTED = exports.SET_LOGIN_STATE = undefined;
 	exports.setLoginState = setLoginState;
 	exports.registerSucceeded = registerSucceeded;
 	exports.registerFailed = registerFailed;
@@ -158,10 +158,14 @@
 	exports.loginSucceeded = loginSucceeded;
 	exports.loginFailed = loginFailed;
 	exports.logoutSucceeded = logoutSucceeded;
+	exports.fetchUserProfileSucceeded = fetchUserProfileSucceeded;
+	exports.fetchUserProfileFailed = fetchUserProfileFailed;
+	exports.setRedirectUrl = setRedirectUrl;
 	exports.registerRequest = registerRequest;
 	exports.loginRequest = loginRequest;
 	exports.socialLoginRequest = socialLoginRequest;
 	exports.logoutRequested = logoutRequested;
+	exports.fetchUserProfileRequested = fetchUserProfileRequested;
 	
 	var _apiCaller = __webpack_require__(12);
 	
@@ -188,6 +192,11 @@
 	var LOGIN_SUCCEEDED = exports.LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
 	var LOGIN_FAILED = exports.LOGIN_FAILED = 'LOGIN_FAILED';
 	var LOGOUT_SUCCEEDED = exports.LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
+	
+	var FETCH_USER_PROFILE_SUCCEEDED = exports.FETCH_USER_PROFILE_SUCCEEDED = 'FETCH_USER_PROFILE_SUCCEEDED';
+	var FETCH_USER_PROFILE_FAILED = exports.FETCH_USER_PROFILE_FAILED = 'FETCH_USER_PROFILE_FAILED';
+	
+	var SET_REDIRECT_URL = exports.SET_REDIRECT_URL = 'SET_REDIRECT_URL';
 	
 	// Export Actions
 	function setLoginState() {
@@ -217,7 +226,6 @@
 	}
 	
 	function loginSucceeded(user) {
-	  _reactRouter.browserHistory.push('/');
 	  localStorage.setItem('clientId', user.id);
 	  return {
 	    type: LOGIN_SUCCEEDED,
@@ -237,6 +245,27 @@
 	  _reactRouter.browserHistory.push('/');
 	  return {
 	    type: LOGOUT_SUCCEEDED
+	  };
+	}
+	
+	function fetchUserProfileSucceeded(user) {
+	  return {
+	    type: FETCH_USER_PROFILE_SUCCEEDED,
+	    user: user
+	  };
+	}
+	
+	function fetchUserProfileFailed(err) {
+	  return {
+	    type: FETCH_USER_PROFILE_FAILED,
+	    err: err
+	  };
+	}
+	
+	function setRedirectUrl(url) {
+	  return {
+	    type: SET_REDIRECT_URL,
+	    url: url
 	  };
 	}
 	
@@ -317,6 +346,16 @@
 	        autoDismiss: 3
 	      }));
 	    }, function (err) {});
+	  };
+	}
+	
+	function fetchUserProfileRequested() {
+	  return function (dispatch) {
+	    (0, _apiCaller2.default)('auth/profile', 'get').then(function (res) {
+	      return dispatch(fetchUserProfileSucceeded(res.user));
+	    }, function (err) {
+	      return dispatch(fetchUserProfileFailed(err));
+	    });
 	  };
 	}
 
@@ -538,7 +577,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(106);
+	var _isomorphicFetch = __webpack_require__(107);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
@@ -555,6 +594,7 @@
 	  var body = arguments[2];
 	
 	  return (0, _isomorphicFetch2.default)(API_URL + '/' + endpoint, {
+	    credentials: 'include',
 	    headers: { 'content-type': 'application/json' },
 	    method: method,
 	    body: JSON.stringify(body)
@@ -671,6 +711,11 @@
 	    default: ''
 	  },
 	
+	  occupation: {
+	    type: String,
+	    default: ''
+	  },
+	
 	  created: {
 	    type: Date,
 	    default: Date.now
@@ -715,17 +760,17 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _intl = __webpack_require__(103);
+	var _intl = __webpack_require__(104);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(104);
+	var _intlLocalesSupported = __webpack_require__(105);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(105);
+	__webpack_require__(106);
 	
-	var _en = __webpack_require__(112);
+	var _en = __webpack_require__(113);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
@@ -907,13 +952,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(113);
+	var _reduxDevtools = __webpack_require__(114);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(115);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(116);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(114);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(115);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -967,7 +1012,7 @@
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
-	var _betterReactSpinkit = __webpack_require__(101);
+	var _betterReactSpinkit = __webpack_require__(102);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -1081,6 +1126,7 @@
 	
 	      if (this.props.auth.state === 'LOGGING') return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/'));
 	      this.props.dispatch((0, _AuthActions.loginRequest)({
 	        email: this.state.email,
 	        password: this.state.password
@@ -1096,11 +1142,13 @@
 	    value: function facebookLogin(response) {
 	      if (this.props.auth.state === 'LOGGING') return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/'));
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('facebook', {
 	        id: response.id,
 	        givenName: response.first_name,
 	        familyName: response.last_name,
-	        photo: response.picture.data.url
+	        photo: response.picture.data.url,
+	        email: response.email
 	      }));
 	    }
 	  }, {
@@ -1114,11 +1162,13 @@
 	
 	      if (this.props.auth.state === 'LOGGING') return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/'));
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('google', {
 	        id: response.googleId,
 	        givenName: response.profileObj.givenName,
 	        familyName: response.profileObj.familyName,
-	        photo: response.profileObj.imageUrl
+	        photo: response.profileObj.imageUrl,
+	        email: response.profileObj.email
 	      }));
 	    }
 	  }, {
@@ -1388,6 +1438,7 @@
 	    value: function register() {
 	      if (!this.validation()) return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/profile'));
 	      this.props.dispatch((0, _AuthActions.registerRequest)({
 	        firstName: this.state.firstName,
 	        lastName: this.state.lastName,
@@ -1405,6 +1456,7 @@
 	    value: function facebookLogin(response) {
 	      if (this.props.auth.state === 'LOGGING') return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/profile'));
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('facebook', {
 	        id: response.id,
 	        givenName: response.first_name,
@@ -1423,6 +1475,7 @@
 	
 	      if (this.props.auth.state === 'LOGGING') return;
 	
+	      this.props.dispatch((0, _AuthActions.setRedirectUrl)('/profile'));
 	      this.props.dispatch((0, _AuthActions.socialLoginRequest)('google', {
 	        id: response.googleId,
 	        givenName: response.profileObj.givenName,
@@ -1804,7 +1857,7 @@
 	          return topic.title.toLowerCase().includes(_this2.state.keyword.toLowerCase());
 	        }).map(function (topic, index) {
 	          return _jsx(_reactRouter.Link, {
-	            className: _LegalForms2.default['item'],
+	            className: _LegalForms2.default['item'] + ' col-xs-12',
 	            to: topic.href
 	          }, index, topic.title);
 	        });
@@ -1941,7 +1994,7 @@
 	        href: '/legaltopics/transfertax'
 	      }, {
 	        title: 'Am I entitled to a refund of my security deposit?',
-	        href: '/'
+	        href: '/legaltopics/securitydeposit'
 	      }]
 	    }];
 	    return _this;
@@ -2060,6 +2113,8 @@
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
+	var _AuthActions = __webpack_require__(6);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2072,6 +2127,9 @@
 	
 	
 	// Import Components
+	
+	
+	// Import Actions
 	
 	
 	var _ref = _jsx('div', {
@@ -2088,6 +2146,11 @@
 	  }
 	
 	  _createClass(Profile, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.dispatch((0, _AuthActions.fetchUserProfileRequested)());
+	    }
+	  }, {
 	    key: 'onUpdateInfo',
 	    value: function onUpdateInfo() {
 	      alert('Update Information');
@@ -2117,6 +2180,7 @@
 	      }, void 0, _jsx('div', {
 	        className: 'col-md-4 col-xs-12'
 	      }, void 0, _jsx(_UserInfo2.default, {
+	        user: this.props.auth.user,
 	        onUpdate: this.onUpdateInfo.bind(this)
 	      })), _jsx('div', {
 	        className: 'col-md-8 col-xs-12'
@@ -2140,8 +2204,10 @@
 	// Retrieve data from store as props
 	
 	
-	function mapStateToProps(state) {
-	  return {};
+	function mapStateToProps(store) {
+	  return {
+	    auth: store.auth
+	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
@@ -2523,7 +2589,7 @@
 	
 	var _redux = __webpack_require__(35);
 	
-	var _reduxThunk = __webpack_require__(116);
+	var _reduxThunk = __webpack_require__(117);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -2531,7 +2597,7 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(88);
+	var _reducers = __webpack_require__(89);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -2601,27 +2667,27 @@
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _incorporate = __webpack_require__(92);
+	var _incorporate = __webpack_require__(93);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(93);
+	var _sIncorporate = __webpack_require__(94);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(97);
+	var _transfertax = __webpack_require__(98);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(94);
+	var _incorporate3 = __webpack_require__(95);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(95);
+	var _payroll = __webpack_require__(96);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(96);
+	var _trademark = __webpack_require__(97);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
@@ -2655,12 +2721,16 @@
 	
 	  // Log out
 	  router.get('/logout', authController.logout);
+	
+	  // Get Profile
+	  router.get('/profile', authController.getUser);
+	
 	  return router;
 	};
 	
 	var _express = __webpack_require__(8);
 	
-	var _auth = __webpack_require__(89);
+	var _auth = __webpack_require__(90);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -2683,7 +2753,7 @@
 	
 	var _express = __webpack_require__(8);
 	
-	var _post = __webpack_require__(90);
+	var _post = __webpack_require__(91);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -2718,7 +2788,7 @@
 	
 	var _express = __webpack_require__(8);
 	
-	var _program = __webpack_require__(91);
+	var _program = __webpack_require__(92);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -2749,7 +2819,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(100);
+	var _promiseUtils = __webpack_require__(101);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -2772,9 +2842,9 @@
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(17);
-	var cssnext = __webpack_require__(108);
-	var postcssFocus = __webpack_require__(109);
-	var postcssReporter = __webpack_require__(110);
+	var cssnext = __webpack_require__(109);
+	var postcssFocus = __webpack_require__(110);
+	var postcssReporter = __webpack_require__(111);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -3550,6 +3620,12 @@
 	      });
 	
 	    case _AuthActions.LOGIN_SUCCEEDED:
+	      if (state.redirectUrl) {
+	        _reactRouter.browserHistory.push(state.redirectUrl);
+	      } else {
+	        _reactRouter.browserHistory.push('/');
+	      }
+	
 	      return _extends({}, state, {
 	        user: action.user,
 	        state: 'LOGGED'
@@ -3564,6 +3640,21 @@
 	    case _AuthActions.LOGOUT_SUCCEEDED:
 	      return _extends({}, state, {
 	        state: 'NOT_LOGGED'
+	      });
+	
+	    case _AuthActions.FETCH_USER_PROFILE_SUCCEEDED:
+	      return _extends({}, state, {
+	        user: action.user
+	      });
+	
+	    case _AuthActions.FETCH_USER_PROFILE_FAILED:
+	      return _extends({}, state, {
+	        err: action.err
+	      });
+	
+	    case _AuthActions.SET_REDIRECT_URL:
+	      return _extends({}, state, {
+	        redirectUrl: action.url
 	      });
 	
 	    default:
@@ -4410,39 +4501,39 @@
 	
 	  _createClass(UserInfo, [{
 	    key: 'renderInfo',
-	    value: function renderInfo() {
-	      var icons = ['fa-user', 'fa-envelope', 'fa-phone', 'fa-map-marker', 'fa-briefcase'];
-	      var info = ['First and Last Name', 'Email Address', 'Phone Contact', 'Address here', 'Occupation'];
+	    value: function renderInfo(icon, info) {
+	      // const icons = ['fa-user', 'fa-envelope', 'fa-phone', 'fa-map-marker', 'fa-briefcase'];
+	      // const user = this.props.user;
+	      // if (user) {
+	      // const info = [ `${ user.name.givenName } ${ user.name.familyName }`,
+	      //   user.emails[0].value, user.address, user.occupation ]
 	
-	      var ele = [];
-	      for (var i = 0; i < icons.length; i++) {
-	        ele.push(_jsx('div', {
-	          className: '' + _styles2.default['text-box']
-	        }, i, _jsx('div', {
-	          className: _styles2.default['icon']
-	        }, void 0, _jsx('i', {
-	          className: 'fa ' + icons[i],
-	          'aria-hidden': 'true'
-	        })), _jsx('span', {
-	          className: _styles2.default['text']
-	        }, void 0, info[i])));
-	      }
 	
-	      return ele;
+	      return _jsx('div', {
+	        className: '' + _styles2.default['text-box']
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon']
+	      }, void 0, _jsx('i', {
+	        className: 'fa ' + icon,
+	        'aria-hidden': 'true'
+	      })), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, info));
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var user = this.props.user;
 	      return _jsx('div', {
 	        className: '' + _styles2.default.container
 	      }, void 0, _jsx('div', {
 	        className: _styles2.default['avatar-container']
 	      }, void 0, _jsx('img', {
 	        className: _styles2.default.avatar,
-	        src: 'https://cdn.psychologytoday.com/sites/default/files/blogs/46379/2014/07/155585-159667.gif'
+	        src: user && user.photo ? user.photo : "https://cdn.psychologytoday.com/sites/default/files/blogs/46379/2014/07/155585-159667.gif"
 	      })), _jsx('div', {
 	        className: _styles2.default['info-container']
-	      }, void 0, this.renderInfo()), _jsx('div', {
+	      }, void 0, this.renderInfo('fa-user', user && user.photo ? user.name.givenName + ' ' + user.name.familyName : ''), this.renderInfo('fa-envelope', user && user.emails ? user.emails[0].value : ''), this.renderInfo('fa-phone', user && user.phone ? user.phone : ''), this.renderInfo('fa-map-marker', user && user.address ? user.address : ''), this.renderInfo('fa-briefcase', user && user.occupation ? user.occupation : '')), _jsx('div', {
 	        className: '' + _styles2.default['button-container']
 	      }, void 0, _jsx(_Button2.default, {
 	        title: 'Update Info',
@@ -4546,6 +4637,7 @@
 	  "help-container": "pjYF7jSBEBXUVCUyI6QH-",
 	  "help-text": "_2fjf6ZIMkYP3WJx1t3w25R",
 	  "result": "_1J8g7FiAiXwpZ0cuPFSbZk",
+	  "modal-content": "_157Poqx4X4aCNW_XC2nn2h",
 	  "modal-header": "_2FiCF3SoBkQeI6CNSWTYt4",
 	  "modal-body": "_1izqOESrigQ2GZKqYt3IkW",
 	  "modal-footer": "_2dg5kHM9S5RNkv-Lze3jGy",
@@ -4773,7 +4865,18 @@
 	        this.doAction(program, node);
 	      }
 	
-	      if (kind === 'display' || kind === 'result') {
+	      if (kind === 'final') {
+	        var message = node.content.message;
+	        if (node.content.attach) {
+	          node.content.attach.forEach(function (elt) {
+	            message += program.attach[elt];
+	          });
+	        }
+	        this.openNote(null, node.content.title, message);
+	      }
+	
+	      if (kind === 'display') {
+	
 	        alert(node.content.message);
 	      }
 	    }
@@ -5001,7 +5104,7 @@
 	  }, {
 	    key: 'openNote',
 	    value: function openNote(e, title, content) {
-	      e.stopPropagation();
+	      if (e) e.stopPropagation();
 	      this.setState({ noteTitle: title, noteContent: content, showNote: true });
 	    }
 	  }, {
@@ -5140,7 +5243,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(111);
+	var _reactBootstrap = __webpack_require__(112);
 	
 	var _reactHtmlParser = __webpack_require__(34);
 	
@@ -5165,6 +5268,7 @@
 	  "help-container": "pjYF7jSBEBXUVCUyI6QH-",
 	  "help-text": "_2fjf6ZIMkYP3WJx1t3w25R",
 	  "result": "_1J8g7FiAiXwpZ0cuPFSbZk",
+	  "modal-content": "_157Poqx4X4aCNW_XC2nn2h",
 	  "modal-header": "_2FiCF3SoBkQeI6CNSWTYt4",
 	  "modal-body": "_1izqOESrigQ2GZKqYt3IkW",
 	  "modal-footer": "_2dg5kHM9S5RNkv-Lze3jGy",
@@ -5892,7 +5996,7 @@
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(87);
+	var _transfertax = __webpack_require__(88);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
@@ -5904,15 +6008,19 @@
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(86);
+	var _trademark = __webpack_require__(87);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
+	
+	var _securitydeposit = __webpack_require__(86);
+	
+	var _securitydeposit2 = _interopRequireDefault(_securitydeposit);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _ca_professional_corp);
+	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _defineProperty(_ca_professional_corp, 'securitydeposit', _securitydeposit2.default), _ca_professional_corp);
 
 /***/ },
 /* 84 */
@@ -6227,6 +6335,112 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _attach;
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	exports.default = {
+	  name: "securitydeposit",
+	  description: "Security Deposit",
+	  start: "yesno_1",
+	  kind: "Topic",
+	  attach: (_attach = {}, _defineProperty(_attach, 'GOOD_FAITH_ESTIMATES', "<h2>Good Faith Estimates</h2>\n      <p>If services or materials are being supplied by another person or business and the landlord does not have the invoice or receipt within 21 days after your move, then the landlord is allowed to make a good faith estimate of charges and include the estimate in the itemized statement. The landlord must include the name, address and telephone number of the person or business that is supplying the services or materials.</p>\n      <p>Within 14 calendar days after completing the repairs or receiving the invoice or receipt, the landlord must mail or deliver to you a correct itemized statement, the invoices and receipts described above, and any refund to which you are entitled. <small>[Civil Code Section 1950.5(g)(3)]</small></p>"), _defineProperty(_attach, 'GOOD_FAITH_ESTIMATES_2', "<h2>Good Faith Estimates</h2>\n      <p>If the repair is being done by the landlord or an employee and cannot reasonably be completed within 21 days after your move, the landlord is allowed to make a good faith estimate of charges and include the estimate in the itemized statement.</p>\n      <p>Within 14 calendar days after completing the repairs or receiving the invoice or receipt, the landlord must mail or deliver to you a correct itemized statement, the invoices and receipts described above, and any refund to which you are entitled. <small>[Civil Code Section 1950.5(g)(3)]</small></P>"), _defineProperty(_attach, 'IMPROPER_DEDUCTIONS', "<h2>Improper Deductions</h2>\n      <p>If you believe your landlord has made an improper deduction from your security\n        deposit, or if the landlord keeps all of the deposit without good reason, tell the landlord\n        or the landlord's agent why you believe that the deductions from your security deposit\n        are improper. Immediately ask the landlord or agent for a refund of the amount that\n        you believe you're entitled to get back. You can make this request by phone or e-mail,\n        but you should follow it up with a letter. The letter should state the reasons that you\n        believe the deductions are improper, and the amount that you feel should be returned\n        to you. Keep a copy of your letter. It's a good idea to send the letter to the landlord or\n        agent by certified mail and to request a return receipt to prove that the landlord or\n        agent received the letter. Or, you can deliver the letter personally and ask the landlord\n        or agent to acknowledge receipt by signing and dating your copy of the letter.</p>"), _attach),
+	  node: [{
+	    id: "yesno_1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Has it been more than 21 days since you have moved?",
+	      fields: [{ label: "Yes", next: "yesno_2" }, { label: "No", next: "final_1" }]
+	    }
+	  }, {
+	    id: "final_1",
+	    kind: "Final",
+	    content: {
+	      kind: "General",
+	      title: "You are not entitiled to a refund of your security deposit... yet.",
+	      message: "Under CA law, Landlord has 21 calendar days after you move to send you a full refund of your security deposit, or mail or personally deliver to you an itemized statement that lists the amounts of any deductions from your security deposit and the reasons for the deductions, together with a refund of any amounts not deducted."
+	    }
+	  }, {
+	    id: "yesno_2",
+	    kind: "YesNo",
+	    content: {
+	      question: "Has the landlord mailed or personally delivered to you an itemized statement that lists the amounts of any deductions from your security deposit and the reasons for the deductions, together with a refund of any amounts not deducted?",
+	      fields: [{ label: "Yes", next: "yesno_3" }, { label: "No", next: "final_2" }]
+	    }
+	  }, {
+	    id: "final_2",
+	    kind: "Final",
+	    content: {
+	      title: "You are likely entitled to a full refund of your security deposit",
+	      message: "<p>According to a California Supreme Court decision, the landlord loses the right to keep any of the security deposit and must return the entire deposit to you. <small>[See Portman and Brown, California Tenants' Rights, page 235-236 (NOLO Press 2010)]</small></p>",
+	      attach: ['GOOD_FAITH_ESTIMATES']
+	    }
+	  }, {
+	    id: "yesno_3",
+	    kind: "YesNo",
+	    content: {
+	      question: "Is the cost of repairs and/or cleaning less than $126?",
+	      fields: [{ label: "Yes", next: "final_3" }, { label: "No", next: "single_1" }]
+	    }
+	  }, {
+	    id: "final_3",
+	    kind: "Final",
+	    content: {
+	      title: "You are likely entitled to a refund of your security deposit, less the cost repairs and/or cleaning.",
+	      message: "<p>The landlord is not required to send you copies of invoices or receipts, or a good faith estimate, if the repairs or cleaning cost less than $126.<p/>\n                  <p>You may request copies of these documents from the landlord within 14 calendar days after you receive the itemized statement. It's best to make this request both orally and in writing. Keep a copy of your letter or e-mail. The landlord must send you copies of invoices, receipts and any good faith estimate within 14 calendar days after he or she receives your request. <small>[Civil Code Section 1950.5(g)(5)]</small><p/>",
+	      attach: ['IMPROPER_DEDUCTIONS']
+	    }
+	  }, {
+	    id: "single_1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Did the landlord or the landlord's employees do the work, or another person or business?",
+	      fields: [{ kind: "choice", label: "Other person or business", next: "yesno_4" }, { kind: "choice", label: "Landlord or landlord's employees", next: "final_4" }]
+	    }
+	  }, {
+	    id: "yesno_4",
+	    kind: "YesNo",
+	    content: {
+	      question: "Did Landlord send copies of receipts for the charges that the landlord incurred to repair or clean the rental unit and that the landlord deducted from your security deposit?",
+	      fields: [{ label: "Yes", next: "final_5" }, { label: "No", next: "yesno_5" }]
+	    }
+	  }, {
+	    id: "final_4",
+	    kind: "Final",
+	    content: {
+	      title: "You are likely entitled to a refund of your security deposit, less the cost repairs and/or cleaning.",
+	      message: "<p>The itemized statement must describe the work performed, including the time spent and the hourly rate charged. The hourly rate must be reasonable.<p/>",
+	      attach: ['GOOD_FAITH_ESTIMATES_2', 'IMPROPER_DEDUCTIONS']
+	    }
+	  }, {
+	    id: "final_5",
+	    kind: "Final",
+	    content: {
+	      title: "You are likely entitled to a refund of your security deposit, less the cost repairs and/or cleaning.",
+	      message: '',
+	      attach: ['IMPROPER_DEDUCTIONS']
+	    }
+	  }, {
+	    id: "yesno_5",
+	    kind: "YesNo",
+	    content: {
+	      question: "Did you waive your rights to receive them?",
+	      fields: [{ label: "Yes", next: "final_5" }, { label: "No", next: "final_2" }]
+	    }
+	  }]
+	};
+
+/***/ },
+/* 87 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.default = {
 	  name: "trademark",
 	  description: "TradeMark",
@@ -6478,7 +6692,7 @@
 	};
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6645,7 +6859,7 @@
 	};
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6697,7 +6911,7 @@
 	     */
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6712,6 +6926,7 @@
 	exports.loginFailure = loginFailure;
 	exports.register = register;
 	exports.logout = logout;
+	exports.getUser = getUser;
 	
 	var _user = __webpack_require__(14);
 	
@@ -6730,7 +6945,7 @@
 	function social(provider, req, res) {
 	  var info = req.body[provider];
 	
-	  _user2.default.findOne({ id: info.id, provider: provider }).then(function (user) {
+	  return _user2.default.findOne({ id: info.id, provider: provider }).then(function (user) {
 	    if (user) {
 	      return user;
 	    } else {
@@ -6751,7 +6966,17 @@
 	
 	      return newUser.save();
 	    }
-	  }).then(function (user) {
+	  });
+	  // .then(user => {
+	  //   req.login(user, function(err) {
+	  //     if (err) loginFailure(req, res);
+	  //     loginSuccess(loginSuccess(req, res));
+	  //   });
+	  // });
+	}
+	
+	function google(req, res) {
+	  social('google', req, res).then(function (user) {
 	    req.login(user, function (err) {
 	      if (err) loginFailure(req, res);
 	      loginSuccess(loginSuccess(req, res));
@@ -6759,12 +6984,13 @@
 	  });
 	}
 	
-	function google(req, res) {
-	  social('google', req, res);
-	}
-	
 	function facebook(req, res) {
-	  social('facebook', req, res);
+	  social('facebook', req, res).then(function (user) {
+	    req.login(user, function (err) {
+	      if (err) loginFailure(req, res);
+	      loginSuccess(loginSuccess(req, res));
+	    });
+	  });
 	}
 	
 	function loginSuccess(req, res) {
@@ -6811,9 +7037,17 @@
 	  req.logout();
 	  res.status(200).json({ status: 200, message: 'Logout' });
 	}
+	
+	function getUser(req, res) {
+	  if (req.user) {
+	    res.status(200).json({ status: 200, user: req.user });
+	  } else {
+	    res.status(401).json({ status: 401, message: 'UnAuthorized.' });
+	  }
+	}
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6827,19 +7061,19 @@
 	exports.getPost = getPost;
 	exports.deletePost = deletePost;
 	
-	var _post = __webpack_require__(98);
+	var _post = __webpack_require__(99);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _cuid = __webpack_require__(102);
+	var _cuid = __webpack_require__(103);
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(107);
+	var _limax = __webpack_require__(108);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(117);
+	var _sanitizeHtml = __webpack_require__(118);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -6922,7 +7156,7 @@
 	}
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6986,7 +7220,7 @@
 	}
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7142,7 +7376,7 @@
 	};
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7333,7 +7567,7 @@
 	};
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7539,7 +7773,7 @@
 	};
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7636,7 +7870,7 @@
 	};
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7896,7 +8130,7 @@
 	};
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8063,7 +8297,7 @@
 	};
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8093,7 +8327,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8254,7 +8488,7 @@
 	  secret: 'snowsea love',
 	  resave: false,
 	  saveUninitialized: true,
-	  cookie: { secure: true }
+	  cookie: { secure: false }
 	}));
 	app.use(_passport2.default.initialize());
 	app.use(_passport2.default.session());
@@ -8265,7 +8499,7 @@
 	});
 	
 	_passport2.default.deserializeUser(function (id, done) {
-	  _user2.default.findById(id, function (err, user) {
+	  _user2.default.findOne({ id: id }, function (err, user) {
 	    done(err, user);
 	  });
 	});
@@ -8353,7 +8587,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8384,103 +8618,103 @@
 	}
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports) {
 
 	module.exports = require("better-react-spinkit");
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports) {
 
 	module.exports = require("cuid");
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl");
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl-locales-supported");
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = require("limax");
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap");
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");

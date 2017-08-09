@@ -47,7 +47,7 @@ class LegalForms extends Component {
       })
       .map((topic, index) => {
         return (
-          <Link key={index} className={styles['item']} to={topic.href}>
+          <Link key={index} className={`${styles['item']} col-xs-12`} to={topic.href}>
             {topic.title}
           </Link>
         );

@@ -63,6 +63,11 @@ const userSchema = new Schema({
     default: ''
   },
 
+  occupation: {
+    type: String,
+    default: ''
+  },
+
   created: {
     type: Date,
     default: Date.now

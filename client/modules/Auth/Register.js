@@ -10,7 +10,7 @@ import GoogleLogin from 'react-google-login';
 
 import styles from './styles.css';
 
-import { registerRequest, socialLoginRequest } from './AuthActions.js';
+import { registerRequest, socialLoginRequest, setRedirectUrl } from './AuthActions.js';
 
 class Register extends Component {
 
@@ -88,6 +88,7 @@ class Register extends Component {
   register() {
     if (!this.validation()) return;
 
+    this.props.dispatch(setRedirectUrl('/profile'));
     this.props.dispatch(registerRequest({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -103,6 +104,7 @@ class Register extends Component {
   facebookLogin(response) {
     if (this.props.auth.state === 'LOGGING') return;
 
+    this.props.dispatch(setRedirectUrl('/profile'));
     this.props.dispatch(socialLoginRequest('facebook', {
       id: response.id,
       givenName: response.first_name,
@@ -119,6 +121,7 @@ class Register extends Component {
 
     if (this.props.auth.state === 'LOGGING') return;
 
+    this.props.dispatch(setRedirectUrl('/profile'));
     this.props.dispatch(socialLoginRequest('google', {
       id: response.googleId,
       givenName: response.profileObj.givenName,

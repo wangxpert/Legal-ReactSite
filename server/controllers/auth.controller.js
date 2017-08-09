@@ -8,7 +8,7 @@ import passport from 'passport';
 function social(provider, req, res) {
   const info = req.body[provider];
 
-  User.findOne({id: info.id, provider: provider})
+  return User.findOne({id: info.id, provider: provider})
     .then(user => {
       if (user) {
         return user;
@@ -33,7 +33,18 @@ function social(provider, req, res) {
 
         return newUser.save();
       }
-    })
+    });
+    // .then(user => {
+    //   req.login(user, function(err) {
+    //     if (err) loginFailure(req, res);
+    //     loginSuccess(loginSuccess(req, res));
+    //   });
+    // });
+
+}
+
+export function google(req, res) {
+  social('google', req, res)
     .then(user => {
       req.login(user, function(err) {
         if (err) loginFailure(req, res);
@@ -42,12 +53,14 @@ function social(provider, req, res) {
     });
 }
 
-export function google(req, res) {
-  social('google', req, res);
-}
-
 export function facebook(req, res) {
-  social('facebook', req, res);
+  social('facebook', req, res)
+    .then(user => {
+      req.login(user, function(err) {
+        if (err) loginFailure(req, res);
+        loginSuccess(loginSuccess(req, res));
+      });
+    });
 }
 
 export function loginSuccess(req, res) {
@@ -95,4 +108,12 @@ export function register(req, res) {
 export function logout(req, res) {
   req.logout();
   res.status(200).json({ status: 200, message: 'Logout' });
+}
+
+export function getUser(req, res) {
+  if (req.user) {
+    res.status(200).json({ status: 200, user: req.user });
+  } else {
+    res.status(401).json({ status: 401, message: 'UnAuthorized.' });
+  }
 }

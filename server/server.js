@@ -72,7 +72,7 @@ app.use(session({
     secret: 'snowsea love',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -83,7 +83,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+  User.findOne({id: id}, function(err, user) {
     done(err, user);
   });
 });

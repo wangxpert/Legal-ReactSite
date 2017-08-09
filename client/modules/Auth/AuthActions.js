@@ -14,6 +14,11 @@ export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
 
+export const FETCH_USER_PROFILE_SUCCEEDED = 'FETCH_USER_PROFILE_SUCCEEDED';
+export const FETCH_USER_PROFILE_FAILED = 'FETCH_USER_PROFILE_FAILED';
+
+export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
+
 import { browserHistory } from 'react-router';
 
 // Export Actions
@@ -45,8 +50,7 @@ export function loginRequested() {
 }
 
 export function loginSucceeded(user) {
-  browserHistory.push('/');
-  localStorage.setItem('clientId', user.id)
+  localStorage.setItem('clientId', user.id);
   return {
     type: LOGIN_SUCCEEDED,
     user: user
@@ -66,6 +70,27 @@ export function logoutSucceeded() {
   return {
     type: LOGOUT_SUCCEEDED,
   };
+}
+
+export function fetchUserProfileSucceeded(user) {
+  return {
+    type: FETCH_USER_PROFILE_SUCCEEDED,
+    user: user
+  };
+}
+
+export function fetchUserProfileFailed(err) {
+  return {
+    type: FETCH_USER_PROFILE_FAILED,
+    err: err
+  };
+}
+
+export function setRedirectUrl(url) {
+  return {
+    type: SET_REDIRECT_URL,
+    url: url
+  }
 }
 
 export function registerRequest(user) {
@@ -155,4 +180,13 @@ export function logoutRequested() {
     });
 
   };
+}
+
+export function fetchUserProfileRequested() {
+  return (dispatch) => {
+    callApi('auth/profile', 'get')
+    .then(res => dispatch(fetchUserProfileSucceeded(res.user)),
+          err => dispatch(fetchUserProfileFailed(err))
+    );
+  }
 }

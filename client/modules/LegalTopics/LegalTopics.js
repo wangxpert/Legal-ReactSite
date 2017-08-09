@@ -49,7 +49,7 @@ class LegalTopics extends Component {
           },
           {
             title: 'Am I entitled to a refund of my security deposit?',
-            href: '/'
+            href: '/legaltopics/securitydeposit'
           }
         ]
       }

@@ -198,16 +198,30 @@
   width: 720rem;
 }
 
+.modal-content {
+  border-width: 0rem;
+}
+
 .modal-header {
   padding: 16rem 30rem;
   font-size: 24rem;
-  color: #68717d;
+  color: #02b2fb;
   border-bottom: 2rem solid #cacfd6;
 }
 
 .modal-body {
   padding: 24rem 30rem;
-  color: #68717d;
+  font-size: 17rem;
+  text-indent: 10rem;
+  color: #000;
+}
+
+.modal-body h2 {
+  font-size: 20rem;
+  text-align: center;
+  margin: 0;
+  padding: 10rem;
+  text-decoration: underline;
 }
 
 .modal-body li {
@@ -217,17 +231,18 @@
 .modal-footer {
   text-align: right;
   background: #02b2fb;
+  font-size: 17rem;
   border-bottom-left-radius: 6rem;
   border-bottom-right-radius: 6rem;
   color: #fff;
-  padding: 10rem 24rem;
+  padding: 15rem 24rem;
 }
 
 .button.note {
-  background: #e5e8ed;
+  background: #fff;
   font-weight: normal;
   font-size: 14rem;
-  color: #202d42;
+  color: #02b2fb;
   margin: 0rem 10rem;
   padding: 6rem 16rem;
   border-radius: 3rem;

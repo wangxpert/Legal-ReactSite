@@ -212,7 +212,16 @@ class InputBox extends Component {
       this.doAction(program, node);
     }
 
-    if (kind === 'display' || kind === 'result') {
+    if (kind === 'final') {
+      var message = node.content.message;
+      if (node.content.attach) {
+        node.content.attach.forEach((elt) => { message += program.attach[elt] })
+      }
+      this.openNote(null, node.content.title, message);
+    }
+
+    if (kind === 'display') {
+
       alert(node.content.message);
     }
   }
@@ -313,19 +322,19 @@ class InputBox extends Component {
     const check_url = this.state.singleChoice === index ? `url(${check_img})` : '';
 
     if (kind === 'Single' || kind === 'YesNo' ) {
-        if (field.kind === 'number') {
-          if (this.state.store[node.content.store] === undefined) {
-            this.state.store[node.content.store] = '';
-          }
+      if (field.kind === 'number') {
+        if (this.state.store[node.content.store] === undefined) {
+          this.state.store[node.content.store] = '';
         }
+      }
 
-        return (
-          <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)} style={{ backgroundImage: check_url }}>
-            { field.label }
-            { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.store[node.content.store]} onChange={(event) => {this.onInput(event, node, field)}} /> : null  }
-            { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
-          </div>
-        );
+      return (
+        <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)} style={{ backgroundImage: check_url }}>
+          { field.label }
+          { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.store[node.content.store]} onChange={(event) => {this.onInput(event, node, field)}} /> : null  }
+          { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
+        </div>
+      );
     }
 
     if (kind === 'Input') {
@@ -393,7 +402,7 @@ class InputBox extends Component {
   };
 
   openNote(e, title, content) {
-    e.stopPropagation();
+    if (e) e.stopPropagation();
     this.setState({ noteTitle: title, noteContent: content, showNote: true });
   };
 

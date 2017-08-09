@@ -21,5 +21,9 @@ export default function(passport) {
 
   // Log out
   router.get('/logout', authController.logout);
+
+  // Get Profile
+  router.get('/profile', authController.getUser);
+
   return router;
 };
