@@ -901,7 +901,8 @@
 	        type: 'text',
 	        className: _SearchBox2.default['search-box'],
 	        placeholder: this.props.placeholder,
-	        onChange: this.props.onChange
+	        onChange: this.props.onChange,
+	        autofocus: true
 	      }), _jsx('i', {
 	        className: 'fa fa-search ' + _SearchBox2.default['search-icon'],
 	        'aria-hidden': 'true'
@@ -1799,10 +1800,6 @@
 	
 	var _LegalForms2 = _interopRequireDefault(_LegalForms);
 	
-	var _SearchBox = __webpack_require__(19);
-	
-	var _SearchBox2 = _interopRequireDefault(_SearchBox);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1816,7 +1813,6 @@
 	
 	// Import Components
 	
-	
 	var LegalForms = function (_Component) {
 	  _inherits(LegalForms, _Component);
 	
@@ -1824,10 +1820,6 @@
 	    _classCallCheck(this, LegalForms);
 	
 	    var _this = _possibleConstructorReturn(this, (LegalForms.__proto__ || Object.getPrototypeOf(LegalForms)).call(this, props));
-	
-	    _this.state = {
-	      keyword: ''
-	    };
 	
 	    _this.category = [{
 	      title: 'Business Corporation',
@@ -1843,19 +1835,10 @@
 	  }
 	
 	  _createClass(LegalForms, [{
-	    key: 'onSearch',
-	    value: function onSearch(event) {
-	      this.setState({ keyword: event.target.value });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      var categories = this.category.map(function (category, index) {
-	        var topics = category.topics.filter(function (topic) {
-	          return topic.title.toLowerCase().includes(_this2.state.keyword.toLowerCase());
-	        }).map(function (topic, index) {
+	        var topics = category.topics.map(function (topic, index) {
 	          return _jsx(_reactRouter.Link, {
 	            className: _LegalForms2.default['item'] + ' col-xs-12',
 	            to: topic.href
@@ -1872,13 +1855,6 @@
 	      return _jsx('div', {
 	        className: _LegalForms2.default.legalforms + ' wow fadeIn'
 	      }, void 0, _jsx('div', {
-	        className: '' + _LegalForms2.default['search-box-container']
-	      }, void 0, _jsx('div', {
-	        className: 'container'
-	      }, void 0, _jsx(_SearchBox2.default, {
-	        placeholder: 'Search Legal Forms',
-	        onChange: this.onSearch.bind(this)
-	      }))), _jsx('div', {
 	        className: '' + _LegalForms2.default['title-container']
 	      }, void 0, _jsx('div', {
 	        className: _LegalForms2.default['main-title']
@@ -1968,10 +1944,6 @@
 	
 	    var _this = _possibleConstructorReturn(this, (LegalTopics.__proto__ || Object.getPrototypeOf(LegalTopics)).call(this, props));
 	
-	    _this.state = {
-	      keyword: ''
-	    };
-	
 	    _this.category = [{
 	      title: 'Start-Ups',
 	      topics: [{
@@ -2008,12 +1980,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      var categories = this.category.map(function (category, index) {
-	        var topics = category.topics.filter(function (topic) {
-	          return topic.title.toLowerCase().includes(_this2.state.keyword.toLowerCase());
-	        }).map(function (topic, index) {
+	        var topics = category.topics.map(function (topic, index) {
 	          return _jsx(_reactRouter.Link, {
 	            className: _LegalTopics2.default['item'],
 	            to: topic.href
@@ -2030,13 +1998,6 @@
 	      return _jsx('div', {
 	        className: _LegalTopics2.default.legaltopics + ' wow fadeIn'
 	      }, void 0, _jsx('div', {
-	        className: '' + _LegalTopics2.default['search-box-container']
-	      }, void 0, _jsx('div', {
-	        className: 'container'
-	      }, void 0, _jsx(_SearchBox2.default, {
-	        placeholder: 'Search Legal Topics',
-	        onChange: this.onSearch.bind(this)
-	      }))), _jsx('div', {
 	        className: _LegalTopics2.default['title-container']
 	      }, void 0, _jsx('div', {
 	        className: _LegalTopics2.default['main-title']
@@ -3282,6 +3243,10 @@
 	
 	var _AuthActions = __webpack_require__(6);
 	
+	var _SearchBox = __webpack_require__(19);
+	
+	var _SearchBox2 = _interopRequireDefault(_SearchBox);
+	
 	var _Header = {
 	  "header": "_2sEZYfHlvDy9uXqVIXG1aM",
 	  "navbar": "_3UQRaVe_7Awdu51MeZEx_N",
@@ -3291,9 +3256,11 @@
 	  "navbar-toggle": "_1HU_4Z5TtN69fVUjB_Sq2L",
 	  "icon": "_3tIvuM0J0LUnGEyiyq4ofL",
 	  "circular-border": "_3i1SG3fLSwrAieVBUV6CTu",
+	  "searchbox-container": "_1vt4-lG0oyGIBMF00Br3_b",
 	  "dropdown": "_3-5-TWSoP6e9_LppIBTwlk",
 	  "section": "_38LtvyCSPSIl57o4tje_oV",
 	  "section-title": "_3uLUOCcG4NqgMGWmLv6AEt",
+	  "fixed": "_53UJYskFMlmKUkGSbJgl3",
 	  "signin": "aUFVwBhybvm5kKfskFs8i",
 	  "signup": "_11msVEXcr_aXstnJ66x20T"
 	};
@@ -3311,6 +3278,9 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Components
+	
 	
 	// Import Style
 	
@@ -3331,30 +3301,34 @@
 	
 	var _ref5 = _jsx('div', {}, void 0, _jsx(_reactRouter.Link, {}, void 0, _jsx('i', {
 	  className: 'fa fa-search'
-	}), ' \xA0Search'));
+	}), _jsx('span', {}, void 0, ' \xA0Search')));
 	
-	var _ref6 = _jsx(_reactRouter.Link, {
+	var _ref6 = _jsx(_SearchBox2.default, {
+	  placeholder: 'Search Legal Maven'
+	});
+	
+	var _ref7 = _jsx(_reactRouter.Link, {
 	  to: '/signin'
 	}, void 0, 'Sign In');
 	
-	var _ref7 = _jsx(_reactRouter.Link, {
+	var _ref8 = _jsx(_reactRouter.Link, {
 	  to: '/signup'
 	}, void 0, 'Sign Up');
 	
-	var _ref8 = _jsx('i', {
+	var _ref9 = _jsx('i', {
 	  className: 'fa fa-caret-down'
 	});
 	
-	var _ref9 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
+	var _ref10 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
 	  to: '/profile'
 	}, void 0, 'Profile'));
 	
-	var _ref10 = _jsx('i', {
+	var _ref11 = _jsx('i', {
 	  className: 'fa fa-bars',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref11 = _jsx('div', {}, void 0);
+	var _ref12 = _jsx('div', {}, void 0);
 	
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
@@ -3400,23 +3374,25 @@
 	          className: _Header2.default['nav-item']
 	        }, void 0, _ref4),
 	        search: _jsx('li', {
-	          className: _Header2.default['nav-item']
-	        }, void 0, _ref5),
+	          className: _Header2.default['nav-item'] + ' ' + _Header2.default['fixed']
+	        }, void 0, _ref5, _jsx('div', {
+	          className: '' + _Header2.default['searchbox-container']
+	        }, void 0, _ref6)),
 	        signIn: _jsx('li', {
 	          className: _Header2.default['nav-item'] + ' ' + _Header2.default['circular-border'] + ' ' + _Header2.default['signin']
-	        }, void 0, _ref6),
+	        }, void 0, _ref7),
 	        signUp: _jsx('li', {
 	          className: _Header2.default['nav-item'] + ' ' + _Header2.default['circular-border'] + ' ' + _Header2.default['signup']
-	        }, void 0, _ref7),
+	        }, void 0, _ref8),
 	        account: _jsx('li', {
 	          className: _Header2.default['nav-item']
 	        }, void 0, _jsx('div', {}, void 0, _jsx('a', {
 	          href: ''
 	        }, void 0, _jsx('i', {
 	          className: 'fa fa-user ' + _Header2.default['icon']
-	        }), ' \xA0Account ', _ref8)), _jsx('ul', {
+	        }), ' \xA0Account ', _ref9)), _jsx('ul', {
 	          className: _Header2.default['dropdown']
-	        }, void 0, _ref9, _jsx('li', {}, void 0, _jsx('a', {
+	        }, void 0, _ref10, _jsx('li', {}, void 0, _jsx('a', {
 	          href: 'javascript:void(0)',
 	          onClick: this.onLogout.bind(this)
 	        }, void 0, 'Log Out')))),
@@ -3458,7 +3434,9 @@
 	          className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
 	          'data-toggle': 'collapse',
 	          'data-target': '#myNavbar'
-	        }, void 0, _ref10), _jsx('a', {
+	        }, void 0, _ref11), _jsx('ul', {
+	          className: 'nav pull-right'
+	        }, void 0, items.search), _jsx('a', {
 	          className: 'navbar-brand ' + _Header2.default.logo,
 	          href: '/'
 	        }, void 0, 'Legal Maven')), _jsx('div', {
@@ -3466,7 +3444,7 @@
 	          id: 'myNavbar'
 	        }, void 0, _jsx('ul', {
 	          className: 'nav navbar-nav navbar-right'
-	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref11)
+	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref12)
 	      );
 	    }
 	  }]);

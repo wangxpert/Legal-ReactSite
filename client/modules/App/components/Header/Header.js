@@ -6,6 +6,9 @@ import { FormattedMessage } from 'react-intl';
 
 import { logoutRequested } from '../../../Auth/AuthActions';
 
+// Import Components
+import SearchBox from '../../../../components/SearchBox/SearchBox';
+
 // Import Style
 import styles from './Header.css';
 import Navbar from '../NavBar/NavBar';
@@ -40,29 +43,30 @@ class Header extends Component {
       services: (<li className={styles['nav-item']}><div><a href="">Services</a></div></li>),
       contact: (<li className={styles['nav-item']}><div><a>Contact</a></div></li>),
       search: (
-        <li className={styles['nav-item']}>
+        <li className={`${styles['nav-item']} ${styles['fixed']}`}>
           <div>
             <Link>
-              <i className="fa fa-search"></i> &nbsp;Search
+              <i className="fa fa-search"></i><span> &nbsp;Search</span>
             </Link>
+          </div>
+
+          <div className={`${styles['searchbox-container']}`}>
+            <SearchBox placeholder="Search Legal Maven"/>
           </div>
         </li>
       ),
       signIn: (
         <li className={`${styles['nav-item']} ${styles['circular-border']} ${styles['signin']}`}>
-
-            <Link to="/signin">
-              Sign In
-            </Link>
-
+          <Link to="/signin">
+            Sign In
+          </Link>
         </li>
       ),
       signUp: (
         <li className={`${styles['nav-item']} ${styles['circular-border']} ${styles['signup']}`}>
-            <Link to="/signup">
-              Sign Up
-            </Link>
-
+          <Link to="/signup">
+            Sign Up
+          </Link>
         </li>
       ),
       account: (
@@ -112,16 +116,18 @@ class Header extends Component {
               <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">
                 <i className="fa fa-bars" aria-hidden="true"></i>
               </button>
+              <ul className="nav pull-right">
+                {items.search}
+              </ul>
               <a className={`navbar-brand ${styles.logo}`} href="/">Legal Maven</a>
             </div>
-            <div className="collapse navbar-collapse" id="myNavbar">
 
+            <div className="collapse navbar-collapse" id="myNavbar">
               <ul className="nav navbar-nav navbar-right">
                 {items.legalTopics}
                 {items.legalForms}
                 {items.services}
                 {items.contact}
-                {items.search}
                 {!isLogged && items.signIn}
                 {!isLogged && items.signUp}
                 {isLogged && items.account}

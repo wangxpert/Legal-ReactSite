@@ -14,10 +14,6 @@ class LegalTopics extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      keyword: ''
-    };
-
     this.category = [
       {
         title: 'Start-Ups',
@@ -63,9 +59,6 @@ class LegalTopics extends Component {
   render() {
     const categories = this.category.map((category, index) => {
       const topics = category.topics
-      .filter((topic) => {
-        return topic.title.toLowerCase().includes(this.state.keyword.toLowerCase());
-      })
       .map((topic, index) => {
         return (
           <Link key={index} className={styles['item']} to={topic.href}>
@@ -89,11 +82,6 @@ class LegalTopics extends Component {
 
     return (
       <div className={`${styles.legaltopics} wow fadeIn`}>
-        <div className={`${styles['search-box-container']}`}>
-          <div className='container'>
-            <SearchBox placeholder="Search Legal Topics" onChange={this.onSearch.bind(this)}/>
-          </div>
-        </div>
         <div className={styles['title-container']}>
           <div className={styles['main-title']}>
             Let&apos;s get started, please select a topic.

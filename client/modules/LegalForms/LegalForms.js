@@ -8,15 +8,10 @@ import { FormattedMessage } from 'react-intl';
 import styles from './LegalForms.css';
 
 // Import Components
-import SearchBox from '../../components/SearchBox/SearchBox';
 
 class LegalForms extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      keyword: ''
-    };
 
     this.category = [
       {
@@ -35,16 +30,9 @@ class LegalForms extends Component {
     ];
   }
 
-  onSearch(event) {
-    this.setState({ keyword: event.target.value });
-  }
-
   render() {
     const categories = this.category.map((category, index) => {
       const topics = category.topics
-      .filter((topic) => {
-        return topic.title.toLowerCase().includes(this.state.keyword.toLowerCase());
-      })
       .map((topic, index) => {
         return (
           <Link key={index} className={`${styles['item']} col-xs-12`} to={topic.href}>
@@ -68,11 +56,6 @@ class LegalForms extends Component {
 
     return (
       <div className={`${styles.legalforms} wow fadeIn`}>
-        <div className={`${styles['search-box-container']}`}>
-          <div className='container'>
-            <SearchBox placeholder="Search Legal Forms" onChange={this.onSearch.bind(this)}/>
-          </div>
-        </div>
         <div className={`${styles['title-container']}`}>
           <div className={styles['main-title']}>
             Let&apos;s get started, please select a form.
