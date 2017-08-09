@@ -3,7 +3,7 @@
   background: #fff;
   height: 100vh;
   color: #202d42;
-  padding-top: 82rem;
+  padding-top: 102rem;
 }
 
 .search-box-container {
@@ -55,4 +55,10 @@
 
 .category .item:hover {
   color: #02b2fb;
+}
+
+@media (max-height: 800px) {
+  .legaltopics {
+    padding-top: 82rem;
+  }
 }

@@ -15,7 +15,7 @@ class SearchBox extends Component {
   render() {
     return (
       <div className={styles['search-box-container']}>
-        <input type="text" className={styles['search-box']} placeholder={this.props.placeholder} onChange={this.props.onChange} autofocus />
+        <input type="text" className={styles['search-box']} placeholder={this.props.placeholder} onChange={this.props.onChange} autoFocus />
         <i className={`fa fa-search ${styles['search-icon']}`} aria-hidden="true"></i>
       </div>
     );

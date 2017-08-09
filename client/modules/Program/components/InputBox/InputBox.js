@@ -113,7 +113,7 @@ class InputBox extends Component {
       }
 
       const nextIndex = this.getNodeIndex(program.node, node.content.next[next]);
-      this.setCurrent(program.node, nextIndex);
+      this.setCurrent(program, nextIndex);
     } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
       var next = 1;
       if (store['city']) {
