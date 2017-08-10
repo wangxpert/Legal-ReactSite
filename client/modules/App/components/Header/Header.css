@@ -162,6 +162,15 @@
   .nav-item:hover .dropdown {
     position: static;
   }
+
+  .nav-item-search {
+    padding: 0;
+    display: none;
+  }
+
+  .nav-item-search div {
+    display: none;
+  }
 }
 
 @media (min-width: 992px) {
