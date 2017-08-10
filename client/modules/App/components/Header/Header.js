@@ -6,12 +6,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { logoutRequested } from '../../../Auth/AuthActions';
 
+import { toggleSearchBar } from '../../AppActions';
+
 // Import Components
-import SearchBox from '../../../../components/SearchBox/SearchBox';
 
 // Import Style
 import styles from './Header.css';
 import Navbar from '../NavBar/NavBar';
+import select_img from './select.png';
 
 class Header extends Component {
 
@@ -36,22 +38,25 @@ class Header extends Component {
     this.props.dispatch(logoutRequested());
   }
 
+  onSearch() {
+    const { dispatch } = this.props;
+    dispatch(toggleSearchBar());
+  }
+
   render() {
+    var search_back_url = '';
+    if (this.props.app.showSearchBar)
+      search_back_url = `url('${select_img}')`;
+
     const items = {
       legalTopics: (<li className={styles['nav-item']} ><div><Link to="/legaltopics">Legal Topics</Link></div></li>),
       legalForms: (<li  className={styles['nav-item']} ><div><Link to="/legalforms">Legal Forms</Link></div></li>),
       services: (<li className={styles['nav-item']}><div><a href="">Services</a></div></li>),
       contact: (<li className={styles['nav-item']}><div><a>Contact</a></div></li>),
       search: (
-        <li className={`${styles['nav-item']} ${styles['fixed']}`}>
-          <div>
-            <Link>
-              <i className="fa fa-search"></i><span> &nbsp;Search</span>
-            </Link>
-          </div>
-
-          <div className={`${styles['searchbox-container']}`}>
-            <SearchBox placeholder="Search Legal Maven"/>
+        <li className={`${styles['nav-item-search']}`} style={{backgroundImage: search_back_url}}>
+          <div onClick={this.onSearch.bind(this)}>
+              <i className="fa fa-search"></i>
           </div>
         </li>
       ),
@@ -116,9 +121,7 @@ class Header extends Component {
               <button type="button" className={`navbar-toggle ${styles['navbar-toggle']}`} data-toggle="collapse" data-target="#myNavbar">
                 <i className="fa fa-bars" aria-hidden="true"></i>
               </button>
-              <ul className="nav pull-right">
-                {items.search}
-              </ul>
+
               <a className={`navbar-brand ${styles.logo}`} href="/">Legal Maven</a>
             </div>
 
@@ -128,6 +131,7 @@ class Header extends Component {
                 {items.legalForms}
                 {items.services}
                 {items.contact}
+                {items.search}
                 {!isLogged && items.signIn}
                 {!isLogged && items.signUp}
                 {isLogged && items.account}
@@ -149,6 +153,7 @@ Header.contextTypes = {
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
+    app: store.app,
     auth: store.auth
   };
 }

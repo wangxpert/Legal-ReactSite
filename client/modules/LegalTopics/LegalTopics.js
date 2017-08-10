@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl';
 import styles from './LegalTopics.css';
 
 // Import Components
-import SearchBox from '../../components/SearchBox/SearchBox';
 
 class LegalTopics extends Component {
   constructor(props) {

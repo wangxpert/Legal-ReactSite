@@ -50,6 +50,7 @@
     "passport-local": "^1.0.0",
     "prop-types": "^15.5.10",
     "react": "^15.1.0",
+    "react-autosuggest": "^9.3.2",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.1.0",
     "react-facebook-login": "^3.6.2",

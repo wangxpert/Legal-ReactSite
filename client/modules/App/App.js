@@ -9,6 +9,7 @@ import Helmet from 'react-helmet';
 import DevTools from './components/DevTools';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import SearchBox from './components/SearchBox/SearchBox'
 
 // Import Actions
 import { toggleAddPost } from './AppActions';
@@ -22,7 +23,7 @@ export class App extends Component {
     super(props);
     this.state = { isMounted: false };
   }
-  
+
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
     this.props.dispatch(setLoginState());
@@ -68,6 +69,13 @@ export class App extends Component {
             ]}
           />
           <Header location={this.props.location}/>
+
+          { this.props.app.showSearchBar &&
+            <div className={styles['search-box-container']}>
+              <SearchBox />
+            </div>
+          }
+
           <div className={styles.container}>
             {this.props.children}
 
@@ -94,7 +102,8 @@ App.propTypes = {
 function mapStateToProps(store) {
   return {
     intl: store.intl,
-    notifications: store.notifications
+    notifications: store.notifications,
+    app: store.app
   };
 }
 

@@ -1,0 +1,123 @@
+.container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  transition: visibility 2s;
+}
+
+.input {
+  height: 40rem;
+  padding: 5rem 50rem;
+  font-size: 20rem;
+  font-weight: 500;
+  border: 0rem solid #d3dae4;
+  border-radius: 10rem;
+  text-align: left;
+  outline: none;
+  width: 100%;
+  color: #555;
+}
+
+.input::placeholder {
+  font-size: 20rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.inputFocused {
+  outline: none;
+  border: 1rem solid #04b2fb;
+}
+
+.inputOpen {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.suggestionsContainer {
+  display: none;
+}
+
+.suggestionsContainerOpen {
+  display: block;
+  position: static;
+  height: 100%;
+  left: 15rem;
+  right: 15rem;
+  bottom: 5rem;
+  border: 1rem solid #04b2fb;
+  font-family: Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16rem;
+  border-bottom-left-radius: 8rem;
+  border-bottom-right-radius: 8rem;
+  background: white;
+}
+
+.suggestionsList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.suggestion {
+  cursor: pointer;
+  font-size: 20rem;
+  font-weight: 500;
+  color: #000;
+  width: 100%;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.suggestionHighlighted {
+  background-color: #04b2fb;
+  color: black;
+}
+
+.suggestion a {
+  padding: 0;
+  color: black;
+  width: 100%;
+  display: inline-block;
+  padding: 12rem 20rem;
+  text-decoration: none;
+}
+
+.suggestion:hover a {
+  color: white;
+}
+
+.suggestionHighlighted .suggestion-text {
+  color: white;
+}
+
+.sectionContainer {
+  border-top: 1rem dashed #ccc;
+}
+
+.sectionContainerFirst {
+  border-top: 0;
+}
+
+.sectionTitle {
+  padding: 20rem 10rem 10rem 10rem;
+  font-size: 20rem;
+  color: #04b2fb;
+}
+
+.inputContainer {
+  margin: 0;
+  padding: 0;
+}
+
+.icon {
+  display: inline-block;
+  color: #04b2fb;
+  font-size: 20rem;
+  font-weight: 500;
+  padding: 10rem 10rem;
+  vertical-align: middle;
+  position: absolute;
+  left: 10rem;
+}

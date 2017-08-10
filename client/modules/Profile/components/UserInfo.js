@@ -32,6 +32,7 @@ class UserInfo extends Component {
 
   render() {
     const user = this.props.user;
+    console.log(user);
     return (
       <div className={`${styles.container}`}>
         <div className={styles['avatar-container']}>
@@ -39,7 +40,7 @@ class UserInfo extends Component {
         </div>
 
         <div className={styles['info-container']}>
-          { this.renderInfo('fa-user', (user && user.photo) ? `${user.name.givenName} ${user.name.familyName}` : '') }
+          { this.renderInfo('fa-user', (user && user.name) ? `${user.name.givenName} ${user.name.familyName}` : '') }
           { this.renderInfo('fa-envelope', (user && user.emails) ? user.emails[0].value : '') }
           { this.renderInfo('fa-phone', (user && user.phone) ? user.phone : '') }
           { this.renderInfo('fa-map-marker', (user && user.address) ? user.address : '') }

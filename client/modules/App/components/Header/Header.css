@@ -1,5 +1,6 @@
 .header {
-
+  padding: 0;
+  margin: 0;
 }
 
 .navbar {
@@ -8,6 +9,7 @@
   box-shadow: 2rem 2rem 10rem rgb(0, 0, 0, .4);
   border-radius: 0;
   margin: 0;
+  padding: 0;
   position: fixed;
   top: 0;
   left: 0;
@@ -28,6 +30,28 @@
 .header .nav {
 
 }
+
+.nav-item-search {
+  padding: 14rem 0rem;
+  font-size: 20rem;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.nav-item-search div {
+  margin: 0rem;
+  padding: 14rem 15rem;
+  font-size: 20rem;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.nav-item-search div:hover {
+  color: #02b2fb;
+}
+
 
 .nav-item {
   padding: 14rem 0rem;
@@ -55,7 +79,6 @@
   padding: 14rem 15rem;
   font-size: 20rem;
   color: #fff;
-  background: transparent;
   text-decoration: none;
 }
 
@@ -67,29 +90,6 @@
 
 .nav-item.circular-border a:hover {
   background: transparent;
-}
-
-.nav-item .searchbox-container {
-  position: fixed;
-  display: inline-block;
-  visibility: hidden;
-  opacity: 0;
-  background: #004a8a;
-  top: 84rem;
-  left: 0;
-  right: 0;
-  width: 100vw;
-  background: #d3dae4;
-  height: 70rem;
-  padding: 0 20rem;
-  transition: visibility .1s, opacity 0.1s linear;
-}
-
-.nav-item:hover .searchbox-container {
-  transition: opacity .25s ease-in-out;
-  visibility: visible;
-  opacity: 1;
-  box-shadow: 1rem 1rem 2rem rgba(0, 0, 0, .1);
 }
 
 .dropdown {
@@ -157,10 +157,6 @@
 
   .nav-item:not(.fixed) {
     padding: 4rem;
-  }
-
-  .nav-item.fixed span {
-    display: none;
   }
 
   .nav-item:hover .dropdown {
