@@ -71,7 +71,7 @@ export class App extends Component {
           <Header location={this.props.location}/>
 
           { this.props.app.showSearchBar &&
-            <div className={styles['search-box-container']}>
+            <div className={styles['search-box-container']} style={{zIndex: 3}}>
               <SearchBox />
             </div>
           }
