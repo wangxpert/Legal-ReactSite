@@ -1,0 +1,57 @@
+.container {
+  background-color: #fff;
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  display: inline-block;
+  margin-top: 50rem;
+  width: 850rem;
+}
+
+.title {
+  border-bottom: 2rem solid #cacfd6;
+  color: #02b2fb;
+  font-size: 28rem;
+  font-weight: 500;
+  margin: 0rem 50rem;
+  padding: 30rem 0 20rem 0;
+}
+
+.message {
+  color: black;
+  font-size: 17rem;
+  font-weight: 400;
+  padding: 30rem 50rem;
+  min-height: 320rem;
+  text-align: left;
+}
+
+.message p {
+  margin: 0;
+  text-indent: 16rem;
+}
+
+.message h2 {
+  font-size: 20rem;
+  text-align: center;
+  margin: 0;
+  padding: 10rem 0rem;
+  text-decoration: underline;
+}
+
+.footer {
+  background-color: #02b2fb;
+  color: #fff;
+  font-size: 17rem;
+  font-weight: 400;
+  padding: 12rem 50rem;
+  text-align: right;
+}
+
+.footer .text {
+  float: left;
+  padding: 6rem 0;
+}
+
+.footer .btn-container {
+  display: inline-block;
+  text-align: right;
+}

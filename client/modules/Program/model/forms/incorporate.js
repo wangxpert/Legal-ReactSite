@@ -169,7 +169,7 @@ export default {
           { kind: "text", store: "registered_agent_address_state", placeholder: "State" },
           { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }
         ],
-        next: "form_1",
+        next: "final_1",
         note: {
           title: 'Address of registered agent',
           content: `<ul>
@@ -191,7 +191,7 @@ export default {
       content: {
         question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
         fields: [
-          { kind: "choice", label: "Yes", next: "form_2" },
+          { kind: "choice", label: "Yes", next: "final_2" },
           { kind: "choice", label: "No", next: "input_10" }
         ],
         note: {
@@ -223,17 +223,19 @@ export default {
       }
     },
     {
-      id: "form_1",
-      kind: "Form",
+      id: "final_1",
+      kind: "Final",
       content: {
-        name: "ca_form_articles_of_professional_incorporation_1"
+        kind: "Form",
+        form: "ca_form_articles_of_professional_incorporation_1"
       }
     },
     {
-      id: "form_2",
-      kind: "Form",
+      id: "final_2",
+      kind: "Final",
       content: {
-        name: "ca_form_articles_of_professional_incorporation_2"
+        kind: "Form",
+        form: "ca_form_articles_of_professional_incorporation_2"
       }
     },
   ]

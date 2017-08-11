@@ -3,6 +3,17 @@ export default {
   description: "Should I incorporate ( or become an LLC )?",
   start: "action_1",
   kind: "Topic",
+  attach: {
+    ['NOTE_1']: 'NOTE_1',
+    ['NOTE_2']: 'NOTE_2',
+    ['NOTE_3']: 'NOTE_3',
+    ['NOTE_4']: 'NOTE_4',
+    ['NOTE_5']: 'NOTE_5',
+    ['NOTE_6']: 'NOTE_6',
+    ['NOTE_7']: 'NOTE_7',
+    ['NOTE_8']: 'NOTE_8'
+
+  },
   node: [
     {
       id: "action_1",
@@ -20,7 +31,7 @@ export default {
       content: {
         question: "What will be the primary business of your company?",
         fields: [
-          { label: "Real Estate Investment", next: "result_1" },
+          { label: "Real Estate Investment", next: "final_1" },
           { label: "A Profession", next: "yesno_2" },
           { label: "Personal Services (other than a Profession)", next: "yesno_2" },
           { label: "Restaurant", next: "yesno_2" },
@@ -43,23 +54,27 @@ export default {
       content: {
           question: "Do you expect to sell the business form a profit of at least $100,100, five or more years from now?",
           fields: [
-            { label: "Yes", next: "result_2" },
+            { label: "Yes", next: "final_2" },
             { label: "No", next: "yesno_2" }
           ]
       }
     },
     {
-      id: "result_1",
-      kind: "Result",
+      id: "final_1",
+      kind: "Final",
       content: {
-        message: "Form An LLC - Add explanatory note1"
+        title: "Form LLC",
+        attach: ['NOTE_1']
       }
     },
     {
-      id: "result_2",
-      kind: "Result",
+      id: "final_2",
+      kind: "Final",
       content: {
-        message: "You should consider forming a corporation - add explantory note 5"
+        kind: "ToForm",
+        title: "You should consider forming a C Corporation",
+        attach: ['NOTE_5'],
+        to: "Corp"
       }
     },
     {
@@ -79,16 +94,20 @@ export default {
       content: {
           question: "Do you expect to receive venture capital funding?",
           fields: [
-            { label: "Yes", next: "result_6" },
+            { label: "Yes", next: "final_6" },
             { label: "No", next: "yesno_2.2" },
           ]
       }
     },
     {
-      id: "result_6",
-      kind: "Result",
+      id: "final_6",
+      kind: "Final",
       content: {
-        message: "FORM A C CORPORATION - Go to explanatory note 6"
+        kind: "ToForm",
+        title: "Form a C Corporation",
+        message: "",
+        attach: ['NOTE_6'],
+        to: "Corp"
       }
     },
     {
@@ -97,23 +116,27 @@ export default {
       content: {
           question: "Will income and losses be allocated proportionally to all owners?(For example, would a 25% owner be allocated 25% of all income and losses?)",
           fields: [
-            { label: "Yes", next: "result_7" },
-            { label: "No", next: "result_8" },
+            { label: "Yes", next: "final_7" },
+            { label: "No", next: "final_8" },
           ]
       }
     },
     {
-      id: "result_7",
-      kind: "Result",
+      id: "final_7",
+      kind: "Final",
       content: {
-        message: "FORM AN S CORPORATION - Go to explanatory note 7"
+        kind: "ToForm",
+        title: "Form S Corporation",
+        attach: ['NOTE_7'],
+        to: "S-Corp"
       }
     },
     {
-      id: "result_8",
-      kind: "Result",
+      id: "final_8",
+      kind: "Final",
       content: {
-        message: "FORM AN LLC. Go to explanatory note 8"
+        title: "Form LLC",
+        attach: ['NOTE_8']
       }
     },
     {
@@ -124,7 +147,7 @@ export default {
           fields: [
             { label: "Under $10,000", next: "single_4" },
             { label: "$10,000 to $50,000", next: "action_2" },
-            { label: "Over $50,000", next: "result_3" }
+            { label: "Over $50,000", next: "final_3" }
           ]
       }
     },
@@ -139,10 +162,13 @@ export default {
       }
     },
     {
-      id: "result_3",
-      kind: "Result",
+      id: "final_3",
+      kind: "Final",
       content: {
-        message: "FORMS CORPORATION. Add explanatory note 4."
+        kind: "ToForm",
+        title: "Form S Corporation",
+        attach: ['NOTE_4'],
+        to: "S-Corp"
       }
     },
     {
@@ -156,7 +182,7 @@ export default {
             { label: "$25,000 to $50,000", next: "action_3" },
             { label: "$50,000 to $100,000", next: "action_4" },
             { label: "$100,000 to $250,000", next: "action_5" },
-            { label: "Expects earnings of over $250,000", next: "result_3" }
+            { label: "Expects earnings of over $250,000", next: "final_3" }
           ]
       }
     },
@@ -197,7 +223,7 @@ export default {
         kind: "SWITCH_VALUE",
         store: "index",
         value: [3],
-        next: ["yesno_8", "result_3"]
+        next: ["yesno_8", "final_3"]
       }
     },
     {
@@ -207,15 +233,16 @@ export default {
           question: "What is your net worth?",
           fields: [
             { label: "Over $100,000", next: "yesno_7" },
-            { label: "Under $100,000", next: "result_4" }
+            { label: "Under $100,000", next: "final_4" }
           ]
       }
     },
     {
-      id: "result_4",
-      kind: "Result",
+      id: "final_4",
+      kind: "Final",
       content: {
-        message: "DON'T INCORPORATE - Add explanatory note 3."
+        title: "Don't incorporate",
+        attach: ['NOTE_3']
       }
     },
     {
@@ -224,16 +251,17 @@ export default {
       content: {
           question: "Do you have, or expect to have, any employees or agents?",
           fields: [
-            { label: "Yes", next: "result_5" },
+            { label: "Yes", next: "final_5" },
             { label: "No", next: "yesno_10" }
           ]
       }
     },
     {
-      id: "result_5",
-      kind: "Result",
+      id: "final_5",
+      kind: "Final",
       content: {
-        message: "FORM AN LLC - Add explanatory note 2"
+        title: "Form LLC",
+        attach: ['NOTE_2']
       }
     },
     {
@@ -254,7 +282,7 @@ export default {
         kind: "SWITCH_VALUE",
         store: "index",
         value: [1],
-        next: ["result_5", "result_3"]
+        next: ["final_5", "final_3"]
       }
     },
     {
@@ -264,7 +292,7 @@ export default {
           question: "Is primary business manufacturing, construction, mineral extraction, farming, restaurant or hotel?",
           fields: [
             { label: "Yes", next: "action_7" },
-            { label: "No", next: "result_4" }
+            { label: "No", next: "final_4" }
           ]
       }
     }

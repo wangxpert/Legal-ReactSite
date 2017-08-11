@@ -52,7 +52,7 @@ export default {
       content: {
         question: "Is it generic?",
         fields: [
-          { label: "Yes", next: "result_1.6" },
+          { label: "Yes", next: "final_1.6" },
           { label: "Probably", next: "action_1.7" },
           { label: "No", next: "single_1.9" },
           { label: "Probably Not", next: "action_1.8" },
@@ -60,9 +60,10 @@ export default {
       }
     },
     {
-      id: "result_1.6",
-      kind: "Result",
+      id: "final_1.6",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "Your mark is not registrable."
       }
     },
@@ -95,14 +96,15 @@ export default {
           { label: "Arbitrary", next: "single_1.11" },
           { label: "Suggestive", next: "single_1.11" },
           { label: "Fanciful", next: "single_1.11" },
-          { label: "Descriptive", next: "result_1.10" }
+          { label: "Descriptive", next: "final_1.10" }
         ]
       }
     },
     {
-      id: "result_1.10",
-      kind: "Result",
+      id: "final_1.10",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 10]"
       }
     },
@@ -112,7 +114,7 @@ export default {
       content: {
         question: "Is it geographically descriptive?",
         fields: [
-          { label: "Yes", next: "result_1.10" },
+          { label: "Yes", next: "final_1.10" },
           { label: "Probably", next: "action_1.12" },
           { label: "No", next: "yesno_2.16" },
           { label: "Probably Not", next: "action_1.13" }
@@ -145,15 +147,16 @@ export default {
       content: {
         question: "Is it a surname, an individual's name or likeness, or the title of a single book and/or movie?",
         fields: [
-          { label: "Yes", next: "result_2.17" },
+          { label: "Yes", next: "final_2.17" },
           { label: "No", next: "single_2.18" }
         ]
       }
     },
     {
-      id: "result_2.17",
-      kind: "Result",
+      id: "final_2.17",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 17]"
       }
     },
@@ -163,7 +166,7 @@ export default {
       content: {
         question: "Is it deceptive, scandalous, immoral or disparaging?",
         fields: [
-          { label: "Yes", next: "result_2.19" },
+          { label: "Yes", next: "final_2.19" },
           { label: "Probably", next: "action_2.20" },
           { label: "No", next: "single_2.22" },
           { label: "Probably Not", next: "action_2.21" }
@@ -171,9 +174,10 @@ export default {
       }
     },
     {
-      id: "result_2.19",
-      kind: "Result",
+      id: "final_2.19",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "Your mark is likely not registrable"
       }
     },
@@ -226,17 +230,18 @@ export default {
       content: {
         question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
         fields: [
-          { label: "Yes", next: "result_2.25" },
-          { label: "Probably", next: "result_2.25" },
+          { label: "Yes", next: "final_2.25" },
+          { label: "Probably", next: "final_2.25" },
           { label: "No", next: "action_2.29" },
           { label: "Probably Not", next: "action_2.26" }
         ]
       }
     },
     {
-      id: "result_2.25",
-      kind: "Result",
+      id: "final_2.25",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "Your mark is likely not registrable"
       }
     },
@@ -280,27 +285,30 @@ export default {
         kind: "SWITCH_VALUE",
         store: "index",
         value: [0, 4],
-        content: ["result_2.30", "result_2.31", "result_2.32"]
+        content: ["final_2.30", "final_2.31", "final_2.32"]
       }
     },
     {
-      id: "result_2.30",
-      kind: "Result",
+      id: "final_2.30",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "Great. If you are ready to file your trademark application <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
       }
     },
     {
-      id: "result_2.31",
-      kind: "Result",
+      id: "final_2.31",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "It appears your mark is registrable based upone your responses. However, as you expressed some uncertainty as to [link to supplement, display section from the source of the points] there is higher risk of rejection. If you're ready to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
       }
     },
     {
-      id: "result_2.32",
-      kind: "Result",
+      id: "final_2.32",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "You mark is probably not registrable based upon your responses. If you still wish to register, you may want to consult an attorney. Here are some ways you could increase the likelihood your trademark is accepteed [link to suuplement, display section from the source of the points] If you still wish to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
       }
     },
@@ -310,15 +318,16 @@ export default {
       content: {
         question: "Is it functional?",
         fields: [
-          { label: "Yes", next: "result_3.35" },
+          { label: "Yes", next: "final_3.35" },
           { label: "No", next: "yesno_3.36" }
         ]
       }
     },
     {
-      id: "result_3.35",
-      kind: "Result",
+      id: "final_3.35",
+      kind: "Final",
       content: {
+        title: "Trademark",
         message: "Your mark is not registrable"
       }
     },
@@ -328,7 +337,7 @@ export default {
       content: {
         question: "Is it matter that is used in a purely ornamental manner?",
         fields: [
-          { label: "Yes", next: "result_3.35" },
+          { label: "Yes", next: "final_3.35" },
           { label: "No", next: "yesno_1.3" }
         ]
       }

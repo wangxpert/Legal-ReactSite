@@ -1,4 +1,4 @@
-import { ADD_PROGRAM, SET_CURRENT_PROGRAM, TOGGLE_SIDEBAR } from './ProgramActions';
+import { ADD_PROGRAM, SET_CURRENT_PROGRAM, TOGGLE_SIDEBAR, SET_FINAL_NODE, RESET_PROGRAM } from './ProgramActions';
 
 // Initial State
 export const initialState = { programs: {}, current: '', showSideBar: true };
@@ -20,10 +20,24 @@ const ProgramReducer = (state = initialState, action) => {
       }
 
     case TOGGLE_SIDEBAR:
-        return {
-          ...state,
-          showSideBar: !state.showSideBar
-        }
+      return {
+        ...state,
+        showSideBar: !state.showSideBar
+      }
+
+    case SET_FINAL_NODE:
+      return {
+        ...state,
+        showFinalNode: true,
+        finalKind: action.finalKind,
+        finalData: action.finalData
+      }
+
+    case RESET_PROGRAM:
+      return {
+        ...state,
+        showFinalNode: false
+      }
 
     default:
       return state;

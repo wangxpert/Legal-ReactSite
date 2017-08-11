@@ -123,24 +123,26 @@ export default {
       content: {
         question: "Was there a transfer of 50% or more of the capital and profits of the partnership within a 12-month period?",
         fields: [
-          { kind: "choice", label: "Yes", next: "display_1" },
-          { kind: "choice", label: "No", next: "display_2" }
+          { kind: "choice", label: "Yes", next: "final_1" },
+          { kind: "choice", label: "No", next: "final_2" }
         ]
       }
     },
     {
-      id: "display_1",
-      kind: "Display",
+      id: "final_1",
+      kind: "Final",
       content: {
+        title: "Transfer tax",
         message: `100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.
               <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>`
       },
       next: "result_2"
     },
     {
-      id: "display_2",
-      kind: "Display",
+      id: "final_2",
+      kind: "Final",
       content: {
+        title: "Transfer tax",
         message: `Exempt from transfer tax.<br />
           <small>(See California Revenue and Taxation Code, Section 11925(a))</small>`
       }
@@ -162,22 +164,24 @@ export default {
       content: {
         question: "Did grantee own over 50% of the entity before the transaction?",
         fields: [
-          { kind: "choice", label: "Yes", next: "display_3" },
-          { kind: "choice", label: "No", next: "display_4" }
+          { kind: "choice", label: "Yes", next: "final_3" },
+          { kind: "choice", label: "No", next: "final_4" }
         ]
       }
     },
     {
-      id: "display_3",
-      kind: "Display",
+      id: "final_3",
+      kind: "Final",
       content: {
+        title: "Transfer tax",
         message: "Exempt from transfer tax",
       }
     },
     {
-      id: "display_4",
-      kind: "Display",
+      id: "final_4",
+      kind: "Final",
       content: {
+        title: "Transfer tax",
         message: `The transfer is subject to transfer tax.<br />
           <small>(See California Revenue and Taxation Code, section 64(c)(1))</small>`
       }
@@ -189,7 +193,7 @@ export default {
         question: "Was there a prior excluded proportional interest transfer?",
         fields: [
           { kind: "choice", label: "Yes", next: "yesno_7" },
-          { kind: "choice", label: "No", next: "display_3" }
+          { kind: "choice", label: "No", next: "final_3" }
         ]
       }
     },
@@ -199,15 +203,16 @@ export default {
       content: {
         question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
         fields: [
-          { kind: "choice", label: "Yes", next: "display_5" },
-          { kind: "choice", label: "No", next: "display_3" }
+          { kind: "choice", label: "Yes", next: "final_5" },
+          { kind: "choice", label: "No", next: "final_3" }
         ]
       }
     },
     {
-      id: "display_5",
-      kind: "Display",
+      id: "final_5",
+      kind: "Final",
       content: {
+        title: "Transfer tax",
         message: `The transfer is subject to transfer tax.<br />
           <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>`
       },

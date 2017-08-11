@@ -12,7 +12,7 @@ import City from './datasource/city';
 import county_exemption from './datasource/county_exemption';
 import city_exemption from './datasource/city_exemption';
 // Import Actions
-import { addProgram, setCurrentProgram, fetchProgram } from '../../ProgramActions';
+import { addProgram, setCurrentProgram, fetchProgram, setFinalNode } from '../../ProgramActions';
 
 // Import Selectors
 import { getCurrentProgram } from '../../ProgramReducer';
@@ -213,16 +213,18 @@ class InputBox extends Component {
     }
 
     if (kind === 'final') {
-      var message = node.content.message;
+      var message = node.content.message ? node.content.message : '';
       if (node.content.attach) {
         node.content.attach.forEach((elt) => { message += program.attach[elt] })
       }
-      this.openNote(null, node.content.title, message);
-    }
 
-    if (kind === 'display') {
-
-      alert(node.content.message);
+      if (node.content.kind === 'ToForm') {
+        this.props.dispatch(setFinalNode('Topic2', { title: node.content.title, message: message, to: node.content.to }));
+      } else if (node.content.kind === 'Form') {
+        this.props.dispatch(setFinalNode('Form', { form: node.content.form }));
+      } else {
+        this.props.dispatch(setFinalNode('Topic1', { title: node.content.title, message: message }));
+      }
     }
   }
 
@@ -441,71 +443,54 @@ class InputBox extends Component {
       }
     }
 
-    if (node && node.kind === 'Form') {
-      if (node.content.name === 'ca_form_articles_of_professional_incorporation_1')
-        return (
-          <div className={styles.inputbox}>
-            <CAFormArticlesOfIncorporation1 input={this.state.store} />
-          </div>
-        )
-
-      if (node.content.name === 'ca_form_articles_of_professional_incorporation_2')
-        return (
-          <div className={styles.inputbox}>
-            <CAFormArticlesOfIncorporation2 input={this.state.store} />
-          </div>
-        )
-    }
-    else {
-      return (
-        <div className={`${styles.inputbox}`}>
-          <div className={styles.title}>
-            { title }
-          </div>
-
-          <div className={`${styles['main-container']}`}>
-            <div className={styles['question']}>
-              <span>{`${this.history.length}. `}</span>
-              <span>{ ReactHtmlParser(question) }</span>
-              { eleNote }
-            </div>
-            <div className={styles['description']}>
-              { description }
-            </div>
-
-            <div className={styles['answer-container']}>
-              { lstEle }
-            </div>
-
-            <div className={styles['button-group']}>
-
-              <div className={`${styles.button}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
-                Step Back
-              </div>
-
-              <div className={`${styles.button} ${styles.big}`} onClick={ this.onNext.bind(this) }>
-                Continue
-              </div>
-
-              <div className={`${styles.button}`} style={{float: 'right'}}>
-                Save Place
-              </div>
-
-            </div>
-            <div className={styles['help-container']}>
-              <span className={styles['help_text']}>Hi there! Need some help answering a question or want to save and finish later?</span>
-
-              <div className={`${styles.button} ${styles.help}`} style={{float: 'right'}}>
-                Need Help
-              </div>
-
-            </div>
-          </div>
-
-          <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={this.state.noteTitle} content={this.state.noteContent} />
+    return (
+      <div className={`${styles.inputbox}`}>
+        <div className={styles.title}>
+          { title }
         </div>
-      );
-    }
+
+        <div className={`${styles['main-container']}`}>
+          <div className={styles['question']}>
+            <span>{`${this.history.length}. `}</span>
+            <span>{ ReactHtmlParser(question) }</span>
+            { eleNote }
+          </div>
+          <div className={styles['description']}>
+            { description }
+          </div>
+
+          <div className={styles['answer-container']}>
+            { lstEle }
+          </div>
+
+          <div className={styles['button-group']}>
+
+            <div className={`${styles.button}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
+              Step Back
+            </div>
+
+            <div className={`${styles.button} ${styles.big}`} onClick={ this.onNext.bind(this) }>
+              Continue
+            </div>
+
+            <div className={`${styles.button}`} style={{float: 'right'}}>
+              Save Place
+            </div>
+
+          </div>
+          <div className={styles['help-container']}>
+            <span className={styles['help_text']}>Hi there! Need some help answering a question or want to save and finish later?</span>
+
+            <div className={`${styles.button} ${styles.help}`} style={{float: 'right'}}>
+              Need Help
+            </div>
+
+          </div>
+        </div>
+
+        <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={this.state.noteTitle} content={this.state.noteContent} />
+      </div>
+    );
   }
 }
 
