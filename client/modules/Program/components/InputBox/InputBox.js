@@ -449,6 +449,17 @@ class InputBox extends Component {
           { title }
         </div>
 
+        { this.props.program && this.props.program.step &&
+        <div className={styles['progress-container']}>
+          <div className={`progress ${styles['progress']}`}>
+            <div className="progress-bar active" role="progressbar"
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${(this.history.length - 1) * 100.0 / this.props.program.step}%`}}>
+
+            </div>
+          </div>
+        </div>
+        }
+
         <div className={`${styles['main-container']}`}>
           <div className={styles['question']}>
             <span>{`${this.history.length}. `}</span>

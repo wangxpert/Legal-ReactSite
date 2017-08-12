@@ -3,6 +3,7 @@ export default {
   description: "Creating The California S-Corporation",
   start: "single_1",
   kind: "Form",
+  step: 9,
   node: [
     {
       id: "single_1",
@@ -293,7 +294,7 @@ export default {
       id: "final_1",
       kind: "Final",
       content: {
-        kind: "form",
+        kind: "Form",
         form: "ca_form_articles_of_professional_incorporation_1"
       }
     },
@@ -301,7 +302,7 @@ export default {
       id: "final_2",
       kind: "Final",
       content: {
-        kind: "form",
+        kind: "Form",
         form: "ca_form_articles_of_professional_incorporation_2"
       }
     },

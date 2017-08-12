@@ -3,6 +3,7 @@ export default {
   description: "Creating The California Professional Corporation",
   start: "input_1",
   kind: "Form",
+  step: 8,
   node: [
     {
       id: "input_1",

@@ -12,6 +12,17 @@
   padding: 10rem;
 }
 
+.progress-container {
+
+  padding: 10rem 30rem;
+  margin: 0rem 0rem
+}
+
+.progress-container .progress {
+  margin: 0;
+  height: 20rem;
+}
+
 .main-container {
   padding: 10rem 30rem;
   text-align: left;
