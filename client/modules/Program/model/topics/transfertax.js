@@ -66,7 +66,7 @@ export default {
       content: {
         kind: "CHECK_CITY_EXEMPTION",
         store: "city_exemption",
-        next: ["result_1", "yesno_1"]
+        next: ["final_1", "yesno_1"]
       }
     },
     {
@@ -76,7 +76,7 @@ export default {
         question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
         fields: [
           { kind: "choice", label: "Yes", next: "yesno_2" },
-          { kind: "choice", label: "No", next: "result_2" }
+          { kind: "choice", label: "No", next: "final_2" }
         ]
       }
     },
@@ -86,21 +86,21 @@ export default {
       content: {
         question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
         fields: [
-          { kind: "choice", label: "Yes", next: "result_2" },
-          { kind: "choice", label: "No", next: "result_1" }
+          { kind: "choice", label: "Yes", next: "final_2" },
+          { kind: "choice", label: "No", next: "final_1" }
         ]
       }
     },
     {
-      id: "result_1",
-      kind: "Result",
+      id: "final_1",
+      kind: "Final",
       content: {
         message: "Congratulation! This transaction is exempt and no transfer taxes are due."
       }
     },
     {
-      id: "result_2",
-      kind: "Result",
+      id: "final_2",
+      kind: "Final",
       content: {
         message: "Calculation"
       }
@@ -136,7 +136,7 @@ export default {
         message: `100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.
               <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>`
       },
-      next: "result_2"
+      next: "final_2"
     },
     {
       id: "final_2",
@@ -216,7 +216,7 @@ export default {
         message: `The transfer is subject to transfer tax.<br />
           <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>`
       },
-      next: "result_2"
+      next: "final_2"
     },
   ]
 };
