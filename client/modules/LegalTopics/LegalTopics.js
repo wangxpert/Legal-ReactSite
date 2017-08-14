@@ -28,10 +28,6 @@ class LegalTopics extends Component {
           {
             title: 'Do I need to set up payroll?',
             href: '/legaltopics/payroll'
-          },
-          {
-            title: "Do I need worker's compensation insurance?",
-            href: ''
           }
         ]
       },

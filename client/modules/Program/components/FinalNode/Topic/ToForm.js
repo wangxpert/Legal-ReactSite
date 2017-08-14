@@ -22,7 +22,7 @@ function ToForm(props) {
   const { title, message } = props;
 
   return (
-    <div className={ styles.container }>
+    <div className={ `${styles.container} wow fadeIn`}>
       <h1 className={ styles.title }>
         { title }
       </h1>

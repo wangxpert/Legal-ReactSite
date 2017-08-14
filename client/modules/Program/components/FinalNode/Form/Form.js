@@ -20,7 +20,7 @@ const btnStyle = {
 
 function Form(props) {
   return (
-    <div className={ styles.container }>
+    <div className={ `${styles.container} wow fadeIn` }>
       <div className={ styles.header }>
         Congratulation !
       </div>

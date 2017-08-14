@@ -9,8 +9,8 @@ import CAFormArticlesOfIncorporation2 from './output/CAFormArticlesOfIncorporati
 import NoteDialog from './NoteDialog';
 import County from './datasource/county';
 import City from './datasource/city';
-import county_exemption from './datasource/county_exemption';
-import city_exemption from './datasource/city_exemption';
+import county_exemption, { indexArray as county_exemption_index } from './datasource/county_exemption';
+import city_exemption, { indexArray as city_exemption_index } from './datasource/city_exemption';
 // Import Actions
 import { addProgram, setCurrentProgram, fetchProgram, setFinalNode } from '../../ProgramActions';
 
@@ -105,7 +105,7 @@ class InputBox extends Component {
       var next = 1;
       for (let j = 1; j < store['county_exemption'].length; j++ ) {
         if (store['county_exemption'][j]) {
-          if (county_exemption[i][j]) {
+          if (county_exemption[i][county_exemption_index[j]]) {
             next = 0;
             break;
           }
@@ -131,7 +131,7 @@ class InputBox extends Component {
 
         for (let j = 1; j < store['city_exemption'].length; j++ ) {
           if (store['city_exemption'][j]) {
-            if (city_exemption[i][j]) {
+            if (city_exemption[i][city_exemption_index[j]]) {
               next = 0;
               break;
             }
@@ -222,6 +222,12 @@ class InputBox extends Component {
         this.props.dispatch(setFinalNode('Topic2', { title: node.content.title, message: message, to: node.content.to }));
       } else if (node.content.kind === 'Form') {
         this.props.dispatch(setFinalNode('Form', { form: node.content.form }));
+      } else if (node.content.kind === 'CalculateTax') {
+        const reg = new RegExp(`^CA;${this.state.store['county']};${this.state.store['city']}`);
+        const row = city_exemption.find(e => e[0].match(reg));
+        const taxRate = parseFloat(row[0].split(';')[3]);
+        console.log(taxRate);
+        this.props.dispatch(setFinalNode('CalculateTax', { state: this.state.store['state'], taxRate: taxRate }));
       } else {
         this.props.dispatch(setFinalNode('Topic1', { title: node.content.title, message: message }));
       }
@@ -376,22 +382,24 @@ class InputBox extends Component {
 
     if (kind === 'Multi') {
       if (field.datasource === 'county_exemption_list') {
-        return county_exemption[0].map( (elt, i) => {
+        return county_exemption_index
+        .map( (elt, i) => {
           if (i > 0)
           return (
             <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
-              { elt }
-              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][i])} />}
+              { county_exemption[0][county_exemption_index[i]] }
+              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][county_exemption_index[i]])} />}
             </div>
           );
         });
       } else if (field.datasource === 'city_exemption_list') {
-        return city_exemption[0].map( (elt, i) => {
+        return city_exemption_index
+        .map( (elt, i) => {
           if (i > 0)
           return (
             <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
-              { elt }
-              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][i])} />}
+              { city_exemption[0][city_exemption_index[i]] }
+              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][city_exemption_index[i]])} />}
             </div>
           );
         });

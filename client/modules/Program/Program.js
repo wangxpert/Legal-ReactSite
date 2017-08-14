@@ -13,6 +13,7 @@ import InputBox from './components/InputBox/InputBox';
 import FinalForm from './components/FinalNode/Form/Form';
 import FinalTopic1 from './components/FinalNode/Topic/Normal';
 import FinalTopic2 from './components/FinalNode/Topic/ToForm';
+import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax';
 
 // Import Actions
 import { toggleSideBar, resetProgram } from './ProgramActions';
@@ -51,6 +52,8 @@ class Program extends Component {
     minWidth += 'rem';
 
     const { state } = this.props;
+    console.log(state.finalKind);
+
 
     return (
       <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>
@@ -64,6 +67,9 @@ class Program extends Component {
           }
           { (state.showFinalNode && (state.finalKind === 'Topic2')) &&
             <FinalTopic2 title={state.finalData.title} message={state.finalData.message} to={state.finalData.to} onClick={this.toForm.bind(this)} />
+          }
+          { (state.showFinalNode && (state.finalKind === 'CalculateTax')) &&
+            <FinalCalculateTax state={state.finalData.state} taxRate={state.finalData.taxRate} />
           }
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm form={state.finalData.form} />

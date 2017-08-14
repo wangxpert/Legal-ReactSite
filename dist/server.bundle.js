@@ -167,11 +167,11 @@
 	exports.logoutRequested = logoutRequested;
 	exports.fetchUserProfileRequested = fetchUserProfileRequested;
 	
-	var _apiCaller = __webpack_require__(13);
+	var _apiCaller = __webpack_require__(14);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(7);
+	var _reactNotificationSystemRedux = __webpack_require__(8);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -363,22 +363,28 @@
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-notification-system-redux");
+	module.exports = require("react-html-parser");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-	module.exports = require("express");
+	module.exports = require("react-notification-system-redux");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = require("mongoose");
+	module.exports = require("express");
 
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	module.exports = require("mongoose");
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -399,7 +405,7 @@
 	}
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -435,15 +441,31 @@
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
-	var _SideBar = __webpack_require__(81);
+	var _SideBar = __webpack_require__(87);
 	
 	var _SideBar2 = _interopRequireDefault(_SideBar);
 	
-	var _InputBox = __webpack_require__(73);
+	var _InputBox = __webpack_require__(79);
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
-	var _ProgramActions = __webpack_require__(12);
+	var _Form = __webpack_require__(75);
+	
+	var _Form2 = _interopRequireDefault(_Form);
+	
+	var _Normal = __webpack_require__(77);
+	
+	var _Normal2 = _interopRequireDefault(_Normal);
+	
+	var _ToForm = __webpack_require__(78);
+	
+	var _ToForm2 = _interopRequireDefault(_ToForm);
+	
+	var _CalculateTax = __webpack_require__(76);
+	
+	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
+	
+	var _ProgramActions = __webpack_require__(13);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -472,9 +494,24 @@
 	  }
 	
 	  _createClass(Program, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	    }
+	  }, {
 	    key: 'toggleSide',
 	    value: function toggleSide() {
 	      this.props.dispatch((0, _ProgramActions.toggleSideBar)());
+	    }
+	  }, {
+	    key: 'toForm',
+	    value: function toForm(to) {
+	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	      if (to === 'Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
+	      } else if (to === 'S-Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_s_corporation');
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -488,6 +525,10 @@
 	      paddingLeft += 'rem';
 	      minWidth += 'rem';
 	
+	      var state = this.props.state;
+	
+	      console.log(state.finalKind);
+	
 	      return _jsx('div', {
 	        className: _Program2.default.program + ' wow fadeIn',
 	        style: { minWidth: minWidth }
@@ -499,8 +540,21 @@
 	      })), _jsx('div', {
 	        className: '' + _Program2.default['inputbox-container'],
 	        style: { paddingLeft: paddingLeft }
-	      }, void 0, _jsx(_InputBox2.default, {
+	      }, void 0, !state.showFinalNode && _jsx(_InputBox2.default, {
 	        name: this.props.params.name
+	      }), state.showFinalNode && state.finalKind === 'Topic1' && _jsx(_Normal2.default, {
+	        title: state.finalData.title,
+	        message: state.finalData.message
+	      }), state.showFinalNode && state.finalKind === 'Topic2' && _jsx(_ToForm2.default, {
+	        title: state.finalData.title,
+	        message: state.finalData.message,
+	        to: state.finalData.to,
+	        onClick: this.toForm.bind(this)
+	      }), state.showFinalNode && state.finalKind === 'CalculateTax' && _jsx(_CalculateTax2.default, {
+	        state: state.finalData.state,
+	        taxRate: state.finalData.taxRate
+	      }), state.showFinalNode && state.finalKind === 'Form' && _jsx(_Form2.default, {
+	        form: state.finalData.form
 	      })));
 	    }
 	  }]);
@@ -524,7 +578,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Program);
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -533,17 +587,19 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.TOGGLE_SIDEBAR = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = undefined;
+	exports.RESET_PROGRAM = exports.SET_FINAL_NODE = exports.TOGGLE_SIDEBAR = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = undefined;
 	exports.addProgram = addProgram;
 	exports.setCurrentProgram = setCurrentProgram;
 	exports.fetchProgram = fetchProgram;
 	exports.toggleSideBar = toggleSideBar;
+	exports.setFinalNode = setFinalNode;
+	exports.resetProgram = resetProgram;
 	
-	var _apiCaller = __webpack_require__(13);
+	var _apiCaller = __webpack_require__(14);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _model = __webpack_require__(84);
+	var _model = __webpack_require__(90);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
@@ -553,6 +609,8 @@
 	var ADD_PROGRAM = exports.ADD_PROGRAM = 'ADD_PROGRAM';
 	var SET_CURRENT_PROGRAM = exports.SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
 	var TOGGLE_SIDEBAR = exports.TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
+	var SET_FINAL_NODE = exports.SET_FINAL_NODE = 'SET_FINAL_NODE';
+	var RESET_PROGRAM = exports.RESET_PROGRAM = 'RESET_PROGRAM';
 	
 	// Export Actions
 	function addProgram(name, program) {
@@ -584,9 +642,23 @@
 	    type: TOGGLE_SIDEBAR
 	  };
 	}
+	
+	function setFinalNode(finalKind, finalData) {
+	  return {
+	    type: SET_FINAL_NODE,
+	    finalKind: finalKind,
+	    finalData: finalData
+	  };
+	}
+	
+	function resetProgram() {
+	  return {
+	    type: RESET_PROGRAM
+	  };
+	}
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -602,7 +674,7 @@
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
-	var _config = __webpack_require__(14);
+	var _config = __webpack_require__(15);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
@@ -635,7 +707,7 @@
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -652,7 +724,7 @@
 	exports.default = config;
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -662,7 +734,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(9);
+	var _mongoose = __webpack_require__(10);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -750,25 +822,25 @@
 	exports.default = _mongoose2.default.model('User', userSchema);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport");
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-helmet");
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack");
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -795,7 +867,7 @@
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(55);
+	var _en3 = __webpack_require__(57);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -857,7 +929,75 @@
 	localizationData.en.messages = flattenMessages(localizationData.en.messages);
 
 /***/ },
-/* 20 */
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactHtmlParser = __webpack_require__(7);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(5);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _styles = {
+	  "container": "_2CcQGaVucI02_lscxEsMwv",
+	  "title": "_3-3PU435EXS3BAiYGoReLX",
+	  "icon": "_3AmlnTvmLlEp-DAh5Si_W0",
+	  "description": "_3cte4I9rgkJ5-q1lO6tn85"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function Cover(props) {
+	  var title = props.title,
+	      icon = props.icon,
+	      description = props.description,
+	      style = props.style;
+	
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container,
+	    style: style,
+	    onClick: props.onClick
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.title
+	  }, void 0, title), _jsx('div', {
+	    className: _styles2.default.icon
+	  }, void 0, _jsx('i', {
+	    className: 'fa ' + icon,
+	    'aria-hidden': 'true'
+	  })), _jsx('div', {
+	    className: _styles2.default.description
+	  }, void 0, description));
+	}
+	
+	exports.default = Cover;
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -891,7 +1031,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -917,19 +1057,19 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _validator = __webpack_require__(35);
+	var _validator = __webpack_require__(37);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(7);
+	var _reactNotificationSystemRedux = __webpack_require__(8);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(31);
+	var _reactFacebookLogin = __webpack_require__(34);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(32);
+	var _reactGoogleLogin = __webpack_require__(35);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
@@ -1196,7 +1336,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1222,19 +1362,19 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _validator = __webpack_require__(35);
+	var _validator = __webpack_require__(37);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(7);
+	var _reactNotificationSystemRedux = __webpack_require__(8);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(31);
+	var _reactFacebookLogin = __webpack_require__(34);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(32);
+	var _reactGoogleLogin = __webpack_require__(35);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
@@ -1532,7 +1672,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Register);
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1577,7 +1717,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(64);
+	var _Footer = __webpack_require__(66);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -1652,7 +1792,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1667,7 +1807,7 @@
 	
 	exports.switchLanguage = switchLanguage;
 	
-	var _setup = __webpack_require__(19);
+	var _setup = __webpack_require__(20);
 	
 	// Export Constants
 	var SWITCH_LANGUAGE = exports.SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
@@ -1679,7 +1819,7 @@
 	}
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1797,7 +1937,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalForms);
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1870,9 +2010,6 @@
 	      }, {
 	        title: 'Do I need to set up payroll?',
 	        href: '/legaltopics/payroll'
-	      }, {
-	        title: "Do I need worker's compensation insurance?",
-	        href: ''
 	      }]
 	    }, {
 	      title: 'Real Estate',
@@ -1935,7 +2072,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalTopics);
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1969,23 +2106,23 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _UserInfo = __webpack_require__(72);
+	var _UserInfo = __webpack_require__(74);
 	
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 	
-	var _Membership = __webpack_require__(71);
+	var _Membership = __webpack_require__(73);
 	
 	var _Membership2 = _interopRequireDefault(_Membership);
 	
-	var _Conversation = __webpack_require__(69);
+	var _Conversation = __webpack_require__(71);
 	
 	var _Conversation2 = _interopRequireDefault(_Conversation);
 	
-	var _Activity = __webpack_require__(68);
+	var _Activity = __webpack_require__(70);
 	
 	var _Activity2 = _interopRequireDefault(_Activity);
 	
-	var _Document = __webpack_require__(70);
+	var _Document = __webpack_require__(72);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
@@ -2089,7 +2226,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2102,7 +2239,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _ProgramActions = __webpack_require__(12);
+	var _ProgramActions = __webpack_require__(13);
 	
 	// Initial State
 	var initialState = exports.initialState = { programs: {}, current: '', showSideBar: true };
@@ -2129,6 +2266,18 @@
 	        showSideBar: !state.showSideBar
 	      });
 	
+	    case _ProgramActions.SET_FINAL_NODE:
+	      return _extends({}, state, {
+	        showFinalNode: true,
+	        finalKind: action.finalKind,
+	        finalData: action.finalData
+	      });
+	
+	    case _ProgramActions.RESET_PROGRAM:
+	      return _extends({}, state, {
+	        showFinalNode: false
+	      });
+	
 	    default:
 	      return state;
 	  }
@@ -2150,7 +2299,7 @@
 	exports.default = ProgramReducer;
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2212,7 +2361,36 @@
 	};
 
 /***/ },
-/* 30 */
+/* 32 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var getExemptionListIndexArray = exports.getExemptionListIndexArray = function getExemptionListIndexArray(list) {
+	  var exemptions = list[0];
+	  var indexArray = new Array(exemptions.length).fill(0).map(function (e, i) {
+	    return i;
+	  });
+	
+	  for (var i = 1; i < exemptions.length; i++) {
+	    for (var j = i + 1; j < exemptions.length; j++) {
+	      if (exemptions[indexArray[i]] > exemptions[indexArray[j]]) {
+	        var _ref = [indexArray[j], indexArray[i]];
+	        indexArray[i] = _ref[0];
+	        indexArray[j] = _ref[1];
+	      }
+	    }
+	  }
+	
+	  return indexArray;
+	};
+
+/***/ },
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2222,7 +2400,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(9);
+	var _mongoose = __webpack_require__(10);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2269,37 +2447,31 @@
 	exports.default = _mongoose2.default.model('Program', programSchema);
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-facebook-login");
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-login");
 
 /***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-html-parser");
-
-/***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports) {
 
 	module.exports = require("validator");
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2342,7 +2514,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2361,7 +2533,7 @@
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _App = __webpack_require__(56);
+	var _App = __webpack_require__(58);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -2380,13 +2552,13 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
-	  __webpack_require__(23);
-	  __webpack_require__(11);
 	  __webpack_require__(25);
-	  __webpack_require__(26);
+	  __webpack_require__(12);
 	  __webpack_require__(27);
-	  __webpack_require__(21);
-	  __webpack_require__(22);
+	  __webpack_require__(28);
+	  __webpack_require__(29);
+	  __webpack_require__(23);
+	  __webpack_require__(24);
 	}
 	
 	// react-router setup with code-splitting
@@ -2397,62 +2569,62 @@
 	}, void 0, _jsx(_reactRouter.IndexRoute, {
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(23).default);
+	      cb(null, __webpack_require__(25).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(26).default);
+	      cb(null, __webpack_require__(28).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(25).default);
+	      cb(null, __webpack_require__(27).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(11).default);
+	      cb(null, __webpack_require__(12).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(11).default);
+	      cb(null, __webpack_require__(12).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signin',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(21).default);
+	      cb(null, __webpack_require__(23).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signup',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(22).default);
+	      cb(null, __webpack_require__(24).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/profile',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(27).default);
+	      cb(null, __webpack_require__(29).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}));
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2463,17 +2635,17 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(34);
+	var _redux = __webpack_require__(36);
 	
 	var _reduxThunk = __webpack_require__(119);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _DevTools = __webpack_require__(20);
+	var _DevTools = __webpack_require__(22);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(90);
+	var _reducers = __webpack_require__(96);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -2508,7 +2680,7 @@
 	}
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2524,14 +2696,16 @@
 	      return;
 	    }
 	
-	    var topic1 = new _program2.default(_incorporate4.default);
-	    var topic2 = new _program2.default(_payroll2.default);
-	    var topic3 = new _program2.default(_trademark2.default);
-	    var topic4 = new _program2.default(_transfertax2.default);
-	    var form1 = new _program2.default(_incorporate2.default);
-	    var form2 = new _program2.default(_sIncorporate2.default);
+	    /*const topic1 = new Program(topic_incorporate);
+	    const topic2 = new Program(topic_payroll);
+	    const topic3 = new Program(topic_trademark);
+	    const topic4 = new Program(topic_transfertax);
+	    const form1 = new Program(ca_professional_corporation);
+	    const form2 = new Program(ca_s_corporation);*/
 	
-	    _program2.default.create([topic1, topic2, topic3, topic4, form1, form2], function (error) {
+	    //Program.create([topic1, topic2, topic3, topic4, form1, form2], (error) => {
+	
+	    _program2.default.create([], function (error) {
 	      if (!error) {
 	        console.log('ready to go....');
 	      }
@@ -2539,38 +2713,14 @@
 	  });
 	};
 	
-	var _program = __webpack_require__(30);
+	var _program = __webpack_require__(33);
 	
 	var _program2 = _interopRequireDefault(_program);
-	
-	var _incorporate = __webpack_require__(94);
-	
-	var _incorporate2 = _interopRequireDefault(_incorporate);
-	
-	var _sIncorporate = __webpack_require__(95);
-	
-	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
-	
-	var _transfertax = __webpack_require__(99);
-	
-	var _transfertax2 = _interopRequireDefault(_transfertax);
-	
-	var _incorporate3 = __webpack_require__(96);
-	
-	var _incorporate4 = _interopRequireDefault(_incorporate3);
-	
-	var _payroll = __webpack_require__(97);
-	
-	var _payroll2 = _interopRequireDefault(_payroll);
-	
-	var _trademark = __webpack_require__(98);
-	
-	var _trademark2 = _interopRequireDefault(_trademark);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2604,9 +2754,9 @@
 	  return router;
 	};
 	
-	var _express = __webpack_require__(8);
+	var _express = __webpack_require__(9);
 	
-	var _auth = __webpack_require__(91);
+	var _auth = __webpack_require__(97);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -2617,7 +2767,7 @@
 	;
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2627,9 +2777,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(8);
+	var _express = __webpack_require__(9);
 	
-	var _post = __webpack_require__(92);
+	var _post = __webpack_require__(98);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -2652,7 +2802,7 @@
 	exports.default = router;
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2662,9 +2812,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(8);
+	var _express = __webpack_require__(9);
 	
-	var _program = __webpack_require__(93);
+	var _program = __webpack_require__(99);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -2684,7 +2834,7 @@
 	exports.default = router;
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2711,13 +2861,13 @@
 	  */
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var webpack = __webpack_require__(18);
+	var webpack = __webpack_require__(19);
 	var cssnext = __webpack_require__(110);
 	var postcssFocus = __webpack_require__(111);
 	var postcssReporter = __webpack_require__(112);
@@ -2785,67 +2935,67 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 49 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 50 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 51 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 52 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 53 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 54 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 55 */
+/* 57 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2880,7 +3030,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2908,33 +3058,33 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _reactHelmet = __webpack_require__(17);
+	var _reactHelmet = __webpack_require__(18);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(20);
+	var _DevTools = __webpack_require__(22);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(59);
+	var _Header = __webpack_require__(61);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(58);
+	var _Footer = __webpack_require__(60);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _SearchBox = __webpack_require__(61);
+	var _SearchBox = __webpack_require__(63);
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _AppActions = __webpack_require__(10);
+	var _AppActions = __webpack_require__(11);
 	
-	var _IntlActions = __webpack_require__(24);
+	var _IntlActions = __webpack_require__(26);
 	
 	var _AuthActions = __webpack_require__(6);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(7);
+	var _reactNotificationSystemRedux = __webpack_require__(8);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -3011,7 +3161,8 @@
 	      }), _jsx(_Header2.default, {
 	        location: this.props.location
 	      }), this.props.app.showSearchBar && _jsx('div', {
-	        className: _App2.default['search-box-container']
+	        className: _App2.default['search-box-container'],
+	        style: { zIndex: 3 }
 	      }, void 0, _ref), _jsx('div', {
 	        className: _App2.default.container
 	      }, void 0, this.props.children, _jsx(_reactNotificationSystemRedux2.default, {
@@ -3036,7 +3187,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 57 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3046,7 +3197,7 @@
 	  value: true
 	});
 	
-	var _AppActions = __webpack_require__(10);
+	var _AppActions = __webpack_require__(11);
 	
 	// Initial State
 	var initialState = {
@@ -3075,7 +3226,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 58 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3132,7 +3283,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 59 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3162,7 +3313,7 @@
 	
 	var _AuthActions = __webpack_require__(6);
 	
-	var _AppActions = __webpack_require__(10);
+	var _AppActions = __webpack_require__(11);
 	
 	var _Header = {
 	  "header": "_2sEZYfHlvDy9uXqVIXG1aM",
@@ -3184,7 +3335,7 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _NavBar = __webpack_require__(60);
+	var _NavBar = __webpack_require__(62);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
@@ -3392,7 +3543,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 60 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3478,7 +3629,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 61 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3533,7 +3684,7 @@
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _SearchList = __webpack_require__(62);
+	var _SearchList = __webpack_require__(64);
 	
 	var _SearchList2 = _interopRequireDefault(_SearchList);
 	
@@ -3681,7 +3832,7 @@
 	exports.default = SearchBox;
 
 /***/ },
-/* 62 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3702,9 +3853,6 @@
 	  }, {
 	    title: 'Do I need to set up payroll?',
 	    href: '/legaltopics/payroll'
-	  }, {
-	    title: "Do I need worker's compensation insurance?",
-	    href: ''
 	  }]
 	}, {
 	  kind: 'Legal Topics',
@@ -3729,7 +3877,7 @@
 	}];
 
 /***/ },
-/* 63 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3823,7 +3971,7 @@
 	exports.default = AuthReducer;
 
 /***/ },
-/* 64 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3943,7 +4091,7 @@
 	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
-/* 65 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3955,9 +4103,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _setup = __webpack_require__(19);
+	var _setup = __webpack_require__(20);
 	
-	var _IntlActions = __webpack_require__(24);
+	var _IntlActions = __webpack_require__(26);
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
@@ -3990,7 +4138,7 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 66 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4008,7 +4156,7 @@
 	exports.deletePost = deletePost;
 	exports.deletePostRequest = deletePostRequest;
 	
-	var _apiCaller = __webpack_require__(13);
+	var _apiCaller = __webpack_require__(14);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
@@ -4080,7 +4228,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4091,7 +4239,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(66);
+	var _PostActions = __webpack_require__(68);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -4143,7 +4291,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4270,7 +4418,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4373,7 +4521,7 @@
 	exports.default = Conversation;
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4476,7 +4624,7 @@
 	exports.default = Document;
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4585,7 +4733,7 @@
 	exports.default = Membership;
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4708,7 +4856,452 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 73 */
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactHtmlParser = __webpack_require__(7);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(5);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Cover = __webpack_require__(21);
+	
+	var _Cover2 = _interopRequireDefault(_Cover);
+	
+	var _styles = {
+	  "container": "_2x8Eq0R2ikT8f8rnWljSjP",
+	  "header": "_2Ibx-NRXYtJItXCW0fzm6h",
+	  "content": "_1zX_bTvwrgbcfF1zpQq0-k",
+	  "message": "_2swgDOmd8HX7P88A52r0Sr",
+	  "actions": "_3kBJfmBAWPMt0PKceyFjtT",
+	  "footer": "_3FT59L6-78vno8Fd5_7Ueo",
+	  "button": "_4ISAoRGErobM-9FkbnZjd"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-check-circle',
+	  'aria-hidden': 'true'
+	});
+	
+	var _ref2 = _jsx(_Cover2.default, {
+	  title: 'VIEW',
+	  icon: 'fa-eye',
+	  description: 'Review your document'
+	});
+	
+	var _ref3 = _jsx(_Cover2.default, {
+	  title: 'EDIT',
+	  icon: 'fa-pencil',
+	  description: 'Make changes to document'
+	});
+	
+	var _ref4 = _jsx(_Cover2.default, {
+	  title: 'SAVE',
+	  icon: 'fa-save',
+	  description: 'Save document to profile'
+	});
+	
+	var _ref5 = _jsx('i', {
+	  className: 'fa fa-download',
+	  'aria-hidden': 'true'
+	}, void 0, '\xA0\xA0');
+	
+	function Form(props) {
+	  return _jsx('div', {
+	    className: _styles2.default.container + ' wow fadeIn'
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, 'Congratulation !'), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.message
+	  }, void 0, _ref, '\xA0\xA0Your document is ready to go!'), _jsx('div', {
+	    className: _styles2.default['actions']
+	  }, void 0, _ref2, _ref3, _ref4)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.button
+	  }, void 0, _ref5, 'CHECKOUT TO DOWNLOAD')));
+	}
+	
+	exports.default = Form;
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _Button = __webpack_require__(5);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _styles = {
+	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
+	  "title": "jwmbI_Fh0D47znB5QS7WH",
+	  "message": "_1u41KGh9-5gYM4lLE5AAip",
+	  "footer": "_18H2Us9qbgxdhALAFH0up9",
+	  "text": "_3Vr0szzy1r478kZa_E2d2T",
+	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
+	  "input": "aB7cqZkM_qciSVMyaCn9Z",
+	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import styles
+	
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx(_Button2.default, {
+	  title: 'Yes',
+	  style: btnStyle
+	});
+	
+	var _ref3 = _jsx(_Button2.default, {
+	  title: 'Need Help',
+	  style: btnStyle
+	});
+	
+	var CalculateTax = function (_Component) {
+	  _inherits(CalculateTax, _Component);
+	
+	  function CalculateTax(props) {
+	    _classCallCheck(this, CalculateTax);
+	
+	    var _this = _possibleConstructorReturn(this, (CalculateTax.__proto__ || Object.getPrototypeOf(CalculateTax)).call(this, props));
+	
+	    _this.state = {
+	      price: 0,
+	      tax: 0
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(CalculateTax, [{
+	    key: 'onPrice',
+	    value: function onPrice(e) {
+	      var price = e.target.value;
+	      var tax = price;
+	      var taxRate = 0.0;
+	      if (this.props.city === 'San Francisco') {
+	        if (price > 100 && price <= 250000) {
+	          taxRate = 2.50;
+	        } else if (price > 250000 && price <= 1000000) {
+	          taxRate = 3.40;
+	        } else if (price > 1000000 && price <= 5000000) {
+	          taxRate = 3.75;
+	        } else if (price > 5000000 && price <= 10000000) {
+	          taxRate = 11.25;
+	        } else if (price > 10000000 && price <= 25000000) {
+	          taxRate = 13.75;
+	        } else if (price > 25000000) {
+	          taxRate = 15.00;
+	        }
+	      } else {
+	        taxRate = this.props.taxRate ? this.props.taxRate : 0;
+	      }
+	      tax = Math.ceil(tax / 500) * taxRate;
+	      this.setState({ price: price, tax: tax });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' wow fadeIn'
+	      }, void 0, _jsx('h1', {
+	        className: _styles2.default.title
+	      }, void 0, 'Calculation'), _jsx('div', {
+	        className: _styles2.default['input-container']
+	      }, void 0, 'Purchase Price :', _jsx('input', {
+	        type: 'number',
+	        className: '' + _styles2.default.input,
+	        name: 'price',
+	        min: '0.00',
+	        value: this.state.price,
+	        placeholder: 'Enter Purchase Price',
+	        onChange: this.onPrice.bind(this)
+	      }), _ref, 'Calcuated Tax:', _jsx('input', {
+	        type: 'text',
+	        className: '' + _styles2.default.input,
+	        placeholder: '',
+	        value: this.state.tax,
+	        readOnly: true
+	      })), _jsx('div', {
+	        className: _styles2.default.footer
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Was this helpful?'), _jsx('div', {
+	        className: _styles2.default['btn-container']
+	      }, void 0, _ref2, _ref3)));
+	    }
+	  }]);
+	
+	  return CalculateTax;
+	}(_react.Component);
+	
+	exports.default = CalculateTax;
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactHtmlParser = __webpack_require__(7);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(5);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _styles = {
+	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
+	  "title": "jwmbI_Fh0D47znB5QS7WH",
+	  "message": "_1u41KGh9-5gYM4lLE5AAip",
+	  "footer": "_18H2Us9qbgxdhALAFH0up9",
+	  "text": "_3Vr0szzy1r478kZa_E2d2T",
+	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
+	  "input": "aB7cqZkM_qciSVMyaCn9Z",
+	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx(_Button2.default, {
+	  title: 'Yes',
+	  style: btnStyle
+	});
+	
+	var _ref2 = _jsx(_Button2.default, {
+	  title: 'Need Help',
+	  style: btnStyle
+	});
+	
+	function Normal(props) {
+	  var title = props.title,
+	      message = props.message;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container + ' wow fadeIn'
+	  }, void 0, _jsx('h1', {
+	    className: _styles2.default.title
+	  }, void 0, title), _jsx('div', {
+	    className: _styles2.default.message
+	  }, void 0, (0, _reactHtmlParser2.default)(message)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['text']
+	  }, void 0, 'Was this helpful?'), _jsx('div', {
+	    className: _styles2.default['btn-container']
+	  }, void 0, _ref, _ref2)));
+	}
+	
+	exports.default = Normal;
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactHtmlParser = __webpack_require__(7);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(5);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Cover = __webpack_require__(21);
+	
+	var _Cover2 = _interopRequireDefault(_Cover);
+	
+	var _styles = {
+	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
+	  "title": "jwmbI_Fh0D47znB5QS7WH",
+	  "message": "_1u41KGh9-5gYM4lLE5AAip",
+	  "footer": "_18H2Us9qbgxdhALAFH0up9",
+	  "text": "_3Vr0szzy1r478kZa_E2d2T",
+	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
+	  "input": "aB7cqZkM_qciSVMyaCn9Z",
+	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx(_Button2.default, {
+	  title: 'Yes',
+	  style: btnStyle
+	});
+	
+	var _ref2 = _jsx(_Button2.default, {
+	  title: 'Need Help',
+	  style: btnStyle
+	});
+	
+	function ToForm(props) {
+	  var title = props.title,
+	      message = props.message;
+	
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container + ' wow fadeIn'
+	  }, void 0, _jsx('h1', {
+	    className: _styles2.default.title
+	  }, void 0, title), _jsx('div', {
+	    className: _styles2.default.message
+	  }, void 0, _jsx(_Cover2.default, {
+	    title: 'Articles of Incorporation',
+	    icon: 'fa-book',
+	    description: 'Let\'s begin the incorporation process.',
+	    style: { margin: '20rem', float: 'right' },
+	    onClick: function onClick(e) {
+	      return props.onClick(props.to);
+	    }
+	  }), (0, _reactHtmlParser2.default)(message)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['text']
+	  }, void 0, 'Was this helpful?'), _jsx('div', {
+	    className: _styles2.default['btn-container']
+	  }, void 0, _ref, _ref2)));
+	}
+	
+	exports.default = ToForm;
+
+/***/ },
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4738,45 +5331,47 @@
 	
 	var _reactIntl = __webpack_require__(4);
 	
-	var _reactHtmlParser = __webpack_require__(33);
+	var _reactHtmlParser = __webpack_require__(7);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormArticlesOfIncorporation = __webpack_require__(79);
+	var _CAFormArticlesOfIncorporation = __webpack_require__(85);
 	
 	var _CAFormArticlesOfIncorporation2 = _interopRequireDefault(_CAFormArticlesOfIncorporation);
 	
-	var _CAFormArticlesOfIncorporation3 = __webpack_require__(80);
+	var _CAFormArticlesOfIncorporation3 = __webpack_require__(86);
 	
 	var _CAFormArticlesOfIncorporation4 = _interopRequireDefault(_CAFormArticlesOfIncorporation3);
 	
-	var _NoteDialog = __webpack_require__(74);
+	var _NoteDialog = __webpack_require__(80);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county2 = __webpack_require__(77);
+	var _county2 = __webpack_require__(83);
 	
 	var _county3 = _interopRequireDefault(_county2);
 	
-	var _city = __webpack_require__(75);
+	var _city = __webpack_require__(81);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption = __webpack_require__(78);
+	var _county_exemption = __webpack_require__(84);
 	
 	var _county_exemption2 = _interopRequireDefault(_county_exemption);
 	
-	var _city_exemption = __webpack_require__(76);
+	var _city_exemption = __webpack_require__(82);
 	
 	var _city_exemption2 = _interopRequireDefault(_city_exemption);
 	
-	var _ProgramActions = __webpack_require__(12);
+	var _ProgramActions = __webpack_require__(13);
 	
-	var _ProgramReducer = __webpack_require__(28);
+	var _ProgramReducer = __webpack_require__(30);
 	
 	var _InputBox = {
 	  "inputbox": "_252oDSSw6rez-ligl-plwk",
 	  "title": "_4QsESw3uIIbbjMLWhpAts",
+	  "progress-container": "_2J8mEU4GraPqEvWr1ZyYrt",
+	  "progress": "wDwD9tUV6Fy5NUTvxjW9A",
 	  "main-container": "_1kB-oBgvGjKyODXOYqJ4JS",
 	  "question": "_239GqveRckO08HiYe8dQTu",
 	  "note-icon": "_29s8Lc6Kn08tVeDyS6Xd3N",
@@ -4915,7 +5510,7 @@
 	        var next = 1;
 	        for (var j = 1; j < store['county_exemption'].length; j++) {
 	          if (store['county_exemption'][j]) {
-	            if (_county_exemption2.default[i][j]) {
+	            if (_county_exemption2.default[i][_county_exemption.indexArray[j]]) {
 	              next = 0;
 	              break;
 	            }
@@ -4940,7 +5535,7 @@
 	
 	          for (var _j = 1; _j < store['city_exemption'].length; _j++) {
 	            if (store['city_exemption'][_j]) {
-	              if (_city_exemption2.default[i][_j]) {
+	              if (_city_exemption2.default[i][_city_exemption.indexArray[_j]]) {
 	                next = 0;
 	                break;
 	              }
@@ -5022,18 +5617,28 @@
 	      }
 	
 	      if (kind === 'final') {
-	        var message = node.content.message;
+	        var message = node.content.message ? node.content.message : '';
 	        if (node.content.attach) {
 	          node.content.attach.forEach(function (elt) {
 	            message += program.attach[elt];
 	          });
 	        }
-	        this.openNote(null, node.content.title, message);
-	      }
 	
-	      if (kind === 'display') {
-	
-	        alert(node.content.message);
+	        if (node.content.kind === 'ToForm') {
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic2', { title: node.content.title, message: message, to: node.content.to }));
+	        } else if (node.content.kind === 'Form') {
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Form', { form: node.content.form }));
+	        } else if (node.content.kind === 'CalculateTax') {
+	          var reg = new RegExp('^CA;' + this.state.store['county'] + ';' + this.state.store['city']);
+	          var row = _city_exemption2.default.find(function (e) {
+	            return e[0].match(reg);
+	          });
+	          var taxRate = parseFloat(row[0].split(';')[3]);
+	          console.log(taxRate);
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('CalculateTax', { state: this.state.store['state'], taxRate: taxRate }));
+	        } else {
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic1', { title: node.content.title, message: message }));
+	        }
 	      }
 	    }
 	  }, {
@@ -5220,32 +5825,32 @@
 	
 	      if (kind === 'Multi') {
 	        if (field.datasource === 'county_exemption_list') {
-	          return _county_exemption2.default[0].map(function (elt, i) {
+	          return _county_exemption.indexArray.map(function (elt, i) {
 	            if (i > 0) return _jsx('div', {
 	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
 	                return _this2.onMultiSelect(i);
 	              }
-	            }, i, elt, _jsx('i', {
+	            }, i, _county_exemption2.default[0][_county_exemption.indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', _county_exemption2.default[1][i]);
+	                return _this2.openNote(e, 'Note', _county_exemption2.default[1][_county_exemption.indexArray[i]]);
 	              }
 	            }));
 	          });
 	        } else if (field.datasource === 'city_exemption_list') {
-	          return _city_exemption2.default[0].map(function (elt, i) {
+	          return _city_exemption.indexArray.map(function (elt, i) {
 	            if (i > 0) return _jsx('div', {
 	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
 	                return _this2.onMultiSelect(i);
 	              }
-	            }, i, elt, _jsx('i', {
+	            }, i, _city_exemption2.default[0][_city_exemption.indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', _city_exemption2.default[1][i]);
+	                return _this2.openNote(e, 'Note', _city_exemption2.default[1][_city_exemption.indexArray[i]]);
 	              }
 	            }));
 	          });
@@ -5308,57 +5913,54 @@
 	        }
 	      }
 	
-	      if (node && node.kind === 'Form') {
-	        if (node.content.name === 'ca_form_articles_of_professional_incorporation_1') return _jsx('div', {
-	          className: _InputBox2.default.inputbox
-	        }, void 0, _jsx(_CAFormArticlesOfIncorporation2.default, {
-	          input: this.state.store
-	        }));
-	
-	        if (node.content.name === 'ca_form_articles_of_professional_incorporation_2') return _jsx('div', {
-	          className: _InputBox2.default.inputbox
-	        }, void 0, _jsx(_CAFormArticlesOfIncorporation4.default, {
-	          input: this.state.store
-	        }));
-	      } else {
-	        return _jsx('div', {
-	          className: '' + _InputBox2.default.inputbox
-	        }, void 0, _jsx('div', {
-	          className: _InputBox2.default.title
-	        }, void 0, title), _jsx('div', {
-	          className: '' + _InputBox2.default['main-container']
-	        }, void 0, _jsx('div', {
-	          className: _InputBox2.default['question']
-	        }, void 0, _jsx('span', {}, void 0, this.history.length + '. '), _jsx('span', {}, void 0, (0, _reactHtmlParser2.default)(question)), eleNote), _jsx('div', {
-	          className: _InputBox2.default['description']
-	        }, void 0, description), _jsx('div', {
-	          className: _InputBox2.default['answer-container']
-	        }, void 0, lstEle), _jsx('div', {
-	          className: _InputBox2.default['button-group']
-	        }, void 0, _jsx('div', {
-	          className: '' + _InputBox2.default.button,
-	          style: { float: 'left' },
-	          onClick: this.onBack.bind(this)
-	        }, void 0, 'Step Back'), _jsx('div', {
-	          className: _InputBox2.default.button + ' ' + _InputBox2.default.big,
-	          onClick: this.onNext.bind(this)
-	        }, void 0, 'Continue'), _jsx('div', {
-	          className: '' + _InputBox2.default.button,
-	          style: { float: 'right' }
-	        }, void 0, 'Save Place')), _jsx('div', {
-	          className: _InputBox2.default['help-container']
-	        }, void 0, _jsx('span', {
-	          className: _InputBox2.default['help_text']
-	        }, void 0, 'Hi there! Need some help answering a question or want to save and finish later?'), _jsx('div', {
-	          className: _InputBox2.default.button + ' ' + _InputBox2.default.help,
-	          style: { float: 'right' }
-	        }, void 0, 'Need Help'))), _jsx(_NoteDialog2.default, {
-	          show: this.state.showNote,
-	          close: this.closeNote.bind(this),
-	          title: this.state.noteTitle,
-	          content: this.state.noteContent
-	        }));
-	      }
+	      return _jsx('div', {
+	        className: '' + _InputBox2.default.inputbox
+	      }, void 0, _jsx('div', {
+	        className: _InputBox2.default.title
+	      }, void 0, title), this.props.program && this.props.program.step && _jsx('div', {
+	        className: _InputBox2.default['progress-container']
+	      }, void 0, _jsx('div', {
+	        className: 'progress ' + _InputBox2.default['progress']
+	      }, void 0, _jsx('div', {
+	        className: 'progress-bar active',
+	        role: 'progressbar',
+	        'aria-valuenow': '40',
+	        'aria-valuemin': '0',
+	        'aria-valuemax': '100',
+	        style: { width: (this.history.length - 1) * 100.0 / this.props.program.step + '%' }
+	      }, void 0))), _jsx('div', {
+	        className: '' + _InputBox2.default['main-container']
+	      }, void 0, _jsx('div', {
+	        className: _InputBox2.default['question']
+	      }, void 0, _jsx('span', {}, void 0, this.history.length + '. '), _jsx('span', {}, void 0, (0, _reactHtmlParser2.default)(question)), eleNote), _jsx('div', {
+	        className: _InputBox2.default['description']
+	      }, void 0, description), _jsx('div', {
+	        className: _InputBox2.default['answer-container']
+	      }, void 0, lstEle), _jsx('div', {
+	        className: _InputBox2.default['button-group']
+	      }, void 0, _jsx('div', {
+	        className: '' + _InputBox2.default.button,
+	        style: { float: 'left' },
+	        onClick: this.onBack.bind(this)
+	      }, void 0, 'Step Back'), _jsx('div', {
+	        className: _InputBox2.default.button + ' ' + _InputBox2.default.big,
+	        onClick: this.onNext.bind(this)
+	      }, void 0, 'Continue'), _jsx('div', {
+	        className: '' + _InputBox2.default.button,
+	        style: { float: 'right' }
+	      }, void 0, 'Save Place')), _jsx('div', {
+	        className: _InputBox2.default['help-container']
+	      }, void 0, _jsx('span', {
+	        className: _InputBox2.default['help_text']
+	      }, void 0, 'Hi there! Need some help answering a question or want to save and finish later?'), _jsx('div', {
+	        className: _InputBox2.default.button + ' ' + _InputBox2.default.help,
+	        style: { float: 'right' }
+	      }, void 0, 'Need Help'))), _jsx(_NoteDialog2.default, {
+	        show: this.state.showNote,
+	        close: this.closeNote.bind(this),
+	        title: this.state.noteTitle,
+	        content: this.state.noteContent
+	      }));
 	    }
 	  }]);
 	
@@ -5377,7 +5979,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InputBox);
 
 /***/ },
-/* 74 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5401,13 +6003,15 @@
 	
 	var _reactBootstrap = __webpack_require__(114);
 	
-	var _reactHtmlParser = __webpack_require__(33);
+	var _reactHtmlParser = __webpack_require__(7);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
 	var _InputBox = {
 	  "inputbox": "_252oDSSw6rez-ligl-plwk",
 	  "title": "_4QsESw3uIIbbjMLWhpAts",
+	  "progress-container": "_2J8mEU4GraPqEvWr1ZyYrt",
+	  "progress": "wDwD9tUV6Fy5NUTvxjW9A",
 	  "main-container": "_1kB-oBgvGjKyODXOYqJ4JS",
 	  "question": "_239GqveRckO08HiYe8dQTu",
 	  "note-icon": "_29s8Lc6Kn08tVeDyS6Xd3N",
@@ -5484,7 +6088,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 75 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5496,7 +6100,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 76 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5505,19 +6109,25 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.indexArray = undefined;
 	
-	var _csv2array = __webpack_require__(29);
+	var _csv2array = __webpack_require__(31);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
+	
+	var _sort = __webpack_require__(32);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var csv = 'State Name;County Name;City Name;Tax,Conveyance to secure a debt,Governmental agency acquiring title,Reorganization or adjustment conveyances,Securities and Exchange Commission order conveyances,Transfers without a change in proportional ownership,Transfers in connection with foreclosure,Transfers in connection with dissolution of marriage,Conveyances by state,Conveyances to nonprofit corporations,Gifts and transfers by reason of death,Agent transfers,Transfers confirming title,Partitions,Transfers for the benefit of creditors,Seismic retrofitting improvements ,Leasehold instruments,Certain conversions of stock cooperatives to condominium units,Transfers between spouses and transfers between domestic partners,Gift ,Transfer to partition property,Transfer to effectuate a will or intestate succession,Transfer to effectuate the right of survivorship of a joint tenant,Transfer to trust,1031 Exchange,Gift,Historic resources,Eminent domain proceeding,Exhanges with the city,Certain non-profit corporation transfers,"Transfer of community property, or interest among joint tenants or tenants in common",Interspousal transfer,Transfer between parents and children of a single family residence ,Conveyance by exempt agency,Conveyances to nonprofit corporations,Release of ownership interest by a co-owner,Conveyance of community property or assets held in joint tenancy or tenancy in common between spouses,Transfers between domestic spouses,Transfers of partial interests ,Loans cosigned by family members,Transfers pursuant to bankruptcy proceedings,Corporate reorganization or adjustment,Transfers pursuant to bankruptcy proceedings\nyellow highlight - charter city; red font - administer in conformity with\u2026,"No Documentary Transfer Tax shall be due upon any mortgage or deed of trust given to secure a debt, or upon a release of mortgage or deed of reconveyance upon satisfaction of such debt.","Any deed, instrument or writing to which the United States or agency or instrumentality thereof, any state or territory, or political subdivision thereof, is a party shall be exempt when the exempt entity of government is acquiring title.","No Documentary Transfer Tax shall be due upon any document made to effectuate a plan or reorganization or adjustment: (1) confirmed in a bankruptcy proceeding under Title 11 of the United States Code, as amended; (2) approved by a court in an equity receivership proceeding involving a corporation or a railroad, as defined in Sections 101(9) and 101(44), respectively, of Title 11 of the United States Code; or (3) whereby a mere change in identity, form or place of organization is effected.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property to effectuate an order of the Securities Exchange Commission (as defined in Section 1083 of the Internal Revenue Code), provided all of the following conditions are met: (1) the order states that such conveyance is necessary or appropriate to effectuate the provisions of Section 79k of Title 15 of the United States Code, relating to the Public Utility Holding Company Act of 1935; (2) the order specifies the property which is ordered to be conveyed; and (3) the transfer is made in obedience to such order.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property between an individual or individuals and a legal entity, or between legal entities, if such transfer results solely in a change in the method of holding title, and in which proportional ownership interests in the real property (whether represented by stock, membership interest, partnership interest, cotenancy interest, or otherwise) directly or indirectly, remain the same immediately after the transfer.","No Documentary Transfer Tax shall be due on any document transferring an interest in real property from a mortgagor to a mortgage, or from a trustor to a beneficiary under a deed of trust, where the underlying mortgage or deed of trust encumbers the property being transferred, and where the interest is being transferred as a result of, or in lieu of, foreclosure. The exemption provided in subsection (a) of this section applies only to the extent that consideration for such transfer does not exceed the unpaid indebtedness (including accrued interest and costs of foreclosure), and Documentary Transfer Tax shall be due to the extent that the consideration exceeds the indebtedness.","No Documentary Transfer Tax shall be due upon any document transferring an interest in community, quasi-community or quasi-marital property between spouses, when such transfer is made to effectuate the division or allocation of such property pursuant to a judgment of dissolution, separation or nullity of marriage, or any other order or judgment rendered pursuant to the Family Code, or pursuant to a written agreement between the spouses executed in contemplation of any such order or judgment.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or other writing by which realty is conveyed by the state of California, any political subdivision thereof, or agency or instrumentality of either thereof, pursuant to an agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by the State of California, any political subdivision thereof, or agency or instrumentality or either thereof, conveys to a nonprofit corporation realty the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by a nonprofit organization on behalf of a government unit, within the meaning of Section 1.103-l(b) of Title 26 of the Code of Federal Regulations or as amended. ","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by reason of the death of any person, or a transfer by inter vivos gift, whether the interest conveyed is transferred outright or in trust for the benefit of any person or entity.",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property from a principal to his agent or from an agent to his principal.,"No Documentary Transfer Tax shall be due upon any document confirming the grantee\'s vested, legal interest in real property.","No Documentary Transfer Tax shall be due upon documents partitioning real property between/among the owners thereof, provided all of the following conditions are met: (a) all pre-partition owners must continue as owners of the partitioned property; (b) no one shall be named as a grantee who was not a pre-partition owner; and (c) the grantees\' respective interests in the partitioned property must be approximately equal in value (remain in the same proportion).",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property in trust for the benefit of the grantor\'s creditors.,"Any deed, instrument or writing shall be exempt from up to one-third (1/3) of any tax imposed pursuant to this ordinance if: (1) it transfers an interest in real property used as a residence; and (2) after January 1, 2009, the transferor has installed an active solar system, as that term is defined in Revenue & Taxation Code Section 73(b), or has made seismic retrofitting improvements or improvements utilizing earthquake hazard mitigation technologies, as those terms are defined in Revenue & Taxation Code Section 74.5(b), and the transferor has claimed and the Assessor has approved an exclusion from reassessment for the value of that system or those improvements. This partial exemption shall only apply to the initial transfer by the person who installed the active solar system or made the seismic safety improvements. The amount of this partial exemption shall not exceed the transferor\'s cost of seismic retrofitting improvements or the active solar system. Multi-family residential properties are eligible for this partial exemption.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or writing which creates, terminates, or transfers a leasehold interest having a remaining term (including renewal options) of less than 35 years.","No Documentary Transfer Tax shall apply with respect to any deed, instrument, or writing in connection with the conversion to condominium units of the following kind of stock cooperative project: a stock cooperative project (a) which is entitled to an exemption from the annual limitation imposed on the number of conversions and the annual condominium conversion lottery pursuant to Section 1396 of the San Francisco Subdivision Code; and (b) wherein 80 percent or more of the condominium units serve as security for loans in favor of the City and County of San Francisco, pursuant to the Homeownership Assistance Loan Fund (under San Francisco Administrative Code Section 10.100 \u2013 08) or its predecessor program, as identified by the Mayor\'s Office of Housing, prior to the conversion.","No Documentary Transfer Tax shall apply to transfers of real property between spouses or between domestic partners. Individuals of the same sex who obtain a certificate of marriage or other official government document of any state or political subdivision thereof acknowledging their union in marriage shall be deemed to be in a ""domestic partnership"" that qualifies for the exemption under subsection (a) in the event such individuals are denied the legal status of marriage or the legal rights, privileges and obligations of spouses, or the marriage certificate or other official government document acknowledging their marriage is invalidated or revoked in a final judgment or by operation of law, because such individuals are of the same sex.","No Documentary Transfer Tax shall apply to effectuate a gift or consideration of ""love and affection"", so long as one of the original owners remains on title.",,,,"No Documentary Transfer Tax shall apply to any transfer by an individual, transferring his/her property into a trust so long as (1) the transferor is the present beneficiary of the trust, or (2) the trust is revocable, or any transfer by a trustee of such trust described in either clause (1) or (2) back to the original owner (trustor).","The tax imposed pursuant to this article shall apply to the transfer of only one (1) property in the instance of an exchange pursuant to section 1031 of the Internal Revenue Code of like kind properties held for productive use in a trade or business or for an investment. For purposes of this section, the exchange of properties must be completed within 180 days following the date on which the taxpayer transfers and pays the tax on one (1) of the properties relinquished in the exchange.","No Documentary Transfer Tax shall apply to transfers, without consideration; provided, the transferee neither conveys an interest therein to a third party nor effects a refinancing for a period of one hundred eighty (180) days after the gift transfer; however, refinancings for the purposes of rehabilitation of the gifted property are not subject to this limitation upon submission of documentation required by the Director or his or her designee(s). Notwithstanding the foregoing paragraph, transfers, without consideration, of commercial real property, including residential rental property, other than the principal residence of the transferor will be subject to this tax to the extent that the fair market value thereof exceeds one million dollars ($1,000,000.00). In such case, only the amount of the fair market value that exceeds one million dollars ($1,000,000.00) will be taxed.","No Documentary Transfer Tax shall apply to the transfer of a historic resource, as that term is defined in Section 4-26-200(p) of this Code, where a deed restriction has been recorded on the historic resource that requires the owner of the historic resource to comply with Chapter 4-26 of the San Leandro Municipal Code. This deed restriction must be in a form approved by the City Attorney, and must have a term of at least five (5) years. This deed restriction must be recorded on the historic resource as part of the transaction to transfer the historic resource.","No Documentary Transfer Tax shall apply to transfers to or between the United States, state of California, any city, county, city and county, district or any other political subdivision of the state and transfer executed pursuant to eminent domain proceedings by the United States, state of California, any city, county, city and county, district or other political subdivision of the state.","Any deed, instrument or writing by which a person acquires real property in an exchange with the City shall be exempt from the tax imposed pursuant to this article where the real property received by the City is of equal or greater value than the real property received by the other person.","In the case of any realty held by a non-profit corporation, no levy shall be imposed pursuant to this article by reason of any transfer of the realty, if: (1)   the realty is transferred to a limited partnership, of which the non-profit corporation is the general partner; and (2)   the City required such transfer to be made in order to facilitate the use of tax credits and federal affordable housing development assistance. Any person exempt from the tax imposed by this article because of the provisions of Subsection (a) hereof shall pay to the County of Los Angeles the tax that would be owed if such exemption did not exist, and thereafter may apply to the Director of Finance for a refund, which refund shall be made in the same manner as is provided in Section 21.07 of this chapter for refunds of overpayments of Business Taxes.","No Documentary Transfer Tax shall apply to any document making a transfer of community property, or interest among joint tenants or tenants in common provided that: (A) the participating owners have held their respective interest for at least 5 years, or all participating owners acquired their respective interests in the same transaction, however recent; and (B) no grantor receives any consideration beyond a release from any indebtedness secured by the property interest being transferred.","No Documentary Transfer Tax shall apply to any document of interspousal transfer including: (a) transfer to a trustee for the beneficial use of a spouse or the surviving spouse of a deceased transferor, or by the trustee of such a trust to the spouse of the trustor; (b) transfers which take place upon the death of a spouse; (c) transfer to a spouse or former spouse in connection with a property settlement agreement or decree of dissolution of marriage or legal separation; (d) the creation, transfer, or termination, solely between spouses, of any co-owner\u2019s interest.","No Documentary Transfer Tax shall apply to any document of transfer between parents and children of a single family residence or of property zoned single family residential. The term \u201Cchildren\u201D shall include natural and adopted children, as well as stepchildren if they are legally stepchildren at the time of transfer, and any son-in-law-or daughter-in-law if they are legally in such relationship at the time of transfer.","No Documentary Transfer Tax shall apply to any instrument by which realty is conveyed by the United States or any agency or instrumentality thereof, any state or territory, or political subdivision thereof, or the District of Columbia, pursuant to any agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall apply to any instrument by which the United States or any agency or instrumentality thereof, any state or territory, or political subdivision thereof, or the District of Columbia, conveys to a nonprofit corporation realty, the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by the ","No Documentary Transfer Tax shall apply to the making, delivery, or filing of an instrument by which a co-owner or the co-owners of real property release his or her or their ownership interest to the other co-owner or co-owners of the real property without receiving, directly or indirectly, any monetary or other valuable consideration, where the co-owners are co-borrowers under a loan to finance or refinance the acquisition of or the construction of improvements upon the real property.","No Documentary Transfer Tax shall apply with respect to any instrument which purports to convey, divide, or allocate community, quasi-community, or quasi-marital realty assets or realty assets held in joint tenancy or tenancy in common between spouses, provided: (1) the owner-spouses acquired their respective interests in the same transaction; and (2) no consideration beyond a release from any indebtedness secured by the interest in realty conveyed is received by the transferor-spouse in effecting such conveyance. This subsection (b) shall not extend to the conveyance of realty assets wholly owned by the transferor-spouse to a transferee-spouse.","Any transfer, if made during the term of the marriage or domestic partnership, between husband and wife or duly registered domestic partners, shall be tax-exempt interspousal transfers.","No tax will apply to transfers of partial interests in property to a co-signor or from a co-owner as required pursuant to a verifiable demand by a lender in order to secure the debt for such transfer. Specifically, the subsequent removal or reinstatement of such co-owner or co-signing party(s) must be effected within seven years of the close of escrow pertaining to such loan in order to qualify for the exemption herein. Nothing herein contained shall be deemed to exclude the amount of any such indebtedness from being included in the ""value of consideration"" pursuant to Section 4.20.030 in connection with transfers which are not made solely to secure a debt.",No tax will apply to any reconveyance of real property from a family member who obtained a legal interest in the real property solely to satisfy a lender\'s requirement in qualifying for a loan to purchase or refinance that property; and the property is the principal residence of the transferee.,"No tax shall apply to the making, delivering, or filing of conveyances to make effective any plan of reorganization or adjustment confirmed under the federal Bankruptcy Act, as amended, if the making, delivery, or filing of instruments of transfer or conveyances occurs within five (5) years from the date of such confirmation, approval, or change and is expressly provided for therein.","No tax shall apply to transfers to make effective any plan of corporate reorganization or adjustment if: 1. Confirmed under the Bankruptcy Act, as amended, 2. Approved in an equity receivership proceeding in a court involving a railroad corporation as defined in Section 77(m) of the Bankruptcy Act, as amended, and 3. Approved in an equity receivership proceeding in a court involving a corporation, as defined in Section 106(3) of the Bankruptcy Act, as amended.","No tax shall apply to the making, delivering, or filing of conveyances to make effective any plan of reorganization or adjustment: (a) confirmed under the federal Bankruptcy Act, as amended, (b) approved in an equity receivership in a court involving a railroad as defined in subdivision (m) of Section\xA0205\xA0of Title\xA011\xA0of the United States Code, as amended, (c) approved in an equity receivership in a court involving a corporation, as in subdivision (3) of Section 506 of 11 of the United States Code, as amended, or (d) hereby a mere change in identity, form or place or organization is effected, if the making, delivery, or filing of instruments of transfer or conveyances occurs within five (5) years from the date of such confirmation, approval, or change and is expressly provided for therein."\nCA;Alameda;Alameda;12.00,x,x,x,x,x,x,x,x,x,x,,,,,,,,x,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Albany;11.50,x,,x,x,x,,x,x,x,,,x,,,,,,,x,x,x,x,x,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Berkeley;15.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Dublin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Emeryville;12.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Fremont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Hayward;4.50,x,x,,x,,x,x,x,x,,,x,,,,,,,x,x,x,x,,x,,,,,,,,,,,,,,,,x,,\nCA;Alameda;Livermore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Newark,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Oakland;15.00,x,,,x,x,x,x,,x,,,x,,,,,,,,,x,,,,x,,x,,,,,,,,,,x,,,,x,\nCA;Alameda;Piedmont;13.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Pleasanton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;San Leandro;6.00,x,x,,x,,x,x,x,x,,,,,,,,,,,,,,,x,,x,,,,,,,,,,,,,,x,,\nCA;Alameda;Union City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nAlpine County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nAmador County\xA0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Amador,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Ione,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Jackson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Plymouth,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Sutter Creek,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nButte County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Biggs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Chico,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Gridley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Oroville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Paradise,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCalaveras County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Calaveras;Angels Camp,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nColusa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Colusa;Colusa,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Colusa;Williams,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nContra Costa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Antioch,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Brentwood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Clayton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Concord,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Danville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;El Cerrito,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Hercules,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Lafayette,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Martinez,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Moraga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Oakley,x,,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x\nCA;Contra Costa;Orinda,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pinole,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pittsburg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pleasant Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Richmond;7.00 XX,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;San Pablo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;San Ramon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Walnut Creek,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nDel Norte County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Del Norte;Crescent City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nEl Dorado County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;El Dorado;Placerville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;El Dorado;South Lake Tahoe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nFresno County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Clovis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Coalinga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Firebaugh,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Fowler,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Fresno,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Huron,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Kerman,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Kingsburg,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Mendota,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Orange Cove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Parlier,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Reedley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Sanger,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Selma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nGlenn County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Glenn;Orland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Glenn;Willows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nHumboldt County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Arcata,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Blue Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Eureka,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Ferndale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Fortuna,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Rio Dell,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Trinidad,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nImperial County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Brawley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Calexico,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Calipatria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;El Centro,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Holtville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Imperial,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Westmorland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nInyo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Inyo;Bishop,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nKern County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Arvin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Bakersfield,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;California City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Delano,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Maricopa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Mcfarland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Ridgecrest,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Shafter,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Taft,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Tehachapi,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Wasco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nKings County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Avenal,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Corcoran,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Hanford,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Lemoore,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLake County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lake;Clearlake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lake;Lakeport,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLassen County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lassen;Susanville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLos Angeles County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Agoura Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Alhambra,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Arcadia,,x,x,x,,,,,,,,,,x,,x,,,,,x,x,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Artesia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Avalon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Azusa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Baldwin Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bell,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bellflower,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bell Gardens,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Beverly Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bradbury,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Burbank,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Calabasas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Carson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Cerritos,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Claremont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Commerce,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Compton,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Covina,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Cudahy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Culver City;4.50,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Diamond Bar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Downey,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Duarte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;El Monte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;El Segundo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Gardena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Glendale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Glendora,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hawaiian Gardens,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hawthorne,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hermosa Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hidden Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Huntington Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Industry,x,,x,x,,x,x,,,,,x,,,,,,,,,,,,,,,x,,,,,,,,,,,,,,,\nCA;Los Angeles;Inglewood,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Irwindale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Canada Flintridge,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Habra Heights,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lakewood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Mirada,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lancaster,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Puente,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Verne,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lawndale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lomita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Long Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Los Angeles;4.50,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,x,x,,,,,,,,,,,,,\nCA;Los Angeles;Lynwood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Malibu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Manhattan Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Maywood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Monrovia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Montebello,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Monterey Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Norwalk,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Palmdale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Palos Verdes Estates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Paramount,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pasadena,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pico Rivera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pomona;2.20,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rancho Palos Verdes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Redondo Beach;2.20,x,x,x,x,,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rolling Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rolling Hills Estates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rosemead,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Dimas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Fernando,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Gabriel,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Marino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Clarita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Fe Springs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Monica;3.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Sierra Madre,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Signal Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South El Monte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South Gate,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South Pasadena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Temple City,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Torrance,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Vernon,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Walnut,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;West Covina,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;West Hollywood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Westlake Village,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Whittier,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMadera County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Madera;Chowchilla,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Madera;Madera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMarin County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Belvedere,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Corte Madera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Fairfax,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Larkspur,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Mill Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Novato,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Ross,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;San Anselmo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;San Rafael;2.00,x,x,,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x,,\nCA;Marin;Sausalito,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Tiburon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMariposa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMendocino County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Fort Bragg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Point Arena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Ukiah,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Willits,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMerced County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Atwater,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Dos Palos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Gustine,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Livingston,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Los Banos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Merced,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nModoc County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Modoc;Alturas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMono,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mono;Mammoth Lakes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMonterey County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Carmel-By-The-Sea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Del Rey Oaks,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Gonzales,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Greenfield,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;King City,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Marina,x,x,x,x,,,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Monterey,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Pacific Grove,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Salinas,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Sand City,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Seaside,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Soledad,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNapa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;American Canyon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Calistoga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Napa,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;St Helena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Yountville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNevada County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Grass Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Nevada City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Truckee,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nOrange County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Aliso Viejo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Anaheim,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Brea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Buena Park,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Costa Mesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Cypress,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Dana Point,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Fountain Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Fullerton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Garden Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Huntington Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Irvine,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Niguel,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Woods,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;La Habra,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Lake Forest,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;La Palma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Los Alamitos,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Mission Viejo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Newport Beach,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Orange,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Placentia,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Rancho Santa Margarita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;San Clemente,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;San Juan Capistrano,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Santa Ana,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Seal Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Stanton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Tustin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Villa Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Westminster,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Yorba Linda,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nPlacer County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Auburn,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Colfax,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Lincoln,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Loomis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Rocklin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Roseville,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nPlumas County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Plumas;Portola,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nRiverside County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Banning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Beaumont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Blythe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Calimesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Canyon Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Cathedral City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Coachella,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Corona,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Desert Hot Springs,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Eastvale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Hemet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Indian Wells,x,x,x,x,,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Indio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Jurupa Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Lake Elsinore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;La Quinta,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Menifee,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Moreno Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Murrieta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Norco,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Palm Desert,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Palm Springs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Perris,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Rancho Mirage,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Riverside;1.10,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;San Jacinto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Temecula,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Wildomar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSacramento County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Citrus Heights,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Elk Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Folsom,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Galt,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Isleton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Rancho Cordova,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Sacramento;2.75,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Benito County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Benito;Hollister,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Benito;San Juan Bautista,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Bernardino County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Adelanto,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Apple Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Barstow,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Big Bear Lake,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Chino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Chino Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Colton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Fontana,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Grand Terrace,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Hesperia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Highland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Loma Linda,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Montclair,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Needles,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Ontario,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Rancho Cucamonga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Redlands,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Rialto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;San Bernardino,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Twentynine Palms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Upland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Victorville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Yucaipa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Yucca Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Diego County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Carlsbad,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Chula Vista,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Coronado,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Del Mar,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;El Cajon,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Encinitas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Escondido,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Imperial Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;La Mesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Lemon Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;National City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Oceanside,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Poway,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;San Diego,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;San Marcos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Santee,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Solana Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Vista,,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Francisco City & County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Francisco;San Francisco,x,x,x,x,x,x,x,,,,"\n\n",,"\n","\n",x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Joaquin County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Escalon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Lathrop,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Lodi,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Manteca,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Ripon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Stockton,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Tracy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Luis Obispo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Arroyo Grande,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Atascadero,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;El Paso De Robles,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Grover Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Morro Bay,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo; Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;San Luis Obispo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Mateo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Atherton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Belmont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Brisbane,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Burlingame,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Colma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Daly City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;East Palo Alto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Foster City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Half Moon Bay,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Hillsborough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Menlo Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Millbrae,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Pacifica,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Portola Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Redwood City,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;San Bruno,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;San Carlos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo; San Mateo;.5% of property value,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,x,x,x,,,,,,,,,,\nCA;San Mateo;South San Francisco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Woodside,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Barbara County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Buellton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Carpinteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Goleta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Guadalupe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Lompoc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Santa Barbara,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Santa Maria,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Solvang,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Clara County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Campbell,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Cupertino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Gilroy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Altos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Altos Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Gatos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Milpitas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Monte Sereno,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Morgan Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Mountain View;3.30,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Palo Alto;3.30,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,x,x,x,x,,,,,,\nCA;Santa Clara;San Jose;3.30,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x,,x,,,\nCA;Santa Clara;Santa Clara,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Saratoga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Sunnyvale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Cruz County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Capitola,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Santa Cruz,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Scotts Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Watsonville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nShasta County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Anderson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Redding,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Shasta Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSierra County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sierra;Loyalton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSiskiyou County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Dorris,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Dunsmuir,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Etna,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Fort Jones,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Montague,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Mount Shasta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Tulelake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Weed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Yreka,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSolano County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Benicia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Dixon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Fairfield,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Rio Vista,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Suisun City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Vacaville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Vallejo;3.30,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSonoma County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Cloverdale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Cotati,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Healdsburg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Petaluma;2.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Rohnert Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Santa Rosa;2.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Sebastopol,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Sonoma\xA0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Windsor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nStanislaus County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Ceres,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Hughson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Modesto,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Newman,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Oakdale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Patterson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Riverbank,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Turlock,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Waterford,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSutter County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sutter;Live Oak,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sutter;Yuba City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTehama County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Corning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Red Bluff,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Tehama,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTrinity County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTulare County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Dinuba,x,x,x,x,,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Exeter,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Farmersville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Lindsay,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Porterville,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Tulare\xA0,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Visalia,x,x,x,x,,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Woodlake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTuolumne County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tuolumne;Sonora,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nVentura County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Camarillo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Fillmore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Moorpark,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Ojai,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Oxnard,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Port Hueneme,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Santa Paula,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Simi Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Thousand Oaks,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Ventura,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nYolo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Davis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;West Sacramento,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Winters,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Woodland;1.10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nYuba County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Marysville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Wheatland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Goleta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Rancho Cordova,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,';
 	
-	exports.default = (0, _csv2array2.default)(csv, ',');
+	var list = (0, _csv2array2.default)(csv, ',');
+	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
+	
+	exports.default = list;
 
 /***/ },
-/* 77 */
+/* 83 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5529,7 +6139,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 78 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5538,19 +6148,26 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.indexArray = undefined;
 	
-	var _csv2array = __webpack_require__(29);
+	var _csv2array = __webpack_require__(31);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
+	var _sort = __webpack_require__(32);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var csv = 'State Name;County Name;Tax,Conveyance to secure a debt,Governmental agency acquiring title,Reorganization or adjustment conveyances,Securities and Exchange Commission order conveyances,Transfers without a change in proportional ownership,Transfers in connection with foreclosure,Transfers in connection with dissolution of marriage,Conveyances by state,Conveyances to nonprofit corporations,Gifts and transfers by reason of death,Agent transfers,Transfers confirming title,Partitions,Transfers for the benefit of creditors,Seismic retrofitting improvements ,Leasehold instruments,Certain conversions of stock cooperatives to condominium units,Transfers between spouses and transfers between domestic partners\n,"No Documentary Transfer Tax shall be due upon any mortgage or deed of trust given to secure a debt, or upon a release of mortgage or deed of reconveyance upon satisfaction of such debt.","Any deed, instrument or writing to which the United States or agency or instrumentality thereof, any state or territory, or political subdivision thereof, is a party shall be exempt when the exempt entity of government is acquiring title.","No Documentary Transfer Tax shall be due upon any document made to effectuate a plan or reorganization or adjustment: (1) confirmed in a bankruptcy proceeding under Title 11 of the United States Code, as amended; (2) approved by a court in an equity receivership proceeding involving a corporation or a railroad, as defined in Sections 101(9) and 101(44), respectively, of Title 11 of the United States Code; or (3) whereby a mere change in identity, form or place of organization is effected.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property to effectuate an order of the Securities Exchange Commission (as defined in Section 1083 of the Internal Revenue Code), provided all of the following conditions are met: (1) the order states that such conveyance is necessary or appropriate to effectuate the provisions of Section 79k of Title 15 of the United States Code, relating to the Public Utility Holding Company Act of 1935; (2) the order specifies the property which is ordered to be conveyed; and (3) the transfer is made in obedience to such order.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property between an individual or individuals and a legal entity, or between legal entities, if such transfer results solely in a change in the method of holding title, and in which proportional ownership interests in the real property (whether represented by stock, membership interest, partnership interest, cotenancy interest, or otherwise) directly or indirectly, remain the same immediately after the transfer.","No Documentary Transfer Tax shall be due on any document transferring an interest in real property from a mortgagor to a mortgage, or from a trustor to a beneficiary under a deed of trust, where the underlying mortgage or deed of trust encumbers the property being transferred, and where the interest is being transferred as a result of, or in lieu of, foreclosure. The exemption provided in subsection (a) of this section applies only to the extent that consideration for such transfer does not exceed the unpaid indebtedness (including accrued interest and costs of foreclosure), and Documentary Transfer Tax shall be due to the extent that the consideration exceeds the indebtedness.","No Documentary Transfer Tax shall be due upon any document transferring an interest in community, quasi-community or quasi-marital property between spouses, when such transfer is made to effectuate the division or allocation of such property pursuant to a judgment of dissolution, separation or nullity of marriage, or any other order or judgment rendered pursuant to the Family Code, or pursuant to a written agreement between the spouses executed in contemplation of any such order or judgment.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or other writing by which realty is conveyed by the state of California, any political subdivision thereof, or agency or instrumentality of either thereof, pursuant to an agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by the State of California, any political subdivision thereof, or agency or instrumentality or either thereof, conveys to a nonprofit corporation realty the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by a nonprofit organization on behalf of a government unit, within the meaning of Section 1.103-l(b) of Title 26 of the Code of Federal Regulations or as amended. ","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by reason of the death of any person, or a transfer by inter vivos gift, whether the interest conveyed is transferred outright or in trust for the benefit of any person or entity.",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property from a principal to his agent or from an agent to his principal.,"No Documentary Transfer Tax shall be due upon any document confirming the grantee\'s vested, legal interest in real property.","No Documentary Transfer Tax shall be due upon documents partitioning real property between/among the owners thereof, provided all of the following conditions are met: (a) all pre-partition owners must continue as owners of the partitioned property; (b) no one shall be named as a grantee who was not a pre-partition owner; and (c) the grantees\' respective interests in the partitioned property must be approximately equal in value (remain in the same proportion).",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property in trust for the benefit of the grantor\'s creditors.,"Any deed, instrument or writing shall be exempt from up to one-third (1/3) of any tax imposed pursuant to this ordinance if: (1) it transfers an interest in real property used as a residence; and (2) after January 1, 2009, the transferor has installed an active solar system, as that term is defined in Revenue & Taxation Code Section 73(b), or has made seismic retrofitting improvements or improvements utilizing earthquake hazard mitigation technologies, as those terms are defined in Revenue & Taxation Code Section 74.5(b), and the transferor has claimed and the Assessor has approved an exclusion from reassessment for the value of that system or those improvements. This partial exemption shall only apply to the initial transfer by the person who installed the active solar system or made the seismic safety improvements. The amount of this partial exemption shall not exceed the transferor\'s cost of seismic retrofitting improvements or the active solar system. Multi-family residential properties are eligible for this partial exemption.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or writing which creates, terminates, or transfers a leasehold interest having a remaining term (including renewal options) of less than 35 years.","No Documentary Transfer Tax shall apply with respect to any deed, instrument, or writing in connection with the conversion to condominium units of the following kind of stock cooperative project: a stock cooperative project (a) which is entitled to an exemption from the annual limitation imposed on the number of conversions and the annual condominium conversion lottery pursuant to Section 1396 of the San Francisco Subdivision Code; and (b) wherein 80 percent or more of the condominium units serve as security for loans in favor of the City and County of San Francisco, pursuant to the Homeownership Assistance Loan Fund (under San Francisco Administrative Code Section 10.100 \u2013 08) or its predecessor program, as identified by the Mayor\'s Office of Housing, prior to the conversion.","No Documentary Transfer Tax shall apply to transfers of real property between spouses or between domestic partners. Individuals of the same sex who obtain a certificate of marriage or other official government document of any state or political subdivision thereof acknowledging their union in marriage shall be deemed to be in a ""domestic partnership"" that qualifies for the exemption under subsection (a) in the event such individuals are denied the legal status of marriage or the legal rights, privileges and obligations of spouses, or the marriage certificate or other official government document acknowledging their marriage is invalidated or revoked in a final judgment or by operation of law, because such individuals are of the same sex."\nCA;Alameda;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Alpine;1.10,x,x,x,x,,x,x,x,x,,,,,,,,,\nCA;Amador;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Butte;1.10,x,x,x,x,x,x,x,x,x,x,x,x,x,x,,,,\nCA;Calaveras;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Colusa;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Contra Costa;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Del Norte;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;El Dorado;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;Fresno;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Glenn;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Humboldt;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Imperial;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Inyo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Kern;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Kings;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Lake;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Lassen;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Los Angeles;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Madera;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Marin;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Mariposa;1.10,x,x,x,,,x,,,,,,,,,,,,\nCA;Mendocino;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Merced;1.10,x,x,x,,,x,,,,,,,,,,,,\nCA;Modoc;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Mono;1.10,x,x,x,x,x,x,x,x,x,,,,,,,,,\nCA;Monterey;1.10,x,x,x,,x,,,,,,,,,,,,,\nCA;Napa;1.10,x,x,x,,x,x,x,x,x,,,,,,,,,\nCA;Nevada;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Orange;1.10,x,x,x,x,,x,x,x,x,x,,,,,,,,\nCA;Placer;1.10,x,x,x,x,,x,x,x,x,x,,,,,,,,\nCA;Plumas;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Riverside;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Sacramento;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;San Benito;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;San Bernardino;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Diego;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;San Francisco;1.10,x,x,x,x,x,x,x,,,,,,,,x,x,x,x\nCA;San Joaquin;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Luis Obispo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Mateo;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Santa Barbara;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Santa Clara;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Santa Cruz;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Shasta;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sierra;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Siskiyou;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Solano;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sonoma;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Stanislaus;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sutter;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Tehama;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Trinity;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Tulare;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Tuolumne;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Ventura;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Yolo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Yuba;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,';
+	var csv = 'State Name;County Name;Tax,Conveyance to secure a debt,Governmental agency acquiring title,Reorganization or adjustment conveyances,Securities and Exchange Commission order conveyances,Transfers without a change in proportional ownership,Transfers in connection with foreclosure,Transfers in connection with dissolution of marriage,Conveyances by state,Conveyances to nonprofit corporations,Gifts and transfers by reason of death,Agent transfers,Transfers confirming title,Partitions,Transfers for the benefit of creditors,Seismic retrofitting improvements ,Leasehold instruments,Certain conversions of stock cooperatives to condominium units,Transfers between spouses and transfers between domestic partners\n,"No Documentary Transfer Tax shall be due upon any mortgage or deed of trust given to secure a debt, or upon a release of mortgage or deed of reconveyance upon satisfaction of such debt.","Any deed, instrument or writing to which the United States or agency or instrumentality thereof, any state or territory, or political subdivision thereof, is a party shall be exempt when the exempt entity of government is acquiring title.","No Documentary Transfer Tax shall be due upon any document made to effectuate a plan or reorganization or adjustment: (1) confirmed in a bankruptcy proceeding under Title 11 of the United States Code, as amended; (2) approved by a court in an equity receivership proceeding involving a corporation or a railroad, as defined in Sections 101(9) and 101(44), respectively, of Title 11 of the United States Code; or (3) whereby a mere change in identity, form or place of organization is effected.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property to effectuate an order of the Securities Exchange Commission (as defined in Section 1083 of the Internal Revenue Code), provided all of the following conditions are met: (1) the order states that such conveyance is necessary or appropriate to effectuate the provisions of Section 79k of Title 15 of the United States Code, relating to the Public Utility Holding Company Act of 1935; (2) the order specifies the property which is ordered to be conveyed; and (3) the transfer is made in obedience to such order.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property between an individual or individuals and a legal entity, or between legal entities, if such transfer results solely in a change in the method of holding title, and in which proportional ownership interests in the real property (whether represented by stock, membership interest, partnership interest, cotenancy interest, or otherwise) directly or indirectly, remain the same immediately after the transfer.","No Documentary Transfer Tax shall be due on any document transferring an interest in real property from a mortgagor to a mortgage, or from a trustor to a beneficiary under a deed of trust, where the underlying mortgage or deed of trust encumbers the property being transferred, and where the interest is being transferred as a result of, or in lieu of, foreclosure. The exemption provided in subsection (a) of this section applies only to the extent that consideration for such transfer does not exceed the unpaid indebtedness (including accrued interest and costs of foreclosure), and Documentary Transfer Tax shall be due to the extent that the consideration exceeds the indebtedness.","No Documentary Transfer Tax shall be due upon any document transferring an interest in community, quasi-community or quasi-marital property between spouses, when such transfer is made to effectuate the division or allocation of such property pursuant to a judgment of dissolution, separation or nullity of marriage, or any other order or judgment rendered pursuant to the Family Code, or pursuant to a written agreement between the spouses executed in contemplation of any such order or judgment.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or other writing by which realty is conveyed by the state of California, any political subdivision thereof, or agency or instrumentality of either thereof, pursuant to an agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by the State of California, any political subdivision thereof, or agency or instrumentality or either thereof, conveys to a nonprofit corporation realty the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by a nonprofit organization on behalf of a government unit, within the meaning of Section 1.103-l(b) of Title 26 of the Code of Federal Regulations or as amended. ","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by reason of the death of any person, or a transfer by inter vivos gift, whether the interest conveyed is transferred outright or in trust for the benefit of any person or entity.",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property from a principal to his agent or from an agent to his principal.,"No Documentary Transfer Tax shall be due upon any document confirming the grantee\'s vested, legal interest in real property.","No Documentary Transfer Tax shall be due upon documents partitioning real property between/among the owners thereof, provided all of the following conditions are met: (a) all pre-partition owners must continue as owners of the partitioned property; (b) no one shall be named as a grantee who was not a pre-partition owner; and (c) the grantees\' respective interests in the partitioned property must be approximately equal in value (remain in the same proportion).",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property in trust for the benefit of the grantor\'s creditors.,"Any deed, instrument or writing shall be exempt from up to one-third (1/3) of any tax imposed pursuant to this ordinance if: (1) it transfers an interest in real property used as a residence; and (2) after January 1, 2009, the transferor has installed an active solar system, as that term is defined in Revenue & Taxation Code Section 73(b), or has made seismic retrofitting improvements or improvements utilizing earthquake hazard mitigation technologies, as those terms are defined in Revenue & Taxation Code Section 74.5(b), and the transferor has claimed and the Assessor has approved an exclusion from reassessment for the value of that system or those improvements. This partial exemption shall only apply to the initial transfer by the person who installed the active solar system or made the seismic safety improvements. The amount of this partial exemption shall not exceed the transferor\'s cost of seismic retrofitting improvements or the active solar system. Multi-family residential properties are eligible for this partial exemption.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or writing which creates, terminates, or transfers a leasehold interest having a remaining term (including renewal options) of less than 35 years.","No Documentary Transfer Tax shall apply with respect to any deed, instrument, or writing in connection with the conversion to condominium units of the following kind of stock cooperative project: a stock cooperative project (a) which is entitled to an exemption from the annual limitation imposed on the number of conversions and the annual condominium conversion lottery pursuant to Section 1396 of the San Francisco Subdivision Code; and (b) wherein 80 percent or more of the condominium units serve as security for loans in favor of the City and County of San Francisco, pursuant to the Homeownership Assistance Loan Fund (under San Francisco Administrative Code Section 10.100 \u2013 08) or its predecessor program, as identified by the Mayor\'s Office of Housing, prior to the conversion.","No Documentary Transfer Tax shall apply to transfers of real property between spouses or between domestic partners. Individuals of the same sex who obtain a certificate of marriage or other official government document of any state or political subdivision thereof acknowledging their union in marriage shall be deemed to be in a ""domestic partnership"" that qualifies for the exemption under subsection (a) in the event such individuals are denied the legal status of marriage or the legal rights, privileges and obligations of spouses, or the marriage certificate or other official government document acknowledging their marriage is invalidated or revoked in a final judgment or by operation of law, because such individuals are of the same sex."\nCA;Alameda;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Alpine;1.10,x,x,x,x,,x,x,x,x,,,,,,,,,\nCA;Amador;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Butte;1.10,x,x,x,x,x,x,x,x,x,x,x,x,x,"x\n",,,,\nCA;Calaveras;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Colusa;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Contra Costa;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Del Norte;1.10,x,x,x,x,x,x,x,x,x,x,"\n",,,,,,,\nCA;El Dorado;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;Fresno;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Glenn;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Humboldt;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Imperial;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Inyo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Kern;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Kings;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Lake;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Lassen;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Los Angeles;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Madera;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Marin;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Mariposa;1.10,x,x,x,,,x,,,,,,,,,,,,\nCA;Mendocino;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Merced;1.10,x,x,x,,,x,,,,,,,,,,,,\nCA;Modoc;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Mono;1.10,x,x,x,x,x,x,x,x,x,,,,,,,,,\nCA;Monterey;1.10,x,x,x,,x,,,,,,,,,,,,,\nCA;Napa;1.10,x,x,x,,x,x,x,x,x,,,,,,,,,\nCA;Nevada;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Orange;1.10,x,x,x,x,,x,x,x,x,x,,,,,,,,\nCA;Placer;1.10,x,x,x,x,,x,x,x,x,x,,,,,,,,\nCA;Plumas;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Riverside;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Sacramento;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;San Benito;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;San Bernardino;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Diego;1.10,x,x,x,x,x,,,,,,,,,,,,,\nCA;San Francisco;1.10,x,x,x,x,x,x,x,,,,"\n\n",,"\n","\n",x,x,x,x\nCA;San Joaquin;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Luis Obispo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;San Mateo;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Santa Barbara;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Santa Clara;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,\nCA;Santa Cruz;1.10,x,x,x,x,,x,x,,,,,,,,,,,\nCA;Shasta;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sierra;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Siskiyou;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Solano;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sonoma;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Stanislaus;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Sutter;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Tehama;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Trinity;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Tulare;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Tuolumne;1.10,x,x,x,x,,x,,,,,,,,,,,,\nCA;Ventura;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Yolo;1.10,x,x,x,x,,,,,,,,,,,,,,\nCA;Yuba;1.10,x,x,x,x,x,x,x,x,x,x,,,,,,,,';
 	
-	exports.default = (0, _csv2array2.default)(csv, ',');
+	var list = (0, _csv2array2.default)(csv, ',');
+	
+	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
+	
+	exports.default = list;
 
 /***/ },
-/* 79 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5626,7 +6243,7 @@
 	exports.default = CAFormArticlesOfIncorporation1;
 
 /***/ },
-/* 80 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5700,7 +6317,7 @@
 	exports.default = CAFormArticlesOfIncorporation2;
 
 /***/ },
-/* 81 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5798,7 +6415,7 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 82 */
+/* 88 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5812,6 +6429,7 @@
 	  description: "Creating The California Professional Corporation",
 	  start: "input_1",
 	  kind: "Form",
+	  step: 10,
 	  node: [{
 	    id: "input_1",
 	    kind: "Input",
@@ -5902,7 +6520,7 @@
 	    content: {
 	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
 	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
-	      next: "form_1",
+	      next: "final_1",
 	      note: {
 	        title: 'Address of registered agent',
 	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
@@ -5913,7 +6531,7 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
-	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_10" }],
+	      fields: [{ kind: "choice", label: "Yes", next: "final_2" }, { kind: "choice", label: "No", next: "input_10" }],
 	      note: {
 	        title: 'Corporate Registered Agent',
 	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
@@ -5932,22 +6550,24 @@
 	      }
 	    }
 	  }, {
-	    id: "form_1",
-	    kind: "Form",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_1"
+	      kind: "Form",
+	      form: "ca_form_articles_of_professional_incorporation_1"
 	    }
 	  }, {
-	    id: "form_2",
-	    kind: "Form",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_2"
+	      kind: "Form",
+	      form: "ca_form_articles_of_professional_incorporation_2"
 	    }
 	  }]
 	};
 
 /***/ },
-/* 83 */
+/* 89 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5961,6 +6581,7 @@
 	  description: "Creating The California S-Corporation",
 	  start: "single_1",
 	  kind: "Form",
+	  step: 9,
 	  node: [{
 	    id: "single_1",
 	    kind: "Single",
@@ -6087,7 +6708,7 @@
 	    content: {
 	      question: "What is <strong>${registered_agent_name}</strong>'s address?'",
 	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
-	      next: "form_1",
+	      next: "final_1",
 	      note: {
 	        title: 'Address of registered agent',
 	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
@@ -6098,7 +6719,7 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
-	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_12" }],
+	      fields: [{ kind: "choice", label: "Yes", next: "final_2" }, { kind: "choice", label: "No", next: "input_12" }],
 	      note: {
 	        title: 'Corporate Registered Agent',
 	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
@@ -6117,22 +6738,24 @@
 	      }
 	    }
 	  }, {
-	    id: "form_1",
-	    kind: "Form",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_1"
+	      kind: "Form",
+	      form: "ca_form_articles_of_professional_incorporation_1"
 	    }
 	  }, {
-	    id: "form_2",
-	    kind: "Form",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_2"
+	      kind: "Form",
+	      form: "ca_form_articles_of_professional_incorporation_2"
 	    }
 	  }]
 	};
 
 /***/ },
-/* 84 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6144,31 +6767,31 @@
 	
 	var _ca_professional_corp;
 	
-	var _incorporate = __webpack_require__(82);
+	var _incorporate = __webpack_require__(88);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(83);
+	var _sIncorporate = __webpack_require__(89);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(89);
+	var _transfertax = __webpack_require__(95);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(85);
+	var _incorporate3 = __webpack_require__(91);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(86);
+	var _payroll = __webpack_require__(92);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(88);
+	var _trademark = __webpack_require__(94);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
-	var _securitydeposit = __webpack_require__(87);
+	var _securitydeposit = __webpack_require__(93);
 	
 	var _securitydeposit2 = _interopRequireDefault(_securitydeposit);
 	
@@ -6179,7 +6802,7 @@
 	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _defineProperty(_ca_professional_corp, 'securitydeposit', _securitydeposit2.default), _ca_professional_corp);
 
 /***/ },
-/* 85 */
+/* 91 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6188,11 +6811,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _attach;
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	exports.default = {
 	  name: "incorporate",
 	  description: "Should I incorporate ( or become an LLC )?",
 	  start: "action_1",
 	  kind: "Topic",
+	  attach: (_attach = {}, _defineProperty(_attach, 'NOTE_1', "<p>Since your business is a real estate investment company, your business should generally be organized as an LLC rather than a corporation for income tax reasons. For a description of these reason see below. You might consider organizing as a limited partnership rather than an LLC if you own or expect to own California real estate with rental income and capital gains expected to exceed $1 million per year.</p><br/>\n      <p><small>Because the income of a C corporation is subject to double taxation and the losses of a C corporation are not immediately deductible by the shareholders, a C corporation is not an efficient structure for a real estate investment company. While the income of an S corporation is subject to only one level of taxation and its losses may be immediately deducted by the shareholders (subject to certain limitations), an S corporation is generally a disadvantageous structure for a real estate investment company as compared to an LLC that is taxed as a partnership (or as a disregarded entity). There are several reasons for this. First, the limited liability company allows special allocation of income, deductions, profits and losses which are often used. By contrast, use of an S corporation precludes the use of special allocations due to the requirement of one class of shares. Second, if the investment company intends to buy and hold depreciable real estate and finance the acquisition with non-recourse financing, the S. Corporation form may limit the deductions that may be passed through to the shareholders. Shareholders of S Corps and members of limited liability companies may not take deductions in excess of the basis of their stock or investment. A limited liability company member\u2019s basis includes his share of qualified non-recourse loans; an S corp\u2019s shareholder\u2019s basis in his stock does not. Thus it is possible that an S Corp shareholder will be precluded from taking depreciation deductions in the case of certain leveraged, depreciable real estate. Third, contributions of property to a partnership where liabilities assumed by the partnership exceed the partner\u2019s basis are not usually taxable transactions. But transfers of property to a corporation for stock where liabilities assumed by the corporation exceed the shareholder\u2019s basis in the property are taxable to the shareholder under IRC 357(c). Fourth, the IRC 754 election allows a step-up in the basis of assets upon: the death of a partner, certain partnership distributions and the sale or exchange of a partnership interest. Fifth, per IRC 731, distributions of property from a partnership to partners are not taxable transactions. However, under IRC 1368, distributions of property from an S Corporation results in taxable gain to the extent the value of the distributed property exceeds the shareholder\u2019s basis in its stock.</small></p>"), _defineProperty(_attach, 'NOTE_2', "<p>Because of the nature of your business, it appears you would benefit from the liability protection afforded by either an LLC or a corporation. While an S corporation can reduce a business owner\u2019s self-employment taxes under certain circumstances, the nature of your business and its expected earnings are not likely to lead to significant savings in self-employment taxes. At the same time, since you do not have or expect to have any partners or investors, an LLC does offer you certain tax advantages. Specifically, since the LLC will be solely owned by you, it will be treated as a disregarded entity for income tax purposes (unless you file an election for corporate treatment). As a result, you will not be required to file a separate federal income tax return for the LLC. Instead, you will report the LLC\u2019s earnings on your individual income tax return.</p>"), _defineProperty(_attach, 'NOTE_3', "<p>Based on your responses, the cost of forming and maintaining a corporation or limited liability company appear to outweigh the benefits. The primary legal advantage of a corporation or limited liability company is that they protect you (as owner) from legal claims based on the company\u2019s contracts and the acts of the company\u2019s agents other than you. However, they do not protect you from legal claims based on your own acts. Since you do not have or expect to have any employees or agents, it appears that you will not realize significant benefits from the liability protection of a corporation or limited liability company. However, if you expect that the company will enter into significant contracts (that you do not have to personally guaranty), then the corporate or LLC form would provide a significant benefit. While corporations offer various tax benefits, it appears that you will not be able to take advantage of these benefits due to the nature of your business or the expected level of your earnings. For example, while an S corporation can reduce a business owner\u2019s self-employment taxes under certain circumstances, it appears that you will not derive significant savings in self-employment taxes due to the nature of your business and its expected earnings. In addition, stock in certain C corporations may be sold without federal income tax on the gains, subject to certain limitations. However, based on your responses, it does not appear that you would be eligible for this exclusion (or your responses indicate that any benefit would be negligible).</p>"), _defineProperty(_attach, 'NOTE_4', "<p>Based on your responses, it appears that you would benefit from the liability protection afforded to shareholders of an S corporation as well as the reduction in self-employment taxes that may be available to the shareholders of an S corporation . If you structure your company as an S corporation, you could be both a shareholder and an employee of the corporation. As such, you would receive two forms of income from the corporation: employment (W2) income which is subject to  self-employment taxes and shareholder distributions which are not subject to self-employment taxes so long as the corporation pays you a reasonable amount of employment income. According to the IRS, \u201Cgenerally, reasonable pay is the amount that a similar business would pay for the same or similar services\u201D.  (Publication 535 (2016), Business Expenses, Employee\u2019s Pay) In short, as long as the corporation pays a shareholder-employee a reasonable salary, all other distributions by the corporation to the shareholder-employee are free of self-employment taxes.</p>"), _defineProperty(_attach, 'NOTE_5', "<p>Based on your responses, you should consider organizing your business as a C corporation in order to take advantage of exemption from capital gains taxes available upon the sale of so-called \u201Cqualified small business stock\u201D after a five year holding period.  For additional information on this exemption, see below. The advantages of this exemption must be balanced against the disadvantages of a C corporation. The first disadvantage of a C corporation as compared to an S corporation or LLC or limited partnership is that the income of a C corporation is potentially subject to double taxation : first, in the form of corporate tax on the income of the corporation and second in the form of individual income tax on the dividends paid by the corporation to its shareholders. Small businesses formed as C corporations generally avoid double taxation by paying any profit to the shareholder-employees in the form of salary, thereby eliminating any corporate profit and therefore any corporation income tax liability. However, shareholders may not be paid a salary that is unreasonably high. If they are, the IRS could recharacterize part of the salary as dividends subject to double taxation. By contrast, the income of an S corporation or a limited liability company is generally passed through to the shareholders or members and subject to a single level of tax. The second disadvantage of a C corporation is that any losses sustained by the corporation are not passed through to the shareholders until the corporation liquidates. The corporation may carry forward such losses for a long period (currently 20 years) and during such time may deduct such losses from any profit.  In the case of an S corporation, by comparison, any losses are passed through to the shareholders who may deduct such losses in the year in which they were sustained, subject to certain limitations. These disadvantages must be weighed against the potential savings on capital gains taxes that a shareholder would realize on the sale of qualified small business stock for a profit after a five year holding period. </p>\n      <br /><p><small>Under Section 1202 of the Internal Revenue Code, a noncorporate taxpayer can exclude from gross income 100 percent of any gain from the sale of qualified small business stock held for more than five years and acquired on or after September 28, 2010. The excluded gain is limited to the greater of $10 million or 10 times the adjusted basis of the investment. To be eligible as qualified small business stock, the stock must be issued after August 10, 1993 and acquired by the taxpayer at its original issue. The issuing corporation must be a domestic C corporation and must have had both before and immediately after the stock issuance aggregate gross assets that did not exceed $50 million. In addition, at least 80% of the value of the corporation\u2019s assets must be used in the active conduct of any trade or business other than: (A health, law, engineering, architecture, accounting, actuarial science, performing arts, consulting, athletics, financial services, brokerage services, or any trade or business where the principal asset of such trade or business is the reputation or skill of 1 or more of its employees, (B) any banking, insurance, financing, leasing, investing, or similar business, (C) any farming business (including the business of raising or harvesting trees), (D) any business involving the production or extraction of minerals, and (E) any business of operating a hotel, motel, restaurant, or similar business.(IRC Section 1202(e))</small></p>"), _defineProperty(_attach, 'NOTE_6', "<p>Businesses receiving venture capital funding are generally structured as C corporations. There are three reasons for this: first, venture capital funds often receive preferred stock which provides them with a priority return ahead of the common stock holders; and S corporations cannot issue preferred stock. Second, venture capital funds often invest with the goal of guiding the business to an initial public stock offering, which is not feasible for LLCs or S corporations. Finally, venture capital funds often have pension plans as investors and investing in a business structured as an S corporation or an LLC exposes pension plans (and any other tax exempt investors) to unrelated business income tax; investing in a C corporation does not.</p>"), _defineProperty(_attach, 'NOTE_7', "<p>Because you expect to allocate income and losses proportionally to the owners, you can organize your business as an S corporation, subject to certain limitations. (For a summary of these requirements, go to: https://www.irs.gov/businesses/small-businesses-self-employed/s-corporations) While you could form an LLC or limited partnership, an S corporation may enable you to pay less self-employment taxes than you would using an LLC or limited partnership.  If you structure your company as an S corporation, you (and any other working owner) could be both a shareholder and an employee of the corporation. As such, you would receive two forms of income from the corporation: employment (W2) income which is subject to self-employment taxes and shareholder distributions which are not subject to self-employment taxes so long as the corporation pays you a reasonable amount of employment income. According to the IRS, \u201Cgenerally, reasonable pay is the amount that a similar business would pay for the same or similar services\u201D.  (Publication 535 (2016), Business Expenses, Employee\u2019s Pay) In short, as long as the corporation pays a shareholder-employee a reasonable salary, all other distributions by the corporation to the shareholder-employee are free of self-employment taxes.</p>"), _defineProperty(_attach, 'NOTE_8', "<p>A business that does not allocate income and losses proportionally to its owners cannot be organized as an S corporation because an S corporation allows only one class of stock. An LLC structured as a partnership for income tax purposes does permit the owners to specially allocate income and losses so long as such allocations have substantial economic effect. Such a business could be formed as a C corporation with more than one class of stock. However, a C corporation has two disadvantages to a small business. The first disadvantage of a C corporation as compared to an LLC is that the income of a C corporation is potentially subject to double taxation : first, in the form of corporate tax on the income of the corporation and second in the form of individual income tax on the dividends paid by the corporation to its shareholders. Small businesses formed as C corporations generally avoid double taxation by paying any profit to the shareholder-employees in the form of salary, thereby eliminating any corporate profit and therefore any corporation income tax liability. However, shareholders may not be paid a salary that is unreasonably high. If they are, the IRS could recharacterize part of the salary as dividends subject to double taxation. By contrast, the income of an LLC (that is taxed as a partnership) is passed through to the members and subject to a single level of tax. The second disadvantage of a C corporation is that any losses sustained by the corporation are not passed through to the shareholders until the corporation liquidates. The corporation may carry forward such losses for a long period (currently 20 years) and during such time may deduct such losses from any profit.  In the case of an LLC, any losses are passed through to the members who may deduct such losses in the year in which they were sustained, subject to certain limitations.</p>"), _attach),
 	  node: [{
 	    id: "action_1",
 	    kind: "Action",
@@ -6207,26 +6836,30 @@
 	    kind: "Single",
 	    content: {
 	      question: "What will be the primary business of your company?",
-	      fields: [{ label: "Real Estate Investment", next: "result_1" }, { label: "A Profession", next: "yesno_2" }, { label: "Personal Services (other than a Profession)", next: "yesno_2" }, { label: "Restaurant", next: "yesno_2" }, { label: "Hotel", next: "yesno_2" }, { label: "Farming", next: "yesno_2" }, { label: "Retail", next: "yesno_2.5" }, { label: "Construction", next: "yesno_2.5" }, { label: "A Brokerage", next: "yesno_2" }, { label: "Finance", next: "yesno_2" }, { label: "Insurance", next: "yesno_2" }, { label: "Manufacturing", next: "yesno_2.5" }, { label: "Mineral Extraction", next: "yesno_2" }, { label: "Other", next: "yesno_2" }]
+	      fields: [{ label: "Real Estate Investment", next: "final_1" }, { label: "A Profession", next: "yesno_2" }, { label: "Personal Services (other than a Profession)", next: "yesno_2" }, { label: "Restaurant", next: "yesno_2" }, { label: "Hotel", next: "yesno_2" }, { label: "Farming", next: "yesno_2" }, { label: "Retail", next: "yesno_2.5" }, { label: "Construction", next: "yesno_2.5" }, { label: "A Brokerage", next: "yesno_2" }, { label: "Finance", next: "yesno_2" }, { label: "Insurance", next: "yesno_2" }, { label: "Manufacturing", next: "yesno_2.5" }, { label: "Mineral Extraction", next: "yesno_2" }, { label: "Other", next: "yesno_2" }]
 	    }
 	  }, {
 	    id: "yesno_2.5",
 	    kind: "YesNo",
 	    content: {
 	      question: "Do you expect to sell the business form a profit of at least $100,100, five or more years from now?",
-	      fields: [{ label: "Yes", next: "result_2" }, { label: "No", next: "yesno_2" }]
+	      fields: [{ label: "Yes", next: "final_2" }, { label: "No", next: "yesno_2" }]
 	    }
 	  }, {
-	    id: "result_1",
-	    kind: "Result",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
-	      message: "Form An LLC - Add explanatory note1"
+	      title: "Form LLC",
+	      attach: ['NOTE_1']
 	    }
 	  }, {
-	    id: "result_2",
-	    kind: "Result",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
-	      message: "You should consider forming a corporation - add explantory note 5"
+	      kind: "ToForm",
+	      title: "You should consider forming a C Corporation",
+	      attach: ['NOTE_5'],
+	      to: "Corp"
 	    }
 	  }, {
 	    id: "yesno_2",
@@ -6240,39 +6873,47 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Do you expect to receive venture capital funding?",
-	      fields: [{ label: "Yes", next: "result_6" }, { label: "No", next: "yesno_2.2" }]
+	      fields: [{ label: "Yes", next: "final_6" }, { label: "No", next: "yesno_2.2" }]
 	    }
 	  }, {
-	    id: "result_6",
-	    kind: "Result",
+	    id: "final_6",
+	    kind: "Final",
 	    content: {
-	      message: "FORM A C CORPORATION - Go to explanatory note 6"
+	      kind: "ToForm",
+	      title: "Form a C Corporation",
+	      message: "",
+	      attach: ['NOTE_6'],
+	      to: "Corp"
 	    }
 	  }, {
 	    id: "yesno_2.2",
 	    kind: "YesNo",
 	    content: {
 	      question: "Will income and losses be allocated proportionally to all owners?(For example, would a 25% owner be allocated 25% of all income and losses?)",
-	      fields: [{ label: "Yes", next: "result_7" }, { label: "No", next: "result_8" }]
+	      fields: [{ label: "Yes", next: "final_7" }, { label: "No", next: "final_8" }]
 	    }
 	  }, {
-	    id: "result_7",
-	    kind: "Result",
+	    id: "final_7",
+	    kind: "Final",
 	    content: {
-	      message: "FORM AN S CORPORATION - Go to explanatory note 7"
+	      kind: "ToForm",
+	      title: "Form S Corporation",
+	      attach: ['NOTE_7'],
+	      to: "S-Corp"
 	    }
 	  }, {
-	    id: "result_8",
-	    kind: "Result",
+	    id: "final_8",
+	    kind: "Final",
 	    content: {
-	      message: "FORM AN LLC. Go to explanatory note 8"
+	      title: "Form LLC",
+	      attach: ['NOTE_8']
 	    }
 	  }, {
 	    id: "single_3",
 	    kind: "Single",
 	    content: {
 	      question: "How much have you invested or do you expect to invest in the business?",
-	      fields: [{ label: "Under $10,000", next: "single_4" }, { label: "$10,000 to $50,000", next: "action_2" }, { label: "Over $50,000", next: "result_3" }]
+	      fields: [{ label: "Under $10,000", next: "single_4" }, { label: "$10,000 to $50,000", next: "action_2" }, { label: "Over $50,000", next: "final_3" }]
 	    }
 	  }, {
 	    id: "action_2",
@@ -6284,17 +6925,20 @@
 	      next: "single_4"
 	    }
 	  }, {
-	    id: "result_3",
-	    kind: "Result",
+	    id: "final_3",
+	    kind: "Final",
 	    content: {
-	      message: "FORMS CORPORATION. Add explanatory note 4."
+	      kind: "ToForm",
+	      title: "Form S Corporation",
+	      attach: ['NOTE_4'],
+	      to: "S-Corp"
 	    }
 	  }, {
 	    id: "single_4",
 	    kind: "Single",
 	    content: {
 	      question: "What do you expect the business to earn next year (before payment of any salary to you)?",
-	      fields: [{ label: "I don't know", next: "single_5" }, { label: "Expect to either lose money or have earnings of less than $25,000", next: "single_5" }, { label: "$25,000 to $50,000", next: "action_3" }, { label: "$50,000 to $100,000", next: "action_4" }, { label: "$100,000 to $250,000", next: "action_5" }, { label: "Expects earnings of over $250,000", next: "result_3" }]
+	      fields: [{ label: "I don't know", next: "single_5" }, { label: "Expect to either lose money or have earnings of less than $25,000", next: "single_5" }, { label: "$25,000 to $50,000", next: "action_3" }, { label: "$50,000 to $100,000", next: "action_4" }, { label: "$100,000 to $250,000", next: "action_5" }, { label: "Expects earnings of over $250,000", next: "final_3" }]
 	    }
 	  }, {
 	    id: "action_3",
@@ -6330,33 +6974,35 @@
 	      kind: "SWITCH_VALUE",
 	      store: "index",
 	      value: [3],
-	      next: ["yesno_8", "result_3"]
+	      next: ["yesno_8", "final_3"]
 	    }
 	  }, {
 	    id: "single_5",
 	    kind: "Single",
 	    content: {
 	      question: "What is your net worth?",
-	      fields: [{ label: "Over $100,000", next: "yesno_7" }, { label: "Under $100,000", next: "result_4" }]
+	      fields: [{ label: "Over $100,000", next: "yesno_7" }, { label: "Under $100,000", next: "final_4" }]
 	    }
 	  }, {
-	    id: "result_4",
-	    kind: "Result",
+	    id: "final_4",
+	    kind: "Final",
 	    content: {
-	      message: "DON'T INCORPORATE - Add explanatory note 3."
+	      title: "Don't incorporate",
+	      attach: ['NOTE_3']
 	    }
 	  }, {
 	    id: "yesno_7",
 	    kind: "YesNo",
 	    content: {
 	      question: "Do you have, or expect to have, any employees or agents?",
-	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "yesno_10" }]
+	      fields: [{ label: "Yes", next: "final_5" }, { label: "No", next: "yesno_10" }]
 	    }
 	  }, {
-	    id: "result_5",
-	    kind: "Result",
+	    id: "final_5",
+	    kind: "Final",
 	    content: {
-	      message: "FORM AN LLC - Add explanatory note 2"
+	      title: "Form LLC",
+	      attach: ['NOTE_2']
 	    }
 	  }, {
 	    id: "yesno_8",
@@ -6372,20 +7018,20 @@
 	      kind: "SWITCH_VALUE",
 	      store: "index",
 	      value: [1],
-	      next: ["result_5", "result_3"]
+	      next: ["final_5", "final_3"]
 	    }
 	  }, {
 	    id: "yesno_10",
 	    kind: "YesNo",
 	    content: {
 	      question: "Is primary business manufacturing, construction, mineral extraction, farming, restaurant or hotel?",
-	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "result_4" }]
+	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "final_4" }]
 	    }
 	  }]
 	};
 
 /***/ },
-/* 86 */
+/* 92 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6411,12 +7057,13 @@
 	    kind: "Single",
 	    content: {
 	      question: "Is the business a corporation, partnership, limited liability company or sole proprietorship?",
-	      fields: [{ label: "LLC", next: "single_3" }, { label: "Corporation", next: "result_1" }, { label: "Partnership or Sole proprietorship", next: "single_5" }]
+	      fields: [{ label: "LLC", next: "single_3" }, { label: "Corporation", next: "final_1" }, { label: "Partnership or Sole proprietorship", next: "single_5" }]
 	    }
 	  }, {
-	    id: "result_1",
-	    kind: "Result",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
+	      title: "Payroll",
 	      message: "It appears that you should treat your owners as employees and set up payroll. [Explanation 2]"
 	    }
 	  }, {
@@ -6424,19 +7071,20 @@
 	    kind: "Single",
 	    content: {
 	      question: "Has the LLC elected to be taxed as a corporation?",
-	      fields: [{ label: "Yes", next: "result_1" }, { label: "No", next: "single_5" }]
+	      fields: [{ label: "Yes", next: "final_1" }, { label: "No", next: "single_5" }]
 	    }
 	  }, {
 	    id: "single_5",
 	    kind: "Single",
 	    content: {
 	      question: "Will the business have any workers, not employed by some other company, that will work regularly for the business?",
-	      fields: [{ label: "Yes", next: "yesno_6" }, { label: "No", next: "result_2" }]
+	      fields: [{ label: "Yes", next: "yesno_6" }, { label: "No", next: "final_2" }]
 	    }
 	  }, {
-	    id: "result_2",
-	    kind: "Result",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
+	      title: "Payroll",
 	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
 	    }
 	  }, {
@@ -6444,25 +7092,26 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "As to any workers performing services for the business, will the business control  what work is done by the worker and how the work is done? [Explanation 3]",
-	      fields: [{ label: "Yes", next: "result_3" }, { label: "No", next: "yesno_7" }]
+	      fields: [{ label: "Yes", next: "final_3" }, { label: "No", next: "yesno_7" }]
 	    }
 	  }, {
-	    id: "result_3",
-	    kind: "Result",
+	    id: "final_3",
+	    kind: "Final",
 	    content: {
-	      message: "It appears that you will have employees. Therefor you should set up payroll for the business. [Explanation1]"
+	      message: "It appears that you will have employees. Therefore you should set up payroll for the business. [Explanation1]"
 	    }
 	  }, {
 	    id: "yesno_7",
 	    kind: "YesNo",
 	    content: {
 	      question: "Does the business have or expect to have any of the following workers?<br/>\n                <small>A. A driver who distributes beverages (other than milk) or meat, vegetable, fruit, or bakery products; or who picks up and delivers laundry or dry cleaning, if the driver is your agent or is paid on commission.<br/>\n                B. A full-time life insurance sales agent whose principal business activity is selling life insurance or annuity contracts, or both, primarily for one life insurance company.<br/>\n                C. An individual who works at home on materials or goods that you supply and that must be returned to you or to a person you name, if you also furnish specifications for the work to be done.<br/>\n                D. A traveling or city salesperson who works for you full-time and turns in orders to you from wholesalers, retailers, contractors, or operators of hotels, restaurants, or other similar establishments for goods that are purchased for resale or as supplies for use in the buyer's business operation.</small>",
-	      fields: [{ label: "No", next: "result_4" }, { label: "Yes", next: "yesno_8" }]
+	      fields: [{ label: "No", next: "final_4" }, { label: "Yes", next: "yesno_8" }]
 	    }
 	  }, {
-	    id: "result_4",
-	    kind: "Result",
+	    id: "final_4",
+	    kind: "Final",
 	    content: {
+	      title: "Payroll",
 	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
 	    }
 	  }, {
@@ -6470,19 +7119,20 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "For your workers who fall into any of the four previously mentioned categories, do any such workers meet ALL of the following three conditions:\n              <small>1. The service contract states or implies that substantially all the services are to be performed personally by them<br/>.\n              2. They don't have a substantial investment in the equipment and property used to perform the services (other than an investment in facilities for transportation, such as a car or truck)<br/>.\n              3. The services are performed for you on a continuing basis.</small>",
-	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "result_4" }]
+	      fields: [{ label: "Yes", next: "final_5" }, { label: "No", next: "final_4" }]
 	    }
 	  }, {
-	    id: "result_5",
-	    kind: "Result",
+	    id: "final_5",
+	    kind: "Final",
 	    content: {
+	      title: "Payroll",
 	      message: "It appears that you will have statutory employees. Therefore, you will need to set up payrool for the business. Although federal income tax is not withheld from the wages of statutory employees, social security taxes and medicare taxes are.."
 	    }
 	  }]
 	};
 
 /***/ },
-/* 87 */
+/* 93 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6588,7 +7238,7 @@
 	};
 
 /***/ },
-/* 88 */
+/* 94 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6637,12 +7287,13 @@
 	    kind: "Single",
 	    content: {
 	      question: "Is it generic?",
-	      fields: [{ label: "Yes", next: "result_1.6" }, { label: "Probably", next: "action_1.7" }, { label: "No", next: "single_1.9" }, { label: "Probably Not", next: "action_1.8" }]
+	      fields: [{ label: "Yes", next: "final_1.6" }, { label: "Probably", next: "action_1.7" }, { label: "No", next: "single_1.9" }, { label: "Probably Not", next: "action_1.8" }]
 	    }
 	  }, {
-	    id: "result_1.6",
-	    kind: "Result",
+	    id: "final_1.6",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "Your mark is not registrable."
 	    }
 	  }, {
@@ -6668,12 +7319,13 @@
 	    kind: "Single",
 	    content: {
 	      question: "Is your mark descriptive, or arbitrary, suggestive or fanciful?",
-	      fields: [{ label: "Arbitrary", next: "single_1.11" }, { label: "Suggestive", next: "single_1.11" }, { label: "Fanciful", next: "single_1.11" }, { label: "Descriptive", next: "result_1.10" }]
+	      fields: [{ label: "Arbitrary", next: "single_1.11" }, { label: "Suggestive", next: "single_1.11" }, { label: "Fanciful", next: "single_1.11" }, { label: "Descriptive", next: "final_1.10" }]
 	    }
 	  }, {
-	    id: "result_1.10",
-	    kind: "Result",
+	    id: "final_1.10",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 10]"
 	    }
 	  }, {
@@ -6681,7 +7333,7 @@
 	    kind: "Single",
 	    content: {
 	      question: "Is it geographically descriptive?",
-	      fields: [{ label: "Yes", next: "result_1.10" }, { label: "Probably", next: "action_1.12" }, { label: "No", next: "yesno_2.16" }, { label: "Probably Not", next: "action_1.13" }]
+	      fields: [{ label: "Yes", next: "final_1.10" }, { label: "Probably", next: "action_1.12" }, { label: "No", next: "yesno_2.16" }, { label: "Probably Not", next: "action_1.13" }]
 	    }
 	  }, {
 	    id: "action_1.12",
@@ -6706,12 +7358,13 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Is it a surname, an individual's name or likeness, or the title of a single book and/or movie?",
-	      fields: [{ label: "Yes", next: "result_2.17" }, { label: "No", next: "single_2.18" }]
+	      fields: [{ label: "Yes", next: "final_2.17" }, { label: "No", next: "single_2.18" }]
 	    }
 	  }, {
-	    id: "result_2.17",
-	    kind: "Result",
+	    id: "final_2.17",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 17]"
 	    }
 	  }, {
@@ -6719,12 +7372,13 @@
 	    kind: "Single",
 	    content: {
 	      question: "Is it deceptive, scandalous, immoral or disparaging?",
-	      fields: [{ label: "Yes", next: "result_2.19" }, { label: "Probably", next: "action_2.20" }, { label: "No", next: "single_2.22" }, { label: "Probably Not", next: "action_2.21" }]
+	      fields: [{ label: "Yes", next: "final_2.19" }, { label: "Probably", next: "action_2.20" }, { label: "No", next: "single_2.22" }, { label: "Probably Not", next: "action_2.21" }]
 	    }
 	  }, {
-	    id: "result_2.19",
-	    kind: "Result",
+	    id: "final_2.19",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "Your mark is likely not registrable"
 	    }
 	  }, {
@@ -6764,12 +7418,13 @@
 	    kind: "Single",
 	    content: {
 	      question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
-	      fields: [{ label: "Yes", next: "result_2.25" }, { label: "Probably", next: "result_2.25" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.26" }]
+	      fields: [{ label: "Yes", next: "final_2.25" }, { label: "Probably", next: "final_2.25" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.26" }]
 	    }
 	  }, {
-	    id: "result_2.25",
-	    kind: "Result",
+	    id: "final_2.25",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "Your mark is likely not registrable"
 	    }
 	  }, {
@@ -6804,24 +7459,27 @@
 	      kind: "SWITCH_VALUE",
 	      store: "index",
 	      value: [0, 4],
-	      content: ["result_2.30", "result_2.31", "result_2.32"]
+	      content: ["final_2.30", "final_2.31", "final_2.32"]
 	    }
 	  }, {
-	    id: "result_2.30",
-	    kind: "Result",
+	    id: "final_2.30",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "Great. If you are ready to file your trademark application <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
 	    }
 	  }, {
-	    id: "result_2.31",
-	    kind: "Result",
+	    id: "final_2.31",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "It appears your mark is registrable based upone your responses. However, as you expressed some uncertainty as to [link to supplement, display section from the source of the points] there is higher risk of rejection. If you're ready to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
 	    }
 	  }, {
-	    id: "result_2.32",
-	    kind: "Result",
+	    id: "final_2.32",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "You mark is probably not registrable based upon your responses. If you still wish to register, you may want to consult an attorney. Here are some ways you could increase the likelihood your trademark is accepteed [link to suuplement, display section from the source of the points] If you still wish to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
 	    }
 	  }, {
@@ -6829,12 +7487,13 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Is it functional?",
-	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_3.36" }]
+	      fields: [{ label: "Yes", next: "final_3.35" }, { label: "No", next: "yesno_3.36" }]
 	    }
 	  }, {
-	    id: "result_3.35",
-	    kind: "Result",
+	    id: "final_3.35",
+	    kind: "Final",
 	    content: {
+	      title: "Trademark",
 	      message: "Your mark is not registrable"
 	    }
 	  }, {
@@ -6842,13 +7501,13 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Is it matter that is used in a purely ornamental manner?",
-	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_1.3" }]
+	      fields: [{ label: "Yes", next: "final_3.35" }, { label: "No", next: "yesno_1.3" }]
 	    }
 	  }]
 	};
 
 /***/ },
-/* 89 */
+/* 95 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6909,33 +7568,34 @@
 	    content: {
 	      kind: "CHECK_CITY_EXEMPTION",
 	      store: "city_exemption",
-	      next: ["result_1", "yesno_1"]
+	      next: ["final_1", "yesno_1"]
 	    }
 	  }, {
 	    id: "yesno_1",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "result_2" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "final_2" }]
 	    }
 	  }, {
 	    id: "yesno_2",
 	    kind: "YesNo",
 	    content: {
 	      question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
-	      fields: [{ kind: "choice", label: "Yes", next: "result_2" }, { kind: "choice", label: "No", next: "result_1" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_2" }, { kind: "choice", label: "No", next: "final_1" }]
 	    }
 	  }, {
-	    id: "result_1",
-	    kind: "Result",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
-	      message: "Congratulation! This transaction is exempt and no transfer taxes are due."
+	      title: "Transfer Tax",
+	      message: "<p>Congratulation! This transaction is exempt and no transfer taxes are due.</p>"
 	    }
 	  }, {
-	    id: "result_2",
-	    kind: "Result",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
-	      message: "Calculation"
+	      kind: "CalculateTax"
 	    }
 	  }, {
 	    id: "single_3",
@@ -6949,20 +7609,22 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Was there a transfer of 50% or more of the capital and profits of the partnership within a 12-month period?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_1" }, { kind: "choice", label: "No", next: "display_2" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_1" }, { kind: "choice", label: "No", next: "final_2" }]
 	    }
 	  }, {
-	    id: "display_1",
-	    kind: "Display",
+	    id: "final_1",
+	    kind: "Final",
 	    content: {
-	      message: "100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.\n              <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>"
+	      title: "Transfer tax",
+	      message: "<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>\n              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>"
 	    },
-	    next: "result_2"
+	    next: "final_2"
 	  }, {
-	    id: "display_2",
-	    kind: "Display",
+	    id: "final_2",
+	    kind: "Final",
 	    content: {
-	      message: "Exempt from transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, Section 11925(a))</small>"
+	      title: "Transfer tax",
+	      message: "<p>Exempt from transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, Section 11925(a))</small></p>"
 	    }
 	  }, {
 	    id: "yesno_4",
@@ -6976,46 +7638,49 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Did grantee own over 50% of the entity before the transaction?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_3" }, { kind: "choice", label: "No", next: "display_4" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_3" }, { kind: "choice", label: "No", next: "final_4" }]
 	    }
 	  }, {
-	    id: "display_3",
-	    kind: "Display",
+	    id: "final_3",
+	    kind: "Final",
 	    content: {
-	      message: "Exempt from transfer tax"
+	      title: "Transfer tax",
+	      message: "<p>Exempt from transfer tax</p>"
 	    }
 	  }, {
-	    id: "display_4",
-	    kind: "Display",
+	    id: "final_4",
+	    kind: "Final",
 	    content: {
-	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(c)(1))</small>"
+	      title: "Transfer tax",
+	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>"
 	    }
 	  }, {
 	    id: "yesno_6",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was there a prior excluded proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "display_3" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "final_3" }]
 	    }
 	  }, {
 	    id: "yesno_7",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_5" }, { kind: "choice", label: "No", next: "display_3" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_5" }, { kind: "choice", label: "No", next: "final_3" }]
 	    }
 	  }, {
-	    id: "display_5",
-	    kind: "Display",
+	    id: "final_5",
+	    kind: "Final",
 	    content: {
-	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>"
+	      title: "Transfer tax",
+	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>"
 	    },
-	    next: "result_2"
+	    next: "final_2"
 	  }]
 	};
 
 /***/ },
-/* 90 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7025,29 +7690,29 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(34);
+	var _redux = __webpack_require__(36);
 	
-	var _AppReducer = __webpack_require__(57);
+	var _AppReducer = __webpack_require__(59);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
-	var _PostReducer = __webpack_require__(67);
+	var _PostReducer = __webpack_require__(69);
 	
 	var _PostReducer2 = _interopRequireDefault(_PostReducer);
 	
-	var _IntlReducer = __webpack_require__(65);
+	var _IntlReducer = __webpack_require__(67);
 	
 	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
 	
-	var _ProgramReducer = __webpack_require__(28);
+	var _ProgramReducer = __webpack_require__(30);
 	
 	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
 	
-	var _AuthReducer = __webpack_require__(63);
+	var _AuthReducer = __webpack_require__(65);
 	
 	var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(7);
+	var _reactNotificationSystemRedux = __webpack_require__(8);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -7067,7 +7732,7 @@
 	     */
 
 /***/ },
-/* 91 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7084,11 +7749,11 @@
 	exports.logout = logout;
 	exports.getUser = getUser;
 	
-	var _user = __webpack_require__(15);
+	var _user = __webpack_require__(16);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _passport = __webpack_require__(16);
+	var _passport = __webpack_require__(17);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
@@ -7203,7 +7868,7 @@
 	}
 
 /***/ },
-/* 92 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7312,7 +7977,7 @@
 	}
 
 /***/ },
-/* 93 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7325,7 +7990,7 @@
 	exports.get = get;
 	exports.remove = remove;
 	
-	var _program = __webpack_require__(30);
+	var _program = __webpack_require__(33);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
@@ -7376,1083 +8041,6 @@
 	}
 
 /***/ },
-/* 94 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "ca_professional_corporation",
-	  description: "Creating The California Professional Corporation",
-	  start: "input_1",
-	  kind: "Form",
-	  node: [{
-	    id: "input_1",
-	    kind: "Input",
-	    content: {
-	      question: "What will be the profession of your corporation?",
-	      fields: [{ kind: "text" }],
-	      store: "company_profession",
-	      next: "input_2",
-	      note: {
-	        title: 'What will be the profession of your corporation?',
-	        content: "You should write the formal name of your profession, describing your profession as what the profession is, not what the professionals are called. For example, a lawyer would indicate “law”, a dentist would indicate “dentistry”, an accountant would indicate “accountancy”, a marriage and family therapist would indicate “marriage and family therapy”. You can ask yourself, I engage in the profession of ..."
-	      }
-	    }
-	  }, {
-	    id: "input_2",
-	    kind: "Input",
-	    content: {
-	      question: "What will be the name of your company?\n                <small>Note - your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
-	      fields: [{ kind: "text" }],
-	      store: "company_name",
-	      next: "input_3",
-	      note: {
-	        title: 'Name of Corporation',
-	        content: "<ul>\n            <li>The name of your professional corporation must meet any requirements of the state board or agency which controls your profession. There may be words that are specifically prohibited, authorized, or required to be included in the name of your professional corporation. For example, a lawyer\u2019s corporation must be a professional corporation and must include the words \u201Cprofessional corporation\u201D or \u201Claw corporation.\u201D By contrast, an acupuncturist\u2019s corporation must contain the word \u201Cacupuncture\u201D or \u201Cacupuncturist\u201D along with wording or abbreviations that denote corporate existence. (See California Business and Professions Code \xA7 4978, available here - http://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=BPC&division=2.&title=&part=&chapter=12.&article=7.) Check with your governing body for any naming restrictions on your professional corporation. A list of state boards and agencies is available here - http://www.dca.ca.gov/about_dca/entities.shtml.</li>\n            <li>Further, the name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and https://businesssearch.sos.ca.gov/ to see if there is a preexisting corporation with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D. Registering a new corporation with a substantially similar name to an existing corporation requires written consent and approval by the California Secretary of State.</li>\n            <li>Your corporate name cannot include the words \u201Cbank\u201D, \u201Ccredit union\u201D, \u201Ctrust\u201D, \u201Ctrustee\u201D, or related words unless you have a certificate of approval of the Commissioner of Business Oversight, or are forming a corporation pursuant to California Banking Law.</li>\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the California Secretary of State.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_3",
-	    kind: "Input",
-	    content: {
-	      question: "What will be the primary address of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_address",
-	      next: "single_4",
-	      note: {
-	        title: 'Address of Corporation',
-	        content: "<ul>\n            <li>You must provide the initial street address and the initial mailing address if different from the street address.</li>\n            <li>You should note this address will be a public record.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "single_4",
-	    kind: "Single",
-	    content: {
-	      question: "What is the total number of shares the corporation will be authorized to issue?",
-	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
-	      store: "number_of_shares",
-	      next: "input_5",
-	      note: {
-	        title: 'Number of Shares',
-	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone. All shareholders of your professional corporation must be licensed.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_5",
-	    kind: "Input",
-	    content: {
-	      question: "Who will incorporate the company?",
-	      fields: [{ kind: "text" }],
-	      store: "incorporator_name",
-	      next: "input_6",
-	      note: {
-	        title: 'Name of incorporator',
-	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_6",
-	    kind: "Input",
-	    content: {
-	      question: "Who will serve as the registered agent of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
-	      next: "single_7",
-	      note: {
-	        title: 'Name of registered agent',
-	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>The registered agent can be either an individual who resides in California or an active California corporation. Your corporation cannot be its own registered agent.\n              <ul>\n                <li>The individual can be an officer, director, or shareholder of the company, or any other adult.</li>\n                <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.\n                  <ul>\n                    <li>You can check https://businessfilings.sos.ca.gov/frmlist1505s.asp to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n                    <li>If the corporation has not filed a 1505 Certificate, it must register, which requires the corporation:\n                      <ul>\n                        <li>Be an active, registered California corporation,</li>\n                        <li>Pay a $30 filing fee, and</li>\n                        <li>Fill out and submit a form.</li>\n                      </ul>\n                    </li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n\n            <li>There are services which will serve as your corporation\u2019s registered agent for a fee.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "single_7",
-	    kind: "Single",
-	    content: {
-	      question: "Who will incorporate the company?",
-	      fields: [{ kind: "choice", label: "Person", next: "input_8" }, { kind: "choice", label: "Corporation", next: "yesno_9" }],
-	      note: {
-	        title: 'Person or corporation',
-	        content: "<ul>\n            <li>As noted, your registered agent can be either a person or a certified corporation</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_8",
-	    kind: "Input",
-	    content: {
-	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_address",
-	      next: "form_1",
-	      note: {
-	        title: 'Address of registered agent',
-	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "yesno_9",
-	    kind: "YesNo",
-	    content: {
-	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
-	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_10" }],
-	      note: {
-	        title: 'Corporate Registered Agent',
-	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_10",
-	    kind: "Input",
-	    content: {
-	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
-	      next: "input_8",
-	      note: {
-	        title: 'Individual registered agent',
-	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>Please select an individual who resides in California to be your registered agent. You can select any adult; your registered agent can, but does not have to be, a founder, director, or shareholder of your corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "form_1",
-	    kind: "Form",
-	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_1"
-	    }
-	  }, {
-	    id: "form_2",
-	    kind: "Form",
-	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_2"
-	    }
-	  }]
-	};
-
-/***/ },
-/* 95 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "ca_s_corporation",
-	  description: "Creating The California S-Corporation",
-	  start: "single_1",
-	  kind: "Form",
-	  node: [{
-	    id: "single_1",
-	    kind: "Single",
-	    content: {
-	      question: "In which state would you like to incorporate your company?",
-	      fields: [{ kind: "choice", label: "California", next: "single_2" }, { kind: "choice", label: "Delaware", next: "Creating the Delware" }],
-	      note: {
-	        title: 'State of incorporation',
-	        content: "<ul>\n            <li>You can incorporate your business in any state, even if you are not actually going to be conducting business there. However, you will be required to provide an address in the state of incorporation. If you want to incorporate in Delaware but do not have a Delaware address, there are services which will provide a registered agent address in Delaware.</li>\n            <li>In deciding in which state to incorporate, it is important to note that there may be adverse tax consequences to incorporating in one state over another. For example, if you incorporate in Delaware, but conduct all of your business in California, you will still be required to pay a Delaware franchise tax in addition to California taxes. If you incorporate in California and conduct all of your business in California, you will not pay Delaware taxes.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "goto_1",
-	    kind: "Goto",
-	    content: {
-	      kind: "form",
-	      id: "ca_professional_corporation"
-	    }
-	  }, {
-	    id: "single_2",
-	    kind: "Single",
-	    content: {
-	      question: "What will be the primary business of your company?",
-	      fields: [{ kind: "choice", label: "Real Estate Investment" }, { kind: "choice", label: "A Profession", next: "yesno_2" }, { kind: "choice", label: "Personal Services (other than a Profession)" }, { kind: "choice", label: "Restaurant" }, { kind: "choice", label: "Hotel" }, { kind: "choice", label: "Farming" }, { kind: "choice", label: "Retail" }, { kind: "choice", label: "Construction" }, { kind: "choice", label: "A Brokerage" }, { kind: "choice", label: "Finance" }, { kind: "choice", label: "Insurance" }, { kind: "choice", label: "Manufacturing" }, { kind: "choice", label: "Mineral Extraction" }, { kind: "choice", label: "Other" }],
-	      next: "input_4"
-	    }
-	  }, {
-	    id: "yesno_2",
-	    kind: "YesNo",
-	    content: {
-	      question: "Does your profession require a license, certification, or registration authorized by the Business and Professional Code, the Chiropractic Act, or the Osteopathic Act?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_3" }, { kind: "choice", label: "No", next: "input_4" }],
-	      note: {
-	        title: 'Requires license, certification, or registration?',
-	        content: "<ul>\n            <li>If your profession requires a license, certification, or other registration from the state, there may be additional requirements in forming your corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "yesno_3",
-	    kind: "YesNo",
-	    content: {
-	      question: "Does your profession required a corporation to be a professional corporation?<br /><small>Check with your regulatory board whether your profession requires a professional corporation (as opposed to a traditional corporation), and for restrictions on the name of your professional corporation. A list of California  regulatory boards is available <a href='http://www.dca.ca.gov/about_dca/entities.html'>here</a></small>",
-	      fields: [{ kind: "choice", label: "Yes", next: "goto_1" }, { kind: "choice", label: "No", next: "input_4" }],
-	      note: {
-	        title: 'Professional Corporation?',
-	        content: "<ul>\n            <li>California law generally permits professionals to organize as corporations. Many professions, if they incorporate, must form a professional corporation, as opposed to a traditional corporation under the General Corporation Law. For example, the corporations of dentists, certified public accountants, doctors, veterinarians, lawyers, optometrists, marriage and family therapists, psychiatrists, and psychologists (all of whom require state licensure), are all required to be professional corporations. You should confirm with the board governing your profession whether your corporation must be a professional corporation. If your profession does not require a professional corporation, you are generally authorized to incorporate under the General Corporation Law.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_4",
-	    kind: "Input",
-	    content: {
-	      question: "What will be the name of your company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_name",
-	      next: "input_5",
-	      note: {
-	        title: 'Name of Corporation',
-	        content: "<ul>\n            <li>The name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and https://businesssearch.sos.ca.gov/ to see if there is a preexisting corporation with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D. Registering a new corporation with a substantially similar name to an existing corporation requires written consent and approval by the California Secretary of State.</li>\n            <li>Your corporate name cannot include the words \u201Cbank\u201D, \u201Ccredit union\u201D, \u201Ctrust\u201D, \u201Ctrustee\u201D, or related words unless you have a certificate of approval of the Commissioner of Business Oversight, or are forming a corporation pursuant to California Banking Law.</li>\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the California Secretary of State.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_5",
-	    kind: "Input",
-	    content: {
-	      question: "What will be the primary address of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "company_address",
-	      next: "single_6",
-	      note: {
-	        title: 'Address of Corporation',
-	        content: "<ul>\n            <li>You must provide the initial street address and the initial mailing address if different from the street address.</li>\n            <li>You should note this address will be a public record.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "single_6",
-	    kind: "Single",
-	    content: {
-	      question: "What is the total number of shares the corporation will be authorized to issue?",
-	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
-	      store: "number_of_shares",
-	      next: "input_7",
-	      note: {
-	        title: 'Number of Shares',
-	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone. All shareholders of your professional corporation must be licensed.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_7",
-	    kind: "Input",
-	    content: {
-	      question: "Who will incorporate the company?",
-	      fields: [{ kind: "text" }],
-	      store: "incorporator_name",
-	      next: "input_8",
-	      note: {
-	        title: 'Name of incorporator',
-	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_8",
-	    kind: "Input",
-	    content: {
-	      question: "Who will serve as the registered agent of the company?",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
-	      next: "single_9",
-	      note: {
-	        title: 'Name of registered agent',
-	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>The registered agent can be either an individual who resides in California or an active California corporation. Your corporation cannot be its own registered agent.\n              <ul>\n                <li>The individual can be an officer, director, or shareholder of the company, or any other adult.</li>\n                <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.\n                  <ul>\n                    <li>You can check https://businessfilings.sos.ca.gov/frmlist1505s.asp to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n                    <li>If the corporation has not filed a 1505 Certificate, it must register, which requires the corporation:\n                      <ul>\n                        <li>Be an active, registered California corporation,</li>\n                        <li>Pay a $30 filing fee, and</li>\n                        <li>Fill out and submit a form.</li>\n                      </ul>\n                    </li>\n                  </ul>\n                </li>\n              </ul>\n            </li>\n\n            <li>There are services which will serve as your corporation\u2019s registered agent for a fee.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "single_9",
-	    kind: "Single",
-	    content: {
-	      question: "Is <strong>${registered_agent_name}</strong> a person or a corporation?",
-	      fields: [{ kind: "choice", label: "Person", next: "input_10" }, { kind: "choice", label: "Corporation", next: "yesno_11" }],
-	      note: {
-	        title: 'Person or corporation',
-	        content: "<ul>\n            <li>As noted, your registered agent can be either a person or a certified corporation</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_10",
-	    kind: "Input",
-	    content: {
-	      question: "What is <strong>${registered_agent_name}</strong>'s address?'",
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_address",
-	      next: "form_1",
-	      note: {
-	        title: 'Address of registered agent',
-	        content: "<ul>\n            <li>If the registered agent is a person\n              <ul>\n                <li>Must be a California address, it can be a business or residence street address.</li>\n                <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., not \u201CLA\u201D)</li>\n                <li>You should note that this address will be a public record.</li>\n              </ul>\n            </li>\n            <li>The address of the registered agent is not required if the agent is a corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "yesno_11",
-	    kind: "YesNo",
-	    content: {
-	      question: "Note that you may only select a corporation that is registered with the California Secretary of State as a Registered Corporate Agent for service of process. Is <strong>${registered_agent_name}</strong> a Registered Corporate Agent?",
-	      fields: [{ kind: "choice", label: "Yes", next: "form_2" }, { kind: "choice", label: "No", next: "input_12" }],
-	      note: {
-	        title: 'Corporate Registered Agent',
-	        content: "<ul>\n            <li>A corporate registered agent must have filed a 1505 Certificate with the California Secretary of State.</li>\n            <li>You can check <a href='https://businessfilings.sos.ca.gov/frmlist1505s.asp'>Here</a> to see if a corporation has filed a 1505 Certificate and to ensure the spelling of the corporation\u2019s name.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "input_12",
-	    kind: "Input",
-	    content: {
-	      question: 'Please select an individual to be your registered agent. Who will serve as the registered agent of the company?',
-	      fields: [{ kind: "text" }],
-	      store: "registered_agent_name",
-	      next: "input_8",
-	      note: {
-	        title: 'Individual registered agent',
-	        content: "<ul>\n            <li>The registered agent is the person who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n            <li>Please select an individual who resides in California to be your registered agent. You can select any adult; your registered agent can, but does not have to be, a founder, director, or shareholder of your corporation.</li>\n          </ul>"
-	      }
-	    }
-	  }, {
-	    id: "form_1",
-	    kind: "Form",
-	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_1"
-	    }
-	  }, {
-	    id: "form_2",
-	    kind: "Form",
-	    content: {
-	      name: "ca_form_articles_of_professional_incorporation_2"
-	    }
-	  }]
-	};
-
-/***/ },
-/* 96 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "incorporate",
-	  description: "Should I incorporate ( or become an LLC )?",
-	  start: "action_1",
-	  kind: "Topic",
-	  node: [{
-	    id: "action_1",
-	    kind: "Action",
-	    content: {
-	      kind: "SET_VALUE",
-	      store: "index",
-	      value: 0,
-	      next: "single_1"
-	    }
-	  }, {
-	    id: "single_1",
-	    kind: "Single",
-	    content: {
-	      question: "What will be the primary business of your company?",
-	      fields: [{ label: "Real Estate Investment", next: "result_1" }, { label: "A Profession", next: "yesno_2" }, { label: "Personal Services (other than a Profession)", next: "yesno_2" }, { label: "Restaurant", next: "yesno_2" }, { label: "Hotel", next: "yesno_2" }, { label: "Farming", next: "yesno_2" }, { label: "Retail", next: "yesno_2.5" }, { label: "Construction", next: "yesno_2.5" }, { label: "A Brokerage", next: "yesno_2" }, { label: "Finance", next: "yesno_2" }, { label: "Insurance", next: "yesno_2" }, { label: "Manufacturing", next: "yesno_2.5" }, { label: "Mineral Extraction", next: "yesno_2" }, { label: "Other", next: "yesno_2" }]
-	    }
-	  }, {
-	    id: "yesno_2.5",
-	    kind: "YesNo",
-	    content: {
-	      question: "Do you expect to sell the business form a profit of at least $100,100, five or more years from now?",
-	      fields: [{ label: "Yes", next: "result_2" }, { label: "No", next: "yesno_2" }]
-	    }
-	  }, {
-	    id: "result_1",
-	    kind: "Result",
-	    content: {
-	      message: "Form An LLC - Add explanatory note1"
-	    }
-	  }, {
-	    id: "result_2",
-	    kind: "Result",
-	    content: {
-	      message: "You should consider forming a corporation - add explantory note 5"
-	    }
-	  }, {
-	    id: "yesno_2",
-	    kind: "YesNo",
-	    content: {
-	      question: "Do you have, or expect to have, any partners or investors in the business?",
-	      fields: [{ label: "Yes", next: "yesno_2.1" }, { label: "No", next: "single_3" }]
-	    }
-	  }, {
-	    id: "yesno_2.1",
-	    kind: "YesNo",
-	    content: {
-	      question: "Do you expect to receive venture capital funding?",
-	      fields: [{ label: "Yes", next: "result_6" }, { label: "No", next: "yesno_2.2" }]
-	    }
-	  }, {
-	    id: "result_6",
-	    kind: "Result",
-	    content: {
-	      message: "FORM A C CORPORATION - Go to explanatory note 6"
-	    }
-	  }, {
-	    id: "yesno_2.2",
-	    kind: "YesNo",
-	    content: {
-	      question: "Will income and losses be allocated proportionally to all owners?(For example, would a 25% owner be allocated 25% of all income and losses?)",
-	      fields: [{ label: "Yes", next: "result_7" }, { label: "No", next: "result_8" }]
-	    }
-	  }, {
-	    id: "result_7",
-	    kind: "Result",
-	    content: {
-	      message: "FORM AN S CORPORATION - Go to explanatory note 7"
-	    }
-	  }, {
-	    id: "result_8",
-	    kind: "Result",
-	    content: {
-	      message: "FORM AN LLC. Go to explanatory note 8"
-	    }
-	  }, {
-	    id: "single_3",
-	    kind: "Single",
-	    content: {
-	      question: "How much have you invested or do you expect to invest in the business?",
-	      fields: [{ label: "Under $10,000", next: "single_4" }, { label: "$10,000 to $50,000", next: "action_2" }, { label: "Over $50,000", next: "result_3" }]
-	    }
-	  }, {
-	    id: "action_2",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "single_4"
-	    }
-	  }, {
-	    id: "result_3",
-	    kind: "Result",
-	    content: {
-	      message: "FORMS CORPORATION. Add explanatory note 4."
-	    }
-	  }, {
-	    id: "single_4",
-	    kind: "Single",
-	    content: {
-	      question: "What do you expect the business to earn next year (before payment of any salary to you)?",
-	      fields: [{ label: "I don't know", next: "single_5" }, { label: "Expect to either lose money or have earnings of less than $25,000", next: "single_5" }, { label: "$25,000 to $50,000", next: "action_3" }, { label: "$50,000 to $100,000", next: "action_4" }, { label: "$100,000 to $250,000", next: "action_5" }, { label: "Expects earnings of over $250,000", next: "result_3" }]
-	    }
-	  }, {
-	    id: "action_3",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "yesno_8"
-	    }
-	  }, {
-	    id: "action_4",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 2,
-	      next: "yesno_8"
-	    }
-	  }, {
-	    id: "action_5",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 3,
-	      next: "action_6"
-	    }
-	  }, {
-	    id: "action_6",
-	    kind: "Action",
-	    content: {
-	      kind: "SWITCH_VALUE",
-	      store: "index",
-	      value: [3],
-	      next: ["yesno_8", "result_3"]
-	    }
-	  }, {
-	    id: "single_5",
-	    kind: "Single",
-	    content: {
-	      question: "What is your net worth?",
-	      fields: [{ label: "Over $100,000", next: "yesno_7" }, { label: "Under $100,000", next: "result_4" }]
-	    }
-	  }, {
-	    id: "result_4",
-	    kind: "Result",
-	    content: {
-	      message: "DON'T INCORPORATE - Add explanatory note 3."
-	    }
-	  }, {
-	    id: "yesno_7",
-	    kind: "YesNo",
-	    content: {
-	      question: "Do you have, or expect to have, any employees or agents?",
-	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "yesno_10" }]
-	    }
-	  }, {
-	    id: "result_5",
-	    kind: "Result",
-	    content: {
-	      message: "FORM AN LLC - Add explanatory note 2"
-	    }
-	  }, {
-	    id: "yesno_8",
-	    kind: "YesNo",
-	    content: {
-	      question: "Do you have, or expect to have, any employees or agents?",
-	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "yesno_10" }]
-	    }
-	  }, {
-	    id: "action_7",
-	    kind: "Action",
-	    content: {
-	      kind: "SWITCH_VALUE",
-	      store: "index",
-	      value: [1],
-	      next: ["result_5", "result_3"]
-	    }
-	  }, {
-	    id: "yesno_10",
-	    kind: "YesNo",
-	    content: {
-	      question: "Is primary business manufacturing, construction, mineral extraction, farming, restaurant or hotel?",
-	      fields: [{ label: "Yes", next: "action_7" }, { label: "No", next: "result_4" }]
-	    }
-	  }]
-	};
-
-/***/ },
-/* 97 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "payroll",
-	  description: "Do I need to set up Payroll?",
-	  start: "yesno_1",
-	  kind: "Topic",
-	  node: [{
-	    id: "yesno_1",
-	    kind: "YesNo",
-	    content: {
-	      question: "Will any of the business owners work in the business?",
-	      fields: [{ label: "Yes", next: "single_2" }, { label: "No", next: "single_5" }]
-	    }
-	  }, {
-	    id: "single_2",
-	    kind: "Single",
-	    content: {
-	      question: "Is the business a corporation, partnership, limited liability company or sole proprietorship?",
-	      fields: [{ label: "LLC", next: "single_3" }, { label: "Corporation", next: "result_1" }, { label: "Partnership or Sole proprietorship", next: "single_5" }]
-	    }
-	  }, {
-	    id: "result_1",
-	    kind: "Result",
-	    content: {
-	      message: "It appears that you should treat your owners as employees and set up payroll. [Explanation 2]"
-	    }
-	  }, {
-	    id: "single_3",
-	    kind: "Single",
-	    content: {
-	      question: "Has the LLC elected to be taxed as a corporation?",
-	      fields: [{ label: "Yes", next: "result_1" }, { label: "No", next: "single_5" }]
-	    }
-	  }, {
-	    id: "single_5",
-	    kind: "Single",
-	    content: {
-	      question: "Will the business have any workers, not employed by some other company, that will work regularly for the business?",
-	      fields: [{ label: "Yes", next: "yesno_6" }, { label: "No", next: "result_2" }]
-	    }
-	  }, {
-	    id: "result_2",
-	    kind: "Result",
-	    content: {
-	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
-	    }
-	  }, {
-	    id: "yesno_6",
-	    kind: "YesNo",
-	    content: {
-	      question: "As to any workers performing services for the business, will the business control  what work is done by the worker and how the work is done? [Explanation 3]",
-	      fields: [{ label: "Yes", next: "result_3" }, { label: "No", next: "yesno_7" }]
-	    }
-	  }, {
-	    id: "result_3",
-	    kind: "Result",
-	    content: {
-	      message: "It appears that you will have employees. Therefor you should set up payroll for the business. [Explanation1]"
-	    }
-	  }, {
-	    id: "yesno_7",
-	    kind: "YesNo",
-	    content: {
-	      question: "Does the business have or expect to have any of the following workers?<br/>\n                <small>A. A driver who distributes beverages (other than milk) or meat, vegetable, fruit, or bakery products; or who picks up and delivers laundry or dry cleaning, if the driver is your agent or is paid on commission.<br/>\n                B. A full-time life insurance sales agent whose principal business activity is selling life insurance or annuity contracts, or both, primarily for one life insurance company.<br/>\n                C. An individual who works at home on materials or goods that you supply and that must be returned to you or to a person you name, if you also furnish specifications for the work to be done.<br/>\n                D. A traveling or city salesperson who works for you full-time and turns in orders to you from wholesalers, retailers, contractors, or operators of hotels, restaurants, or other similar establishments for goods that are purchased for resale or as supplies for use in the buyer's business operation.</small>",
-	      fields: [{ label: "No", next: "result_4" }, { label: "Yes", next: "yesno_8" }]
-	    }
-	  }, {
-	    id: "result_4",
-	    kind: "Result",
-	    content: {
-	      message: "It does not appear that you will have any employees. Therefore, you will not need to set up payroll for the business."
-	    }
-	  }, {
-	    id: "yesno_8",
-	    kind: "YesNo",
-	    content: {
-	      question: "For your workers who fall into any of the four previously mentioned categories, do any such workers meet ALL of the following three conditions:\n              <small>1. The service contract states or implies that substantially all the services are to be performed personally by them<br/>.\n              2. They don't have a substantial investment in the equipment and property used to perform the services (other than an investment in facilities for transportation, such as a car or truck)<br/>.\n              3. The services are performed for you on a continuing basis.</small>",
-	      fields: [{ label: "Yes", next: "result_5" }, { label: "No", next: "result_4" }]
-	    }
-	  }, {
-	    id: "result_5",
-	    kind: "Result",
-	    content: {
-	      message: "It appears that you will have statutory employees. Therefore, you will need to set up payrool for the business. Although federal income tax is not withheld from the wages of statutory employees, social security taxes and medicare taxes are.."
-	    }
-	  }]
-	};
-
-/***/ },
-/* 98 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "trademark",
-	  description: "TradeMark",
-	  start: "action_1",
-	  kind: "Topic",
-	  node: [{
-	    id: "action_1",
-	    kind: "Action",
-	    content: {
-	      kind: "SET_VALUE",
-	      store: "index",
-	      value: 0,
-	      next: "single_1.1"
-	    }
-	  }, {
-	    id: "single_1.1",
-	    kind: "Single",
-	    content: {
-	      question: "Does your mark consist solely of words or does it include design?",
-	      fields: [{ label: "Includes design", next: "yesno_3.34" }, { label: "Solely words", next: "yesno_1.3" }]
-	    }
-	  }, {
-	    id: "yesno_1.3",
-	    kind: "YesNo",
-	    content: {
-	      question: "Does your mark include a foreign term?",
-	      fields: [{ label: "Yes", next: "single_1.4" }, { label: "No", next: "single_1.5" }]
-	    }
-	  }, {
-	    id: "single_1.4",
-	    kind: "Single",
-	    content: {
-	      question: "Use the English translation for all of the following questions.",
-	      fields: [{ label: "OK", next: "single_1.5" }]
-	    }
-	  }, {
-	    id: "single_1.5",
-	    kind: "Single",
-	    content: {
-	      question: "Is it generic?",
-	      fields: [{ label: "Yes", next: "result_1.6" }, { label: "Probably", next: "action_1.7" }, { label: "No", next: "single_1.9" }, { label: "Probably Not", next: "action_1.8" }]
-	    }
-	  }, {
-	    id: "result_1.6",
-	    kind: "Result",
-	    content: {
-	      message: "Your mark is not registrable."
-	    }
-	  }, {
-	    id: "action_1.7",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 5,
-	      next: "single_1.9"
-	    }
-	  }, {
-	    id: "action_1.8",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "single_1.9"
-	    }
-	  }, {
-	    id: "single_1.9",
-	    kind: "Single",
-	    content: {
-	      question: "Is your mark descriptive, or arbitrary, suggestive or fanciful?",
-	      fields: [{ label: "Arbitrary", next: "single_1.11" }, { label: "Suggestive", next: "single_1.11" }, { label: "Fanciful", next: "single_1.11" }, { label: "Descriptive", next: "result_1.10" }]
-	    }
-	  }, {
-	    id: "result_1.10",
-	    kind: "Result",
-	    content: {
-	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 10]"
-	    }
-	  }, {
-	    id: "single_1.11",
-	    kind: "Single",
-	    content: {
-	      question: "Is it geographically descriptive?",
-	      fields: [{ label: "Yes", next: "result_1.10" }, { label: "Probably", next: "action_1.12" }, { label: "No", next: "yesno_2.16" }, { label: "Probably Not", next: "action_1.13" }]
-	    }
-	  }, {
-	    id: "action_1.12",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 3,
-	      next: "yesno_2.16"
-	    }
-	  }, {
-	    id: "action_1.13",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "yesno_2.16"
-	    }
-	  }, {
-	    id: "yesno_2.16",
-	    kind: "YesNo",
-	    content: {
-	      question: "Is it a surname, an individual's name or likeness, or the title of a single book and/or movie?",
-	      fields: [{ label: "Yes", next: "result_2.17" }, { label: "No", next: "single_2.18" }]
-	    }
-	  }, {
-	    id: "result_2.17",
-	    kind: "Result",
-	    content: {
-	      message: "You mark is likely not registrable on the Principal Register without secondary meaning - you may wish to register on the Supplemental Register[link to Supplement Note 17]"
-	    }
-	  }, {
-	    id: "single_2.18",
-	    kind: "Single",
-	    content: {
-	      question: "Is it deceptive, scandalous, immoral or disparaging?",
-	      fields: [{ label: "Yes", next: "result_2.19" }, { label: "Probably", next: "action_2.20" }, { label: "No", next: "single_2.22" }, { label: "Probably Not", next: "action_2.21" }]
-	    }
-	  }, {
-	    id: "result_2.19",
-	    kind: "Result",
-	    content: {
-	      message: "Your mark is likely not registrable"
-	    }
-	  }, {
-	    id: "action_2.20",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 5,
-	      next: "single_2.22"
-	    }
-	  }, {
-	    id: "action_2.21",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "single_2.22"
-	    }
-	  }, {
-	    id: "single_2.22",
-	    kind: "Single",
-	    content: {
-	      question: "Check for similar existing trademarks used on similar products or services. [Insert text from Trademark supplement Note 22]",
-	      fields: [{ label: "OK", next: "single_2.23" }]
-	    }
-	  }, {
-	    id: "single_2.23",
-	    kind: "Single",
-	    content: {
-	      question: "Were you able to find a similar trademark in sound, meaning, appearance or impression?",
-	      fields: [{ label: "Yes", next: "single_2.24" }, { label: "Probably", next: "single_2.24" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "single_2.27" }]
-	    }
-	  }, {
-	    id: "single_2.24",
-	    kind: "Single",
-	    content: {
-	      question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
-	      fields: [{ label: "Yes", next: "result_2.25" }, { label: "Probably", next: "result_2.25" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.26" }]
-	    }
-	  }, {
-	    id: "result_2.25",
-	    kind: "Result",
-	    content: {
-	      message: "Your mark is likely not registrable"
-	    }
-	  }, {
-	    id: "action_2.26",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "action_2.29"
-	    }
-	  }, {
-	    id: "single_2.27",
-	    kind: "Single",
-	    content: {
-	      question: "Are the goods and services of the other mark related to yours in such a way that consumers may believe they come from the same source? i.e. hats and t-shirts",
-	      fields: [{ label: "Yes", next: "action_2.28" }, { label: "Probably", next: "action_2.28" }, { label: "No", next: "action_2.29" }, { label: "Probably Not", next: "action_2.28" }]
-	    }
-	  }, {
-	    id: "action_2.28",
-	    kind: "Action",
-	    content: {
-	      kind: "ADD_VALUE",
-	      store: "index",
-	      value: 1,
-	      next: "action_2.29"
-	    }
-	  }, {
-	    id: "action_2.29",
-	    kind: "Action",
-	    content: {
-	      kind: "SWITCH_VALUE",
-	      store: "index",
-	      value: [0, 4],
-	      content: ["result_2.30", "result_2.31", "result_2.32"]
-	    }
-	  }, {
-	    id: "result_2.30",
-	    kind: "Result",
-	    content: {
-	      message: "Great. If you are ready to file your trademark application <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
-	    }
-	  }, {
-	    id: "result_2.31",
-	    kind: "Result",
-	    content: {
-	      message: "It appears your mark is registrable based upone your responses. However, as you expressed some uncertainty as to [link to supplement, display section from the source of the points] there is higher risk of rejection. If you're ready to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
-	    }
-	  }, {
-	    id: "result_2.32",
-	    kind: "Result",
-	    content: {
-	      message: "You mark is probably not registrable based upon your responses. If you still wish to register, you may want to consult an attorney. Here are some ways you could increase the likelihood your trademark is accepteed [link to suuplement, display section from the source of the points] If you still wish to file, <a href='http://www.uspto.gov/trademarks/teas/index.jsp'>click here</a>"
-	    }
-	  }, {
-	    id: "yesno_3.34",
-	    kind: "YesNo",
-	    content: {
-	      question: "Is it functional?",
-	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_3.36" }]
-	    }
-	  }, {
-	    id: "result_3.35",
-	    kind: "Result",
-	    content: {
-	      message: "Your mark is not registrable"
-	    }
-	  }, {
-	    id: "yesno_3.36",
-	    kind: "YesNo",
-	    content: {
-	      question: "Is it matter that is used in a purely ornamental manner?",
-	      fields: [{ label: "Yes", next: "result_3.35" }, { label: "No", next: "yesno_1.3" }]
-	    }
-	  }]
-	};
-
-/***/ },
-/* 99 */
-/***/ function(module, exports) {
-
-	"use strict";
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	  name: "transfertax",
-	  description: "California Documentary Transfer Tax",
-	  start: "input_1",
-	  kind: "Topic",
-	  node: [{
-	    id: "input_1",
-	    kind: "Input",
-	    content: {
-	      question: "Please select county and city.",
-	      fields: [{ kind: "select", label: "Select County", datasource: "county", store: "county" }, { kind: "select", label: "Select City", datasource: "city", store: "city" }],
-	      next: "single_2"
-	    }
-	  }, {
-	    id: "single_2",
-	    kind: "Single",
-	    content: {
-	      question: "Is this a deed transfer or entity transfer?",
-	      fields: [{ kind: "choice", label: "Entity", next: "single_3" }, { kind: "choice", label: "Deed", next: "multi_2" }]
-	    }
-	  }, {
-	    id: "multi_2",
-	    kind: "Multi",
-	    content: {
-	      question: "County Exemptions",
-	      fields: [{ datasource: "county_exemption_list" }],
-	      store: "county_exemption",
-	      next: "multi_3"
-	    }
-	  }, {
-	    id: "multi_3",
-	    kind: "Multi",
-	    content: {
-	      question: "City Exemptions",
-	      fields: [{ datasource: "city_exemption_list" }],
-	      store: "city_exemption",
-	      next: "action_1"
-	    }
-	  }, {
-	    id: "action_1",
-	    kind: "Action",
-	    content: {
-	      kind: "CHECK_COUNTY_EXEMPTION",
-	      store: "county_exemption",
-	      next: ["action_2", "yesno_1"]
-	    }
-	  }, {
-	    id: "action_2",
-	    kind: "Action",
-	    content: {
-	      kind: "CHECK_CITY_EXEMPTION",
-	      store: "city_exemption",
-	      next: ["result_1", "yesno_1"]
-	    }
-	  }, {
-	    id: "yesno_1",
-	    kind: "YesNo",
-	    content: {
-	      question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "result_2" }]
-	    }
-	  }, {
-	    id: "yesno_2",
-	    kind: "YesNo",
-	    content: {
-	      question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
-	      fields: [{ kind: "choice", label: "Yes", next: "result_2" }, { kind: "choice", label: "No", next: "result_1" }]
-	    }
-	  }, {
-	    id: "result_1",
-	    kind: "Result",
-	    content: {
-	      message: "Congratulation! This transaction is exempt and no transfer taxes are due."
-	    }
-	  }, {
-	    id: "result_2",
-	    kind: "Result",
-	    content: {
-	      message: "Calculation"
-	    }
-	  }, {
-	    id: "single_3",
-	    kind: "Single",
-	    content: {
-	      question: "What kind of entity is the property owner at the time of the transfer?",
-	      fields: [{ kind: "choice", label: "Partnership", next: "yesno_3" }, { kind: "choice", label: "Corporation", next: "yesno_4" }, { kind: "choice", label: "Disregarded", next: "yesno_4" }]
-	    }
-	  }, {
-	    id: "yesno_3",
-	    kind: "YesNo",
-	    content: {
-	      question: "Was there a transfer of 50% or more of the capital and profits of the partnership within a 12-month period?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_1" }, { kind: "choice", label: "No", next: "display_2" }]
-	    }
-	  }, {
-	    id: "display_1",
-	    kind: "Display",
-	    content: {
-	      message: "100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.\n              <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>"
-	    },
-	    next: "result_2"
-	  }, {
-	    id: "display_2",
-	    kind: "Display",
-	    content: {
-	      message: "Exempt from transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, Section 11925(a))</small>"
-	    }
-	  }, {
-	    id: "yesno_4",
-	    kind: "YesNo",
-	    content: {
-	      question: "Does grantee own over 50% of the entity?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_5" }, { kind: "choice", label: "No", next: "yesno_6" }]
-	    }
-	  }, {
-	    id: "yesno_5",
-	    kind: "YesNo",
-	    content: {
-	      question: "Did grantee own over 50% of the entity before the transaction?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_3" }, { kind: "choice", label: "No", next: "display_4" }]
-	    }
-	  }, {
-	    id: "display_3",
-	    kind: "Display",
-	    content: {
-	      message: "Exempt from transfer tax"
-	    }
-	  }, {
-	    id: "display_4",
-	    kind: "Display",
-	    content: {
-	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(c)(1))</small>"
-	    }
-	  }, {
-	    id: "yesno_6",
-	    kind: "YesNo",
-	    content: {
-	      question: "Was there a prior excluded proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "display_3" }]
-	    }
-	  }, {
-	    id: "yesno_7",
-	    kind: "YesNo",
-	    content: {
-	      question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "display_5" }, { kind: "choice", label: "No", next: "display_3" }]
-	    }
-	  }, {
-	    id: "display_5",
-	    kind: "Display",
-	    content: {
-	      message: "The transfer is subject to transfer tax.<br />\n          <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>"
-	    },
-	    next: "result_2"
-	  }]
-	};
-
-/***/ },
 /* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8463,7 +8051,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(9);
+	var _mongoose = __webpack_require__(10);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -8495,63 +8083,63 @@
 	
 	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 	
-	var _express = __webpack_require__(8);
+	var _express = __webpack_require__(9);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(46);
+	var _compression = __webpack_require__(48);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _mongoose = __webpack_require__(9);
+	var _mongoose = __webpack_require__(10);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(45);
+	var _bodyParser = __webpack_require__(47);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(51);
+	var _path = __webpack_require__(53);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(36);
+	var _IntlWrapper = __webpack_require__(38);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(47);
+	var _connectFlash = __webpack_require__(49);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(48);
+	var _cookieParser = __webpack_require__(50);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(49);
+	var _expressSession = __webpack_require__(51);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _passport = __webpack_require__(16);
+	var _passport = __webpack_require__(17);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
-	var _webpack = __webpack_require__(18);
+	var _webpack = __webpack_require__(19);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(44);
+	var _webpackConfig = __webpack_require__(46);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(53);
+	var _webpackDevMiddleware = __webpack_require__(55);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(54);
+	var _webpackHotMiddleware = __webpack_require__(56);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(38);
+	var _store = __webpack_require__(40);
 	
 	var _reactRedux = __webpack_require__(3);
 	
@@ -8559,47 +8147,47 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(52);
+	var _server = __webpack_require__(54);
 	
 	var _reactRouter = __webpack_require__(2);
 	
-	var _reactHelmet = __webpack_require__(17);
+	var _reactHelmet = __webpack_require__(18);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(37);
+	var _routes = __webpack_require__(39);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(43);
+	var _fetchData = __webpack_require__(45);
 	
-	var _post = __webpack_require__(41);
+	var _post = __webpack_require__(43);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _program = __webpack_require__(42);
+	var _program = __webpack_require__(44);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(40);
+	var _auth = __webpack_require__(42);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
-	var _user = __webpack_require__(15);
+	var _user = __webpack_require__(16);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(39);
+	var _dummyData = __webpack_require__(41);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
-	var _config = __webpack_require__(14);
+	var _config = __webpack_require__(15);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(50).Strategy;
+	var LocalStrategy = __webpack_require__(52).Strategy;
 	
 	// Webpack Requirements
 	

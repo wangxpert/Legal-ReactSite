@@ -95,14 +95,15 @@ export default {
       id: "final_1",
       kind: "Final",
       content: {
-        message: "Congratulation! This transaction is exempt and no transfer taxes are due."
+        title: "Transfer Tax",
+        message: "<p>Congratulation! This transaction is exempt and no transfer taxes are due.</p>"
       }
     },
     {
       id: "final_2",
       kind: "Final",
       content: {
-        message: "Calculation"
+        kind: "CalculateTax"
       }
     },
     {
@@ -133,8 +134,8 @@ export default {
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: `100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.
-              <br /><small>(See California Revenue and Taxation Code, Section 11925(b))</small>`
+        message: `<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>
+              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>`
       },
       next: "final_2"
     },
@@ -143,8 +144,8 @@ export default {
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: `Exempt from transfer tax.<br />
-          <small>(See California Revenue and Taxation Code, Section 11925(a))</small>`
+        message: `<p>Exempt from transfer tax.</p>
+          <p><small>(See California Revenue and Taxation Code, Section 11925(a))</small></p>`
       }
     },
     {
@@ -174,7 +175,7 @@ export default {
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: "Exempt from transfer tax",
+        message: "<p>Exempt from transfer tax</p>",
       }
     },
     {
@@ -182,8 +183,8 @@ export default {
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: `The transfer is subject to transfer tax.<br />
-          <small>(See California Revenue and Taxation Code, section 64(c)(1))</small>`
+        message: `<p>The transfer is subject to transfer tax.</p>
+          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>`
       }
     },
     {
@@ -213,8 +214,8 @@ export default {
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: `The transfer is subject to transfer tax.<br />
-          <small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small>`
+        message: `<p>The transfer is subject to transfer tax.</p>
+          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>`
       },
       next: "final_2"
     },
