@@ -227,7 +227,8 @@ class InputBox extends Component {
         const row = city_exemption.find(e => e[0].match(reg));
         const taxRate = parseFloat(row[0].split(';')[3]);
         console.log(taxRate);
-        this.props.dispatch(setFinalNode('CalculateTax', { state: this.state.store['state'], taxRate: taxRate }));
+        console.log(this.state.store);
+        this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], taxRate: taxRate }));
       } else {
         this.props.dispatch(setFinalNode('Topic1', { title: node.content.title, message: message }));
       }

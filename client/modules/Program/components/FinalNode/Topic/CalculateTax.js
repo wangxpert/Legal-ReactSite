@@ -30,7 +30,8 @@ class CalculateTax extends Component {
     const price = e.target.value;
     var tax = price;
     var taxRate = 0.0;
-    if (this.props.city === 'San Francisco') {
+    console.log(this.props.county);
+    if (this.props.county === 'San Francisco') {
       if (price > 100 && price <= 250000) {
         taxRate = 2.50;
       } else if (price > 250000 && price <= 1000000) {

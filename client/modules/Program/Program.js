@@ -69,7 +69,7 @@ class Program extends Component {
             <FinalTopic2 title={state.finalData.title} message={state.finalData.message} to={state.finalData.to} onClick={this.toForm.bind(this)} />
           }
           { (state.showFinalNode && (state.finalKind === 'CalculateTax')) &&
-            <FinalCalculateTax state={state.finalData.state} taxRate={state.finalData.taxRate} />
+            <FinalCalculateTax county={state.finalData.county} taxRate={state.finalData.taxRate} />
           }
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm form={state.finalData.form} />
