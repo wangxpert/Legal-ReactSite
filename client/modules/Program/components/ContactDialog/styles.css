@@ -1,0 +1,32 @@
+.modal-content {
+  border-width: 0rem;
+}
+
+.modal-header {
+  padding: 16rem 30rem;
+  font-size: 24rem;
+  color: #02b2fb;
+  border-bottom: 2rem solid #cacfd6;
+}
+
+.modal-body {
+  padding: 24rem 20rem;
+  font-size: 17rem;
+  text-indent: 10rem;
+  color: #000;
+  position: static;
+}
+
+.form-group {
+  margin: 10rem 0;
+}
+
+.modal-footer {
+  text-align: right;
+  background: #02b2fb;
+  font-size: 17rem;
+  border-bottom-left-radius: 6rem;
+  border-bottom-right-radius: 6rem;
+  color: #fff;
+  padding: 6rem 24rem;
+}

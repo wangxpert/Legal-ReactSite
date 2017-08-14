@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import ReactHtmlParser from 'react-html-parser';
+
 import CAFormArticlesOfIncorporation1 from './output/CAFormArticlesOfIncorporation1';
 import CAFormArticlesOfIncorporation2 from './output/CAFormArticlesOfIncorporation2';
-import NoteDialog from './NoteDialog';
+import NoteDialog from './NoteDialog'
+
 import County from './datasource/county';
 import City from './datasource/city';
 import county_exemption, { indexArray as county_exemption_index } from './datasource/county_exemption';
@@ -508,7 +510,7 @@ class InputBox extends Component {
           </div>
         </div>
 
-        <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={this.state.noteTitle} content={this.state.noteContent} />
+        <NoteDialog show={this.state.showNote} close={this.closeNote.bind(this)} title={this.state.noteTitle} content={this.state.noteContent} showContact={this.props.showContact} />
       </div>
     );
   }

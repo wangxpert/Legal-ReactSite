@@ -25,7 +25,7 @@ export default class NoteDialog extends React.Component {
           <div className={`${styles.button} ${styles.note}`} onClick={this.props.close}>
             Yes
           </div>
-          <div className={`${styles.button} ${styles.note}`} onClick={this.props.close}>
+          <div className={`${styles.button} ${styles.note}`} onClick={this.props.showContact}>
             Need Help
           </div>
         </Modal.Footer>

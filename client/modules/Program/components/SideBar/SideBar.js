@@ -29,7 +29,7 @@ export function SideBar(props) {
             Not sure what to do? Click here and let us know how we can help! We would love to hear from you.
           </div>
           <div>
-            <a className={styles.link}><i className="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp; Send us a message </a>
+            <a className={styles.link} onClick={ props.showContact }><i className="fa fa-envelope" aria-hidden="true"></i>&nbsp;&nbsp; Send us a message </a>
           </div>
         </div>
 
@@ -54,7 +54,7 @@ export function SideBar(props) {
 }
 
 SideBar.propTypes = {
-
+  showContact: PropTypes.func.isRequired
 };
 
 export default SideBar;

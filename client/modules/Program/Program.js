@@ -14,6 +14,7 @@ import FinalForm from './components/FinalNode/Form/Form';
 import FinalTopic1 from './components/FinalNode/Topic/Normal';
 import FinalTopic2 from './components/FinalNode/Topic/ToForm';
 import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax';
+import ContactDialog from './components/ContactDialog';
 
 // Import Actions
 import { toggleSideBar, resetProgram } from './ProgramActions';
@@ -22,7 +23,19 @@ class Program extends Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      showContact: false
+    }
   }
+
+  showContact() {
+    this.setState({ showContact: true });
+  }
+
+  closeContact() {
+    this.setState({ showContact: false });
+  };
 
   componentDidMount() {
     this.props.dispatch(resetProgram());
@@ -58,10 +71,11 @@ class Program extends Component {
     return (
       <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>
         <div className={styles['sidebar-container']}>
-          <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } />
+          <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } showContact={this.showContact.bind(this)} />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { !state.showFinalNode && <InputBox name={ this.props.params.name }/>}
+          { !state.showFinalNode && <InputBox name={ this.props.params.name } showContact={this.showContact.bind(this)} />}
+
           { (state.showFinalNode && (state.finalKind === 'Topic1')) &&
             <FinalTopic1 title={state.finalData.title} message={state.finalData.message} />
           }
@@ -74,9 +88,9 @@ class Program extends Component {
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm form={state.finalData.form} />
           }
-          {/* <ToForm title={title} message={message}/>
-          <FinalForm title={title} message={message}/> */}
         </div>
+
+        <ContactDialog show={this.state.showContact} close={this.closeContact.bind(this)}/>
       </div>
     );
   }
