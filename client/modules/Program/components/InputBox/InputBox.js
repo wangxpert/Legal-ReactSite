@@ -503,7 +503,7 @@ class InputBox extends Component {
           <div className={styles['help-container']}>
             <span className={styles['help_text']}>Hi there! Need some help answering a question or want to save and finish later?</span>
 
-            <div className={`${styles.button} ${styles.help}`} style={{float: 'right'}}>
+            <div className={`${styles.button} ${styles.help}`} style={{float: 'right'}} onClick={this.props.showContact}>
               Need Help
             </div>
 
