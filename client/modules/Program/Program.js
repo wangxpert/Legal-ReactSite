@@ -65,8 +65,6 @@ class Program extends Component {
     minWidth += 'rem';
 
     const { state } = this.props;
-    console.log(state.finalKind);
-
 
     return (
       <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>

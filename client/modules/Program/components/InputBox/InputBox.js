@@ -228,8 +228,7 @@ class InputBox extends Component {
         const reg = new RegExp(`^CA;${this.state.store['county']};${this.state.store['city']}`);
         const row = city_exemption.find(e => e[0].match(reg));
         const taxRate = parseFloat(row[0].split(';')[3]);
-        console.log(taxRate);
-        console.log(this.state.store);
+
         this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], taxRate: taxRate }));
       } else {
         this.props.dispatch(setFinalNode('Topic1', { title: node.content.title, message: message }));
@@ -285,8 +284,15 @@ class InputBox extends Component {
     this.history[this.history.length - 1].singleChoice = index;
   }
 
-  onMultiSelect(index, node) {
-    const multiChoice = this.state.multiChoice;
+  onMultiSelect(index, noneApplyIndex) {
+    var multiChoice = this.state.multiChoice;
+    if (index === noneApplyIndex) {
+      multiChoice = [];
+      this.history[this.history.length - 1].multiChoice = [];
+    } else {
+      multiChoice[noneApplyIndex] = false;
+      this.history[this.history.length - 1].multiChoice[noneApplyIndex] = false;
+    }
     multiChoice[index] = !multiChoice[index];
     this.setState({ multiChoice });
     this.history[this.history.length - 1].multiChoice[index] = multiChoice[index];
@@ -389,7 +395,7 @@ class InputBox extends Component {
         .map( (elt, i) => {
           if (i > 0)
           return (
-            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
+            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, county_exemption_index.length - 1)}>
               { county_exemption[0][county_exemption_index[i]] }
               { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][county_exemption_index[i]])} />}
             </div>
@@ -400,7 +406,7 @@ class InputBox extends Component {
         .map( (elt, i) => {
           if (i > 0)
           return (
-            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i)}>
+            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, city_exemption_index.length - 1)}>
               { city_exemption[0][city_exemption_index[i]] }
               { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][city_exemption_index[i]])} />}
             </div>
