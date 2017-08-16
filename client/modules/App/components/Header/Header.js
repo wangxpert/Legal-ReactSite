@@ -84,6 +84,7 @@ class Header extends Component {
 
           <ul className={styles['dropdown']}>
             <li><Link to="/profile">Profile</Link></li>
+            <li><Link to="/mydocuments">Documents</Link></li>
             <li><a href="javascript:void(0)" onClick={this.onLogout.bind(this)}>Log Out</a></li>
           </ul>
         </li>

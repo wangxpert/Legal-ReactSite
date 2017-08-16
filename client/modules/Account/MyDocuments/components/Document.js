@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './styles.css';
 
 // Import Components
-import Button from '../../../components/Button/Button';
+import Button from '../../../../components/Button/Button';
 
 class Document extends Component {
   constructor(props) {

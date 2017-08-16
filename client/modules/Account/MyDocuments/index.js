@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // Import Style
-import styles from './Profile.css';
+import styles from './styles.css';
 
 // Import Components
-import Button from '../../components/Button/Button';
+import Button from '../../../components/Button/Button';
 import UserInfo from './components/UserInfo';
-import Membership from './components/Membership';
+import MyDocuments from './components/MyDocuments';
 import Conversation from './components/Conversation';
 import Activity from './components/Activity';
 import Document from './components/Document';
 
 // Import Actions
-import { fetchUserProfileRequested } from '../Auth/AuthActions';
+import { fetchUserProfileRequested } from '../../Auth/AuthActions';
 
 class Profile extends Component {
   constructor(props) {
@@ -43,18 +43,14 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className={`${styles.profile} container wow fadeIn`}>
+      <div className={`${styles['page-container']} container wow fadeIn`}>
         <div className='row'>
-          <div className='col-md-4 col-xs-12'>
-            <UserInfo user={this.props.auth.user} onUpdate={this.onUpdateInfo.bind(this)}/>
-          </div>
-          <div className='col-md-8 col-xs-12'>
-            <Membership onUpgrade={this.onUpgradeMembership.bind(this)}/>
-
+          <div className='col-xs-12'>
+            <MyDocuments />
           </div>
           <div className='col-md-8 col-xs-12'>
             <Document onView={this.onViewAll.bind(this)}/>
-            </div>
+          </div>
           <div className='col-xs-12'>
             <Activity />
           </div>

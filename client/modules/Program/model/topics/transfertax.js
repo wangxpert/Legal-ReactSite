@@ -33,10 +33,10 @@ export default {
       content: {
         question: "County Exemptions",
         fields: [
-          { datasource: "county_exemption_list" }
+          { datasource: "county_exemption_list" },
         ],
         store: "county_exemption",
-        next: "multi_3"
+        next: "action_1"
       }
     },
     {
@@ -45,10 +45,10 @@ export default {
       content: {
         question: "City Exemptions",
         fields: [
-          { datasource: "city_exemption_list" }
+          { datasource: "city_exemption_list" },
         ],
         store: "city_exemption",
-        next: "action_1"
+        next: "action_2"
       }
     },
     {
@@ -57,7 +57,7 @@ export default {
       content: {
         kind: "CHECK_COUNTY_EXEMPTION",
         store: "county_exemption",
-        next: ["action_2", "yesno_1"]
+        next: ["multi_3", "yesno_1"]
       }
     },
     {
@@ -66,7 +66,7 @@ export default {
       content: {
         kind: "CHECK_CITY_EXEMPTION",
         store: "city_exemption",
-        next: ["final_1", "yesno_1"]
+        next: ["final_0", "yesno_1"]
       }
     },
     {
@@ -76,7 +76,7 @@ export default {
         question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
         fields: [
           { kind: "choice", label: "Yes", next: "yesno_2" },
-          { kind: "choice", label: "No", next: "final_2" }
+          { kind: "choice", label: "No", next: "final_10" }
         ]
       }
     },
@@ -86,13 +86,13 @@ export default {
       content: {
         question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
         fields: [
-          { kind: "choice", label: "Yes", next: "final_2" },
-          { kind: "choice", label: "No", next: "final_1" }
+          { kind: "choice", label: "Yes", next: "final_10" },
+          { kind: "choice", label: "No", next: "final_0" }
         ]
       }
     },
     {
-      id: "final_1",
+      id: "final_0",
       kind: "Final",
       content: {
         title: "Transfer Tax",
@@ -100,7 +100,7 @@ export default {
       }
     },
     {
-      id: "final_2",
+      id: "final_10",
       kind: "Final",
       content: {
         kind: "CalculateTax"
@@ -114,7 +114,7 @@ export default {
         fields: [
           { kind: "choice", label: "Partnership", next: "yesno_3" },
           { kind: "choice", label: "Corporation", next: "yesno_4" },
-          { kind: "choice", label: "Disregarded", next: "yesno_4" },
+          { kind: "choice", label: "Disregarded Entity", next: "yesno_4" },
         ]
       }
     },
@@ -137,14 +137,14 @@ export default {
         message: `<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>
               <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>`
       },
-      next: "final_2"
+      next: "final_10"
     },
     {
       id: "final_2",
       kind: "Final",
       content: {
         title: "Transfer tax",
-        message: `<p>Exempt from transfer tax.</p>
+        message: `<p>Congratulations! This transaction is exempt and no transfer taxes are due.</p>
           <p><small>(See California Revenue and Taxation Code, Section 11925(a))</small></p>`
       }
     },
@@ -165,17 +165,9 @@ export default {
       content: {
         question: "Did grantee own over 50% of the entity before the transaction?",
         fields: [
-          { kind: "choice", label: "Yes", next: "final_3" },
+          { kind: "choice", label: "Yes", next: "final_0" },
           { kind: "choice", label: "No", next: "final_4" }
         ]
-      }
-    },
-    {
-      id: "final_3",
-      kind: "Final",
-      content: {
-        title: "Transfer tax",
-        message: "<p>Exempt from transfer tax</p>",
       }
     },
     {
@@ -185,7 +177,8 @@ export default {
         title: "Transfer tax",
         message: `<p>The transfer is subject to transfer tax.</p>
           <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>`
-      }
+      },
+      next: "final_10"
     },
     {
       id: "yesno_6",
@@ -194,7 +187,7 @@ export default {
         question: "Was there a prior excluded proportional interest transfer?",
         fields: [
           { kind: "choice", label: "Yes", next: "yesno_7" },
-          { kind: "choice", label: "No", next: "final_3" }
+          { kind: "choice", label: "No", next: "final_0" }
         ]
       }
     },
@@ -205,7 +198,7 @@ export default {
         question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
         fields: [
           { kind: "choice", label: "Yes", next: "final_5" },
-          { kind: "choice", label: "No", next: "final_3" }
+          { kind: "choice", label: "No", next: "final_0" }
         ]
       }
     },
@@ -217,7 +210,7 @@ export default {
         message: `<p>The transfer is subject to transfer tax.</p>
           <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>`
       },
-      next: "final_2"
+      next: "final_10"
     },
   ]
 };

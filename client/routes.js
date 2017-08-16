@@ -20,7 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Program/Program');
   require('./modules/LegalForms/LegalForms');
   require('./modules/LegalTopics/LegalTopics');
-  require('./modules/Profile/Profile');
+  require('./modules/Account/Profile/Profile');
+  require('./modules/Account/MyDocuments');
   require('./modules/Auth/Login');
   require('./modules/Auth/Register');
 }
@@ -88,7 +89,15 @@ export default (
       path="/profile"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Profile/Profile').default);
+          cb(null, require('./modules/Account/Profile/Profile').default);
+        });
+      }}
+    />
+    <Route
+      path="/mydocuments"
+      getComponent={(nextState, cb) => {
+        require.ensure([], require => {
+          cb(null, require('./modules/Account/MyDocuments').default);
         });
       }}
     />

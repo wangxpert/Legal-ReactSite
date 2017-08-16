@@ -11,8 +11,8 @@ import NoteDialog from './NoteDialog'
 
 import County from './datasource/county';
 import City from './datasource/city';
-import county_exemption, { indexArray as county_exemption_index } from './datasource/county_exemption';
-import city_exemption, { indexArray as city_exemption_index } from './datasource/city_exemption';
+import * as countyExemption from './datasource/county_exemption';
+import * as cityExemption from './datasource/city_exemption';
 // Import Actions
 import { addProgram, setCurrentProgram, fetchProgram, setFinalNode } from '../../ProgramActions';
 
@@ -96,49 +96,17 @@ class InputBox extends Component {
   doAction(program, node) {
     const store = this.state.store;
     if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
-      var i;
-      for (i = 2; i < county_exemption.length; i++) {
-        const county = county_exemption[i][0].split(';')[1];
-        if (county === store['county']) {
-          break;
-        }
-      }
-
-      var next = 1;
-      for (let j = 1; j < store['county_exemption'].length; j++ ) {
-        if (store['county_exemption'][j]) {
-          if (county_exemption[i][county_exemption_index[j]]) {
-            next = 0;
-            break;
-          }
-        }
+      var next = 0;
+      if (store['county_exemption'][0]) {
+        next = 1;
       }
 
       const nextIndex = this.getNodeIndex(program.node, node.content.next[next]);
       this.setCurrent(program, nextIndex);
     } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
-      var next = 1;
-      if (store['city']) {
-        var i;
-        for (i = 2; i < city_exemption.length; i++) {
-          const region = city_exemption[i][0].split(';');
-          const county = region[1];
-          const city = region[2];
-
-          if (county === store['county'] && city === store['city']) {
-            break;
-          }
-        }
-
-
-        for (let j = 1; j < store['city_exemption'].length; j++ ) {
-          if (store['city_exemption'][j]) {
-            if (city_exemption[i][city_exemption_index[j]]) {
-              next = 0;
-              break;
-            }
-          }
-        }
+      var next = 0;
+      if (store['city_exemption'][0]) {
+        next = 1;
       }
 
       const nextIndex = this.getNodeIndex(program.node, node.content.next[next]);
@@ -389,29 +357,52 @@ class InputBox extends Component {
       }
     }
 
-    if (kind === 'Multi') {
+    if (kind === 'Multi') { // use index 0 as None Apply
       if (field.datasource === 'county_exemption_list') {
-        return county_exemption_index
-        .map( (elt, i) => {
-          if (i > 0)
-          return (
-            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, county_exemption_index.length - 1)}>
-              { county_exemption[0][county_exemption_index[i]] }
-              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', county_exemption[1][county_exemption_index[i]])} />}
+        const exemption = countyExemption.exemption(this.state.store['county']);
+        const { indexArray, label, note } = countyExemption;
+        let eleExemptions = indexArray
+          .map( (elt, i) => {
+            if (exemption[indexArray[i]] !== 'x') return;
+            return (
+              <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, 0)}>
+                { label[indexArray[i]] }
+                { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', note[indexArray[i]])} />}
+              </div>
+            );
+          });
+
+        return (
+          <div key={index}>
+            { eleExemptions }
+            <div className={`${styles.answer} ${this.state.multiChoice[0] ? styles.active : ''}`} onClick={() => this.onMultiSelect(0, 0)} style={{ backgroundImage: check_url }}>
+              None Apply
             </div>
-          );
-        });
+          </div>
+        );
+
       } else if (field.datasource === 'city_exemption_list') {
-        return city_exemption_index
-        .map( (elt, i) => {
-          if (i > 0)
-          return (
-            <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, city_exemption_index.length - 1)}>
-              { city_exemption[0][city_exemption_index[i]] }
-              { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true"  onClick={e => this.openNote(e, 'Note', city_exemption[1][city_exemption_index[i]])} />}
+        const exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
+        const { indexArray, label, note } = cityExemption;
+        let eleExemptions = indexArray
+          .map( (elt, i) => {
+            if (exemption[indexArray[i]] !== 'x') return;
+            return (
+              <div key={i} className={`${styles.answer} ${this.state.multiChoice[i] ? styles.active : ''}`} onClick={() => this.onMultiSelect(i, 0)}>
+                { label[indexArray[i]] }
+                { <i className={`fa fa-info-circle ${styles['note-icon']}`} aria-hidden="true" onClick={e => this.openNote(e, 'Note', note[indexArray[i]])} />}
+              </div>
+            );
+          });
+
+        return (
+          <div key={index}>
+            { eleExemptions }
+            <div className={`${styles.answer} ${this.state.multiChoice[0] ? styles.active : ''}`} onClick={() => this.onMultiSelect(0, 0)}>
+              None Apply
             </div>
-          );
-        });
+          </div>
+        );
       }
     }
   }

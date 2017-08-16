@@ -1,0 +1,75 @@
+.container {
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  height: 310rem;
+  padding: 8rem 10rem;
+  position: relative;
+  text-align: center;
+  width: 242rem;
+}
+
+.container .back-img {
+  object-fit: contain;
+}
+
+.container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .05);
+}
+
+.container .title {
+  font-size: 22rem;
+  font-weight: 500;
+  padding: 20rem 10rem;
+  top: 30rem;
+  left: 20rem;
+  right: 20rem;
+  position: absolute;
+}
+
+.container .icon {
+  border: 2rem solid;
+  border-radius: 50%;
+  display: inline-block;
+  font-size: 36rem;
+  left: 50%;
+  line-height: 60rem;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  width: 60rem;
+  height: 60rem;
+  transition: transform 0.4s;
+}
+
+.container .description {
+  bottom: 10rem;
+  font-size: 18rem;
+  font-weight: 400;
+  left: 20rem;
+  position: absolute;
+  right: 20rem;
+}
+
+.container:hover {
+  color: white;
+}
+
+.container:hover .overlay, .overlay:hover{
+  background: #02b2fbcc;
+}
+
+.container:hover .icon {
+  border-color: white;
+  color: white;
+  transform: translate(-50%, -50%) rotate(360deg);
+}
+
+.container:active {
+  box-shadow: none;
+}

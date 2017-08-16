@@ -137,7 +137,7 @@ export default {
         question: "What is the total number of shares the corporation will be authorized to issue?",
         fields: [
           { kind: "choice", label: "1,000,000", value: 1000000 },
-          { kind: "choice", label: "100,00", value: 10000 },
+          { kind: "choice", label: "100,000", value: 100000 },
           { kind: "number", label: "Other" },
         ],
         store: "number_of_shares",

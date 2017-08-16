@@ -22,7 +22,7 @@ function Form(props) {
   return (
     <div className={ `${styles.container} wow fadeIn` }>
       <div className={ styles.header }>
-        Congratulation !
+        Congratulations !
       </div>
       <div className={ styles.content }>
         <span className={ styles.message }>

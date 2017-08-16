@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import styles from './styles.css';
 
 // Import Components
-import Button from '../../../components/Button/Button';
+import Button from '../../../../components/Button/Button';
 
-class Membership extends Component {
+class Conversation extends Component {
   constructor(props) {
     super(props);
   }
@@ -16,31 +16,23 @@ class Membership extends Component {
     return (
       <div className={`${styles.container} row`}>
         <div className={`${styles['container-title']} col-xs-12`}>
-          Membership Details
+          Conversations
         </div>
 
         <div className={`${styles['text-box']} col-xs-12`}>
           <span className={styles['title']}>
-            Status:
+            Have a question or need help?
           </span>
           <span className={styles['text']}>
-            Free Membership
-          </span>
-        </div>
-
-        <div className={`${styles['text-box']} col-xs-12`}>
-          <span className={styles['title']}>
-            Services Available:
-          </span>
-          <span className={styles['text']}>
-            Access to programs, glossary, most forms, current events, interactions with our Mavens.
+            mavens are here to assist you with all your legal questions.
+Let us know how we may help you, and we will get back to you as soon as possible.
           </span>
         </div>
 
         <div className={`${styles['button-container2']} col-xs-12`}>
-          <Button title={'Upgrade'} onClick={this.props.onUpgrade}/>
+          <Button title={'Ask a Maven'} onClick={this.props.onAsk}/>
           <span className={styles['tip-text']}>
-            Click for more success!
+            Click for more access!
           </span>
         </div>
 
@@ -49,8 +41,8 @@ class Membership extends Component {
   }
 }
 
-Membership.PropTypes = {
-  onUpgrade: PropTypes.func.isRequired
+Conversation.PropTypes = {
+  onAsk: PropTypes.func.isRequired
 }
 
-export default Membership;
+export default Conversation;
