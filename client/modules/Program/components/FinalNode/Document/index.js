@@ -10,7 +10,7 @@ import CAFormIncorporate1 from './CAFormIncorporate1';
 // Import Style
 import styles from './styles.css';
 
-export default class NoteDialog extends React.Component {
+export default class DocumentDialog extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -23,7 +23,7 @@ export default class NoteDialog extends React.Component {
           { this.props.data.form === 'ca_form_articles_of_professional_incorporation_2' && <CAFormProfessionalIncorporate2 data={this.props.data} /> }
           { this.props.data.form === 'ca_form_articles_of_incorporation_1' && <CAFormIncorporate1 data={this.props.data} /> }
           { this.props.data.form === 'ca_form_articles_of_incorporation_2' && <CAFormIncorporate2 data={this.props.data} /> }
-        
+
       </Modal>
     );
   }

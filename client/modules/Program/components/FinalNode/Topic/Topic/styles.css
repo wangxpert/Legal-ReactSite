@@ -1,0 +1,66 @@
+.container {
+  background-color: #fff;
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  display: inline-block;
+  width: 700rem;
+}
+
+.header {
+  background: #004a8a;
+  color: white;
+  font-size: 28rem;
+  font-weight: 500;
+  padding: 20rem;
+  text-align: center;
+}
+
+.content {
+
+}
+
+.content .message {
+  color: black;
+  display: inline-block;
+  font-size: 18rem;
+  font-weight: 400;
+  padding: 24rem;
+}
+
+.message i {
+  color: #41A85F;
+  font-size: 32rem;
+  vertical-align: middle;
+}
+
+.content .actions {
+  padding-left: 12rem;
+  padding-right: 12rem;
+  padding-bottom: 16rem;
+}
+
+.footer {
+  padding: 10rem;
+}
+
+.footer .button {
+  background: #02b2fb;
+  color: white;
+  cursor: pointer;
+  font-size: 22rem;
+  font-weight: 500;
+  padding: 12rem 10rem;
+  text-transform: uppercase;
+}
+
+.footer .button:hover {
+  background: #02b2fbcc;
+}
+
+.footer .button:active {
+  background: #02b2fb88;
+}
+
+.modal {
+  padding: 0;
+  width: 700rem;
+}
