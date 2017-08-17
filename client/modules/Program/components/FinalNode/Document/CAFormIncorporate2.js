@@ -7,7 +7,7 @@ export default function Form(props) {
   return (
     <div className={ styles.container }>
       <div className={ styles.header }>
-        <div className={ styles.head }>CA Form Articles of Professional Incorporation 2</div>
+        <div className={ styles.head }>CA Form Articles of Incorporation 2</div>
         <h2 className={ styles.title }>STATE OF CALIFORNIA<br />
           ARTICLES OF INCORPORATION</h2>
       </div>

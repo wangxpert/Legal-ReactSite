@@ -15,10 +15,6 @@ import FinalTopic1 from './components/FinalNode/Topic/Normal';
 import FinalTopic2 from './components/FinalNode/Topic/ToForm';
 import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax';
 import ContactDialog from './components/ContactDialog';
-import CAFormProfessionalIncorporate2 from './components/FinalNode/Document/CAFormProfessionalIncorporate2';
-import CAFormProfessionalIncorporate1 from './components/FinalNode/Document/CAFormProfessionalIncorporate1';
-import CAFormIncorporate2 from './components/FinalNode/Document/CAFormIncorporate2';
-import CAFormIncorporate1 from './components/FinalNode/Document/CAFormIncorporate1';
 
 // Import Actions
 import { toggleSideBar, resetProgram } from './ProgramActions';
@@ -90,19 +86,23 @@ class Program extends Component {
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm data={state.finalData} />
           }
-
+{/*
           { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_professional_incorporation_1')) &&
-            <CAFormProfessionalIncorporate1 data={state.finalData} />
+
+            <CAForm show={true} data={state.finalData} />
           }
           { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_professional_incorporation_2')) &&
-            <CAFormProfessionalIncorporate2 data={state.finalData} />
+
+            <CAForm show={true} data={state.finalData} />
           }
           { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_incorporation_1')) &&
-            <CAFormIncorporate1 data={state.finalData} />
+
+            <CAForm show={true} data={state.finalData} />
           }
           { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_incorporation_2')) &&
-            <CAFormIncorporate2 data={state.finalData} />
-          }
+
+            <CAForm show={true} data={state.finalData} />
+          }*/}
 
         </div>
 

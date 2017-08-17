@@ -3,7 +3,7 @@ export default {
   description: "Creating The California S-Corporation",
   start: "single_1",
   kind: "Form",
-  step: 9,
+  step: 12,
   node: [
     {
       id: "single_1",
