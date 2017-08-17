@@ -7,7 +7,7 @@ import styles from './styles.css';
 // Import Components
 import Button from '../../../../components/Button/Button';
 
-class Document extends Component {
+class ContinueDocument extends Component {
   constructor(props) {
     super(props);
   }
@@ -16,33 +16,52 @@ class Document extends Component {
     return (
       <div className={`${styles.container} row`}>
         <div className={`${styles['container-title']} col-xs-12`}>
-          My Documents
+          Continue Document
         </div>
 
-        <div className={`${styles['text-box']} col-xs-12`}>
-          <div className={styles['title']}>
-            View or start a new document:
+        <div className={`${styles['activity-container']} col-xs-12`}>
+          <div className={`${styles['icon']} col-xs-1`}>
+            <i className="fa fa-briefcase" aria-hidden="true"></i>
           </div>
-          <span className={styles['text']}>
-            Sed ut perspiciatis unde omnis iste natus error sit volup tatem
-accusantium doloremque laudantium, totam rem.
-          </span>
+
+          <div className={`${styles['title']} col-sm-4 col-xs-10`}>
+            Business Corporation
+          </div>
+
+          <div className={`${styles['text']} col-sm-3 col-xs-4`}>
+            2017/5/5
+          </div>
+
+          <div className={`${styles['text']} pull-right`}>
+            <a className={styles.link}>{"Let's continue >"}</a>
+          </div>
         </div>
 
-        <div className={`${styles['button-container2']} col-xs-12`}>
-          <Button title={'View All'} onClick={this.props.onView}/>
-          <span className={styles['tip-text']}>
-            Click to review my documents.
-          </span>
+        <div className={`${styles['activity-container']} col-xs-12`}>
+          <div className={`${styles['icon']} col-xs-1`}>
+            <i className="fa fa-file" aria-hidden="true"></i>
+          </div>
+
+          <div className={`${styles['title']} col-sm-4 col-xs-10`}>
+            Articles of Incorporation
+          </div>
+
+          <div className={`${styles['text']} col-sm-3 col-xs-4`}>
+            2017/6/3
+          </div>
+
+          <div className={`${styles['text']} pull-right`}>
+            <a className={styles.link}>{"Let's continue >"}</a>
+          </div>
         </div>
+
+          <div className={`${styles['activity-seemore']} col-xs-12`}>
+            <div><i className="fa fa-caret-down" aria-hidden="true"></i></div>
+          </div>
 
       </div>
     );
   }
 }
 
-Document.PropTypes = {
-  onView: PropTypes.func.isRequired
-}
-
-export default Document;
+export default ContinueDocument;

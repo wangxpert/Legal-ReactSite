@@ -20,12 +20,9 @@ class Conversation extends Component {
         </div>
 
         <div className={`${styles['text-box']} col-xs-12`}>
-          <span className={styles['title']}>
-            Have a question or need help?
-          </span>
           <span className={styles['text']}>
-            mavens are here to assist you with all your legal questions.
-Let us know how we may help you, and we will get back to you as soon as possible.
+            Our mavens are here to assist you with all your legal questions.
+            Let us know how we may help you, and we will get back to you as soon as possible.
           </span>
         </div>
 

@@ -77,9 +77,7 @@ class Header extends Component {
       account: (
         <li className={styles['nav-item']}>
           <div>
-            <a href="">
-              <i className={`fa fa-user ${styles['icon']}`}></i> &nbsp;Account <i className="fa fa-caret-down"></i>
-            </a>
+            <i className={`fa fa-user ${styles['icon']}`}></i> &nbsp;Account <i className="fa fa-caret-down"></i>
           </div>
 
           <ul className={styles['dropdown']}>

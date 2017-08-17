@@ -1,9 +1,18 @@
 .legaltopics {
   width: 100vw;
   background: #fff;
-  height: 100vh;
   color: #202d42;
-  padding-top: 102rem;
+  padding-top: 82rem;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: -1;
 }
 
 .search-box-container {
@@ -44,13 +53,14 @@
 }
 
 .category .item {
+  color: #202d42;
+  cursor: pointer;
   display: block;
   font-size: 24rem;
   font-weight: 500;
   padding: 5rem 0;
-  color: #202d42;
   text-decoration: none;
-  cursor: pointer;
+  white-space: normal;
 }
 
 .category .item:hover {

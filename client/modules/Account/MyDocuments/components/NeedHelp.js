@@ -7,7 +7,7 @@ import styles from './styles.css';
 // Import Components
 import Button from '../../../../components/Button/Button';
 
-class Conversation extends Component {
+class NeedHelp extends Component {
   constructor(props) {
     super(props);
   }
@@ -16,7 +16,7 @@ class Conversation extends Component {
     return (
       <div className={`${styles.container} row`}>
         <div className={`${styles['container-title']} col-xs-12`}>
-          Conversations
+          Need Help ?
         </div>
 
         <div className={`${styles['text-box']} col-xs-12`}>
@@ -24,8 +24,7 @@ class Conversation extends Component {
             Have a question or need help?
           </span>
           <span className={styles['text']}>
-            mavens are here to assist you with all your legal questions.
-Let us know how we may help you, and we will get back to you as soon as possible.
+            Our mavens are here to assist you with all your legal questions! How may we assist you?
           </span>
         </div>
 
@@ -41,8 +40,8 @@ Let us know how we may help you, and we will get back to you as soon as possible
   }
 }
 
-Conversation.PropTypes = {
+NeedHelp.PropTypes = {
   onAsk: PropTypes.func.isRequired
 }
 
-export default Conversation;
+export default NeedHelp;

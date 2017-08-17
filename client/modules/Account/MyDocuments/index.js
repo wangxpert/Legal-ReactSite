@@ -7,11 +7,10 @@ import styles from './styles.css';
 
 // Import Components
 import Button from '../../../components/Button/Button';
-import UserInfo from './components/UserInfo';
 import MyDocuments from './components/MyDocuments';
-import Conversation from './components/Conversation';
-import Activity from './components/Activity';
 import ContinueDocument from './components/ContinueDocument';
+import NewDocument from './components/NewDocument';
+import NeedHelp from './components/NeedHelp';
 
 // Import Actions
 import { fetchUserProfileRequested } from '../../Auth/AuthActions';
@@ -38,7 +37,11 @@ class Profile extends Component {
   }
 
   onAsk() {
-    alert('Ask a Maven');
+    alert('On Ask');
+  }
+
+  onNewDocument() {
+    alert('On New Document');
   }
 
   render() {
@@ -49,10 +52,13 @@ class Profile extends Component {
             <MyDocuments />
           </div>
           <div className='col-xs-12'>
-            <ContinueDocument onView={this.onViewAll.bind(this)}/>
+            <ContinueDocument onView={ this.onViewAll.bind(this) } />
           </div>
-          <div className='col-xs-12'>
-            <Conversation onAsk={this.onAsk.bind(this)}/>
+          <div className='col-xs-6'>
+            <NewDocument onNewDocument={ this.onNewDocument.bind(this) } />
+          </div>
+          <div className='col-xs-6'>
+            <NeedHelp onAsk={ this.onAsk.bind(this) } />
           </div>
         </div>
       </div>

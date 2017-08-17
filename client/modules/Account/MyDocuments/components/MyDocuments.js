@@ -16,11 +16,11 @@ class MyDocuments extends Component {
   render() {
     return (
       <div className={`${styles.container} row`}>
-        <div className={`${styles['container-title']} col-xs-12`}>
+        <div className={`${styles['container-title']} text-center col-xs-12`}>
           My Documents
         </div>
 
-        <div className={`${styles['doc-container']} row`}>
+        <div className={`${styles['doc-container']} col-xs-12`}>
           <div className={`col-xs-3`}>
             <Document empty={ false } icon="fa-plus" title="Create New" />
           </div>
@@ -34,14 +34,6 @@ class MyDocuments extends Component {
             <Document empty={ true } icon="fa-plus" title="Create New" />
           </div>
         </div>
-
-        <div className={`${styles['button-container2']} col-xs-12`}>
-          <Button title={'Upgrade'} onClick={this.props.onUpgrade} />
-          <span className={styles['tip-text']}>
-            Click for more success!
-          </span>
-        </div>
-
       </div>
     );
   }

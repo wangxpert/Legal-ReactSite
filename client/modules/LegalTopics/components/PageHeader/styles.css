@@ -1,0 +1,63 @@
+.container {
+  color: white;
+  height: 290rem;
+  position: relative;
+  text-align: center;
+}
+
+.container .back-img {
+  width: 100%;
+  height: 290rem;
+  object-fit: cover;
+}
+
+.container .overlay {
+  position: absolute;
+  background: #02b2fbc8;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.title {
+  margin-top: 30rem;
+  padding: 3rem 0;
+  font-size: 44rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.description {
+  font-size: 27rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.content {
+  margin-top: 30rem;
+  font-size: 24rem;
+  font-weight: 400;
+}
+
+.content .icon {
+  width: 60rem;
+  height: 60rem;
+  margin-bottom: 10rem;
+  object-fit: cover;
+}
+
+@media (max-width: 590px) {
+  .description {
+    font-size: 24rem;
+  }
+
+  .content {
+    font-size: 20rem;
+  }
+
+  .content .icon {
+    width: 40rem;
+    height: 40rem;
+  }
+}

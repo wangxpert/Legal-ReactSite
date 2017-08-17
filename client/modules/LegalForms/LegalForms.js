@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl';
 import styles from './LegalForms.css';
 
 // Import Components
+import PageHeader from './components/PageHeader';
 
 class LegalForms extends Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class LegalForms extends Component {
       const topics = category.topics
       .map((topic, index) => {
         return (
-          <Link key={index} className={`${styles['item']} col-xs-12`} to={topic.href}>
+          <Link key={index} className={styles['item']} to={topic.href}>
             {topic.title}
           </Link>
         );
@@ -56,6 +57,8 @@ class LegalForms extends Component {
 
     return (
       <div className={`${styles.legalforms} wow fadeIn`}>
+        <div className={ styles.background } />
+        <PageHeader />
         <div className={`${styles['title-container']}`}>
           <div className={styles['main-title']}>
             Let&apos;s get started, please select a form.
