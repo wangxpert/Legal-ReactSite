@@ -57,9 +57,9 @@ class LegalTopics extends Component {
       const topics = category.topics
       .map((topic, index) => {
         return (
-          <div key={index} className={styles['item']} to={topic.href}>
+          <Link key={index} className={styles['item']} to={topic.href}>
             {topic.title}
-          </div>
+          </Link>
         );
       });
 
