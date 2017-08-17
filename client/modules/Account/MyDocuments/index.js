@@ -11,7 +11,7 @@ import UserInfo from './components/UserInfo';
 import MyDocuments from './components/MyDocuments';
 import Conversation from './components/Conversation';
 import Activity from './components/Activity';
-import Document from './components/Document';
+import ContinueDocument from './components/ContinueDocument';
 
 // Import Actions
 import { fetchUserProfileRequested } from '../../Auth/AuthActions';
@@ -48,11 +48,8 @@ class Profile extends Component {
           <div className='col-xs-12'>
             <MyDocuments />
           </div>
-          <div className='col-md-8 col-xs-12'>
-            <Document onView={this.onViewAll.bind(this)}/>
-          </div>
           <div className='col-xs-12'>
-            <Activity />
+            <ContinueDocument onView={this.onViewAll.bind(this)}/>
           </div>
           <div className='col-xs-12'>
             <Conversation onAsk={this.onAsk.bind(this)}/>

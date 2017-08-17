@@ -13,7 +13,7 @@ function Document(props) {
   const { title, icon, description, style } = props;
 
   return (
-    <div className={ styles.container } onClick={ props.onClick } >
+    <div className={ `${styles.container} ${props.empty ? styles.empty : ''}` } onClick={ props.onClick } >
       { !props.empty && <img className={ styles['back-img'] } src={ imgBook } alt="back-img" /> }
       <div className={ styles['overlay']}/>
       <div className={ styles.title }>

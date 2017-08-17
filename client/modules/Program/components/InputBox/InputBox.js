@@ -5,8 +5,6 @@ import { Link, browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import ReactHtmlParser from 'react-html-parser';
 
-import CAFormArticlesOfIncorporation1 from './output/CAFormArticlesOfIncorporation1';
-import CAFormArticlesOfIncorporation2 from './output/CAFormArticlesOfIncorporation2';
 import NoteDialog from './NoteDialog'
 
 import County from './datasource/county';
@@ -191,7 +189,8 @@ class InputBox extends Component {
       if (node.content.kind === 'ToForm') {
         this.props.dispatch(setFinalNode('Topic2', { title: node.content.title, message: message, to: node.content.to }));
       } else if (node.content.kind === 'Form') {
-        this.props.dispatch(setFinalNode('Form', { form: node.content.form }));
+        console.log(this.state.store);
+        this.props.dispatch(setFinalNode('Form', { form: node.content.form, info: { ...this.state.store } }));
       } else if (node.content.kind === 'CalculateTax') {
         const reg = new RegExp(`^CA;${this.state.store['county']};${this.state.store['city']}`);
         const row = city_exemption.find(e => e[0].match(reg));

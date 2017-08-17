@@ -295,7 +295,7 @@ export default {
       kind: "Final",
       content: {
         kind: "Form",
-        form: "ca_form_articles_of_professional_incorporation_1"
+        form: "ca_form_articles_of_incorporation_1"
       }
     },
     {
@@ -303,7 +303,7 @@ export default {
       kind: "Final",
       content: {
         kind: "Form",
-        form: "ca_form_articles_of_professional_incorporation_2"
+        form: "ca_form_articles_of_incorporation_2"
       }
     },
   ]

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import reactHtmlParser from 'react-html-parser';
 
@@ -8,6 +9,9 @@ import Cover from '../../../../../components/Cover';
 
 // Import styles
 import styles from './styles.css';
+
+// Import Actions
+import { setFinalNode } from '../../../ProgramActions';
 
 const btnStyle = {
   backgroundColor: 'white',
@@ -19,6 +23,11 @@ const btnStyle = {
 }
 
 function Form(props) {
+  function onView() {
+    //if (props.data.form === 'ca_form_articles_of_professional_incorporation_1')
+    props.dispatch(setFinalNode(props.data.form, props.data));
+  }
+
   return (
     <div className={ `${styles.container} wow fadeIn` }>
       <div className={ styles.header }>
@@ -30,7 +39,7 @@ function Form(props) {
           &nbsp;&nbsp;Your document is ready to go!
         </span>
         <div className={ styles['actions'] }>
-          <Cover title='VIEW' icon='fa-eye' description='Review your document' />
+          <Cover title='VIEW' icon='fa-eye' description='Review your document' onClick={ e => onView() } />
           <Cover title='EDIT' icon='fa-pencil' description='Make changes to document' />
           <Cover title='SAVE' icon='fa-save' description='Save document to profile' />
         </div>
@@ -45,7 +54,13 @@ function Form(props) {
 }
 
 Form.propTypes = {
-  title: PropTypes.string
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default Form;
+// Retrieve data from store as props
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+export default connect(mapStateToProps)(Form);

@@ -1,0 +1,68 @@
+.container {
+  background: white;
+  border: 1rem solid rgb(0, 0, 0, .1);
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  display: inline-block;
+  font-family: 'Times New Roman';
+  font-size: 12pt;
+  padding: 50rem 50rem;
+  text-align: left;
+  text-align: justify;
+  width: 830rem;
+  height: 1150rem;
+}
+
+/* Header */
+.container .header {
+
+}
+
+.header .head {
+  font-size: 12pt;
+  font-weight: normal;
+  text-align: right;
+  padding: 10rem 30rem;
+}
+
+.header .title {
+  font-size: 100%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Content */
+.container .content {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+.content ol {
+  padding-left: 30rem;
+}
+
+.content ol li {
+  padding: 12rem 30rem;
+}
+
+/* info */
+.container .info {
+  margin-top: 12rem;
+  text-align: left;
+}
+
+.info .info-title {
+  display: inline-block;
+}
+
+.info .info-content {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-left: 10rem;
+  /*text-decoration: underline;*/
+}
+
+/* Footer */
+.container .footer {
+  margin: 50rem 0;
+  padding-right: 10rem;
+}
