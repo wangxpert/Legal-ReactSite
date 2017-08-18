@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import reactHtmlParser from 'react-html-parser';
 
@@ -30,9 +31,16 @@ class Topic extends Component {
 
   }
 
+  onHome() {
+    browserHistory.push('/');
+  }
+
   onView() {
-    //if (props.data.form === 'ca_form_articles_of_professional_incorporation_1')
-    // props.dispatch(setFinalNode(props.data.form, props.data));
+    browserHistory.push('/legaltopics');
+  }
+
+  onSave() {
+    alert('save');
   }
 
   render() {
@@ -46,9 +54,9 @@ class Topic extends Component {
             We hope you enjoyed your experience with us. Is there something else we may help you with?
           </span>
           <div className={ styles['actions'] }>
-            <Cover title='NO' icon='fa-home' description='Go back to home page' onClick={ e => this.onView() } />
-            <Cover title='YES' icon='fa-tasks' description='View other legal topics' />
-            <Cover title='SAVE' icon='fa-user' description='Save results and open profile' />
+            <Cover title='NO' icon='fa-home' description='Go back to home page' onClick={ e => this.onHome() } />
+            <Cover title='YES' icon='fa-tasks' description='View other legal topics' onClick={ e => this.onView() } />
+            <Cover title='SAVE' icon='fa-user' description='Save results and open profile' onClick={ e => this.onSave() } />
           </div>
         </div>
         <div className={ styles.footer }>

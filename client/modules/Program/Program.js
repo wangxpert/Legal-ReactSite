@@ -11,8 +11,7 @@ import styles from './Program.css';
 import SideBar from './components/SideBar/SideBar';
 import InputBox from './components/InputBox/InputBox';
 import FinalForm from './components/FinalNode/Form/Form';
-import FinalTopic1 from './components/FinalNode/Topic/Normal';
-import FinalTopic2 from './components/FinalNode/Topic/ToForm';
+import FinalTopic from './components/FinalNode/Topic/Topic';
 import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax';
 import ContactDialog from './components/ContactDialog';
 
@@ -72,38 +71,17 @@ class Program extends Component {
           <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } showContact={ this.showContact.bind(this) } />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { !state.showFinalNode && <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } />}
+          { !state.showFinalNode && <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } /> }
 
-          { (state.showFinalNode && (state.finalKind === 'Topic1')) &&
-            <FinalTopic1 title={state.finalData.title} message={state.finalData.message} />
-          }
-          { (state.showFinalNode && (state.finalKind === 'Topic2')) &&
-            <FinalTopic2 title={state.finalData.title} message={state.finalData.message} to={state.finalData.to} onClick={this.toForm.bind(this)} />
+          { (state.showFinalNode && (state.finalKind === 'Topic')) &&
+            <FinalTopic title={ state.finalData.title } message={ state.finalData.message } to={ state.finalData.to } toForm={ this.toForm.bind(this) } />
           }
           { (state.showFinalNode && (state.finalKind === 'CalculateTax')) &&
-            <FinalCalculateTax county={state.finalData.county} taxRate={state.finalData.taxRate} />
+            <FinalCalculateTax county={ state.finalData.county } taxRate={ state.finalData.taxRate } />
           }
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm data={state.finalData} />
           }
-{/*
-          { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_professional_incorporation_1')) &&
-
-            <CAForm show={true} data={state.finalData} />
-          }
-          { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_professional_incorporation_2')) &&
-
-            <CAForm show={true} data={state.finalData} />
-          }
-          { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_incorporation_1')) &&
-
-            <CAForm show={true} data={state.finalData} />
-          }
-          { (state.showFinalNode && (state.finalKind === 'ca_form_articles_of_incorporation_2')) &&
-
-            <CAForm show={true} data={state.finalData} />
-          }*/}
-
         </div>
 
         <ContactDialog show={this.state.showContact} close={this.closeContact.bind(this)}/>

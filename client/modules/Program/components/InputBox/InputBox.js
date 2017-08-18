@@ -186,10 +186,7 @@ class InputBox extends Component {
         node.content.attach.forEach((elt) => { message += program.attach[elt] })
       }
 
-      if (node.content.kind === 'ToForm') {
-        this.props.dispatch(setFinalNode('Topic2', { title: node.content.title, message: message, to: node.content.to }));
-      } else if (node.content.kind === 'Form') {
-        console.log(this.state.store);
+      if (node.content.kind === 'Form') {
         this.props.dispatch(setFinalNode('Form', { form: node.content.form, info: { ...this.state.store } }));
       } else if (node.content.kind === 'CalculateTax') {
         const reg = new RegExp(`^CA;${this.state.store['county']};${this.state.store['city']}`);
@@ -198,7 +195,7 @@ class InputBox extends Component {
 
         this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], taxRate: taxRate }));
       } else {
-        this.props.dispatch(setFinalNode('Topic1', { title: node.content.title, message: message }));
+        this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to }));
       }
     }
   }

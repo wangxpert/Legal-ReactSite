@@ -78,7 +78,6 @@ export default {
       id: "final_2",
       kind: "Final",
       content: {
-        kind: "ToForm",
         title: "You should consider forming a C Corporation",
         attach: ['NOTE_5'],
         to: "Corp"
@@ -110,7 +109,6 @@ export default {
       id: "final_6",
       kind: "Final",
       content: {
-        kind: "ToForm",
         title: "Form a C Corporation",
         message: "",
         attach: ['NOTE_6'],
@@ -132,8 +130,7 @@ export default {
       id: "final_7",
       kind: "Final",
       content: {
-        kind: "ToForm",
-        title: "Form S Corporation",
+        title: "Form an S Corporation",
         attach: ['NOTE_7'],
         to: "S-Corp"
       }
@@ -172,8 +169,7 @@ export default {
       id: "final_3",
       kind: "Final",
       content: {
-        kind: "ToForm",
-        title: "Form S Corporation",
+        title: "Form an S Corporation",
         attach: ['NOTE_4'],
         to: "S-Corp"
       }

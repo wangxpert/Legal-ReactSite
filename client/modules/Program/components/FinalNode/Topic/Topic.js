@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import reactHtmlParser from 'react-html-parser';
 
-// Import Components
 import Button from '../../../../../components/Button/Button';
-import TopicDialog from './Topic';
+import Cover from '../../../../../components/Cover';
+import TopicDialog from './Dialog';
 
 // Import styles
 import styles from './styles.css';
@@ -19,7 +19,7 @@ const btnStyle = {
   padding: '7rem 18rem'
 }
 
-class Normal extends Component {
+class Topic extends Component {
   constructor(props) {
     super(props);
 
@@ -37,14 +37,27 @@ class Normal extends Component {
   }
 
   render() {
-    const { title, message } = this.props;
+    const { title, message, to, toForm } = this.props;
+    var toTitle = '';
+    var toDescription = '';
+
+    if (to === 'Corp') {
+      toTitle = 'Articles of Professional Incorporation';
+      toDescription = "Let's begin the professional incorporation process.";
+    } else if (to === 'S-Corp') {
+      toTitle = 'Articles of Incorporation';
+      toDescription = "Let's begin the incorporation process.";
+    }
+
     return (
       <div className={ `${styles.container} wow fadeIn`}>
         <h1 className={ styles.title }>
           { title }
         </h1>
         <div className={ styles.message }>
+          { to && <Cover title={ toTitle } icon="fa-book" description={ toDescription } style={{ margin: '20rem', float: 'right' }} onClick={ e => toForm(to) } /> }
           { reactHtmlParser(message) }
+
         </div>
         <div className={ styles.footer }>
           <span className={ styles['text'] }>Was this helpful?</span>
@@ -60,9 +73,11 @@ class Normal extends Component {
   }
 }
 
-Normal.propTypes = {
+Topic.propTypes = {
   title: PropTypes.string,
-  message: PropTypes.string
+  message: PropTypes.string,
+  to: PropTypes.string,
+  toForm: PropTypes.func
 };
 
-export default Normal;
+export default Topic;

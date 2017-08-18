@@ -30,10 +30,11 @@
   line-height: 60rem;
   position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
+  transform: translate(-50%, -50%) rotateY(0deg);
   width: 60rem;
   height: 60rem;
-  transition: transform 0.4s;
+  transition: transform 0.6s;
+  transition-timing-function: ease;
 }
 
 .container .description {
@@ -56,7 +57,7 @@
   border-color: transparent;
   background: white;
   color: #02b2fb88;
-  transform: translate(-50%, -50%) rotate(360deg);
+  transform: translate(-50%, -50%) rotateY(180deg);
 }
 
 .container:active {
