@@ -71,7 +71,7 @@ class Program extends Component {
           <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } showContact={ this.showContact.bind(this) } />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { !state.showFinalNode && <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } /> }
+          { <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } show={state.showFinalNode} /> }
 
           { (state.showFinalNode && (state.finalKind === 'Topic')) &&
             <FinalTopic title={ state.finalData.title } message={ state.finalData.message } to={ state.finalData.to } toForm={ this.toForm.bind(this) } />

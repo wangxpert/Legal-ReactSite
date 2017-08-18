@@ -9,10 +9,10 @@ import Button from '../Button/Button';
 import styles from './styles.css';
 
 function Cover(props) {
-  const { title, icon, description, style } = props;
+  const { title, icon, description, style, onClick } = props;
 
   return (
-    <div className={ styles.container } style={ style } onClick={ props.onClick } >
+    <div className={ styles.container } style={ style } onClick={ onClick } >
       <div className={ styles.title }>
         { title }
       </div>

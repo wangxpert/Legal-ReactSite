@@ -2,7 +2,7 @@
   height: 100vh;
   position: relative;
   text-align: center;
-  min-height: 600rem;
+  min-height: 800rem;
   padding-top: 82rem;
 }
 
@@ -130,6 +130,10 @@
     min-height: 720rem;
   }
 
+  .main-container {
+    padding-top: 21vh;
+  }
+
   .main-container .title {
     font-size: 56rem;
   }
@@ -142,7 +146,7 @@
 @media (max-width: 768px) {
 
   .home {
-    min-height: 720rem;
+    min-height: 800rem;
   }
 
   .main-container {

@@ -11,6 +11,7 @@ import County from './datasource/county';
 import City from './datasource/city';
 import * as countyExemption from './datasource/county_exemption';
 import * as cityExemption from './datasource/city_exemption';
+
 // Import Actions
 import { addProgram, setCurrentProgram, fetchProgram, setFinalNode } from '../../ProgramActions';
 
@@ -448,7 +449,7 @@ class InputBox extends Component {
     }
 
     return (
-      <div className={`${styles.inputbox}`}>
+      <div className={`${styles.inputbox}`} style={{display: this.props.show ? 'none' : ''}}>
         <div className={styles.title}>
           { title }
         </div>
@@ -494,7 +495,7 @@ class InputBox extends Component {
 
           </div>
           <div className={styles['help-container']}>
-            <span className={styles['help_text']}>Hi there! Need some help answering a question or want to save and finish later?</span>
+            <span className={styles['help_text']}>Need some help answering a question or want to save and finish later?</span>
 
             <div className={`${styles.button} ${styles.help}`} style={{float: 'right'}} onClick={this.props.showContact}>
               Need Help

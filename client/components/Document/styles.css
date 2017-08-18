@@ -27,12 +27,12 @@
 }
 
 .container .title {
-  font-size: 22rem;
+  font-size: 20rem;
   font-weight: 500;
   padding: 20rem 10rem;
-  top: 30rem;
-  left: 20rem;
-  right: 20rem;
+  top: 15rem;
+  left: 10rem;
+  right: 10rem;
   position: absolute;
 }
 
@@ -44,16 +44,16 @@
   left: 50%;
   line-height: 60rem;
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(0deg);
+  top: 55%;
+  transform: translate(-50%, -50%) rotateY(0deg);
   width: 60rem;
   height: 60rem;
-  transition: transform 0.4s;
+  transition: transform 0.6s;
 }
 
 .container .description {
-  bottom: 10rem;
-  font-size: 18rem;
+  bottom: 30rem;
+  font-size: 16rem;
   font-weight: 400;
   left: 20rem;
   position: absolute;
@@ -71,7 +71,7 @@
 .container:hover .icon {
   border-color: white;
   color: white;
-  transform: translate(-50%, -50%) rotate(360deg);
+  transform: translate(-50%, -50%) rotateY(0deg);
 }
 
 .container:active {

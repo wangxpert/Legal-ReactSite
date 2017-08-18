@@ -20,8 +20,8 @@
   font-size: 17rem;
   font-weight: 400;
   padding: 30rem 50rem;
-  min-height: 320rem;
-  text-align: left;
+  min-height: 370rem;
+  text-align: justify;
 }
 
 .message p {
@@ -42,8 +42,8 @@
   color: #fff;
   font-size: 17rem;
   font-weight: 400;
-  padding: 12rem 50rem;
-  text-align: right;
+  padding: 12rem 40rem;
+  text-align: left;
 }
 
 .footer .text {
@@ -54,6 +54,7 @@
 .footer .btn-container {
   display: inline-block;
   text-align: right;
+  float: right;
 }
 
 .input {
@@ -74,7 +75,7 @@
 
 .input-container {
   padding: 50rem;
-  text-align: left; 
+  text-align: left;
   font-size: 20rem;
   font-weight: 400;
 }

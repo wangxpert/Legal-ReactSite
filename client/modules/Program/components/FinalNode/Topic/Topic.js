@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import reactHtmlParser from 'react-html-parser';
 
 import Button from '../../../../../components/Button/Button';
-import Cover from '../../../../../components/Cover';
+import Document from '../../../../../components/Document';
 import TopicDialog from './Dialog';
+
+// Import Actions
+import { hideFinalNode } from '../../../ProgramActions';
 
 // Import styles
 import styles from './styles.css';
@@ -36,6 +40,10 @@ class Topic extends Component {
     this.setState({ showDialog: true });
   }
 
+  onBack() {
+    this.props.back();
+  }
+
   render() {
     const { title, message, to, toForm } = this.props;
     var toTitle = '';
@@ -55,15 +63,16 @@ class Topic extends Component {
           { title }
         </h1>
         <div className={ styles.message }>
-          { to && <Cover title={ toTitle } icon="fa-book" description={ toDescription } style={{ margin: '20rem', float: 'right' }} onClick={ e => toForm(to) } /> }
+          { to && <Document empty={ false } icon="fa-file" title={ toTitle } description={ toDescription } onClick={ e=> toForm(to) } style={{ margin: '0 0 0rem 30rem', float: 'right' }} /> }
           { reactHtmlParser(message) }
 
         </div>
         <div className={ styles.footer }>
-          <span className={ styles['text'] }>Was this helpful?</span>
+          <Button title="Back" style={ btnStyle } onClick={ this.onBack.bind(this) } />
 
           <div className={ styles['btn-container'] }>
-            <Button title="Yes" style={ btnStyle } onClick={ e=> this.onShowDialog() } />
+            <span className={ styles['text'] }>Was this helpful?</span>
+            <Button title="Yes" style={ btnStyle } onClick={ this.onShowDialog.bind(this) } />
             <Button title="Need Help" style={ btnStyle } />
           </div>
         </div>
@@ -80,4 +89,19 @@ Topic.propTypes = {
   toForm: PropTypes.func
 };
 
-export default Topic;
+// Retrieve data from store as props
+function mapStateToProps(store) {
+  return {
+
+  };
+}
+
+function mapDispatchToProps(dispatch, ownProps) {
+  return {
+    back: () => {
+      dispatch(hideFinalNode())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Topic);

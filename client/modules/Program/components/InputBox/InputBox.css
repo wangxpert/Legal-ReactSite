@@ -161,6 +161,7 @@
 .button {
   display: inline-block;
   background: #e5e8ed;
+  box-shadow: 0rem 2rem 2rem rgba(0, 0, 0, .3);
   padding: 7rem 39rem;
   border-radius: 7rem;
   font-family: 'Roboto';
@@ -171,24 +172,25 @@
 }
 
 .button.big {
+  color: white;
   padding: 8rem 68rem;
   font-size: 20rem;
   background: #50d6ff;
 }
 
 .button.help {
-  background: #202d42;
+  background: #50d6ff;
   font-weight: normal;
   font-size: 14rem;
   color: white;
 }
 
 .button:hover {
-  color: white;
+
 }
 
 .button.help:hover {
-  color: rgb(255, 255, 255, .8);
+
 }
 
 .button:active {
@@ -197,7 +199,8 @@
 
 .main-container .help-container {
   padding: 20rem 0;
-  font-size: 14rem;
+  line-height: 32rem;
+  font-size: 16rem;
 }
 
 .help-container .help-text {

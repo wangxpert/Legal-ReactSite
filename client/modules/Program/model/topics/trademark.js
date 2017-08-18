@@ -1,6 +1,6 @@
 export default {
   name: "trademark",
-  description: "TradeMark",
+  description: "Trademark",
   start: "action_1",
   kind: "Topic",
   node: [
