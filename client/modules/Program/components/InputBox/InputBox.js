@@ -165,6 +165,7 @@ class InputBox extends Component {
     }
 
     if (kind === 'final') {
+      this.history.pop();
       var message = node.content.message ? node.content.message : '';
       if (node.content.attach) {
         node.content.attach.forEach((elt) => { message += program.attach[elt] })
@@ -222,6 +223,9 @@ class InputBox extends Component {
 
     this.setInput(node);
 
+    const next = this.getNextId(node);
+    const nextIndex = this.getNodeIndex(this.props.program.node, next);
+
     this.history.push({
       current: this.state.current,
       singleChoice: this.state.singleChoice,
@@ -229,8 +233,6 @@ class InputBox extends Component {
       store: {...this.state.store}
     });
 
-    const next = this.getNextId(node);
-    const nextIndex = this.getNodeIndex(this.props.program.node, next);
     this.setCurrent(this.props.program, nextIndex);
   }
 
