@@ -123,7 +123,7 @@ class Topic extends Component {
           <div className={ styles['btn-container'] }>
             <span className={ styles['text'] }>Was this helpful? &nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Button title="Yes" style={ btnStyle } onClick={ this.onShowDialog.bind(this) } />
-            <Button title="Need Help" style={ btnStyle } />
+            <Button title="Need Help" style={ btnStyle } onClick={ this.props.showContact } />
           </div>
         </div>
         <TopicDialog show={ this.state.showDialog } close={ this.onCloseDialog.bind(this) }/>

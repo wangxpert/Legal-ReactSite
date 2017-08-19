@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 
 import reactHtmlParser from 'react-html-parser';
 
-import Button from '../../../../../../components/Button/Button';
 import Cover from '../../../../../../components/Cover';
 
 // Import styles
@@ -14,15 +13,6 @@ import styles from './styles.css';
 // Import Actions
 
 // Import components
-
-const btnStyle = {
-  backgroundColor: 'white',
-  color: '#02b2fb',
-  fontSize: '17rem',
-  fontWeight: 400,
-  margin: '0rem 10rem',
-  padding: '7rem 18rem'
-}
 
 class Topic extends Component {
 

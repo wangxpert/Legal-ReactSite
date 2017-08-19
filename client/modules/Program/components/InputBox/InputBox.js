@@ -145,7 +145,6 @@ class InputBox extends Component {
   setCurrent(program, curIndex) {
     const node = program.node[curIndex];
     const kind = node.kind.toLowerCase();
-    console.log('Current', this.history);
 
     if (kind === 'input' || kind === 'single' || kind === 'yesno' || kind === 'multi') {
       this.setState({ current: curIndex, singleChoice: -1, multiChoice: [] });
