@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import reactHtmlParser from 'react-html-parser';
@@ -11,7 +10,7 @@ import Cover from '../../../../../components/Cover';
 import styles from './styles.css';
 
 // Import Actions
-import { setFinalNode } from '../../../ProgramActions';
+import { hideFinalNode } from '../../../ProgramActions';
 
 // Import components
 import CAForm from '../Document';
@@ -36,9 +35,11 @@ class Form extends Component {
   }
 
   onView() {
-    //if (props.data.form === 'ca_form_articles_of_professional_incorporation_1')
-    // props.dispatch(setFinalNode(props.data.form, props.data));
     this.setState({ showDocument: true });
+  }
+
+  onEdit() {
+    this.props.hide();
   }
 
   onHideDocument() {
@@ -58,7 +59,7 @@ class Form extends Component {
           </span>
           <div className={ styles['actions'] }>
             <Cover title='VIEW' icon='fa-eye' description='Review your document' onClick={ e => this.onView() } />
-            <Cover title='EDIT' icon='fa-pencil' description='Make changes to document' />
+            <Cover title='EDIT' icon='fa-pencil' description='Make changes to document' onClick={ e => this.onEdit() } />
             <Cover title='SAVE' icon='fa-save' description='Save document to profile' />
           </div>
         </div>
@@ -73,14 +74,17 @@ class Form extends Component {
   }
 }
 
-Form.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
 
   };
 }
-export default connect(mapStateToProps)(Form);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    hide: () => dispatch(hideFinalNode())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

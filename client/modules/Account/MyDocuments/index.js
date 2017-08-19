@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import styles from './styles.css';
 
 // Import Components
+import { browserHistory } from 'react-router';
+
 import Button from '../../../components/Button/Button';
 import MyDocuments from './components/MyDocuments';
 import ContinueDocument from './components/ContinueDocument';
@@ -41,7 +43,7 @@ class Profile extends Component {
   }
 
   onNewDocument() {
-    alert('On New Document');
+    browserHistory.push('/legalforms');
   }
 
   render() {

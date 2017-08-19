@@ -29,7 +29,7 @@ accusantium doloremque laudantium, totam rem.
         <div className={ `${ styles['button-container2'] } col-xs-12` }>
           <Button title={ 'New Document' } onClick={ this.props.onNewDocument }/>
           <span className={ styles['tip-text'] }>
-            Click to review my documents.
+            Start a new document.
           </span>
         </div>
 

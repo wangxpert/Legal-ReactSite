@@ -57,7 +57,7 @@ export default function Form(props) {
         </span>
         <div className="col-xs-7" style={{ textAlign: 'right' }}>
           <span className={ styles.info }>
-            <span className={ styles['info-content'] }>________________</span><br/><br/>
+            <span className={ styles['info-content'] }>________________</span><br/><br/><br/>
             <span className={ styles['info-content'] }> { `${info.incorporator_name_firstname} ${info.incorporator_name_lastname}`  } , Incorporator</span>
           </span>
         </div>

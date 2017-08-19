@@ -145,26 +145,10 @@ class InputBox extends Component {
   setCurrent(program, curIndex) {
     const node = program.node[curIndex];
     const kind = node.kind.toLowerCase();
+    console.log('Current', this.history);
 
     if (kind === 'input' || kind === 'single' || kind === 'yesno' || kind === 'multi') {
-      this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
-      this.history.push({
-        current: curIndex,
-        singleChoice: this.state.singleChoice,
-        multiChoice: this.state.multiChoice,
-        store: {...this.state.store}
-      });
-      return;
-    }
-
-    if (kind === 'form') {
-      this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
-      this.history.push({
-        index: this.state.index,
-        current: curIndex,
-        singleChoice: this.state.singleChoice,
-        store: this.state.store
-      });
+      this.setState({ current: curIndex, singleChoice: -1, multiChoice: [] });
       return;
     }
 
@@ -207,13 +191,12 @@ class InputBox extends Component {
           calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate };
         }
 
-        console.log(calcTaxInfo);
         this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo }));
       }
     }
   }
 
-  setInput(node) {
+  setInput(node) { // Save selected choice in store
     if (node.kind === 'Single') {
       if (node.content.store) {
         const field = node.content.fields[this.state.singleChoice];
@@ -240,6 +223,13 @@ class InputBox extends Component {
 
     this.setInput(node);
 
+    this.history.push({
+      current: this.state.current,
+      singleChoice: this.state.singleChoice,
+      multiChoice: this.state.multiChoice,
+      store: {...this.state.store}
+    });
+
     const next = this.getNextId(node);
     const nextIndex = this.getNodeIndex(this.props.program.node, next);
     this.setCurrent(this.props.program, nextIndex);
@@ -247,32 +237,28 @@ class InputBox extends Component {
 
   onBack() {
     if (this.props.program) {
-      if (this.history.length === 1) return;
-      this.history.pop();
+      if (this.history.length === 0) return;
+
       const state = this.history[this.history.length - 1];
-      if (state) {
-        this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, store: state.store });
-      }
+      this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, store: state.store });
+
+      this.history.pop();
     }
   }
 
   onSingleSelect(index) {
     this.setState({ singleChoice: index });
-    this.history[this.history.length - 1].singleChoice = index;
   }
 
   onMultiSelect(index, noneApplyIndex) {
     var multiChoice = this.state.multiChoice;
     if (index === noneApplyIndex) {
       multiChoice = [];
-      this.history[this.history.length - 1].multiChoice = [];
     } else {
       multiChoice[noneApplyIndex] = false;
-      this.history[this.history.length - 1].multiChoice[noneApplyIndex] = false;
     }
     multiChoice[index] = !multiChoice[index];
     this.setState({ multiChoice });
-    this.history[this.history.length - 1].multiChoice[index] = multiChoice[index];
   }
 
   getDescription(kind) {
@@ -469,7 +455,7 @@ class InputBox extends Component {
         <div className={styles['progress-container']}>
           <div className={`progress ${styles['progress']}`}>
             <div className="progress-bar active" role="progressbar"
-            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${(this.history.length - 1) * 100.0 / this.props.program.step}%`}}>
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${this.history.length * 100.0 / this.props.program.step}%`}}>
 
             </div>
           </div>
@@ -478,7 +464,7 @@ class InputBox extends Component {
 
         <div className={`${styles['main-container']}`}>
           <div className={styles['question']}>
-            <span>{`${this.history.length}. `}</span>
+            <span>{`${this.history.length + 1}. `}</span>
             <span>{ ReactHtmlParser(question) }</span>
             { eleNote }
           </div>
