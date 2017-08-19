@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 101);
+/******/ 	return __webpack_require__(__webpack_require__.s = 115);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -56,22 +56,16 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-router");
+	module.exports = require("react-redux");
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-redux");
+	module.exports = require("react-router");
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-intl");
-
-/***/ },
-/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -141,7 +135,19 @@
 	exports.default = Button;
 
 /***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-intl");
+
+/***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-html-parser");
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -167,15 +173,15 @@
 	exports.logoutRequested = logoutRequested;
 	exports.fetchUserProfileRequested = fetchUserProfileRequested;
 	
-	var _apiCaller = __webpack_require__(14);
+	var _apiCaller = __webpack_require__(16);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(8);
+	var _reactNotificationSystemRedux = __webpack_require__(9);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -360,52 +366,7 @@
 	}
 
 /***/ },
-/* 7 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-html-parser");
-
-/***/ },
 /* 8 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-notification-system-redux");
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = require("express");
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	module.exports = require("mongoose");
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.toggleSearchBar = toggleSearchBar;
-	// Export Constants
-	var TOGGLE_SEARCH_BAR = exports.TOGGLE_SEARCH_BAR = 'TOGGLE_SEARCH_BAR';
-	
-	// Export Actions
-	function toggleSearchBar() {
-	  return {
-	    type: TOGGLE_SEARCH_BAR
-	  };
-	}
-
-/***/ },
-/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -414,192 +375,20 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactRedux = __webpack_require__(3);
-	
-	var _reactRouter = __webpack_require__(2);
-	
-	var _reactIntl = __webpack_require__(4);
-	
-	var _Program = {
-	  "program": "_3cVgjsWA141eMGNQ4o-3C1",
-	  "inputbox-container": "_1SVSo2dfamAlo3zLiBg-0t",
-	  "sidebar-container": "_32_53-I0qr4_x_As9i9gWq"
-	};
-	
-	var _Program2 = _interopRequireDefault(_Program);
-	
-	var _SideBar = __webpack_require__(87);
-	
-	var _SideBar2 = _interopRequireDefault(_SideBar);
-	
-	var _InputBox = __webpack_require__(79);
-	
-	var _InputBox2 = _interopRequireDefault(_InputBox);
-	
-	var _Form = __webpack_require__(75);
-	
-	var _Form2 = _interopRequireDefault(_Form);
-	
-	var _Normal = __webpack_require__(77);
-	
-	var _Normal2 = _interopRequireDefault(_Normal);
-	
-	var _ToForm = __webpack_require__(78);
-	
-	var _ToForm2 = _interopRequireDefault(_ToForm);
-	
-	var _CalculateTax = __webpack_require__(76);
-	
-	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
-	
-	var _ProgramActions = __webpack_require__(13);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	// Import Actions
-	
-	
-	var Program = function (_Component) {
-	  _inherits(Program, _Component);
-	
-	  function Program(props) {
-	    _classCallCheck(this, Program);
-	
-	    return _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
-	  }
-	
-	  _createClass(Program, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.dispatch((0, _ProgramActions.resetProgram)());
-	    }
-	  }, {
-	    key: 'toggleSide',
-	    value: function toggleSide() {
-	      this.props.dispatch((0, _ProgramActions.toggleSideBar)());
-	    }
-	  }, {
-	    key: 'toForm',
-	    value: function toForm(to) {
-	      this.props.dispatch((0, _ProgramActions.resetProgram)());
-	      if (to === 'Corp') {
-	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
-	      } else if (to === 'S-Corp') {
-	        _reactRouter.browserHistory.push('/legalforms/ca_s_corporation');
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var paddingLeft = 12;
-	      var minWidth = 900;
-	      if (this.props.state.showSideBar) {
-	        paddingLeft += 325;
-	        minWidth += 325;
-	      }
-	      paddingLeft += 'rem';
-	      minWidth += 'rem';
-	
-	      var state = this.props.state;
-	
-	      console.log(state.finalKind);
-	
-	      return _jsx('div', {
-	        className: _Program2.default.program + ' wow fadeIn',
-	        style: { minWidth: minWidth }
-	      }, void 0, _jsx('div', {
-	        className: _Program2.default['sidebar-container']
-	      }, void 0, _jsx(_SideBar2.default, {
-	        show: this.props.state.showSideBar,
-	        toggle: this.toggleSide.bind(this)
-	      })), _jsx('div', {
-	        className: '' + _Program2.default['inputbox-container'],
-	        style: { paddingLeft: paddingLeft }
-	      }, void 0, !state.showFinalNode && _jsx(_InputBox2.default, {
-	        name: this.props.params.name
-	      }), state.showFinalNode && state.finalKind === 'Topic1' && _jsx(_Normal2.default, {
-	        title: state.finalData.title,
-	        message: state.finalData.message
-	      }), state.showFinalNode && state.finalKind === 'Topic2' && _jsx(_ToForm2.default, {
-	        title: state.finalData.title,
-	        message: state.finalData.message,
-	        to: state.finalData.to,
-	        onClick: this.toForm.bind(this)
-	      }), state.showFinalNode && state.finalKind === 'CalculateTax' && _jsx(_CalculateTax2.default, {
-	        state: state.finalData.state,
-	        taxRate: state.finalData.taxRate
-	      }), state.showFinalNode && state.finalKind === 'Form' && _jsx(_Form2.default, {
-	        form: state.finalData.form
-	      })));
-	    }
-	  }]);
-	
-	  return Program;
-	}(_react.Component);
-	
-	// Retrieve data from store as props
-	
-	
-	function mapStateToProps(state) {
-	  return {
-	    state: state.programs
-	  };
-	}
-	
-	Program.contextTypes = {
-	  router: _react2.default.PropTypes.object
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Program);
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.RESET_PROGRAM = exports.SET_FINAL_NODE = exports.TOGGLE_SIDEBAR = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = undefined;
+	exports.RESET_PROGRAM = exports.HIDE_FINAL_NODE = exports.SET_FINAL_NODE = exports.TOGGLE_SIDEBAR = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = undefined;
 	exports.addProgram = addProgram;
 	exports.setCurrentProgram = setCurrentProgram;
 	exports.fetchProgram = fetchProgram;
 	exports.toggleSideBar = toggleSideBar;
 	exports.setFinalNode = setFinalNode;
+	exports.hideFinalNode = hideFinalNode;
 	exports.resetProgram = resetProgram;
 	
-	var _apiCaller = __webpack_require__(14);
+	var _apiCaller = __webpack_require__(16);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _model = __webpack_require__(90);
+	var _model = __webpack_require__(104);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
@@ -610,6 +399,7 @@
 	var SET_CURRENT_PROGRAM = exports.SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
 	var TOGGLE_SIDEBAR = exports.TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 	var SET_FINAL_NODE = exports.SET_FINAL_NODE = 'SET_FINAL_NODE';
+	var HIDE_FINAL_NODE = exports.HIDE_FINAL_NODE = 'HIDE_FINAL_NODE';
 	var RESET_PROGRAM = exports.RESET_PROGRAM = 'RESET_PROGRAM';
 	
 	// Export Actions
@@ -651,6 +441,12 @@
 	  };
 	}
 	
+	function hideFinalNode() {
+	  return {
+	    type: HIDE_FINAL_NODE
+	  };
+	}
+	
 	function resetProgram() {
 	  return {
 	    type: RESET_PROGRAM
@@ -658,7 +454,324 @@
 	}
 
 /***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-notification-system-redux");
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = require("express");
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = require("mongoose");
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-bootstrap");
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _styles = {
+	  "container": "_1AW_XoZwcYm_0ITG40xknL",
+	  "empty": "_3NIVyF55ZMqCQtHIFWQDNk",
+	  "back-img": "_3ZW6LZwKu0B5EkBrIl3ERv",
+	  "overlay": "YYLWzwV15bkOh4vc-IvhZ",
+	  "title": "_3WoJoDYfU0cdtB0dnvqgG9",
+	  "icon": "_19K_6pOLG5gItW-kwWVgJr",
+	  "description": "_3R1nT92shl98IzW5UWOQdP"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _book = '/' + "92ca9524486b02dedc49f83c8ab80d66.png";
+	
+	var _book2 = _interopRequireDefault(_book);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function Document(props) {
+	  var title = props.title,
+	      icon = props.icon,
+	      description = props.description,
+	      style = props.style,
+	      onClick = props.onClick;
+	
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container + ' ' + (props.empty ? _styles2.default.empty : ''),
+	    onClick: onClick,
+	    style: style
+	  }, void 0, !props.empty && _jsx('img', {
+	    className: _styles2.default['back-img'],
+	    src: _book2.default,
+	    alt: 'back-img'
+	  }), _jsx('div', {
+	    className: _styles2.default['overlay']
+	  }), _jsx('div', {
+	    className: _styles2.default.title
+	  }, void 0, (0, _reactHtmlParser2.default)(title)), _jsx('div', {
+	    className: _styles2.default.icon
+	  }, void 0, _jsx('i', {
+	    className: 'fa ' + icon,
+	    'aria-hidden': 'true'
+	  })), _jsx('div', {
+	    className: _styles2.default.description
+	  }, void 0, (0, _reactHtmlParser2.default)(description)));
+	}
+	
+	exports.default = Document;
+
+/***/ },
 /* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.toggleSearchBar = toggleSearchBar;
+	// Export Constants
+	var TOGGLE_SEARCH_BAR = exports.TOGGLE_SEARCH_BAR = 'TOGGLE_SEARCH_BAR';
+	
+	// Export Actions
+	function toggleSearchBar() {
+	  return {
+	    type: TOGGLE_SEARCH_BAR
+	  };
+	}
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _reactIntl = __webpack_require__(5);
+	
+	var _Program = {
+	  "program": "_3cVgjsWA141eMGNQ4o-3C1",
+	  "inputbox-container": "_1SVSo2dfamAlo3zLiBg-0t",
+	  "sidebar-container": "_32_53-I0qr4_x_As9i9gWq"
+	};
+	
+	var _Program2 = _interopRequireDefault(_Program);
+	
+	var _SideBar = __webpack_require__(101);
+	
+	var _SideBar2 = _interopRequireDefault(_SideBar);
+	
+	var _InputBox = __webpack_require__(95);
+	
+	var _InputBox2 = _interopRequireDefault(_InputBox);
+	
+	var _Form = __webpack_require__(91);
+	
+	var _Form2 = _interopRequireDefault(_Form);
+	
+	var _Topic = __webpack_require__(94);
+	
+	var _Topic2 = _interopRequireDefault(_Topic);
+	
+	var _CalculateTax = __webpack_require__(92);
+	
+	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
+	
+	var _ContactDialog = __webpack_require__(85);
+	
+	var _ContactDialog2 = _interopRequireDefault(_ContactDialog);
+	
+	var _ProgramActions = __webpack_require__(8);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	// Import Actions
+	
+	
+	var Program = function (_Component) {
+	  _inherits(Program, _Component);
+	
+	  function Program(props) {
+	    _classCallCheck(this, Program);
+	
+	    var _this = _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
+	
+	    _this.state = {
+	      showContact: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Program, [{
+	    key: 'showContact',
+	    value: function showContact() {
+	      this.setState({ showContact: true });
+	    }
+	  }, {
+	    key: 'closeContact',
+	    value: function closeContact() {
+	      this.setState({ showContact: false });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	    }
+	  }, {
+	    key: 'toggleSide',
+	    value: function toggleSide() {
+	      this.props.dispatch((0, _ProgramActions.toggleSideBar)());
+	    }
+	  }, {
+	    key: 'toForm',
+	    value: function toForm(to) {
+	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	      if (to === 'Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
+	      } else if (to === 'S-Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_s_corporation');
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var paddingLeft = 12;
+	      var minWidth = 900;
+	      if (this.props.state.showSideBar) {
+	        paddingLeft += 325;
+	        minWidth += 325;
+	      }
+	      paddingLeft += 'rem';
+	      minWidth += 'rem';
+	
+	      var state = this.props.state;
+	
+	
+	      return _jsx('div', {
+	        className: _Program2.default.program + ' wow fadeIn',
+	        style: { minWidth: minWidth }
+	      }, void 0, _jsx('div', {
+	        className: _Program2.default['sidebar-container']
+	      }, void 0, _jsx(_SideBar2.default, {
+	        show: this.props.state.showSideBar,
+	        toggle: this.toggleSide.bind(this),
+	        showContact: this.showContact.bind(this)
+	      })), _jsx('div', {
+	        className: '' + _Program2.default['inputbox-container'],
+	        style: { paddingLeft: paddingLeft }
+	      }, void 0, _jsx(_InputBox2.default, {
+	        name: this.props.params.name,
+	        showContact: this.showContact.bind(this),
+	        show: state.showFinalNode
+	      }), state.showFinalNode && state.finalKind === 'Topic' && _jsx(_Topic2.default, {
+	        title: state.finalData.title,
+	        message: state.finalData.message,
+	        calcTaxInfo: state.finalData.calcTaxInfo,
+	        to: state.finalData.to,
+	        toForm: this.toForm.bind(this)
+	      }), state.showFinalNode && state.finalKind === 'CalculateTax' && _jsx(_CalculateTax2.default, {
+	        calcTaxInfo: state.finalData.calcTaxInfo
+	      }), state.showFinalNode && state.finalKind === 'Form' && _jsx(_Form2.default, {
+	        data: state.finalData
+	      })), _jsx(_ContactDialog2.default, {
+	        show: this.state.showContact,
+	        close: this.closeContact.bind(this)
+	      }));
+	    }
+	  }]);
+	
+	  return Program;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	
+	
+	function mapStateToProps(state) {
+	  return {
+	    state: state.programs
+	  };
+	}
+	
+	Program.contextTypes = {
+	  router: _react2.default.PropTypes.object
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Program);
+
+/***/ },
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -670,11 +783,11 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(108);
+	var _isomorphicFetch = __webpack_require__(122);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
-	var _config = __webpack_require__(15);
+	var _config = __webpack_require__(17);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
@@ -707,7 +820,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -724,7 +837,7 @@
 	exports.default = config;
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -734,7 +847,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(10);
+	var _mongoose = __webpack_require__(11);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -822,25 +935,25 @@
 	exports.default = _mongoose2.default.model('User', userSchema);
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport");
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-helmet");
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack");
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -851,23 +964,23 @@
 	});
 	exports.localizationData = exports.enabledLanguages = undefined;
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
-	var _intl = __webpack_require__(105);
+	var _intl = __webpack_require__(119);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(106);
+	var _intlLocalesSupported = __webpack_require__(120);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(107);
+	__webpack_require__(121);
 	
-	var _en = __webpack_require__(115);
+	var _en = __webpack_require__(128);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(57);
+	var _en3 = __webpack_require__(61);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -929,7 +1042,7 @@
 	localizationData.en.messages = flattenMessages(localizationData.en.messages);
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -952,11 +1065,11 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactHtmlParser = __webpack_require__(7);
+	var _reactHtmlParser = __webpack_require__(6);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _Button = __webpack_require__(5);
+	var _Button = __webpack_require__(4);
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
@@ -975,13 +1088,14 @@
 	  var title = props.title,
 	      icon = props.icon,
 	      description = props.description,
-	      style = props.style;
+	      style = props.style,
+	      onClick = props.onClick;
 	
 	
 	  return _jsx('div', {
 	    className: _styles2.default.container,
 	    style: style,
-	    onClick: props.onClick
+	    onClick: onClick
 	  }, void 0, _jsx('div', {
 	    className: _styles2.default.title
 	  }, void 0, title), _jsx('div', {
@@ -997,41 +1111,7 @@
 	exports.default = Cover;
 
 /***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reduxDevtools = __webpack_require__(116);
-	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(118);
-	
-	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
-	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(117);
-	
-	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = (0, _reduxDevtools.createDevTools)(_jsx(_reduxDevtoolsDockMonitor2.default, {
-	  toggleVisibilityKey: 'ctrl-h',
-	  changePositionKey: 'ctrl-w'
-	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
-
-/***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1053,27 +1133,365 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _styles = {
+	  "page-container": "_3kbb0T8XWT_D5_f9Mz06tF"
+	};
 	
-	var _validator = __webpack_require__(37);
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _MyDocuments = __webpack_require__(63);
+	
+	var _MyDocuments2 = _interopRequireDefault(_MyDocuments);
+	
+	var _ContinueDocument = __webpack_require__(62);
+	
+	var _ContinueDocument2 = _interopRequireDefault(_ContinueDocument);
+	
+	var _NewDocument = __webpack_require__(65);
+	
+	var _NewDocument2 = _interopRequireDefault(_NewDocument);
+	
+	var _NeedHelp = __webpack_require__(64);
+	
+	var _NeedHelp2 = _interopRequireDefault(_NeedHelp);
+	
+	var _AuthActions = __webpack_require__(7);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	// Import Actions
+	
+	
+	var _ref = _jsx('div', {
+	  className: 'col-xs-12'
+	}, void 0, _jsx(_MyDocuments2.default, {}));
+	
+	var Profile = function (_Component) {
+	  _inherits(Profile, _Component);
+	
+	  function Profile(props) {
+	    _classCallCheck(this, Profile);
+	
+	    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+	  }
+	
+	  _createClass(Profile, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.dispatch((0, _AuthActions.fetchUserProfileRequested)());
+	    }
+	  }, {
+	    key: 'onUpdateInfo',
+	    value: function onUpdateInfo() {
+	      alert('Update Information');
+	    }
+	  }, {
+	    key: 'onUpgradeMembership',
+	    value: function onUpgradeMembership() {
+	      alert('Upgrade');
+	    }
+	  }, {
+	    key: 'onViewAll',
+	    value: function onViewAll() {
+	      alert('View All');
+	    }
+	  }, {
+	    key: 'onAsk',
+	    value: function onAsk() {
+	      alert('On Ask');
+	    }
+	  }, {
+	    key: 'onNewDocument',
+	    value: function onNewDocument() {
+	      alert('On New Document');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default['page-container'] + ' container wow fadeIn'
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _ref, _jsx('div', {
+	        className: 'col-xs-12'
+	      }, void 0, _jsx(_ContinueDocument2.default, {
+	        onView: this.onViewAll.bind(this)
+	      })), _jsx('div', {
+	        className: 'col-xs-6'
+	      }, void 0, _jsx(_NewDocument2.default, {
+	        onNewDocument: this.onNewDocument.bind(this)
+	      })), _jsx('div', {
+	        className: 'col-xs-6'
+	      }, void 0, _jsx(_NeedHelp2.default, {
+	        onAsk: this.onAsk.bind(this)
+	      }))));
+	    }
+	  }]);
+	
+	  return Profile;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	
+	
+	function mapStateToProps(store) {
+	  return {
+	    auth: store.auth
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _Profile = {
+	  "profile": "_1V60Xbw1jHy3vltw6hVTx"
+	};
+	
+	var _Profile2 = _interopRequireDefault(_Profile);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _UserInfo = __webpack_require__(70);
+	
+	var _UserInfo2 = _interopRequireDefault(_UserInfo);
+	
+	var _Membership = __webpack_require__(69);
+	
+	var _Membership2 = _interopRequireDefault(_Membership);
+	
+	var _Conversation = __webpack_require__(67);
+	
+	var _Conversation2 = _interopRequireDefault(_Conversation);
+	
+	var _Activity = __webpack_require__(66);
+	
+	var _Activity2 = _interopRequireDefault(_Activity);
+	
+	var _Document = __webpack_require__(68);
+	
+	var _Document2 = _interopRequireDefault(_Document);
+	
+	var _AuthActions = __webpack_require__(7);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	// Import Actions
+	
+	
+	var _ref = _jsx('div', {
+	  className: 'col-xs-12'
+	}, void 0, _jsx(_Activity2.default, {}));
+	
+	var Profile = function (_Component) {
+	  _inherits(Profile, _Component);
+	
+	  function Profile(props) {
+	    _classCallCheck(this, Profile);
+	
+	    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+	  }
+	
+	  _createClass(Profile, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.props.dispatch((0, _AuthActions.fetchUserProfileRequested)());
+	    }
+	  }, {
+	    key: 'onUpdateInfo',
+	    value: function onUpdateInfo() {
+	      alert('Update Information');
+	    }
+	  }, {
+	    key: 'onUpgradeMembership',
+	    value: function onUpgradeMembership() {
+	      alert('Upgrade');
+	    }
+	  }, {
+	    key: 'onViewAll',
+	    value: function onViewAll() {
+	      alert('View All');
+	    }
+	  }, {
+	    key: 'onAsk',
+	    value: function onAsk() {
+	      alert('Ask a Maven');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _Profile2.default.profile + ' container wow fadeIn'
+	      }, void 0, _jsx('div', {
+	        className: 'row'
+	      }, void 0, _jsx('div', {
+	        className: 'col-md-4 col-xs-12'
+	      }, void 0, _jsx(_UserInfo2.default, {
+	        user: this.props.auth.user,
+	        onUpdate: this.onUpdateInfo.bind(this)
+	      })), _jsx('div', {
+	        className: 'col-md-8 col-xs-12'
+	      }, void 0, _jsx(_Membership2.default, {
+	        onUpgrade: this.onUpgradeMembership.bind(this)
+	      })), _jsx('div', {
+	        className: 'col-md-8 col-xs-12'
+	      }, void 0, _jsx(_Document2.default, {
+	        onView: this.onViewAll.bind(this)
+	      })), _ref, _jsx('div', {
+	        className: 'col-xs-12'
+	      }, void 0, _jsx(_Conversation2.default, {
+	        onAsk: this.onAsk.bind(this)
+	      }))));
+	    }
+	  }]);
+	
+	  return Profile;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	
+	
+	function mapStateToProps(store) {
+	  return {
+	    auth: store.auth
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reduxDevtools = __webpack_require__(129);
+	
+	var _reduxDevtoolsLogMonitor = __webpack_require__(131);
+	
+	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
+	
+	var _reduxDevtoolsDockMonitor = __webpack_require__(130);
+	
+	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = (0, _reduxDevtools.createDevTools)(_jsx(_reduxDevtoolsDockMonitor2.default, {
+	  toggleVisibilityKey: 'ctrl-h',
+	  changePositionKey: 'ctrl-w'
+	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _validator = __webpack_require__(41);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(8);
+	var _reactNotificationSystemRedux = __webpack_require__(9);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(34);
+	var _reactFacebookLogin = __webpack_require__(38);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(35);
+	var _reactGoogleLogin = __webpack_require__(39);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
-	var _betterReactSpinkit = __webpack_require__(103);
+	var _betterReactSpinkit = __webpack_require__(117);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -1101,7 +1519,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1336,7 +1754,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 24 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1358,23 +1776,23 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _validator = __webpack_require__(37);
+	var _validator = __webpack_require__(41);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(8);
+	var _reactNotificationSystemRedux = __webpack_require__(9);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(34);
+	var _reactFacebookLogin = __webpack_require__(38);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(35);
+	var _reactGoogleLogin = __webpack_require__(39);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
@@ -1404,7 +1822,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1672,7 +2090,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Register);
 
 /***/ },
-/* 25 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1694,11 +2112,11 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _Home = {
 	  "home": "_37C9HJPUzY52Ex490y87_h",
@@ -1717,7 +2135,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(66);
+	var _Footer = __webpack_require__(79);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -1792,7 +2210,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1807,7 +2225,7 @@
 	
 	exports.switchLanguage = switchLanguage;
 	
-	var _setup = __webpack_require__(20);
+	var _setup = __webpack_require__(22);
 	
 	// Export Constants
 	var SWITCH_LANGUAGE = exports.SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
@@ -1819,7 +2237,7 @@
 	}
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1841,24 +2259,30 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _LegalForms = {
 	  "legalforms": "teKUuQkyz6mW5tTfLFx9y",
+	  "background": "_3HdWLcrvdMDWY1iLIuEa_H",
 	  "search-box-container": "_2dRn6A-2AOssizAWOTlIio",
 	  "title-container": "BCmq0s2LUFocUdBqjGAJw",
 	  "main-title": "TH_kcNedGpBtuVh3krWuJ",
 	  "main-container": "_1-qfa_O7rNClpeRke8m4JV",
 	  "category": "_2g5qk64clRhfI8xpk0oEFA",
 	  "category-title": "_1AafoO20HdQYSWW4qp4Gz3",
-	  "item": "o62MUcK5oWVq6lj_jrIg7"
+	  "item": "o62MUcK5oWVq6lj_jrIg7",
+	  "legaltopics": "_2cFnXdF4rrZXGuFVQiCzSO"
 	};
 	
 	var _LegalForms2 = _interopRequireDefault(_LegalForms);
+	
+	var _PageHeader = __webpack_require__(81);
+	
+	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1872,6 +2296,9 @@
 	
 	
 	// Import Components
+	
+	
+	var _ref = _jsx(_PageHeader2.default, {});
 	
 	var LegalForms = function (_Component) {
 	  _inherits(LegalForms, _Component);
@@ -1900,7 +2327,7 @@
 	      var categories = this.category.map(function (category, index) {
 	        var topics = category.topics.map(function (topic, index) {
 	          return _jsx(_reactRouter.Link, {
-	            className: _LegalForms2.default['item'] + ' col-xs-12',
+	            className: _LegalForms2.default['item'],
 	            to: topic.href
 	          }, index, topic.title);
 	        });
@@ -1915,6 +2342,8 @@
 	      return _jsx('div', {
 	        className: _LegalForms2.default.legalforms + ' wow fadeIn'
 	      }, void 0, _jsx('div', {
+	        className: _LegalForms2.default.background
+	      }), _ref, _jsx('div', {
 	        className: '' + _LegalForms2.default['title-container']
 	      }, void 0, _jsx('div', {
 	        className: _LegalForms2.default['main-title']
@@ -1937,7 +2366,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalForms);
 
 /***/ },
-/* 28 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1959,14 +2388,15 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _LegalTopics = {
 	  "legaltopics": "_1QnudGqMJ6jjuh23uIYNrr",
+	  "background": "_2OeevWp4GSDKDWnhbPKtag",
 	  "search-box-container": "_1NnZz6XVCJO1y47NCJzaHn",
 	  "title-container": "_3D_1FVbAbCbnNEyF-P8nEW",
 	  "main-title": "_3WQc4gzsgFoDnBIRY1YWdp",
@@ -1977,6 +2407,10 @@
 	};
 	
 	var _LegalTopics2 = _interopRequireDefault(_LegalTopics);
+	
+	var _PageHeader = __webpack_require__(82);
+	
+	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1990,6 +2424,9 @@
 	
 	
 	// Import Components
+	
+	
+	var _ref = _jsx(_PageHeader2.default, {});
 	
 	var LegalTopics = function (_Component) {
 	  _inherits(LegalTopics, _Component);
@@ -2050,6 +2487,8 @@
 	      return _jsx('div', {
 	        className: _LegalTopics2.default.legaltopics + ' wow fadeIn'
 	      }, void 0, _jsx('div', {
+	        className: _LegalTopics2.default.background
+	      }), _ref, _jsx('div', {
 	        className: _LegalTopics2.default['title-container']
 	      }, void 0, _jsx('div', {
 	        className: _LegalTopics2.default['main-title']
@@ -2072,161 +2511,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalTopics);
 
 /***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactRedux = __webpack_require__(3);
-	
-	var _Profile = {
-	  "profile": "_1dsx78Id7xIkKhu4oM4JQD"
-	};
-	
-	var _Profile2 = _interopRequireDefault(_Profile);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	var _UserInfo = __webpack_require__(74);
-	
-	var _UserInfo2 = _interopRequireDefault(_UserInfo);
-	
-	var _Membership = __webpack_require__(73);
-	
-	var _Membership2 = _interopRequireDefault(_Membership);
-	
-	var _Conversation = __webpack_require__(71);
-	
-	var _Conversation2 = _interopRequireDefault(_Conversation);
-	
-	var _Activity = __webpack_require__(70);
-	
-	var _Activity2 = _interopRequireDefault(_Activity);
-	
-	var _Document = __webpack_require__(72);
-	
-	var _Document2 = _interopRequireDefault(_Document);
-	
-	var _AuthActions = __webpack_require__(6);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	// Import Actions
-	
-	
-	var _ref = _jsx('div', {
-	  className: 'col-xs-12'
-	}, void 0, _jsx(_Activity2.default, {}));
-	
-	var Profile = function (_Component) {
-	  _inherits(Profile, _Component);
-	
-	  function Profile(props) {
-	    _classCallCheck(this, Profile);
-	
-	    return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
-	  }
-	
-	  _createClass(Profile, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.dispatch((0, _AuthActions.fetchUserProfileRequested)());
-	    }
-	  }, {
-	    key: 'onUpdateInfo',
-	    value: function onUpdateInfo() {
-	      alert('Update Information');
-	    }
-	  }, {
-	    key: 'onUpgradeMembership',
-	    value: function onUpgradeMembership() {
-	      alert('Upgrade');
-	    }
-	  }, {
-	    key: 'onViewAll',
-	    value: function onViewAll() {
-	      alert('View All');
-	    }
-	  }, {
-	    key: 'onAsk',
-	    value: function onAsk() {
-	      alert('Ask a Maven');
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _jsx('div', {
-	        className: _Profile2.default.profile + ' container wow fadeIn'
-	      }, void 0, _jsx('div', {
-	        className: 'row'
-	      }, void 0, _jsx('div', {
-	        className: 'col-md-4 col-xs-12'
-	      }, void 0, _jsx(_UserInfo2.default, {
-	        user: this.props.auth.user,
-	        onUpdate: this.onUpdateInfo.bind(this)
-	      })), _jsx('div', {
-	        className: 'col-md-8 col-xs-12'
-	      }, void 0, _jsx(_Membership2.default, {
-	        onUpgrade: this.onUpgradeMembership.bind(this)
-	      })), _jsx('div', {
-	        className: 'col-md-8 col-xs-12'
-	      }, void 0, _jsx(_Document2.default, {
-	        onView: this.onViewAll.bind(this)
-	      })), _ref, _jsx('div', {
-	        className: 'col-xs-12'
-	      }, void 0, _jsx(_Conversation2.default, {
-	        onAsk: this.onAsk.bind(this)
-	      }))));
-	    }
-	  }]);
-	
-	  return Profile;
-	}(_react.Component);
-	
-	// Retrieve data from store as props
-	
-	
-	function mapStateToProps(store) {
-	  return {
-	    auth: store.auth
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
-
-/***/ },
-/* 30 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2239,7 +2524,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _ProgramActions = __webpack_require__(13);
+	var _ProgramActions = __webpack_require__(8);
 	
 	// Initial State
 	var initialState = exports.initialState = { programs: {}, current: '', showSideBar: true };
@@ -2273,6 +2558,11 @@
 	        finalData: action.finalData
 	      });
 	
+	    case _ProgramActions.HIDE_FINAL_NODE:
+	      return _extends({}, state, {
+	        showFinalNode: false
+	      });
+	
 	    case _ProgramActions.RESET_PROGRAM:
 	      return _extends({}, state, {
 	        showFinalNode: false
@@ -2299,7 +2589,92 @@
 	exports.default = ProgramReducer;
 
 /***/ },
-/* 31 */
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactBootstrap = __webpack_require__(12);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Topic = __webpack_require__(93);
+	
+	var _Topic2 = _interopRequireDefault(_Topic);
+	
+	var _styles = {
+	  "container": "_7TVH3fZZgScqqvRueJycy",
+	  "header": "vn0ong9vj-71lsR8Ai9ps",
+	  "content": "_3DcpKlTnAxjjTesWN8lU1r",
+	  "message": "PME5DpvIxjhDxot7RSbpJ",
+	  "actions": "_39LBOzkxP8gC1pYsuxlR0M",
+	  "footer": "_2PUBeYc-shW_HNAo_iFI4F",
+	  "button": "_3-Pu11oWeEqefx8hKrRvaw",
+	  "modal": "_2-kdaQbqlm3dXm2pn8nLoo"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	var _ref = _jsx(_Topic2.default, {});
+	
+	var TopicDialog = function (_React$Component) {
+	  _inherits(TopicDialog, _React$Component);
+	
+	  function TopicDialog(props) {
+	    _classCallCheck(this, TopicDialog);
+	
+	    return _possibleConstructorReturn(this, (TopicDialog.__proto__ || Object.getPrototypeOf(TopicDialog)).call(this, props));
+	  }
+	
+	  _createClass(TopicDialog, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx(_reactBootstrap.Modal, {
+	        show: this.props.show,
+	        onHide: this.props.close,
+	        bsSize: 'sm',
+	        dialogClassName: _styles2.default['modal']
+	      }, void 0, _ref);
+	    }
+	  }]);
+	
+	  return TopicDialog;
+	}(_react2.default.Component);
+	
+	exports.default = TopicDialog;
+
+/***/ },
+/* 35 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2361,7 +2736,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2376,8 +2751,8 @@
 	    return i;
 	  });
 	
-	  for (var i = 1; i < exemptions.length; i++) {
-	    for (var j = i + 1; j < exemptions.length; j++) {
+	  for (var i = 1; i < exemptions.length - 1; i++) {
+	    for (var j = i + 1; j < exemptions.length - 1; j++) {
 	      if (exemptions[indexArray[i]] > exemptions[indexArray[j]]) {
 	        var _ref = [indexArray[j], indexArray[i]];
 	        indexArray[i] = _ref[0];
@@ -2390,7 +2765,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2400,7 +2775,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(10);
+	var _mongoose = __webpack_require__(11);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -2447,31 +2822,31 @@
 	exports.default = _mongoose2.default.model('Program', programSchema);
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-facebook-login");
 
 /***/ },
-/* 35 */
+/* 39 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-login");
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = require("validator");
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2490,9 +2865,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2514,7 +2889,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2531,9 +2906,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _App = __webpack_require__(58);
+	var _App = __webpack_require__(71);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -2552,13 +2927,14 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
+	  __webpack_require__(29);
+	  __webpack_require__(15);
+	  __webpack_require__(31);
+	  __webpack_require__(32);
 	  __webpack_require__(25);
-	  __webpack_require__(12);
+	  __webpack_require__(24);
 	  __webpack_require__(27);
 	  __webpack_require__(28);
-	  __webpack_require__(29);
-	  __webpack_require__(23);
-	  __webpack_require__(24);
 	}
 	
 	// react-router setup with code-splitting
@@ -2569,62 +2945,69 @@
 	}, void 0, _jsx(_reactRouter.IndexRoute, {
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(25).default);
+	      cb(null, __webpack_require__(29).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(28).default);
+	      cb(null, __webpack_require__(32).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(27).default);
+	      cb(null, __webpack_require__(31).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(12).default);
+	      cb(null, __webpack_require__(15).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(12).default);
+	      cb(null, __webpack_require__(15).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signin',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(23).default);
+	      cb(null, __webpack_require__(27).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signup',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(24).default);
+	      cb(null, __webpack_require__(28).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/profile',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(29).default);
+	      cb(null, __webpack_require__(25).default);
+	    }).bind(null, __webpack_require__));
+	  }
+	}), _jsx(_reactRouter.Route, {
+	  path: '/mydocuments',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, __webpack_require__(24).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}));
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2635,17 +3018,17 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(36);
+	var _redux = __webpack_require__(40);
 	
-	var _reduxThunk = __webpack_require__(119);
+	var _reduxThunk = __webpack_require__(132);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _DevTools = __webpack_require__(22);
+	var _DevTools = __webpack_require__(26);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(96);
+	var _reducers = __webpack_require__(110);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -2680,7 +3063,7 @@
 	}
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2713,14 +3096,14 @@
 	  });
 	};
 	
-	var _program = __webpack_require__(33);
+	var _program = __webpack_require__(37);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2754,9 +3137,9 @@
 	  return router;
 	};
 	
-	var _express = __webpack_require__(9);
+	var _express = __webpack_require__(10);
 	
-	var _auth = __webpack_require__(97);
+	var _auth = __webpack_require__(111);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -2767,7 +3150,7 @@
 	;
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2777,9 +3160,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(9);
+	var _express = __webpack_require__(10);
 	
-	var _post = __webpack_require__(98);
+	var _post = __webpack_require__(112);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -2802,7 +3185,7 @@
 	exports.default = router;
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2812,9 +3195,9 @@
 	  value: true
 	});
 	
-	var _express = __webpack_require__(9);
+	var _express = __webpack_require__(10);
 	
-	var _program = __webpack_require__(99);
+	var _program = __webpack_require__(113);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -2834,7 +3217,7 @@
 	exports.default = router;
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2845,7 +3228,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(102);
+	var _promiseUtils = __webpack_require__(116);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -2861,16 +3244,16 @@
 	  */
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var webpack = __webpack_require__(19);
-	var cssnext = __webpack_require__(110);
-	var postcssFocus = __webpack_require__(111);
-	var postcssReporter = __webpack_require__(112);
+	var webpack = __webpack_require__(21);
+	var cssnext = __webpack_require__(124);
+	var postcssFocus = __webpack_require__(125);
+	var postcssReporter = __webpack_require__(126);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -2935,67 +3318,67 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3030,7 +3413,1040 @@
 	};
 
 /***/ },
-/* 58 */
+/* 62 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_29lNdlmHOgGODE5B2aPaw3",
+	  "container-title": "_2ftuvrFQlCatf88WNyWulu",
+	  "doc-container": "_3UwtTByHAumeG4rdqenyQ8",
+	  "avatar-container": "_2_DQHoBnKRbi8YxtfdL09c",
+	  "avatar": "_2dPbUrnswVDWDU9ijEAmwv",
+	  "info-container": "_2I6jWLJr78beWfXEJj-s7P",
+	  "text-box": "_2ZjEaI04mJ2df61GI8F9KY",
+	  "tip-text": "_3lV3PkvsRbGJ6ArJtekxtJ",
+	  "title": "_13kSXY69oRDXDHJFUaV3dX",
+	  "text": "_3eRVd2RxcjvtDNbHthNE-L",
+	  "icon": "_22bzO39l6tTgGOXkQfrGZD",
+	  "button-container": "_3n117LtGkSDUDc9afBk7rc",
+	  "button-container2": "_2ZOE4eqbHBrj8GRv9Aodfa",
+	  "activity-container": "_1zmvOw4FRcfCsI-o8luzvn",
+	  "link": "cA9dazKUHd6ZvuFCpP_W2",
+	  "activity-seemore": "GrdcIpU7p8QsKVo-YA5h3"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-briefcase',
+	  'aria-hidden': 'true'
+	});
+	
+	var _ref2 = _jsx('i', {
+	  className: 'fa fa-file',
+	  'aria-hidden': 'true'
+	});
+	
+	var _ref3 = _jsx('div', {}, void 0, _jsx('i', {
+	  className: 'fa fa-caret-down',
+	  'aria-hidden': 'true'
+	}));
+	
+	var ContinueDocument = function (_Component) {
+	  _inherits(ContinueDocument, _Component);
+	
+	  function ContinueDocument(props) {
+	    _classCallCheck(this, ContinueDocument);
+	
+	    return _possibleConstructorReturn(this, (ContinueDocument.__proto__ || Object.getPrototypeOf(ContinueDocument)).call(this, props));
+	  }
+	
+	  _createClass(ContinueDocument, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'Continue Document'), _jsx('div', {
+	        className: _styles2.default['activity-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon'] + ' col-xs-1'
+	      }, void 0, _ref), _jsx('div', {
+	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
+	      }, void 0, 'Business Corporation'), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
+	      }, void 0, '2017/5/5'), _jsx('div', {
+	        className: _styles2.default['text'] + ' pull-right'
+	      }, void 0, _jsx('a', {
+	        className: _styles2.default.link
+	      }, void 0, "Let's continue >"))), _jsx('div', {
+	        className: _styles2.default['activity-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon'] + ' col-xs-1'
+	      }, void 0, _ref2), _jsx('div', {
+	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
+	      }, void 0, 'Articles of Incorporation'), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
+	      }, void 0, '2017/6/3'), _jsx('div', {
+	        className: _styles2.default['text'] + ' pull-right'
+	      }, void 0, _jsx('a', {
+	        className: _styles2.default.link
+	      }, void 0, "Let's continue >"))), _jsx('div', {
+	        className: _styles2.default['activity-seemore'] + ' col-xs-12'
+	      }, void 0, _ref3));
+	    }
+	  }]);
+	
+	  return ContinueDocument;
+	}(_react.Component);
+	
+	exports.default = ContinueDocument;
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_29lNdlmHOgGODE5B2aPaw3",
+	  "container-title": "_2ftuvrFQlCatf88WNyWulu",
+	  "doc-container": "_3UwtTByHAumeG4rdqenyQ8",
+	  "avatar-container": "_2_DQHoBnKRbi8YxtfdL09c",
+	  "avatar": "_2dPbUrnswVDWDU9ijEAmwv",
+	  "info-container": "_2I6jWLJr78beWfXEJj-s7P",
+	  "text-box": "_2ZjEaI04mJ2df61GI8F9KY",
+	  "tip-text": "_3lV3PkvsRbGJ6ArJtekxtJ",
+	  "title": "_13kSXY69oRDXDHJFUaV3dX",
+	  "text": "_3eRVd2RxcjvtDNbHthNE-L",
+	  "icon": "_22bzO39l6tTgGOXkQfrGZD",
+	  "button-container": "_3n117LtGkSDUDc9afBk7rc",
+	  "button-container2": "_2ZOE4eqbHBrj8GRv9Aodfa",
+	  "activity-container": "_1zmvOw4FRcfCsI-o8luzvn",
+	  "link": "cA9dazKUHd6ZvuFCpP_W2",
+	  "activity-seemore": "GrdcIpU7p8QsKVo-YA5h3"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Document = __webpack_require__(13);
+	
+	var _Document2 = _interopRequireDefault(_Document);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var _ref = _jsx(_Document2.default, {
+	  empty: false,
+	  icon: 'fa-plus',
+	  title: 'Articles of Professional Incorporation',
+	  description: 'Let\'s begin the professional incorporation process.'
+	});
+	
+	var _ref2 = _jsx(_Document2.default, {
+	  empty: true,
+	  icon: 'fa-plus',
+	  title: '<br />Create New'
+	});
+	
+	var _ref3 = _jsx(_Document2.default, {
+	  empty: true,
+	  icon: 'fa-plus',
+	  title: '<br />Create New'
+	});
+	
+	var _ref4 = _jsx(_Document2.default, {
+	  empty: true,
+	  icon: 'fa-plus',
+	  title: '<br />Create New'
+	});
+	
+	var MyDocuments = function (_Component) {
+	  _inherits(MyDocuments, _Component);
+	
+	  function MyDocuments(props) {
+	    _classCallCheck(this, MyDocuments);
+	
+	    return _possibleConstructorReturn(this, (MyDocuments.__proto__ || Object.getPrototypeOf(MyDocuments)).call(this, props));
+	  }
+	
+	  _createClass(MyDocuments, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row',
+	        onClick: function onClick(e) {
+	          return _this2.props.onClick();
+	        },
+	        style: this.props.style
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' text-center col-xs-12'
+	      }, void 0, 'My Documents'), _jsx('div', {
+	        className: _styles2.default['doc-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: 'col-xs-3'
+	      }, void 0, _ref), _jsx('div', {
+	        className: 'col-xs-3'
+	      }, void 0, _ref2), _jsx('div', {
+	        className: 'col-xs-3'
+	      }, void 0, _ref3), _jsx('div', {
+	        className: 'col-xs-3'
+	      }, void 0, _ref4)));
+	    }
+	  }]);
+	
+	  return MyDocuments;
+	}(_react.Component);
+	
+	MyDocuments.PropTypes = {
+	  onClick: _propTypes2.default.func
+	};
+	
+	exports.default = MyDocuments;
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_29lNdlmHOgGODE5B2aPaw3",
+	  "container-title": "_2ftuvrFQlCatf88WNyWulu",
+	  "doc-container": "_3UwtTByHAumeG4rdqenyQ8",
+	  "avatar-container": "_2_DQHoBnKRbi8YxtfdL09c",
+	  "avatar": "_2dPbUrnswVDWDU9ijEAmwv",
+	  "info-container": "_2I6jWLJr78beWfXEJj-s7P",
+	  "text-box": "_2ZjEaI04mJ2df61GI8F9KY",
+	  "tip-text": "_3lV3PkvsRbGJ6ArJtekxtJ",
+	  "title": "_13kSXY69oRDXDHJFUaV3dX",
+	  "text": "_3eRVd2RxcjvtDNbHthNE-L",
+	  "icon": "_22bzO39l6tTgGOXkQfrGZD",
+	  "button-container": "_3n117LtGkSDUDc9afBk7rc",
+	  "button-container2": "_2ZOE4eqbHBrj8GRv9Aodfa",
+	  "activity-container": "_1zmvOw4FRcfCsI-o8luzvn",
+	  "link": "cA9dazKUHd6ZvuFCpP_W2",
+	  "activity-seemore": "GrdcIpU7p8QsKVo-YA5h3"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var NeedHelp = function (_Component) {
+	  _inherits(NeedHelp, _Component);
+	
+	  function NeedHelp(props) {
+	    _classCallCheck(this, NeedHelp);
+	
+	    return _possibleConstructorReturn(this, (NeedHelp.__proto__ || Object.getPrototypeOf(NeedHelp)).call(this, props));
+	  }
+	
+	  _createClass(NeedHelp, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'Need Help ?'), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['title']
+	      }, void 0, 'Have a question or need help?'), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Our mavens are here to assist you with all your legal questions! How may we assist you?')), _jsx('div', {
+	        className: _styles2.default['button-container2'] + ' col-xs-12'
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Ask a Maven',
+	        onClick: this.props.onAsk
+	      }), _jsx('span', {
+	        className: _styles2.default['tip-text']
+	      }, void 0, 'Click for more access!')));
+	    }
+	  }]);
+	
+	  return NeedHelp;
+	}(_react.Component);
+	
+	NeedHelp.PropTypes = {
+	  onAsk: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = NeedHelp;
+
+/***/ },
+/* 65 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_29lNdlmHOgGODE5B2aPaw3",
+	  "container-title": "_2ftuvrFQlCatf88WNyWulu",
+	  "doc-container": "_3UwtTByHAumeG4rdqenyQ8",
+	  "avatar-container": "_2_DQHoBnKRbi8YxtfdL09c",
+	  "avatar": "_2dPbUrnswVDWDU9ijEAmwv",
+	  "info-container": "_2I6jWLJr78beWfXEJj-s7P",
+	  "text-box": "_2ZjEaI04mJ2df61GI8F9KY",
+	  "tip-text": "_3lV3PkvsRbGJ6ArJtekxtJ",
+	  "title": "_13kSXY69oRDXDHJFUaV3dX",
+	  "text": "_3eRVd2RxcjvtDNbHthNE-L",
+	  "icon": "_22bzO39l6tTgGOXkQfrGZD",
+	  "button-container": "_3n117LtGkSDUDc9afBk7rc",
+	  "button-container2": "_2ZOE4eqbHBrj8GRv9Aodfa",
+	  "activity-container": "_1zmvOw4FRcfCsI-o8luzvn",
+	  "link": "cA9dazKUHd6ZvuFCpP_W2",
+	  "activity-seemore": "GrdcIpU7p8QsKVo-YA5h3"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var NewDocument = function (_Component) {
+	  _inherits(NewDocument, _Component);
+	
+	  function NewDocument(props) {
+	    _classCallCheck(this, NewDocument);
+	
+	    return _possibleConstructorReturn(this, (NewDocument.__proto__ || Object.getPrototypeOf(NewDocument)).call(this, props));
+	  }
+	
+	  _createClass(NewDocument, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'New Document'), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Sed ut perspiciatis unde omnis iste natus error sit volup tatem accusantium doloremque laudantium, totam rem.')), _jsx('div', {
+	        className: _styles2.default['button-container2'] + ' col-xs-12'
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'New Document',
+	        onClick: this.props.onNewDocument
+	      }), _jsx('span', {
+	        className: _styles2.default['tip-text']
+	      }, void 0, 'Click to review my documents.')));
+	    }
+	  }]);
+	
+	  return NewDocument;
+	}(_react.Component);
+	
+	NewDocument.PropTypes = {
+	  onNewDocument: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = NewDocument;
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_3xhID-yddsPEr0M30uFUo1",
+	  "container-title": "b-GupJP5llYDFMHTY1jOP",
+	  "avatar-container": "_1OzZgsoNdzag9SlUMqUWRB",
+	  "avatar": "_2jODcprNs-DgNgWYrirxtc",
+	  "info-container": "_3VYfLgQ-voooVwxM9vox2s",
+	  "text-box": "A0e6PlHUdXhm6eczQaLcI",
+	  "tip-text": "_30d7ahubYnOPHP_1-s3djw",
+	  "title": "eiL7N5k0gOQAMpTqL8A0p",
+	  "text": "_1VSVRE4jq4vAtE-5KrCIC5",
+	  "icon": "_3DvqbW00-U7V5mUC0QFoqR",
+	  "button-container": "_3GDxEF35ezj276e6bTr-ms",
+	  "button-container2": "_1LmN3MYxCnyOfx_ZehP37C",
+	  "activity-container": "_1Byjd627g_yPcg6_SGNIjW",
+	  "link": "zoilsZ9AdF_K_RHb9bx2b",
+	  "activity-seemore": "_3Ilf1uOkoTNc8S75yBEfpm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-briefcase',
+	  'aria-hidden': 'true'
+	});
+	
+	var _ref2 = _jsx('i', {
+	  className: 'fa fa-file',
+	  'aria-hidden': 'true'
+	});
+	
+	var _ref3 = _jsx('div', {}, void 0, _jsx('i', {
+	  className: 'fa fa-caret-down',
+	  'aria-hidden': 'true'
+	}));
+	
+	var Activity = function (_Component) {
+	  _inherits(Activity, _Component);
+	
+	  function Activity(props) {
+	    _classCallCheck(this, Activity);
+	
+	    return _possibleConstructorReturn(this, (Activity.__proto__ || Object.getPrototypeOf(Activity)).call(this, props));
+	  }
+	
+	  _createClass(Activity, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'My Activity'), _jsx('div', {
+	        className: _styles2.default['activity-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon'] + ' col-xs-1'
+	      }, void 0, _ref), _jsx('div', {
+	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
+	      }, void 0, 'Business Corporation'), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
+	      }, void 0, '2017/5/5'), _jsx('div', {
+	        className: _styles2.default['text'] + ' pull-right'
+	      }, void 0, _jsx('a', {
+	        className: _styles2.default.link
+	      }, void 0, "Let's continue >"))), _jsx('div', {
+	        className: _styles2.default['activity-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon'] + ' col-xs-1'
+	      }, void 0, _ref2), _jsx('div', {
+	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
+	      }, void 0, 'Articles of Incorporation'), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
+	      }, void 0, '2017/6/3'), _jsx('div', {
+	        className: _styles2.default['text'] + ' pull-right'
+	      }, void 0, _jsx('a', {
+	        className: _styles2.default.link
+	      }, void 0, "Let's continue >"))), _jsx('div', {
+	        className: _styles2.default['activity-seemore'] + ' col-xs-12'
+	      }, void 0, _ref3));
+	    }
+	  }]);
+	
+	  return Activity;
+	}(_react.Component);
+	
+	exports.default = Activity;
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_3xhID-yddsPEr0M30uFUo1",
+	  "container-title": "b-GupJP5llYDFMHTY1jOP",
+	  "avatar-container": "_1OzZgsoNdzag9SlUMqUWRB",
+	  "avatar": "_2jODcprNs-DgNgWYrirxtc",
+	  "info-container": "_3VYfLgQ-voooVwxM9vox2s",
+	  "text-box": "A0e6PlHUdXhm6eczQaLcI",
+	  "tip-text": "_30d7ahubYnOPHP_1-s3djw",
+	  "title": "eiL7N5k0gOQAMpTqL8A0p",
+	  "text": "_1VSVRE4jq4vAtE-5KrCIC5",
+	  "icon": "_3DvqbW00-U7V5mUC0QFoqR",
+	  "button-container": "_3GDxEF35ezj276e6bTr-ms",
+	  "button-container2": "_1LmN3MYxCnyOfx_ZehP37C",
+	  "activity-container": "_1Byjd627g_yPcg6_SGNIjW",
+	  "link": "zoilsZ9AdF_K_RHb9bx2b",
+	  "activity-seemore": "_3Ilf1uOkoTNc8S75yBEfpm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var Conversation = function (_Component) {
+	  _inherits(Conversation, _Component);
+	
+	  function Conversation(props) {
+	    _classCallCheck(this, Conversation);
+	
+	    return _possibleConstructorReturn(this, (Conversation.__proto__ || Object.getPrototypeOf(Conversation)).call(this, props));
+	  }
+	
+	  _createClass(Conversation, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'Conversations'), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Our mavens are here to assist you with all your legal questions. Let us know how we may help you, and we will get back to you as soon as possible.')), _jsx('div', {
+	        className: _styles2.default['button-container2'] + ' col-xs-12'
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Ask a Maven',
+	        onClick: this.props.onAsk
+	      }), _jsx('span', {
+	        className: _styles2.default['tip-text']
+	      }, void 0, 'Click for more access!')));
+	    }
+	  }]);
+	
+	  return Conversation;
+	}(_react.Component);
+	
+	Conversation.PropTypes = {
+	  onAsk: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = Conversation;
+
+/***/ },
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_3xhID-yddsPEr0M30uFUo1",
+	  "container-title": "b-GupJP5llYDFMHTY1jOP",
+	  "avatar-container": "_1OzZgsoNdzag9SlUMqUWRB",
+	  "avatar": "_2jODcprNs-DgNgWYrirxtc",
+	  "info-container": "_3VYfLgQ-voooVwxM9vox2s",
+	  "text-box": "A0e6PlHUdXhm6eczQaLcI",
+	  "tip-text": "_30d7ahubYnOPHP_1-s3djw",
+	  "title": "eiL7N5k0gOQAMpTqL8A0p",
+	  "text": "_1VSVRE4jq4vAtE-5KrCIC5",
+	  "icon": "_3DvqbW00-U7V5mUC0QFoqR",
+	  "button-container": "_3GDxEF35ezj276e6bTr-ms",
+	  "button-container2": "_1LmN3MYxCnyOfx_ZehP37C",
+	  "activity-container": "_1Byjd627g_yPcg6_SGNIjW",
+	  "link": "zoilsZ9AdF_K_RHb9bx2b",
+	  "activity-seemore": "_3Ilf1uOkoTNc8S75yBEfpm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var Document = function (_Component) {
+	  _inherits(Document, _Component);
+	
+	  function Document(props) {
+	    _classCallCheck(this, Document);
+	
+	    return _possibleConstructorReturn(this, (Document.__proto__ || Object.getPrototypeOf(Document)).call(this, props));
+	  }
+	
+	  _createClass(Document, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'My Documents'), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['title']
+	      }, void 0, 'View or start a new document:'), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Sed ut perspiciatis unde omnis iste natus error sit volup tatem accusantium doloremque laudantium, totam rem.')), _jsx('div', {
+	        className: _styles2.default['button-container2'] + ' col-xs-12'
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'View All',
+	        onClick: this.props.onView
+	      }), _jsx('span', {
+	        className: _styles2.default['tip-text']
+	      }, void 0, 'Click to review my documents.')));
+	    }
+	  }]);
+	
+	  return Document;
+	}(_react.Component);
+	
+	Document.PropTypes = {
+	  onView: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = Document;
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_3xhID-yddsPEr0M30uFUo1",
+	  "container-title": "b-GupJP5llYDFMHTY1jOP",
+	  "avatar-container": "_1OzZgsoNdzag9SlUMqUWRB",
+	  "avatar": "_2jODcprNs-DgNgWYrirxtc",
+	  "info-container": "_3VYfLgQ-voooVwxM9vox2s",
+	  "text-box": "A0e6PlHUdXhm6eczQaLcI",
+	  "tip-text": "_30d7ahubYnOPHP_1-s3djw",
+	  "title": "eiL7N5k0gOQAMpTqL8A0p",
+	  "text": "_1VSVRE4jq4vAtE-5KrCIC5",
+	  "icon": "_3DvqbW00-U7V5mUC0QFoqR",
+	  "button-container": "_3GDxEF35ezj276e6bTr-ms",
+	  "button-container2": "_1LmN3MYxCnyOfx_ZehP37C",
+	  "activity-container": "_1Byjd627g_yPcg6_SGNIjW",
+	  "link": "zoilsZ9AdF_K_RHb9bx2b",
+	  "activity-seemore": "_3Ilf1uOkoTNc8S75yBEfpm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var Membership = function (_Component) {
+	  _inherits(Membership, _Component);
+	
+	  function Membership(props) {
+	    _classCallCheck(this, Membership);
+	
+	    return _possibleConstructorReturn(this, (Membership.__proto__ || Object.getPrototypeOf(Membership)).call(this, props));
+	  }
+	
+	  _createClass(Membership, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'Membership Details'), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['title']
+	      }, void 0, 'Status:'), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Free Membership')), _jsx('div', {
+	        className: _styles2.default['text-box'] + ' col-xs-12'
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['title']
+	      }, void 0, 'Services Available:'), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Access to programs, glossary, most forms, current events, interactions with our Mavens.')), _jsx('div', {
+	        className: _styles2.default['button-container2'] + ' col-xs-12'
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Upgrade',
+	        onClick: this.props.onUpgrade
+	      }), _jsx('span', {
+	        className: _styles2.default['tip-text']
+	      }, void 0, 'Click for more success!')));
+	    }
+	  }]);
+	
+	  return Membership;
+	}(_react.Component);
+	
+	Membership.PropTypes = {
+	  onUpgrade: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = Membership;
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_3xhID-yddsPEr0M30uFUo1",
+	  "container-title": "b-GupJP5llYDFMHTY1jOP",
+	  "avatar-container": "_1OzZgsoNdzag9SlUMqUWRB",
+	  "avatar": "_2jODcprNs-DgNgWYrirxtc",
+	  "info-container": "_3VYfLgQ-voooVwxM9vox2s",
+	  "text-box": "A0e6PlHUdXhm6eczQaLcI",
+	  "tip-text": "_30d7ahubYnOPHP_1-s3djw",
+	  "title": "eiL7N5k0gOQAMpTqL8A0p",
+	  "text": "_1VSVRE4jq4vAtE-5KrCIC5",
+	  "icon": "_3DvqbW00-U7V5mUC0QFoqR",
+	  "button-container": "_3GDxEF35ezj276e6bTr-ms",
+	  "button-container2": "_1LmN3MYxCnyOfx_ZehP37C",
+	  "activity-container": "_1Byjd627g_yPcg6_SGNIjW",
+	  "link": "zoilsZ9AdF_K_RHb9bx2b",
+	  "activity-seemore": "_3Ilf1uOkoTNc8S75yBEfpm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var UserInfo = function (_Component) {
+	  _inherits(UserInfo, _Component);
+	
+	  function UserInfo(props) {
+	    _classCallCheck(this, UserInfo);
+	
+	    return _possibleConstructorReturn(this, (UserInfo.__proto__ || Object.getPrototypeOf(UserInfo)).call(this, props));
+	  }
+	
+	  _createClass(UserInfo, [{
+	    key: 'renderInfo',
+	    value: function renderInfo(icon, info) {
+	      // const icons = ['fa-user', 'fa-envelope', 'fa-phone', 'fa-map-marker', 'fa-briefcase'];
+	      // const user = this.props.user;
+	      // if (user) {
+	      // const info = [ `${ user.name.givenName } ${ user.name.familyName }`,
+	      //   user.emails[0].value, user.address, user.occupation ]
+	
+	
+	      return _jsx('div', {
+	        className: '' + _styles2.default['text-box']
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon']
+	      }, void 0, _jsx('i', {
+	        className: 'fa ' + icon,
+	        'aria-hidden': 'true'
+	      })), _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, info));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var user = this.props.user;
+	      console.log(user);
+	      return _jsx('div', {
+	        className: '' + _styles2.default.container
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['avatar-container']
+	      }, void 0, _jsx('img', {
+	        className: _styles2.default.avatar,
+	        src: user && user.photo ? user.photo : "https://cdn.psychologytoday.com/sites/default/files/blogs/46379/2014/07/155585-159667.gif"
+	      })), _jsx('div', {
+	        className: _styles2.default['info-container']
+	      }, void 0, this.renderInfo('fa-user', user && user.name ? user.name.givenName + ' ' + user.name.familyName : ''), this.renderInfo('fa-envelope', user && user.emails ? user.emails[0].value : ''), this.renderInfo('fa-phone', user && user.phone ? user.phone : ''), this.renderInfo('fa-map-marker', user && user.address ? user.address : ''), this.renderInfo('fa-briefcase', user && user.occupation ? user.occupation : '')), _jsx('div', {
+	        className: '' + _styles2.default['button-container']
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Update Info',
+	        onClick: this.props.onUpdate
+	      })));
+	    }
+	  }]);
+	
+	  return UserInfo;
+	}(_react.Component);
+	
+	UserInfo.PropTypes = {
+	  onUpdate: _propTypes2.default.func.isRequired
+	};
+	
+	exports.default = UserInfo;
+
+/***/ },
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3049,7 +4465,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
 	var _App = {
 	  "container": "_4uEyKcd5WHob5qPzotT7",
@@ -3058,33 +4474,33 @@
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _reactHelmet = __webpack_require__(18);
+	var _reactHelmet = __webpack_require__(20);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(22);
+	var _DevTools = __webpack_require__(26);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(61);
+	var _Header = __webpack_require__(74);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(60);
+	var _Footer = __webpack_require__(73);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _SearchBox = __webpack_require__(63);
+	var _SearchBox = __webpack_require__(76);
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _AppActions = __webpack_require__(11);
+	var _AppActions = __webpack_require__(14);
 	
-	var _IntlActions = __webpack_require__(26);
+	var _IntlActions = __webpack_require__(30);
 	
-	var _AuthActions = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(7);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(8);
+	var _reactNotificationSystemRedux = __webpack_require__(9);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -3187,7 +4603,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 59 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3197,7 +4613,7 @@
 	  value: true
 	});
 	
-	var _AppActions = __webpack_require__(11);
+	var _AppActions = __webpack_require__(14);
 	
 	// Initial State
 	var initialState = {
@@ -3226,7 +4642,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 60 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3250,7 +4666,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _Footer = {
 	  "footer": "_3vPEi87A1wyh1iLR3bsBGf"
@@ -3283,7 +4699,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 61 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3305,15 +4721,15 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
-	var _AuthActions = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(7);
 	
-	var _AppActions = __webpack_require__(11);
+	var _AppActions = __webpack_require__(14);
 	
 	var _Header = {
 	  "header": "_2sEZYfHlvDy9uXqVIXG1aM",
@@ -3335,7 +4751,7 @@
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _NavBar = __webpack_require__(62);
+	var _NavBar = __webpack_require__(75);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
@@ -3390,12 +4806,16 @@
 	  to: '/profile'
 	}, void 0, 'Profile'));
 	
-	var _ref10 = _jsx('i', {
+	var _ref10 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
+	  to: '/mydocuments'
+	}, void 0, 'Documents'));
+	
+	var _ref11 = _jsx('i', {
 	  className: 'fa fa-bars',
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref11 = _jsx('div', {}, void 0);
+	var _ref12 = _jsx('div', {}, void 0);
 	
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
@@ -3464,13 +4884,11 @@
 	        }, void 0, _ref7),
 	        account: _jsx('li', {
 	          className: _Header2.default['nav-item']
-	        }, void 0, _jsx('div', {}, void 0, _jsx('a', {
-	          href: ''
-	        }, void 0, _jsx('i', {
+	        }, void 0, _jsx('div', {}, void 0, _jsx('i', {
 	          className: 'fa fa-user ' + _Header2.default['icon']
-	        }), ' \xA0Account ', _ref8)), _jsx('ul', {
+	        }), ' \xA0Account ', _ref8), _jsx('ul', {
 	          className: _Header2.default['dropdown']
-	        }, void 0, _ref9, _jsx('li', {}, void 0, _jsx('a', {
+	        }, void 0, _ref9, _ref10, _jsx('li', {}, void 0, _jsx('a', {
 	          href: 'javascript:void(0)',
 	          onClick: this.onLogout.bind(this)
 	        }, void 0, 'Log Out')))),
@@ -3512,7 +4930,7 @@
 	          className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
 	          'data-toggle': 'collapse',
 	          'data-target': '#myNavbar'
-	        }, void 0, _ref10), _jsx('a', {
+	        }, void 0, _ref11), _jsx('a', {
 	          className: 'navbar-brand ' + _Header2.default.logo,
 	          href: '/'
 	        }, void 0, 'Legal Maven')), _jsx('div', {
@@ -3520,7 +4938,7 @@
 	          id: 'myNavbar'
 	        }, void 0, _jsx('ul', {
 	          className: 'nav navbar-nav navbar-right'
-	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref11)
+	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref12)
 	      );
 	    }
 	  }]);
@@ -3543,7 +4961,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 62 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3568,9 +4986,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _NavBar = {
 	  "navbar": "UBwu_MobkjeXEfKrEAvqv",
@@ -3629,7 +5047,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 63 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3654,13 +5072,13 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
-	var _reactAutosuggest = __webpack_require__(113);
+	var _reactAutosuggest = __webpack_require__(127);
 	
 	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 	
@@ -3684,7 +5102,7 @@
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _SearchList = __webpack_require__(64);
+	var _SearchList = __webpack_require__(77);
 	
 	var _SearchList2 = _interopRequireDefault(_SearchList);
 	
@@ -3832,7 +5250,7 @@
 	exports.default = SearchBox;
 
 /***/ },
-/* 64 */
+/* 77 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3877,7 +5295,7 @@
 	}];
 
 /***/ },
-/* 65 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3889,9 +5307,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _AuthActions = __webpack_require__(6);
+	var _AuthActions = __webpack_require__(7);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
 	// Initial State
 	var initialState = { user: {}, state: 'NOT_LOGGED' };
@@ -3971,7 +5389,7 @@
 	exports.default = AuthReducer;
 
 /***/ },
-/* 66 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4034,11 +5452,11 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _Home = {
 	  "home": "_37C9HJPUzY52Ex490y87_h",
@@ -4091,7 +5509,7 @@
 	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
-/* 67 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4103,9 +5521,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _setup = __webpack_require__(20);
+	var _setup = __webpack_require__(22);
 	
-	var _IntlActions = __webpack_require__(26);
+	var _IntlActions = __webpack_require__(30);
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
@@ -4138,7 +5556,207 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 68 */
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_5iRU_I4we4wbv6ebQxtj5",
+	  "back-img": "_2kLCQf7HsSBAFBtzxGOKLx",
+	  "overlay": "A_rjbMPrIsWHRRIzkASxN",
+	  "title": "_1c9hzgXP9Aev1RKqJNeDVa",
+	  "description": "_20axKCYWmp4z3ND-TfeePy",
+	  "content": "_3F7928jhySHlcHRQGNnwqS",
+	  "icon": "_3SefiI5jodzm4pEFv0ytZl"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _pageHeader = '/' + "1a253f680573ca56e225c1810ac1acc9.png";
+	
+	var _pageHeader2 = _interopRequireDefault(_pageHeader);
+	
+	var _clock = '/' + "7f0f3d848afe6cd21f6f6d7cf5b8a360.png";
+	
+	var _clock2 = _interopRequireDefault(_clock);
+	
+	var _check = '/' + "4b6bb790e3692f32753af4544e61d0df.png";
+	
+	var _check2 = _interopRequireDefault(_check);
+	
+	var _print = '/' + "8adf81db619e922c094f48051097d271.png";
+	
+	var _print2 = _interopRequireDefault(_print);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('div', {}, void 0, 'Quick and easy');
+	
+	var _ref2 = _jsx('div', {}, void 0, 'Reliable results');
+	
+	var _ref3 = _jsx('div', {}, void 0, 'Ready for print');
+	
+	function PageHeader(props) {
+	  return _jsx('div', {
+	    className: '' + _styles2.default.container
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default['back-img'],
+	    src: _pageHeader2.default
+	  }), _jsx('div', {
+	    className: _styles2.default.overlay
+	  }, void 0, _jsx('div', {
+	    className: 'container'
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.title + ' wow fadeInLeft',
+	    'data-wow-delay': '0.3s',
+	    'data-wow-duration': '0.6s'
+	  }, void 0, 'Legal Forms'), _jsx('div', {
+	    className: _styles2.default.description + ' wow fadeInRight',
+	    'data-wow-delay': '0.5s',
+	    'data-wow-duration': '0.6s'
+	  }, void 0, 'Welcome to the quick and simple solution to legal forms.'), _jsx('div', {
+	    className: 'row ' + _styles2.default.content + ' wow',
+	    'data-wow-delay': '1.6s'
+	  }, void 0, _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.4s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _clock2.default
+	  }), _ref), _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.6s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _check2.default
+	  }), _ref2), _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.8s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _print2.default
+	  }), _ref3)))));
+	}
+	
+	exports.default = PageHeader;
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import styles
+	
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_2zlYzQBqHArJQn9XAItkrT",
+	  "back-img": "_3oR2YVsCFxmHem9CCyvfxC",
+	  "overlay": "_1oNzh4EmeNC3caxmmMXVpg",
+	  "title": "_3N4NU10iFGM5-r9tIT15id",
+	  "description": "_1fOLQ9a_7Yu5ko7MAV_V2-",
+	  "content": "_380N1xmKPZIGFMZkExmjTL",
+	  "icon": "_3XSZI9JgsZVgoSeufGh-21"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _pageHeader = '/' + "1a253f680573ca56e225c1810ac1acc9.png";
+	
+	var _pageHeader2 = _interopRequireDefault(_pageHeader);
+	
+	var _clock = '/' + "7f0f3d848afe6cd21f6f6d7cf5b8a360.png";
+	
+	var _clock2 = _interopRequireDefault(_clock);
+	
+	var _check = '/' + "4b6bb790e3692f32753af4544e61d0df.png";
+	
+	var _check2 = _interopRequireDefault(_check);
+	
+	var _free = '/' + "04db471a700cd21729c30459321354e9.png";
+	
+	var _free2 = _interopRequireDefault(_free);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('div', {}, void 0, 'Free to use');
+	
+	var _ref2 = _jsx('div', {}, void 0, 'Quick and easy');
+	
+	var _ref3 = _jsx('div', {}, void 0, 'Reliable results');
+	
+	function PageHeader(props) {
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default['back-img'],
+	    src: _pageHeader2.default
+	  }), _jsx('div', {
+	    className: _styles2.default.overlay
+	  }, void 0, _jsx('div', {
+	    className: 'container'
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.title + ' wow fadeInLeft',
+	    'data-wow-delay': '0.3s',
+	    'data-wow-duration': '0.6s'
+	  }, void 0, 'Legal Topics'), _jsx('div', {
+	    className: _styles2.default.description + ' wow fadeInRight',
+	    'data-wow-delay': '0.5s',
+	    'data-wow-duration': '0.6s'
+	  }, void 0, 'Our Mavens are here to help! Scroll below to get started.'), _jsx('div', {
+	    className: 'row ' + _styles2.default.content + ' wow',
+	    'data-wow-delay': '1.6s'
+	  }, void 0, _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.4s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _free2.default
+	  }), _ref), _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.6s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _clock2.default
+	  }), _ref2), _jsx('div', {
+	    className: 'col-xs-4 wow flipInX',
+	    'data-wow-delay': '1.8s'
+	  }, void 0, _jsx('img', {
+	    className: _styles2.default.icon,
+	    src: _check2.default
+	  }), _ref3)))));
+	}
+	
+	exports.default = PageHeader;
+
+/***/ },
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4156,7 +5774,7 @@
 	exports.deletePost = deletePost;
 	exports.deletePostRequest = deletePostRequest;
 	
-	var _apiCaller = __webpack_require__(14);
+	var _apiCaller = __webpack_require__(16);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
@@ -4228,7 +5846,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4239,7 +5857,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(68);
+	var _PostActions = __webpack_require__(83);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -4291,7 +5909,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 70 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4313,564 +5931,614 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactBootstrap = __webpack_require__(12);
+	
 	var _styles = {
-	  "container": "_1IkZNYmDgNWFkJZW_KH5K_",
-	  "container-title": "tcg5Kj168JTbtYGxvsW_h",
-	  "avatar-container": "_3g6g74GKSr4cmjTuBQyiba",
-	  "avatar": "_11zBgkIEcZ9pSpXDK7Hikk",
-	  "info-container": "_2ExC7z9CD1iIhhgdIIIBZF",
-	  "text-box": "_2EIo4P_PRPGU2V28MkOvq6",
-	  "tip-text": "_3anuJKyIXL51bKJq17AEoR",
-	  "title": "_2Lf5TG33mQhUoXE7ymrVuf",
-	  "text": "_2qAYQwT2m8n7u_DXGpaIw3",
-	  "icon": "_2NyxviqL8Ty5EpWn0RGTES",
-	  "button-container": "_1FHflIRKZ0kWneOBK18DkR",
-	  "button-container2": "_1cDxSWDUe6_F-VpWmeC4ha",
-	  "activity-container": "K6gSZ2UdCur7vNC39wSA3",
-	  "link": "_3wu1Tra4mjcGLRhqv2wWs4",
-	  "activity-seemore": "CgvlJC_JB7qR92o-zl6By"
+	  "modal-content": "_2Ch1F0uydig688T1oL6NZK",
+	  "modal-header": "_20IKjmqQlwrXm5BsXI-47D",
+	  "modal-body": "C3-eaK9V8I7L4ifhHQDRi",
+	  "form-group": "_2pBBaFg6H2mxa4L9j-HcYa",
+	  "modal-footer": "_1kZV6Ymgso-RtVtpKl55gY"
 	};
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	var _ref = _jsx('i', {
-	  className: 'fa fa-briefcase',
-	  'aria-hidden': 'true'
-	});
-	
-	var _ref2 = _jsx('i', {
-	  className: 'fa fa-file',
-	  'aria-hidden': 'true'
-	});
-	
-	var _ref3 = _jsx('div', {}, void 0, _jsx('i', {
-	  className: 'fa fa-caret-down',
-	  'aria-hidden': 'true'
-	}));
-	
-	var Activity = function (_Component) {
-	  _inherits(Activity, _Component);
-	
-	  function Activity(props) {
-	    _classCallCheck(this, Activity);
-	
-	    return _possibleConstructorReturn(this, (Activity.__proto__ || Object.getPrototypeOf(Activity)).call(this, props));
-	  }
-	
-	  _createClass(Activity, [{
-	    key: 'render',
-	    value: function render() {
-	      return _jsx('div', {
-	        className: _styles2.default.container + ' row'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['container-title'] + ' col-xs-12'
-	      }, void 0, 'My Activity'), _jsx('div', {
-	        className: _styles2.default['activity-container'] + ' col-xs-12'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['icon'] + ' col-xs-1'
-	      }, void 0, _ref), _jsx('div', {
-	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
-	      }, void 0, 'Business Corporation'), _jsx('div', {
-	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
-	      }, void 0, '2017/5/5'), _jsx('div', {
-	        className: _styles2.default['text'] + ' pull-right'
-	      }, void 0, _jsx('a', {
-	        className: _styles2.default.link
-	      }, void 0, "Let's continue >"))), _jsx('div', {
-	        className: _styles2.default['activity-container'] + ' col-xs-12'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['icon'] + ' col-xs-1'
-	      }, void 0, _ref2), _jsx('div', {
-	        className: _styles2.default['title'] + ' col-sm-4 col-xs-10'
-	      }, void 0, 'Articles of Incorporation'), _jsx('div', {
-	        className: _styles2.default['text'] + ' col-sm-3 col-xs-4'
-	      }, void 0, '2017/6/3'), _jsx('div', {
-	        className: _styles2.default['text'] + ' pull-right'
-	      }, void 0, _jsx('a', {
-	        className: _styles2.default.link
-	      }, void 0, "Let's continue >"))), _jsx('div', {
-	        className: _styles2.default['activity-seemore'] + ' col-xs-12'
-	      }, void 0, _ref3));
-	    }
-	  }]);
-	
-	  return Activity;
-	}(_react.Component);
-	
-	exports.default = Activity;
-
-/***/ },
-/* 71 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _styles = {
-	  "container": "_1IkZNYmDgNWFkJZW_KH5K_",
-	  "container-title": "tcg5Kj168JTbtYGxvsW_h",
-	  "avatar-container": "_3g6g74GKSr4cmjTuBQyiba",
-	  "avatar": "_11zBgkIEcZ9pSpXDK7Hikk",
-	  "info-container": "_2ExC7z9CD1iIhhgdIIIBZF",
-	  "text-box": "_2EIo4P_PRPGU2V28MkOvq6",
-	  "tip-text": "_3anuJKyIXL51bKJq17AEoR",
-	  "title": "_2Lf5TG33mQhUoXE7ymrVuf",
-	  "text": "_2qAYQwT2m8n7u_DXGpaIw3",
-	  "icon": "_2NyxviqL8Ty5EpWn0RGTES",
-	  "button-container": "_1FHflIRKZ0kWneOBK18DkR",
-	  "button-container2": "_1cDxSWDUe6_F-VpWmeC4ha",
-	  "activity-container": "K6gSZ2UdCur7vNC39wSA3",
-	  "link": "_3wu1Tra4mjcGLRhqv2wWs4",
-	  "activity-seemore": "CgvlJC_JB7qR92o-zl6By"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	var Conversation = function (_Component) {
-	  _inherits(Conversation, _Component);
-	
-	  function Conversation(props) {
-	    _classCallCheck(this, Conversation);
-	
-	    return _possibleConstructorReturn(this, (Conversation.__proto__ || Object.getPrototypeOf(Conversation)).call(this, props));
-	  }
-	
-	  _createClass(Conversation, [{
-	    key: 'render',
-	    value: function render() {
-	      return _jsx('div', {
-	        className: _styles2.default.container + ' row'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['container-title'] + ' col-xs-12'
-	      }, void 0, 'Conversations'), _jsx('div', {
-	        className: _styles2.default['text-box'] + ' col-xs-12'
-	      }, void 0, _jsx('span', {
-	        className: _styles2.default['title']
-	      }, void 0, 'Have a question or need help?'), _jsx('span', {
-	        className: _styles2.default['text']
-	      }, void 0, 'mavens are here to assist you with all your legal questions. Let us know how we may help you, and we will get back to you as soon as possible.')), _jsx('div', {
-	        className: _styles2.default['button-container2'] + ' col-xs-12'
-	      }, void 0, _jsx(_Button2.default, {
-	        title: 'Ask a Maven',
-	        onClick: this.props.onAsk
-	      }), _jsx('span', {
-	        className: _styles2.default['tip-text']
-	      }, void 0, 'Click for more access!')));
-	    }
-	  }]);
-	
-	  return Conversation;
-	}(_react.Component);
-	
-	Conversation.PropTypes = {
-	  onAsk: _propTypes2.default.func.isRequired
-	};
-	
-	exports.default = Conversation;
-
-/***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _styles = {
-	  "container": "_1IkZNYmDgNWFkJZW_KH5K_",
-	  "container-title": "tcg5Kj168JTbtYGxvsW_h",
-	  "avatar-container": "_3g6g74GKSr4cmjTuBQyiba",
-	  "avatar": "_11zBgkIEcZ9pSpXDK7Hikk",
-	  "info-container": "_2ExC7z9CD1iIhhgdIIIBZF",
-	  "text-box": "_2EIo4P_PRPGU2V28MkOvq6",
-	  "tip-text": "_3anuJKyIXL51bKJq17AEoR",
-	  "title": "_2Lf5TG33mQhUoXE7ymrVuf",
-	  "text": "_2qAYQwT2m8n7u_DXGpaIw3",
-	  "icon": "_2NyxviqL8Ty5EpWn0RGTES",
-	  "button-container": "_1FHflIRKZ0kWneOBK18DkR",
-	  "button-container2": "_1cDxSWDUe6_F-VpWmeC4ha",
-	  "activity-container": "K6gSZ2UdCur7vNC39wSA3",
-	  "link": "_3wu1Tra4mjcGLRhqv2wWs4",
-	  "activity-seemore": "CgvlJC_JB7qR92o-zl6By"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	var Document = function (_Component) {
-	  _inherits(Document, _Component);
-	
-	  function Document(props) {
-	    _classCallCheck(this, Document);
-	
-	    return _possibleConstructorReturn(this, (Document.__proto__ || Object.getPrototypeOf(Document)).call(this, props));
-	  }
-	
-	  _createClass(Document, [{
-	    key: 'render',
-	    value: function render() {
-	      return _jsx('div', {
-	        className: _styles2.default.container + ' row'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['container-title'] + ' col-xs-12'
-	      }, void 0, 'My Documents'), _jsx('div', {
-	        className: _styles2.default['text-box'] + ' col-xs-12'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['title']
-	      }, void 0, 'View or start a new document:'), _jsx('span', {
-	        className: _styles2.default['text']
-	      }, void 0, 'Sed ut perspiciatis unde omnis iste natus error sit volup tatem accusantium doloremque laudantium, totam rem.')), _jsx('div', {
-	        className: _styles2.default['button-container2'] + ' col-xs-12'
-	      }, void 0, _jsx(_Button2.default, {
-	        title: 'View All',
-	        onClick: this.props.onView
-	      }), _jsx('span', {
-	        className: _styles2.default['tip-text']
-	      }, void 0, 'Click to review my documents.')));
-	    }
-	  }]);
-	
-	  return Document;
-	}(_react.Component);
-	
-	Document.PropTypes = {
-	  onView: _propTypes2.default.func.isRequired
-	};
-	
-	exports.default = Document;
-
-/***/ },
-/* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _styles = {
-	  "container": "_1IkZNYmDgNWFkJZW_KH5K_",
-	  "container-title": "tcg5Kj168JTbtYGxvsW_h",
-	  "avatar-container": "_3g6g74GKSr4cmjTuBQyiba",
-	  "avatar": "_11zBgkIEcZ9pSpXDK7Hikk",
-	  "info-container": "_2ExC7z9CD1iIhhgdIIIBZF",
-	  "text-box": "_2EIo4P_PRPGU2V28MkOvq6",
-	  "tip-text": "_3anuJKyIXL51bKJq17AEoR",
-	  "title": "_2Lf5TG33mQhUoXE7ymrVuf",
-	  "text": "_2qAYQwT2m8n7u_DXGpaIw3",
-	  "icon": "_2NyxviqL8Ty5EpWn0RGTES",
-	  "button-container": "_1FHflIRKZ0kWneOBK18DkR",
-	  "button-container2": "_1cDxSWDUe6_F-VpWmeC4ha",
-	  "activity-container": "K6gSZ2UdCur7vNC39wSA3",
-	  "link": "_3wu1Tra4mjcGLRhqv2wWs4",
-	  "activity-seemore": "CgvlJC_JB7qR92o-zl6By"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	var Membership = function (_Component) {
-	  _inherits(Membership, _Component);
-	
-	  function Membership(props) {
-	    _classCallCheck(this, Membership);
-	
-	    return _possibleConstructorReturn(this, (Membership.__proto__ || Object.getPrototypeOf(Membership)).call(this, props));
-	  }
-	
-	  _createClass(Membership, [{
-	    key: 'render',
-	    value: function render() {
-	      return _jsx('div', {
-	        className: _styles2.default.container + ' row'
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['container-title'] + ' col-xs-12'
-	      }, void 0, 'Membership Details'), _jsx('div', {
-	        className: _styles2.default['text-box'] + ' col-xs-12'
-	      }, void 0, _jsx('span', {
-	        className: _styles2.default['title']
-	      }, void 0, 'Status:'), _jsx('span', {
-	        className: _styles2.default['text']
-	      }, void 0, 'Free Membership')), _jsx('div', {
-	        className: _styles2.default['text-box'] + ' col-xs-12'
-	      }, void 0, _jsx('span', {
-	        className: _styles2.default['title']
-	      }, void 0, 'Services Available:'), _jsx('span', {
-	        className: _styles2.default['text']
-	      }, void 0, 'Access to programs, glossary, most forms, current events, interactions with our Mavens.')), _jsx('div', {
-	        className: _styles2.default['button-container2'] + ' col-xs-12'
-	      }, void 0, _jsx(_Button2.default, {
-	        title: 'Upgrade',
-	        onClick: this.props.onUpgrade
-	      }), _jsx('span', {
-	        className: _styles2.default['tip-text']
-	      }, void 0, 'Click for more success!')));
-	    }
-	  }]);
-	
-	  return Membership;
-	}(_react.Component);
-	
-	Membership.PropTypes = {
-	  onUpgrade: _propTypes2.default.func.isRequired
-	};
-	
-	exports.default = Membership;
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _styles = {
-	  "container": "_1IkZNYmDgNWFkJZW_KH5K_",
-	  "container-title": "tcg5Kj168JTbtYGxvsW_h",
-	  "avatar-container": "_3g6g74GKSr4cmjTuBQyiba",
-	  "avatar": "_11zBgkIEcZ9pSpXDK7Hikk",
-	  "info-container": "_2ExC7z9CD1iIhhgdIIIBZF",
-	  "text-box": "_2EIo4P_PRPGU2V28MkOvq6",
-	  "tip-text": "_3anuJKyIXL51bKJq17AEoR",
-	  "title": "_2Lf5TG33mQhUoXE7ymrVuf",
-	  "text": "_2qAYQwT2m8n7u_DXGpaIw3",
-	  "icon": "_2NyxviqL8Ty5EpWn0RGTES",
-	  "button-container": "_1FHflIRKZ0kWneOBK18DkR",
-	  "button-container2": "_1cDxSWDUe6_F-VpWmeC4ha",
-	  "activity-container": "K6gSZ2UdCur7vNC39wSA3",
-	  "link": "_3wu1Tra4mjcGLRhqv2wWs4",
-	  "activity-seemore": "CgvlJC_JB7qR92o-zl6By"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	var UserInfo = function (_Component) {
-	  _inherits(UserInfo, _Component);
-	
-	  function UserInfo(props) {
-	    _classCallCheck(this, UserInfo);
-	
-	    return _possibleConstructorReturn(this, (UserInfo.__proto__ || Object.getPrototypeOf(UserInfo)).call(this, props));
-	  }
-	
-	  _createClass(UserInfo, [{
-	    key: 'renderInfo',
-	    value: function renderInfo(icon, info) {
-	      // const icons = ['fa-user', 'fa-envelope', 'fa-phone', 'fa-map-marker', 'fa-briefcase'];
-	      // const user = this.props.user;
-	      // if (user) {
-	      // const info = [ `${ user.name.givenName } ${ user.name.familyName }`,
-	      //   user.emails[0].value, user.address, user.occupation ]
-	
-	
-	      return _jsx('div', {
-	        className: '' + _styles2.default['text-box']
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['icon']
-	      }, void 0, _jsx('i', {
-	        className: 'fa ' + icon,
-	        'aria-hidden': 'true'
-	      })), _jsx('span', {
-	        className: _styles2.default['text']
-	      }, void 0, info));
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var user = this.props.user;
-	      console.log(user);
-	      return _jsx('div', {
-	        className: '' + _styles2.default.container
-	      }, void 0, _jsx('div', {
-	        className: _styles2.default['avatar-container']
-	      }, void 0, _jsx('img', {
-	        className: _styles2.default.avatar,
-	        src: user && user.photo ? user.photo : "https://cdn.psychologytoday.com/sites/default/files/blogs/46379/2014/07/155585-159667.gif"
-	      })), _jsx('div', {
-	        className: _styles2.default['info-container']
-	      }, void 0, this.renderInfo('fa-user', user && user.name ? user.name.givenName + ' ' + user.name.familyName : ''), this.renderInfo('fa-envelope', user && user.emails ? user.emails[0].value : ''), this.renderInfo('fa-phone', user && user.phone ? user.phone : ''), this.renderInfo('fa-map-marker', user && user.address ? user.address : ''), this.renderInfo('fa-briefcase', user && user.occupation ? user.occupation : '')), _jsx('div', {
-	        className: '' + _styles2.default['button-container']
-	      }, void 0, _jsx(_Button2.default, {
-	        title: 'Update Info',
-	        onClick: this.props.onUpdate
-	      })));
-	    }
-	  }]);
-	
-	  return UserInfo;
-	}(_react.Component);
-	
-	UserInfo.PropTypes = {
-	  onUpdate: _propTypes2.default.func.isRequired
-	};
-	
-	exports.default = UserInfo;
-
-/***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 	
 	// Import styles
 	
 	
+	// Import Components
+	
+	// Import Actions
+	
+	// Import Assets
+	
+	var _ref = _jsx(_reactBootstrap.Modal.Title, {}, void 0, 'Contact Us');
+	
+	var _ref2 = _jsx('label', {
+	  htmlFor: 'email'
+	}, void 0, 'Your Email address :');
+	
+	var _ref3 = _jsx('span', {
+	  className: 'input-group-addon'
+	}, void 0, _jsx('i', {
+	  className: 'glyphicon glyphicon-envelope'
+	}));
+	
+	var _ref4 = _jsx('br', {});
+	
+	var _ref5 = _jsx('label', {
+	  htmlFor: 'email'
+	}, void 0, 'Your Phone Number :');
+	
+	var _ref6 = _jsx('span', {
+	  className: 'input-group-addon'
+	}, void 0, _jsx('i', {
+	  className: 'glyphicon glyphicon-earphone'
+	}));
+	
+	var _ref7 = _jsx('br', {});
+	
+	var _ref8 = _jsx('label', {
+	  htmlFor: 'email'
+	}, void 0, 'Message :');
+	
+	var _ref9 = _jsx('span', {
+	  className: 'input-group-addon'
+	}, void 0, _jsx('i', {
+	  className: 'glyphicon glyphicon-pencil'
+	}));
+	
+	var _ref10 = _jsx('br', {});
+	
+	var _ref11 = _jsx('div', {
+	  className: 'form-group'
+	}, void 0, _jsx('div', {
+	  className: 'col-md-12'
+	}, void 0, _jsx('button', {
+	  type: 'submit',
+	  className: 'btn btn-info pull-right'
+	}, void 0, 'Send ', _jsx('span', {
+	  className: 'glyphicon glyphicon-send'
+	}))));
+	
+	var ContactDialog = function (_Component) {
+	  _inherits(ContactDialog, _Component);
+	
+	  function ContactDialog(props) {
+	    _classCallCheck(this, ContactDialog);
+	
+	    var _this = _possibleConstructorReturn(this, (ContactDialog.__proto__ || Object.getPrototypeOf(ContactDialog)).call(this, props));
+	
+	    _this.state = {
+	      email: '',
+	      phone: '',
+	      message: ''
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(ContactDialog, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'onChange',
+	    value: function onChange(e) {
+	      var target = e.target;
+	      var value = target.type === 'checkbox' ? target.checked : target.value;
+	      var name = target.name;
+	
+	      this.setState(_defineProperty({}, name, value));
+	    }
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit(e) {
+	      e.preventDefault();
+	      alert('onSubmit');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _jsx(_reactBootstrap.Modal, {
+	        show: this.props.show,
+	        onHide: this.props.close
+	      }, void 0, _jsx(_reactBootstrap.Modal.Header, {
+	        bsClass: _styles2.default['modal-header'],
+	        closeButton: true
+	      }, void 0, _ref), _jsx(_reactBootstrap.Modal.Body, {
+	        bsClass: _styles2.default['modal-body']
+	      }, void 0, _jsx('div', {
+	        className: 'container-fluid'
+	      }, void 0, _jsx('div', {
+	        className: ''
+	      }, void 0, _jsx('form', {
+	        className: 'form',
+	        onSubmit: this.onSubmit.bind(this)
+	      }, void 0, _jsx('div', {
+	        className: 'form-group'
+	      }, void 0, _jsx('div', {
+	        className: 'col-md-12'
+	      }, void 0, _ref2, _jsx('div', {
+	        className: 'input-group'
+	      }, void 0, _ref3, _jsx('input', {
+	        name: 'email',
+	        placeholder: 'Email Address',
+	        className: 'form-control',
+	        type: 'text',
+	        required: true,
+	        value: this.state.email,
+	        onChange: this.onChange.bind(this)
+	      })), _ref4)), _jsx('div', {
+	        className: 'form-group'
+	      }, void 0, _jsx('div', {
+	        className: 'col-md-12'
+	      }, void 0, _ref5, _jsx('div', {
+	        className: 'input-group'
+	      }, void 0, _ref6, _jsx('input', {
+	        name: 'phone',
+	        placeholder: '(000)000-000000',
+	        className: 'form-control',
+	        type: 'text',
+	        required: true,
+	        value: this.state.phone,
+	        onChange: this.onChange.bind(this)
+	      })), _ref7)), _jsx('div', {
+	        className: 'form-group'
+	      }, void 0, _jsx('div', {
+	        className: 'col-md-12 inputGroupContainer'
+	      }, void 0, _ref8, _jsx('div', {
+	        className: 'input-group'
+	      }, void 0, _ref9, _jsx('textarea', {
+	        className: 'form-control',
+	        name: 'message',
+	        placeholder: 'Message',
+	        rows: '4',
+	        cols: '50',
+	        required: true,
+	        value: this.state.message,
+	        onChange: this.onChange.bind(this)
+	      }, void 0)), _ref10)), _ref11)))), _jsx(_reactBootstrap.Modal.Footer, {
+	        bsClass: _styles2.default['modal-footer']
+	      }, void 0));
+	    }
+	  }]);
+	
+	  return ContactDialog;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	function mapStateToProps(store) {
+	  return {};
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ContactDialog);
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('li', {}, void 0, 'The  purpose  of  the  corporation  is  to  engage  in  any  lawful  act  or  activity  for which a corporation may be organized under the  General Corporation Law of California other than the  banking  business, the trust company  business or the practice  of  a  profession  permitted  to  be  incorporated  by  the  California Corporations Code.');
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('br', {});
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref8 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
+	
+	var _ref9 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'CA Form Articles of Incorporation 1'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF CALIFORNIA', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address in the State of California of the corporation is:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_city, ' ', info.company_address_street, ' ', _ref3, info.company_address_state, ', ', info.company_address_zipcode))), _ref4, _jsx('li', {}, void 0, 'The name and address in the State of California of the corporation\u2019s agent for service of process is:', _ref5, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_address_city, ' ', info.registered_agent_address_street, _ref6, info.registered_agent_address_state, ', ', info.registered_agent_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, '.'), _ref7, _ref8)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref9, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('li', {}, void 0, 'The  purpose  of  the  corporation  is  to  engage  in  any  lawful  act  or  activity  for which a corporation may be organized under the General Corporation Law of California other than the  banking  business, the trust company  business or the practice  of  a  profession  permitted  to  be  incorporated  by  the  California Corporations Code.');
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
+	
+	var _ref8 = _jsx('br', {});
+	
+	var _ref9 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'CA Form Articles of Incorporation 2'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF CALIFORNIA', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address in the State of California of the corporation is:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_city, ' ', info.company_address_street, _ref3, info.company_address_state, ', ', info.company_address_zipcode))), _ref4, _jsx('li', {}, void 0, 'The name of the corporation\u2019s agent for service of process is:', _ref5, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' '))), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, '.'), _ref6, _ref7)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref8, _ref9, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('br', {});
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
+	
+	var _ref8 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'CA Form Articles of Professional Incorporation 1'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF CALIFORNIA', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address in the State of California of the corporation is:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_city, ' ', info.company_address_street, ' ', _ref3, info.company_address_state, ', ', info.company_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is a professional corporation within the meaning of California Corporations Code section 13400 et seq. The purpose of the corporation is to engage in the profession of ', info.company_profession, ' and any other lawful activities (other than the banking or trust company business) not prohibited to a corporation engaging in such profession by applicable laws and regulations of California.'), _jsx('li', {}, void 0, 'The name and address in the State of California of the corporation\u2019s agent for service of process is:', _ref4, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_address_city, ' ', info.registered_agent_address_street, _ref5, info.registered_agent_address_state, ', ', info.registered_agent_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, '.'), _ref6, _ref7)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref8, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('br', {});
+	
+	var _ref5 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref6 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
+	
+	var _ref7 = _jsx('br', {});
+	
+	var _ref8 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'CA Form Articles of Professional Incorporation 2'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF CALIFORNIA', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address in the State of California of the corporation is:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_city, ' ', info.company_address_street, _ref3, info.company_address_state, ', ', info.company_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is a professional corporation within the meaning of California Corporations Code section 13400 et seq. The purpose of the corporation is to engage in the profession of ', info.company_profession, ' and any other lawful activities (other than the banking or trust company business) not prohibited to a corporation engaging in such profession by applicable laws and regulations of California.'), _jsx('li', {}, void 0, 'The name of the corporation\u2019s agent for service of process is:', _ref4, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' '))), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, '.'), _ref5, _ref6)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref7, _ref8, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(0);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -4879,15 +6547,119 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactHtmlParser = __webpack_require__(7);
+	var _reactBootstrap = __webpack_require__(12);
+	
+	var _reactHtmlParser = __webpack_require__(6);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _Button = __webpack_require__(5);
+	var _CAFormProfessionalIncorporate = __webpack_require__(89);
+	
+	var _CAFormProfessionalIncorporate2 = _interopRequireDefault(_CAFormProfessionalIncorporate);
+	
+	var _CAFormProfessionalIncorporate3 = __webpack_require__(88);
+	
+	var _CAFormProfessionalIncorporate4 = _interopRequireDefault(_CAFormProfessionalIncorporate3);
+	
+	var _CAFormIncorporate = __webpack_require__(87);
+	
+	var _CAFormIncorporate2 = _interopRequireDefault(_CAFormIncorporate);
+	
+	var _CAFormIncorporate3 = __webpack_require__(86);
+	
+	var _CAFormIncorporate4 = _interopRequireDefault(_CAFormIncorporate3);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	var DocumentDialog = function (_React$Component) {
+	  _inherits(DocumentDialog, _React$Component);
+	
+	  function DocumentDialog(props) {
+	    _classCallCheck(this, DocumentDialog);
+	
+	    return _possibleConstructorReturn(this, (DocumentDialog.__proto__ || Object.getPrototypeOf(DocumentDialog)).call(this, props));
+	  }
+	
+	  _createClass(DocumentDialog, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx(_reactBootstrap.Modal, {
+	        show: this.props.show,
+	        onHide: this.props.close
+	      }, void 0, this.props.data.form === 'ca_form_articles_of_professional_incorporation_1' && _jsx(_CAFormProfessionalIncorporate4.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'ca_form_articles_of_professional_incorporation_2' && _jsx(_CAFormProfessionalIncorporate2.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'ca_form_articles_of_incorporation_1' && _jsx(_CAFormIncorporate4.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'ca_form_articles_of_incorporation_2' && _jsx(_CAFormIncorporate2.default, {
+	        data: this.props.data
+	      }));
+	    }
+	  }]);
+	
+	  return DocumentDialog;
+	}(_react2.default.Component);
+	
+	exports.default = DocumentDialog;
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(4);
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _Cover = __webpack_require__(21);
+	var _Cover = __webpack_require__(23);
 	
 	var _Cover2 = _interopRequireDefault(_Cover);
 	
@@ -4903,7 +6675,28 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _ProgramActions = __webpack_require__(8);
+	
+	var _Document = __webpack_require__(90);
+	
+	var _Document2 = _interopRequireDefault(_Document);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import styles
+	
+	
+	// Import Actions
+	
+	
+	// Import components
+	
 	
 	var btnStyle = {
 	  backgroundColor: 'white',
@@ -4920,50 +6713,93 @@
 	});
 	
 	var _ref2 = _jsx(_Cover2.default, {
-	  title: 'VIEW',
-	  icon: 'fa-eye',
-	  description: 'Review your document'
-	});
-	
-	var _ref3 = _jsx(_Cover2.default, {
 	  title: 'EDIT',
 	  icon: 'fa-pencil',
 	  description: 'Make changes to document'
 	});
 	
-	var _ref4 = _jsx(_Cover2.default, {
+	var _ref3 = _jsx(_Cover2.default, {
 	  title: 'SAVE',
 	  icon: 'fa-save',
 	  description: 'Save document to profile'
 	});
 	
-	var _ref5 = _jsx('i', {
+	var _ref4 = _jsx('i', {
 	  className: 'fa fa-download',
 	  'aria-hidden': 'true'
 	}, void 0, '\xA0\xA0');
 	
-	function Form(props) {
-	  return _jsx('div', {
-	    className: _styles2.default.container + ' wow fadeIn'
-	  }, void 0, _jsx('div', {
-	    className: _styles2.default.header
-	  }, void 0, 'Congratulation !'), _jsx('div', {
-	    className: _styles2.default.content
-	  }, void 0, _jsx('span', {
-	    className: _styles2.default.message
-	  }, void 0, _ref, '\xA0\xA0Your document is ready to go!'), _jsx('div', {
-	    className: _styles2.default['actions']
-	  }, void 0, _ref2, _ref3, _ref4)), _jsx('div', {
-	    className: _styles2.default.footer
-	  }, void 0, _jsx('div', {
-	    className: _styles2.default.button
-	  }, void 0, _ref5, 'CHECKOUT TO DOWNLOAD')));
-	}
+	var Form = function (_Component) {
+	  _inherits(Form, _Component);
 	
-	exports.default = Form;
+	  function Form(props) {
+	    _classCallCheck(this, Form);
+	
+	    var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
+	
+	    _this.state = {
+	      showDocument: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Form, [{
+	    key: 'onView',
+	    value: function onView() {
+	      //if (props.data.form === 'ca_form_articles_of_professional_incorporation_1')
+	      // props.dispatch(setFinalNode(props.data.form, props.data));
+	      this.setState({ showDocument: true });
+	    }
+	  }, {
+	    key: 'onHideDocument',
+	    value: function onHideDocument() {
+	      this.setState({ showDocument: false });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' wow fadeIn'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.header
+	      }, void 0, 'Congratulations !'), _jsx('div', {
+	        className: _styles2.default.content
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default.message
+	      }, void 0, _ref, '\xA0\xA0Your document is ready to go!'), _jsx('div', {
+	        className: _styles2.default['actions']
+	      }, void 0, _jsx(_Cover2.default, {
+	        title: 'VIEW',
+	        icon: 'fa-eye',
+	        description: 'Review your document',
+	        onClick: function onClick(e) {
+	          return _this2.onView();
+	        }
+	      }), _ref2, _ref3)), _jsx('div', {
+	        className: _styles2.default.footer
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.button
+	      }, void 0, _ref4, 'CHECKOUT TO DOWNLOAD')), _jsx(_Document2.default, {
+	        show: this.state.showDocument,
+	        close: this.onHideDocument.bind(this),
+	        data: this.props.data
+	      }));
+	    }
+	  }]);
+	
+	  return Form;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state) {
+	  return {};
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Form);
 
 /***/ },
-/* 76 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4985,9 +6821,529 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _Button = __webpack_require__(5);
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(4);
 	
 	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Document = __webpack_require__(13);
+	
+	var _Document2 = _interopRequireDefault(_Document);
+	
+	var _Dialog = __webpack_require__(34);
+	
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+	
+	var _ProgramActions = __webpack_require__(8);
+	
+	var _styles = {
+	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
+	  "title": "jwmbI_Fh0D47znB5QS7WH",
+	  "message": "_1u41KGh9-5gYM4lLE5AAip",
+	  "footer": "_18H2Us9qbgxdhALAFH0up9",
+	  "text": "_3Vr0szzy1r478kZa_E2d2T",
+	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
+	  "input": "aB7cqZkM_qciSVMyaCn9Z",
+	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*import React, { Component } from 'react';
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import PropTypes from 'prop-types';
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import Button from '../../../../../components/Button/Button';
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               // Import styles
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import styles from './styles.css';
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               const btnStyle = {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 backgroundColor: 'white',
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 color: '#02b2fb',
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 fontSize: '17rem',
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 fontWeight: 400,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 margin: '0rem 10rem',
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 padding: '7rem 18rem'
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               class CalculateTax extends Component {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 constructor(props) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   super(props);
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.state = {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     price: 0,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     tax: 0
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 onPrice(e) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   const price = e.target.value;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   var tax = price;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   var taxRate = 0.0;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   if (this.props.county === 'San Francisco') {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     if (price > 100 && price <= 250000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 2.50;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 250000 && price <= 1000000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 3.40;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 1000000 && price <= 5000000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 3.75;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 5000000 && price <= 10000000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 11.25;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 10000000 && price <= 25000000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 13.75;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 25000000) {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 15.00;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   } else {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     taxRate = this.props.taxRate ? this.props.taxRate : 0;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   tax = Math.ceil(tax / 500) * taxRate;
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.setState({ price, tax });
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 render() {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   return (
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <div className={ `${styles.container} wow fadeIn`}>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <h1 className={ styles.title }>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Calculation
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </h1>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <div className={ styles['input-container'] }>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Purchase Price :
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <input type="number" className={`${styles.input}`} name="price" min="0.00" value={ this.state.price } placeholder="Enter Purchase Price" onChange={this.onPrice.bind(this)} />
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <br />
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Calcuated Tax:
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <input type="text" className={`${styles.input}`} placeholder="" value={ this.state.tax } readOnly/>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </div>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <div className={ styles.footer }>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <span className={ styles['text'] }>Was this helpful?</span>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <div className={ styles['btn-container'] }>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <Button title="Yes" style={ btnStyle } />
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <Button title="Need Help" style={ btnStyle } />
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </div>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </div>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </div>
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   );
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               }
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               CalculateTax.propTypes = {
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 title: PropTypes.string,
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 message: PropTypes.string
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               };
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               export default CalculateTax;*/
+	
+	// Import Actions
+	
+	
+	// Import styles
+	
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx(_Button2.default, {
+	  title: 'Need Help',
+	  style: btnStyle
+	});
+	
+	var Topic = function (_Component) {
+	  _inherits(Topic, _Component);
+	
+	  function Topic(props) {
+	    _classCallCheck(this, Topic);
+	
+	    var _this = _possibleConstructorReturn(this, (Topic.__proto__ || Object.getPrototypeOf(Topic)).call(this, props));
+	
+	    _this.state = {
+	      showDialog: false,
+	      price: 0,
+	      countyTax: 0,
+	      cityTax: 0
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Topic, [{
+	    key: 'onCloseDialog',
+	    value: function onCloseDialog() {
+	      this.setState({ showDialog: false });
+	    }
+	  }, {
+	    key: 'onShowDialog',
+	    value: function onShowDialog() {
+	      this.setState({ showDialog: true });
+	    }
+	  }, {
+	    key: 'onBack',
+	    value: function onBack() {
+	      this.props.back();
+	    }
+	  }, {
+	    key: 'calcCountyTax',
+	    value: function calcCountyTax(price) {
+	      var taxRate = 0.0;
+	      var _props$calcTaxInfo = this.props.calcTaxInfo,
+	          county = _props$calcTaxInfo.county,
+	          city = _props$calcTaxInfo.city,
+	          countyTaxRate = _props$calcTaxInfo.countyTaxRate;
+	
+	
+	      if (county === 'San Francisco') {
+	        if (price > 100 && price <= 250000) {
+	          taxRate = 2.50;
+	        } else if (price > 250000 && price <= 1000000) {
+	          taxRate = 3.40;
+	        } else if (price > 1000000 && price <= 5000000) {
+	          taxRate = 3.75;
+	        } else if (price > 5000000 && price <= 10000000) {
+	          taxRate = 11.25;
+	        } else if (price > 10000000 && price <= 25000000) {
+	          taxRate = 13.75;
+	        } else if (price > 25000000) {
+	          taxRate = 15.00;
+	        }
+	      } else {
+	        taxRate = countyTaxRate ? countyTaxRate : 0;
+	      }
+	      return Math.ceil(price / 500) * taxRate;
+	    }
+	  }, {
+	    key: 'calcCityTax',
+	    value: function calcCityTax(price) {
+	      var taxRate = this.props.calcTaxInfo.cityTaxRate ? this.props.calcTaxInfo.cityTaxRate : 0;
+	      return Math.ceil(price / 500) * taxRate;
+	    }
+	  }, {
+	    key: 'onPrice',
+	    value: function onPrice(e) {
+	      var price = e.target.value;
+	
+	      this.setState({
+	        price: price,
+	        countyTax: this.calcCountyTax(price),
+	        cityTax: this.calcCityTax(price)
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          title = _props.title,
+	          message = _props.message,
+	          to = _props.to,
+	          toForm = _props.toForm;
+	
+	      var toTitle = '';
+	      var toDescription = '';
+	
+	      if (to === 'Corp') {
+	        toTitle = 'Articles of Professional Incorporation';
+	        toDescription = "Let's begin the professional incorporation process.";
+	      } else if (to === 'S-Corp') {
+	        toTitle = 'Articles of Incorporation';
+	        toDescription = "Let's begin the incorporation process.";
+	      }
+	
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' wow fadeIn'
+	      }, void 0, _jsx('h1', {
+	        className: _styles2.default.title
+	      }, void 0, 'Tax Calculation'), _jsx('div', {
+	        className: _styles2.default['input-container']
+	      }, void 0, 'Purchase Price :', _jsx('input', {
+	        type: 'number',
+	        className: '' + _styles2.default.input,
+	        name: 'price',
+	        min: '0.00',
+	        value: this.state.price,
+	        placeholder: 'Enter Purchase Price',
+	        onChange: this.onPrice.bind(this)
+	      }), _ref, 'County Tax :', _jsx('input', {
+	        type: 'text',
+	        className: '' + _styles2.default.input,
+	        placeholder: '',
+	        value: this.state.countyTax,
+	        readOnly: true
+	      }), 'City Tax :', _jsx('input', {
+	        type: 'text',
+	        className: '' + _styles2.default.input,
+	        placeholder: '',
+	        value: this.state.cityTax,
+	        readOnly: true
+	      }), 'Total Tax :', _jsx('input', {
+	        type: 'text',
+	        className: '' + _styles2.default.input,
+	        placeholder: '',
+	        value: this.state.countyTax + this.state.cityTax,
+	        readOnly: true
+	      })), _jsx('div', {
+	        className: _styles2.default.footer
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Back',
+	        style: btnStyle,
+	        onClick: this.onBack.bind(this)
+	      }), _jsx('div', {
+	        className: _styles2.default['btn-container']
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default['text']
+	      }, void 0, 'Was this helpful? \xA0\xA0\xA0\xA0 '), _jsx(_Button2.default, {
+	        title: 'Yes',
+	        style: btnStyle,
+	        onClick: this.onShowDialog.bind(this)
+	      }), _ref2)), _jsx(_Dialog2.default, {
+	        show: this.state.showDialog,
+	        close: this.onCloseDialog.bind(this)
+	      }));
+	    }
+	  }]);
+	
+	  return Topic;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	function mapStateToProps(store) {
+	  return {};
+	}
+	
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    back: function back() {
+	      return dispatch((0, _ProgramActions.hideFinalNode)());
+	    },
+	    setFinalNode: function setFinalNode(kind, data) {
+	      return dispatch((0, _ProgramActions.setFinalNode)(kind, data));
+	    }
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Cover = __webpack_require__(23);
+	
+	var _Cover2 = _interopRequireDefault(_Cover);
+	
+	var _styles = {
+	  "container": "_7TVH3fZZgScqqvRueJycy",
+	  "header": "vn0ong9vj-71lsR8Ai9ps",
+	  "content": "_3DcpKlTnAxjjTesWN8lU1r",
+	  "message": "PME5DpvIxjhDxot7RSbpJ",
+	  "actions": "_39LBOzkxP8gC1pYsuxlR0M",
+	  "footer": "_2PUBeYc-shW_HNAo_iFI4F",
+	  "button": "_3-Pu11oWeEqefx8hKrRvaw",
+	  "modal": "_2-kdaQbqlm3dXm2pn8nLoo"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import styles
+	
+	
+	// Import Actions
+	
+	// Import components
+	
+	var btnStyle = {
+	  backgroundColor: 'white',
+	  color: '#02b2fb',
+	  fontSize: '17rem',
+	  fontWeight: 400,
+	  margin: '0rem 10rem',
+	  padding: '7rem 18rem'
+	};
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-envelop',
+	  'aria-hidden': 'true'
+	}, void 0, '\xA0\xA0');
+	
+	var Topic = function (_Component) {
+	  _inherits(Topic, _Component);
+	
+	  function Topic(props) {
+	    _classCallCheck(this, Topic);
+	
+	    return _possibleConstructorReturn(this, (Topic.__proto__ || Object.getPrototypeOf(Topic)).call(this, props));
+	  }
+	
+	  _createClass(Topic, [{
+	    key: 'onHome',
+	    value: function onHome() {
+	      _reactRouter.browserHistory.push('/');
+	    }
+	  }, {
+	    key: 'onView',
+	    value: function onView() {
+	      _reactRouter.browserHistory.push('/legaltopics');
+	    }
+	  }, {
+	    key: 'onSave',
+	    value: function onSave() {
+	      alert('save');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      return _jsx('div', {
+	        className: _styles2.default.container + ' wow fadeIn'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.header
+	      }, void 0, 'Thank you!'), _jsx('div', {
+	        className: _styles2.default.content
+	      }, void 0, _jsx('span', {
+	        className: _styles2.default.message
+	      }, void 0, 'We hope you enjoyed your experience with us. Is there something else we may help you with?'), _jsx('div', {
+	        className: _styles2.default['actions']
+	      }, void 0, _jsx(_Cover2.default, {
+	        title: 'NO',
+	        icon: 'fa-home',
+	        description: 'Go back to home page',
+	        onClick: function onClick(e) {
+	          return _this2.onHome();
+	        }
+	      }), _jsx(_Cover2.default, {
+	        title: 'YES',
+	        icon: 'fa-tasks',
+	        description: 'View other legal topics',
+	        onClick: function onClick(e) {
+	          return _this2.onView();
+	        }
+	      }), _jsx(_Cover2.default, {
+	        title: 'SAVE',
+	        icon: 'fa-user',
+	        description: 'Save results and open profile',
+	        onClick: function onClick(e) {
+	          return _this2.onSave();
+	        }
+	      }))), _jsx('div', {
+	        className: _styles2.default.footer
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.button
+	      }, void 0, _ref, 'LEAVE A COMMENT/MESSAGE')));
+	    }
+	  }]);
+	
+	  return Topic;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	function mapStateToProps(state) {
+	  return {};
+	}
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Topic);
+
+/***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactHtmlParser = __webpack_require__(6);
+	
+	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Document = __webpack_require__(13);
+	
+	var _Document2 = _interopRequireDefault(_Document);
+	
+	var _Dialog = __webpack_require__(34);
+	
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+	
+	var _ProgramActions = __webpack_require__(8);
 	
 	var _styles = {
 	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
@@ -5010,6 +7366,9 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	// Import Actions
+	
+	
 	// Import styles
 	
 	
@@ -5025,283 +7384,126 @@
 	var _ref = _jsx('br', {});
 	
 	var _ref2 = _jsx(_Button2.default, {
-	  title: 'Yes',
-	  style: btnStyle
-	});
-	
-	var _ref3 = _jsx(_Button2.default, {
 	  title: 'Need Help',
 	  style: btnStyle
 	});
 	
-	var CalculateTax = function (_Component) {
-	  _inherits(CalculateTax, _Component);
+	var Topic = function (_Component) {
+	  _inherits(Topic, _Component);
 	
-	  function CalculateTax(props) {
-	    _classCallCheck(this, CalculateTax);
+	  function Topic(props) {
+	    _classCallCheck(this, Topic);
 	
-	    var _this = _possibleConstructorReturn(this, (CalculateTax.__proto__ || Object.getPrototypeOf(CalculateTax)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Topic.__proto__ || Object.getPrototypeOf(Topic)).call(this, props));
 	
 	    _this.state = {
-	      price: 0,
-	      tax: 0
+	      showDialog: false
 	    };
 	    return _this;
 	  }
 	
-	  _createClass(CalculateTax, [{
-	    key: 'onPrice',
-	    value: function onPrice(e) {
-	      var price = e.target.value;
-	      var tax = price;
-	      var taxRate = 0.0;
-	      if (this.props.city === 'San Francisco') {
-	        if (price > 100 && price <= 250000) {
-	          taxRate = 2.50;
-	        } else if (price > 250000 && price <= 1000000) {
-	          taxRate = 3.40;
-	        } else if (price > 1000000 && price <= 5000000) {
-	          taxRate = 3.75;
-	        } else if (price > 5000000 && price <= 10000000) {
-	          taxRate = 11.25;
-	        } else if (price > 10000000 && price <= 25000000) {
-	          taxRate = 13.75;
-	        } else if (price > 25000000) {
-	          taxRate = 15.00;
-	        }
-	      } else {
-	        taxRate = this.props.taxRate ? this.props.taxRate : 0;
-	      }
-	      tax = Math.ceil(tax / 500) * taxRate;
-	      this.setState({ price: price, tax: tax });
+	  _createClass(Topic, [{
+	    key: 'onCloseDialog',
+	    value: function onCloseDialog() {
+	      this.setState({ showDialog: false });
+	    }
+	  }, {
+	    key: 'onShowDialog',
+	    value: function onShowDialog() {
+	      this.setState({ showDialog: true });
+	    }
+	  }, {
+	    key: 'onBack',
+	    value: function onBack() {
+	      this.props.back();
+	    }
+	  }, {
+	    key: 'onCalcTax',
+	    value: function onCalcTax() {
+	      this.props.setFinalNode('CalculateTax', { calcTaxInfo: this.props.calcTaxInfo });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _props = this.props,
+	          title = _props.title,
+	          message = _props.message,
+	          to = _props.to,
+	          toForm = _props.toForm;
+	
+	      var toTitle = '';
+	      var toDescription = '';
+	
+	      if (to === 'Corp') {
+	        toTitle = 'Articles of Professional Incorporation';
+	        toDescription = "Let's begin the professional incorporation process.";
+	      } else if (to === 'S-Corp') {
+	        toTitle = 'Articles of Incorporation';
+	        toDescription = "Let's begin the incorporation process.";
+	      }
+	
 	      return _jsx('div', {
 	        className: _styles2.default.container + ' wow fadeIn'
 	      }, void 0, _jsx('h1', {
 	        className: _styles2.default.title
-	      }, void 0, 'Calculation'), _jsx('div', {
-	        className: _styles2.default['input-container']
-	      }, void 0, 'Purchase Price :', _jsx('input', {
-	        type: 'number',
-	        className: '' + _styles2.default.input,
-	        name: 'price',
-	        min: '0.00',
-	        value: this.state.price,
-	        placeholder: 'Enter Purchase Price',
-	        onChange: this.onPrice.bind(this)
-	      }), _ref, 'Calcuated Tax:', _jsx('input', {
-	        type: 'text',
-	        className: '' + _styles2.default.input,
-	        placeholder: '',
-	        value: this.state.tax,
-	        readOnly: true
+	      }, void 0, title), _jsx('div', {
+	        className: _styles2.default.message
+	      }, void 0, to && _jsx(_Document2.default, {
+	        empty: false,
+	        icon: 'fa-file',
+	        title: toTitle,
+	        description: toDescription,
+	        onClick: function onClick(e) {
+	          return toForm(to);
+	        },
+	        style: { margin: '0 0 0rem 30rem', float: 'right' }
+	      }), (0, _reactHtmlParser2.default)(message), _ref, this.props.calcTaxInfo && _jsx(_Button2.default, {
+	        title: 'Calculate Tax',
+	        onClick: this.onCalcTax.bind(this)
 	      })), _jsx('div', {
 	        className: _styles2.default.footer
+	      }, void 0, _jsx(_Button2.default, {
+	        title: 'Back',
+	        style: btnStyle,
+	        onClick: this.onBack.bind(this)
+	      }), _jsx('div', {
+	        className: _styles2.default['btn-container']
 	      }, void 0, _jsx('span', {
 	        className: _styles2.default['text']
-	      }, void 0, 'Was this helpful?'), _jsx('div', {
-	        className: _styles2.default['btn-container']
-	      }, void 0, _ref2, _ref3)));
+	      }, void 0, 'Was this helpful? \xA0\xA0\xA0\xA0 '), _jsx(_Button2.default, {
+	        title: 'Yes',
+	        style: btnStyle,
+	        onClick: this.onShowDialog.bind(this)
+	      }), _ref2)), _jsx(_Dialog2.default, {
+	        show: this.state.showDialog,
+	        close: this.onCloseDialog.bind(this)
+	      }));
 	    }
 	  }]);
 	
-	  return CalculateTax;
+	  return Topic;
 	}(_react.Component);
 	
-	exports.default = CalculateTax;
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	// Import styles
-	
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactHtmlParser = __webpack_require__(7);
-	
-	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	var _styles = {
-	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
-	  "title": "jwmbI_Fh0D47znB5QS7WH",
-	  "message": "_1u41KGh9-5gYM4lLE5AAip",
-	  "footer": "_18H2Us9qbgxdhALAFH0up9",
-	  "text": "_3Vr0szzy1r478kZa_E2d2T",
-	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
-	  "input": "aB7cqZkM_qciSVMyaCn9Z",
-	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var btnStyle = {
-	  backgroundColor: 'white',
-	  color: '#02b2fb',
-	  fontSize: '17rem',
-	  fontWeight: 400,
-	  margin: '0rem 10rem',
-	  padding: '7rem 18rem'
-	};
-	
-	var _ref = _jsx(_Button2.default, {
-	  title: 'Yes',
-	  style: btnStyle
-	});
-	
-	var _ref2 = _jsx(_Button2.default, {
-	  title: 'Need Help',
-	  style: btnStyle
-	});
-	
-	function Normal(props) {
-	  var title = props.title,
-	      message = props.message;
-	
-	  return _jsx('div', {
-	    className: _styles2.default.container + ' wow fadeIn'
-	  }, void 0, _jsx('h1', {
-	    className: _styles2.default.title
-	  }, void 0, title), _jsx('div', {
-	    className: _styles2.default.message
-	  }, void 0, (0, _reactHtmlParser2.default)(message)), _jsx('div', {
-	    className: _styles2.default.footer
-	  }, void 0, _jsx('span', {
-	    className: _styles2.default['text']
-	  }, void 0, 'Was this helpful?'), _jsx('div', {
-	    className: _styles2.default['btn-container']
-	  }, void 0, _ref, _ref2)));
+	// Retrieve data from store as props
+	function mapStateToProps(store) {
+	  return {};
 	}
 	
-	exports.default = Normal;
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	// Import styles
-	
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactHtmlParser = __webpack_require__(7);
-	
-	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
-	
-	var _Button = __webpack_require__(5);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	var _Cover = __webpack_require__(21);
-	
-	var _Cover2 = _interopRequireDefault(_Cover);
-	
-	var _styles = {
-	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
-	  "title": "jwmbI_Fh0D47znB5QS7WH",
-	  "message": "_1u41KGh9-5gYM4lLE5AAip",
-	  "footer": "_18H2Us9qbgxdhALAFH0up9",
-	  "text": "_3Vr0szzy1r478kZa_E2d2T",
-	  "btn-container": "_2Y7IRbgov9Q1gbz8fWFGLB",
-	  "input": "aB7cqZkM_qciSVMyaCn9Z",
-	  "input-container": "_2HwvKAwiIEy97_Zg-jJ_PQ"
-	};
-	
-	var _styles2 = _interopRequireDefault(_styles);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var btnStyle = {
-	  backgroundColor: 'white',
-	  color: '#02b2fb',
-	  fontSize: '17rem',
-	  fontWeight: 400,
-	  margin: '0rem 10rem',
-	  padding: '7rem 18rem'
-	};
-	
-	var _ref = _jsx(_Button2.default, {
-	  title: 'Yes',
-	  style: btnStyle
-	});
-	
-	var _ref2 = _jsx(_Button2.default, {
-	  title: 'Need Help',
-	  style: btnStyle
-	});
-	
-	function ToForm(props) {
-	  var title = props.title,
-	      message = props.message;
-	
-	
-	  return _jsx('div', {
-	    className: _styles2.default.container + ' wow fadeIn'
-	  }, void 0, _jsx('h1', {
-	    className: _styles2.default.title
-	  }, void 0, title), _jsx('div', {
-	    className: _styles2.default.message
-	  }, void 0, _jsx(_Cover2.default, {
-	    title: 'Articles of Incorporation',
-	    icon: 'fa-book',
-	    description: 'Let\'s begin the incorporation process.',
-	    style: { margin: '20rem', float: 'right' },
-	    onClick: function onClick(e) {
-	      return props.onClick(props.to);
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    back: function back() {
+	      return dispatch((0, _ProgramActions.hideFinalNode)());
+	    },
+	    setFinalNode: function setFinalNode(kind, data) {
+	      return dispatch((0, _ProgramActions.setFinalNode)(kind, data));
 	    }
-	  }), (0, _reactHtmlParser2.default)(message)), _jsx('div', {
-	    className: _styles2.default.footer
-	  }, void 0, _jsx('span', {
-	    className: _styles2.default['text']
-	  }, void 0, 'Was this helpful?'), _jsx('div', {
-	    className: _styles2.default['btn-container']
-	  }, void 0, _ref, _ref2)));
+	  };
 	}
 	
-	exports.default = ToForm;
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
 
 /***/ },
-/* 79 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5325,47 +7527,39 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
-	var _reactHtmlParser = __webpack_require__(7);
+	var _reactHtmlParser = __webpack_require__(6);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormArticlesOfIncorporation = __webpack_require__(85);
-	
-	var _CAFormArticlesOfIncorporation2 = _interopRequireDefault(_CAFormArticlesOfIncorporation);
-	
-	var _CAFormArticlesOfIncorporation3 = __webpack_require__(86);
-	
-	var _CAFormArticlesOfIncorporation4 = _interopRequireDefault(_CAFormArticlesOfIncorporation3);
-	
-	var _NoteDialog = __webpack_require__(80);
+	var _NoteDialog = __webpack_require__(96);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county2 = __webpack_require__(83);
+	var _county = __webpack_require__(99);
 	
-	var _county3 = _interopRequireDefault(_county2);
+	var _county2 = _interopRequireDefault(_county);
 	
-	var _city = __webpack_require__(81);
+	var _city = __webpack_require__(97);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption = __webpack_require__(84);
+	var _county_exemption2 = __webpack_require__(100);
 	
-	var _county_exemption2 = _interopRequireDefault(_county_exemption);
+	var countyExemption = _interopRequireWildcard(_county_exemption2);
 	
-	var _city_exemption = __webpack_require__(82);
+	var _city_exemption2 = __webpack_require__(98);
 	
-	var _city_exemption2 = _interopRequireDefault(_city_exemption);
+	var cityExemption = _interopRequireWildcard(_city_exemption2);
 	
-	var _ProgramActions = __webpack_require__(13);
+	var _ProgramActions = __webpack_require__(8);
 	
-	var _ProgramReducer = __webpack_require__(30);
+	var _ProgramReducer = __webpack_require__(33);
 	
 	var _InputBox = {
 	  "inputbox": "_252oDSSw6rez-ligl-plwk",
@@ -5401,6 +7595,8 @@
 	
 	var _green_check2 = _interopRequireDefault(_green_check);
 	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -5408,6 +7604,7 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
 	// Import Actions
 	
 	
@@ -5499,48 +7696,17 @@
 	    value: function doAction(program, node) {
 	      var store = this.state.store;
 	      if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
-	        var i;
-	        for (i = 2; i < _county_exemption2.default.length; i++) {
-	          var county = _county_exemption2.default[i][0].split(';')[1];
-	          if (county === store['county']) {
-	            break;
-	          }
-	        }
-	
-	        var next = 1;
-	        for (var j = 1; j < store['county_exemption'].length; j++) {
-	          if (store['county_exemption'][j]) {
-	            if (_county_exemption2.default[i][_county_exemption.indexArray[j]]) {
-	              next = 0;
-	              break;
-	            }
-	          }
+	        var next = 0;
+	        if (store['county_exemption'][0]) {
+	          next = 1;
 	        }
 	
 	        var _nextIndex = this.getNodeIndex(program.node, node.content.next[next]);
 	        this.setCurrent(program, _nextIndex);
 	      } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
-	        var next = 1;
-	        if (store['city']) {
-	          var i;
-	          for (i = 2; i < _city_exemption2.default.length; i++) {
-	            var region = _city_exemption2.default[i][0].split(';');
-	            var _county = region[1];
-	            var city = region[2];
-	
-	            if (_county === store['county'] && city === store['city']) {
-	              break;
-	            }
-	          }
-	
-	          for (var _j = 1; _j < store['city_exemption'].length; _j++) {
-	            if (store['city_exemption'][_j]) {
-	              if (_city_exemption2.default[i][_city_exemption.indexArray[_j]]) {
-	                next = 0;
-	                break;
-	              }
-	            }
-	          }
+	        var next = 0;
+	        if (store['city_exemption'][0]) {
+	          next = 1;
 	        }
 	
 	        var _nextIndex2 = this.getNodeIndex(program.node, node.content.next[next]);
@@ -5624,20 +7790,28 @@
 	          });
 	        }
 	
-	        if (node.content.kind === 'ToForm') {
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic2', { title: node.content.title, message: message, to: node.content.to }));
-	        } else if (node.content.kind === 'Form') {
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Form', { form: node.content.form }));
+	        if (node.content.kind === 'Form') {
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Form', { form: node.content.form, info: _extends({}, this.state.store) }));
 	        } else if (node.content.kind === 'CalculateTax') {
-	          var reg = new RegExp('^CA;' + this.state.store['county'] + ';' + this.state.store['city']);
-	          var row = _city_exemption2.default.find(function (e) {
-	            return e[0].match(reg);
-	          });
-	          var taxRate = parseFloat(row[0].split(';')[3]);
-	          console.log(taxRate);
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('CalculateTax', { state: this.state.store['state'], taxRate: taxRate }));
+	          var county_exemption = countyExemption.exemption(this.state.store['county']);
+	          var countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
+	          var city_exemption = countyExemption.exemption(this.state.store['county'], this.state.store['city']);
+	          var cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
+	
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: countyTaxRate, cityTaxRate: cityTaxRate }));
 	        } else {
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic1', { title: node.content.title, message: message }));
+	          var calcTaxInfo;
+	          if (node.content.next === 'CalculateTax') {
+	            var _county_exemption = countyExemption.exemption(this.state.store['county']);
+	            var _countyTaxRate = parseFloat(_county_exemption[0].split(';')[2]);
+	            var _city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
+	            var _cityTaxRate = parseFloat(_city_exemption[0].split(';')[3]);
+	
+	            calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: _countyTaxRate, cityTaxRate: _cityTaxRate };
+	          }
+	
+	          console.log(calcTaxInfo);
+	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo: calcTaxInfo }));
 	        }
 	      }
 	    }
@@ -5694,8 +7868,15 @@
 	    }
 	  }, {
 	    key: 'onMultiSelect',
-	    value: function onMultiSelect(index, node) {
+	    value: function onMultiSelect(index, noneApplyIndex) {
 	      var multiChoice = this.state.multiChoice;
+	      if (index === noneApplyIndex) {
+	        multiChoice = [];
+	        this.history[this.history.length - 1].multiChoice = [];
+	      } else {
+	        multiChoice[noneApplyIndex] = false;
+	        this.history[this.history.length - 1].multiChoice[noneApplyIndex] = false;
+	      }
 	      multiChoice[index] = !multiChoice[index];
 	      this.setState({ multiChoice: multiChoice });
 	      this.history[this.history.length - 1].multiChoice[index] = multiChoice[index];
@@ -5781,8 +7962,8 @@
 	          var store = this.state.store;
 	
 	          if (field.datasource === 'county') {
-	            if (!store['county']) store['county'] = _county3.default[0].name;
-	            datasource = _county3.default.map(function (elt, i) {
+	            if (!store['county']) store['county'] = _county2.default[0].name;
+	            datasource = _county2.default.map(function (elt, i) {
 	              return _jsx('option', {
 	                value: elt.name
 	              }, i, elt.name);
@@ -5824,36 +8005,64 @@
 	      }
 	
 	      if (kind === 'Multi') {
+	        // use index 0 as None Apply
 	        if (field.datasource === 'county_exemption_list') {
-	          return _county_exemption.indexArray.map(function (elt, i) {
-	            if (i > 0) return _jsx('div', {
+	          var exemption = countyExemption.exemption(this.state.store['county']);
+	          var indexArray = countyExemption.indexArray,
+	              label = countyExemption.label,
+	              note = countyExemption.note;
+	
+	          var eleExemptions = indexArray.map(function (elt, i) {
+	            if (exemption[indexArray[i]] !== 'x') return;
+	            return _jsx('div', {
 	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
-	                return _this2.onMultiSelect(i);
+	                return _this2.onMultiSelect(i, 0);
 	              }
-	            }, i, _county_exemption2.default[0][_county_exemption.indexArray[i]], _jsx('i', {
+	            }, i, label[indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', _county_exemption2.default[1][_county_exemption.indexArray[i]]);
+	                return _this2.openNote(e, 'Note', note[indexArray[i]]);
 	              }
 	            }));
 	          });
+	
+	          return _jsx('div', {}, index, eleExemptions, _jsx('div', {
+	            className: _InputBox2.default.answer + ' ' + (this.state.multiChoice[0] ? _InputBox2.default.active : ''),
+	            onClick: function onClick() {
+	              return _this2.onMultiSelect(0, 0);
+	            },
+	            style: { backgroundImage: check_url }
+	          }, void 0, 'None Apply'));
 	        } else if (field.datasource === 'city_exemption_list') {
-	          return _city_exemption.indexArray.map(function (elt, i) {
-	            if (i > 0) return _jsx('div', {
+	          var _exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
+	          var _indexArray = cityExemption.indexArray,
+	              _label = cityExemption.label,
+	              _note = cityExemption.note;
+	
+	          var _eleExemptions = _indexArray.map(function (elt, i) {
+	            if (_exemption[_indexArray[i]] !== 'x') return;
+	            return _jsx('div', {
 	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
-	                return _this2.onMultiSelect(i);
+	                return _this2.onMultiSelect(i, 0);
 	              }
-	            }, i, _city_exemption2.default[0][_city_exemption.indexArray[i]], _jsx('i', {
+	            }, i, _label[_indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', _city_exemption2.default[1][_city_exemption.indexArray[i]]);
+	                return _this2.openNote(e, 'Note', _note[_indexArray[i]]);
 	              }
 	            }));
 	          });
+	
+	          return _jsx('div', {}, index, _eleExemptions, _jsx('div', {
+	            className: _InputBox2.default.answer + ' ' + (this.state.multiChoice[0] ? _InputBox2.default.active : ''),
+	            onClick: function onClick() {
+	              return _this2.onMultiSelect(0, 0);
+	            }
+	          }, void 0, 'None Apply'));
 	        }
 	      }
 	    }
@@ -5914,7 +8123,8 @@
 	      }
 	
 	      return _jsx('div', {
-	        className: '' + _InputBox2.default.inputbox
+	        className: '' + _InputBox2.default.inputbox,
+	        style: { display: this.props.show ? 'none' : '' }
 	      }, void 0, _jsx('div', {
 	        className: _InputBox2.default.title
 	      }, void 0, title), this.props.program && this.props.program.step && _jsx('div', {
@@ -5952,14 +8162,16 @@
 	        className: _InputBox2.default['help-container']
 	      }, void 0, _jsx('span', {
 	        className: _InputBox2.default['help_text']
-	      }, void 0, 'Hi there! Need some help answering a question or want to save and finish later?'), _jsx('div', {
+	      }, void 0, 'Need some help answering a question or want to save and finish later?'), _jsx('div', {
 	        className: _InputBox2.default.button + ' ' + _InputBox2.default.help,
-	        style: { float: 'right' }
+	        style: { float: 'right' },
+	        onClick: this.props.showContact
 	      }, void 0, 'Need Help'))), _jsx(_NoteDialog2.default, {
 	        show: this.state.showNote,
 	        close: this.closeNote.bind(this),
 	        title: this.state.noteTitle,
-	        content: this.state.noteContent
+	        content: this.state.noteContent,
+	        showContact: this.props.showContact
 	      }));
 	    }
 	  }]);
@@ -5979,7 +8191,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InputBox);
 
 /***/ },
-/* 80 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6001,9 +8213,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(114);
+	var _reactBootstrap = __webpack_require__(12);
 	
-	var _reactHtmlParser = __webpack_require__(7);
+	var _reactHtmlParser = __webpack_require__(6);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -6077,7 +8289,7 @@
 	        onClick: this.props.close
 	      }, void 0, 'Yes'), _jsx('div', {
 	        className: _InputBox2.default.button + ' ' + _InputBox2.default.note,
-	        onClick: this.props.close
+	        onClick: this.props.showContact
 	      }, void 0, 'Need Help')));
 	    }
 	  }]);
@@ -6088,7 +8300,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 81 */
+/* 97 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6100,7 +8312,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 82 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6109,25 +8321,34 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.indexArray = undefined;
+	exports.indexArray = exports.note = exports.label = exports.exemption = undefined;
 	
-	var _csv2array = __webpack_require__(31);
+	var _csv2array = __webpack_require__(35);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
-	var _sort = __webpack_require__(32);
+	var _sort = __webpack_require__(36);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var csv = 'State Name;County Name;City Name;Tax,Conveyance to secure a debt,Governmental agency acquiring title,Reorganization or adjustment conveyances,Securities and Exchange Commission order conveyances,Transfers without a change in proportional ownership,Transfers in connection with foreclosure,Transfers in connection with dissolution of marriage,Conveyances by state,Conveyances to nonprofit corporations,Gifts and transfers by reason of death,Agent transfers,Transfers confirming title,Partitions,Transfers for the benefit of creditors,Seismic retrofitting improvements ,Leasehold instruments,Certain conversions of stock cooperatives to condominium units,Transfers between spouses and transfers between domestic partners,Gift ,Transfer to partition property,Transfer to effectuate a will or intestate succession,Transfer to effectuate the right of survivorship of a joint tenant,Transfer to trust,1031 Exchange,Gift,Historic resources,Eminent domain proceeding,Exhanges with the city,Certain non-profit corporation transfers,"Transfer of community property, or interest among joint tenants or tenants in common",Interspousal transfer,Transfer between parents and children of a single family residence ,Conveyance by exempt agency,Conveyances to nonprofit corporations,Release of ownership interest by a co-owner,Conveyance of community property or assets held in joint tenancy or tenancy in common between spouses,Transfers between domestic spouses,Transfers of partial interests ,Loans cosigned by family members,Transfers pursuant to bankruptcy proceedings,Corporate reorganization or adjustment,Transfers pursuant to bankruptcy proceedings\nyellow highlight - charter city; red font - administer in conformity with\u2026,"No Documentary Transfer Tax shall be due upon any mortgage or deed of trust given to secure a debt, or upon a release of mortgage or deed of reconveyance upon satisfaction of such debt.","Any deed, instrument or writing to which the United States or agency or instrumentality thereof, any state or territory, or political subdivision thereof, is a party shall be exempt when the exempt entity of government is acquiring title.","No Documentary Transfer Tax shall be due upon any document made to effectuate a plan or reorganization or adjustment: (1) confirmed in a bankruptcy proceeding under Title 11 of the United States Code, as amended; (2) approved by a court in an equity receivership proceeding involving a corporation or a railroad, as defined in Sections 101(9) and 101(44), respectively, of Title 11 of the United States Code; or (3) whereby a mere change in identity, form or place of organization is effected.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property to effectuate an order of the Securities Exchange Commission (as defined in Section 1083 of the Internal Revenue Code), provided all of the following conditions are met: (1) the order states that such conveyance is necessary or appropriate to effectuate the provisions of Section 79k of Title 15 of the United States Code, relating to the Public Utility Holding Company Act of 1935; (2) the order specifies the property which is ordered to be conveyed; and (3) the transfer is made in obedience to such order.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property between an individual or individuals and a legal entity, or between legal entities, if such transfer results solely in a change in the method of holding title, and in which proportional ownership interests in the real property (whether represented by stock, membership interest, partnership interest, cotenancy interest, or otherwise) directly or indirectly, remain the same immediately after the transfer.","No Documentary Transfer Tax shall be due on any document transferring an interest in real property from a mortgagor to a mortgage, or from a trustor to a beneficiary under a deed of trust, where the underlying mortgage or deed of trust encumbers the property being transferred, and where the interest is being transferred as a result of, or in lieu of, foreclosure. The exemption provided in subsection (a) of this section applies only to the extent that consideration for such transfer does not exceed the unpaid indebtedness (including accrued interest and costs of foreclosure), and Documentary Transfer Tax shall be due to the extent that the consideration exceeds the indebtedness.","No Documentary Transfer Tax shall be due upon any document transferring an interest in community, quasi-community or quasi-marital property between spouses, when such transfer is made to effectuate the division or allocation of such property pursuant to a judgment of dissolution, separation or nullity of marriage, or any other order or judgment rendered pursuant to the Family Code, or pursuant to a written agreement between the spouses executed in contemplation of any such order or judgment.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or other writing by which realty is conveyed by the state of California, any political subdivision thereof, or agency or instrumentality of either thereof, pursuant to an agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by the State of California, any political subdivision thereof, or agency or instrumentality or either thereof, conveys to a nonprofit corporation realty the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by a nonprofit organization on behalf of a government unit, within the meaning of Section 1.103-l(b) of Title 26 of the Code of Federal Regulations or as amended. ","No Documentary Transfer Tax shall be due upon any document transferring an interest in real property by reason of the death of any person, or a transfer by inter vivos gift, whether the interest conveyed is transferred outright or in trust for the benefit of any person or entity.",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property from a principal to his agent or from an agent to his principal.,"No Documentary Transfer Tax shall be due upon any document confirming the grantee\'s vested, legal interest in real property.","No Documentary Transfer Tax shall be due upon documents partitioning real property between/among the owners thereof, provided all of the following conditions are met: (a) all pre-partition owners must continue as owners of the partitioned property; (b) no one shall be named as a grantee who was not a pre-partition owner; and (c) the grantees\' respective interests in the partitioned property must be approximately equal in value (remain in the same proportion).",No Documentary Transfer Tax shall be due upon any document transferring an interest in real property in trust for the benefit of the grantor\'s creditors.,"Any deed, instrument or writing shall be exempt from up to one-third (1/3) of any tax imposed pursuant to this ordinance if: (1) it transfers an interest in real property used as a residence; and (2) after January 1, 2009, the transferor has installed an active solar system, as that term is defined in Revenue & Taxation Code Section 73(b), or has made seismic retrofitting improvements or improvements utilizing earthquake hazard mitigation technologies, as those terms are defined in Revenue & Taxation Code Section 74.5(b), and the transferor has claimed and the Assessor has approved an exclusion from reassessment for the value of that system or those improvements. This partial exemption shall only apply to the initial transfer by the person who installed the active solar system or made the seismic safety improvements. The amount of this partial exemption shall not exceed the transferor\'s cost of seismic retrofitting improvements or the active solar system. Multi-family residential properties are eligible for this partial exemption.","No Documentary Transfer Tax shall be due with respect to any deed, instrument or writing which creates, terminates, or transfers a leasehold interest having a remaining term (including renewal options) of less than 35 years.","No Documentary Transfer Tax shall apply with respect to any deed, instrument, or writing in connection with the conversion to condominium units of the following kind of stock cooperative project: a stock cooperative project (a) which is entitled to an exemption from the annual limitation imposed on the number of conversions and the annual condominium conversion lottery pursuant to Section 1396 of the San Francisco Subdivision Code; and (b) wherein 80 percent or more of the condominium units serve as security for loans in favor of the City and County of San Francisco, pursuant to the Homeownership Assistance Loan Fund (under San Francisco Administrative Code Section 10.100 \u2013 08) or its predecessor program, as identified by the Mayor\'s Office of Housing, prior to the conversion.","No Documentary Transfer Tax shall apply to transfers of real property between spouses or between domestic partners. Individuals of the same sex who obtain a certificate of marriage or other official government document of any state or political subdivision thereof acknowledging their union in marriage shall be deemed to be in a ""domestic partnership"" that qualifies for the exemption under subsection (a) in the event such individuals are denied the legal status of marriage or the legal rights, privileges and obligations of spouses, or the marriage certificate or other official government document acknowledging their marriage is invalidated or revoked in a final judgment or by operation of law, because such individuals are of the same sex.","No Documentary Transfer Tax shall apply to effectuate a gift or consideration of ""love and affection"", so long as one of the original owners remains on title.",,,,"No Documentary Transfer Tax shall apply to any transfer by an individual, transferring his/her property into a trust so long as (1) the transferor is the present beneficiary of the trust, or (2) the trust is revocable, or any transfer by a trustee of such trust described in either clause (1) or (2) back to the original owner (trustor).","The tax imposed pursuant to this article shall apply to the transfer of only one (1) property in the instance of an exchange pursuant to section 1031 of the Internal Revenue Code of like kind properties held for productive use in a trade or business or for an investment. For purposes of this section, the exchange of properties must be completed within 180 days following the date on which the taxpayer transfers and pays the tax on one (1) of the properties relinquished in the exchange.","No Documentary Transfer Tax shall apply to transfers, without consideration; provided, the transferee neither conveys an interest therein to a third party nor effects a refinancing for a period of one hundred eighty (180) days after the gift transfer; however, refinancings for the purposes of rehabilitation of the gifted property are not subject to this limitation upon submission of documentation required by the Director or his or her designee(s). Notwithstanding the foregoing paragraph, transfers, without consideration, of commercial real property, including residential rental property, other than the principal residence of the transferor will be subject to this tax to the extent that the fair market value thereof exceeds one million dollars ($1,000,000.00). In such case, only the amount of the fair market value that exceeds one million dollars ($1,000,000.00) will be taxed.","No Documentary Transfer Tax shall apply to the transfer of a historic resource, as that term is defined in Section 4-26-200(p) of this Code, where a deed restriction has been recorded on the historic resource that requires the owner of the historic resource to comply with Chapter 4-26 of the San Leandro Municipal Code. This deed restriction must be in a form approved by the City Attorney, and must have a term of at least five (5) years. This deed restriction must be recorded on the historic resource as part of the transaction to transfer the historic resource.","No Documentary Transfer Tax shall apply to transfers to or between the United States, state of California, any city, county, city and county, district or any other political subdivision of the state and transfer executed pursuant to eminent domain proceedings by the United States, state of California, any city, county, city and county, district or other political subdivision of the state.","Any deed, instrument or writing by which a person acquires real property in an exchange with the City shall be exempt from the tax imposed pursuant to this article where the real property received by the City is of equal or greater value than the real property received by the other person.","In the case of any realty held by a non-profit corporation, no levy shall be imposed pursuant to this article by reason of any transfer of the realty, if: (1)   the realty is transferred to a limited partnership, of which the non-profit corporation is the general partner; and (2)   the City required such transfer to be made in order to facilitate the use of tax credits and federal affordable housing development assistance. Any person exempt from the tax imposed by this article because of the provisions of Subsection (a) hereof shall pay to the County of Los Angeles the tax that would be owed if such exemption did not exist, and thereafter may apply to the Director of Finance for a refund, which refund shall be made in the same manner as is provided in Section 21.07 of this chapter for refunds of overpayments of Business Taxes.","No Documentary Transfer Tax shall apply to any document making a transfer of community property, or interest among joint tenants or tenants in common provided that: (A) the participating owners have held their respective interest for at least 5 years, or all participating owners acquired their respective interests in the same transaction, however recent; and (B) no grantor receives any consideration beyond a release from any indebtedness secured by the property interest being transferred.","No Documentary Transfer Tax shall apply to any document of interspousal transfer including: (a) transfer to a trustee for the beneficial use of a spouse or the surviving spouse of a deceased transferor, or by the trustee of such a trust to the spouse of the trustor; (b) transfers which take place upon the death of a spouse; (c) transfer to a spouse or former spouse in connection with a property settlement agreement or decree of dissolution of marriage or legal separation; (d) the creation, transfer, or termination, solely between spouses, of any co-owner\u2019s interest.","No Documentary Transfer Tax shall apply to any document of transfer between parents and children of a single family residence or of property zoned single family residential. The term \u201Cchildren\u201D shall include natural and adopted children, as well as stepchildren if they are legally stepchildren at the time of transfer, and any son-in-law-or daughter-in-law if they are legally in such relationship at the time of transfer.","No Documentary Transfer Tax shall apply to any instrument by which realty is conveyed by the United States or any agency or instrumentality thereof, any state or territory, or political subdivision thereof, or the District of Columbia, pursuant to any agreement whereby the purchaser agrees to immediately reconvey the realty to the exempt agency.","No Documentary Transfer Tax shall apply to any instrument by which the United States or any agency or instrumentality thereof, any state or territory, or political subdivision thereof, or the District of Columbia, conveys to a nonprofit corporation realty, the acquisition, construction, or improvement of which was financed or refinanced by obligations issued by the ","No Documentary Transfer Tax shall apply to the making, delivery, or filing of an instrument by which a co-owner or the co-owners of real property release his or her or their ownership interest to the other co-owner or co-owners of the real property without receiving, directly or indirectly, any monetary or other valuable consideration, where the co-owners are co-borrowers under a loan to finance or refinance the acquisition of or the construction of improvements upon the real property.","No Documentary Transfer Tax shall apply with respect to any instrument which purports to convey, divide, or allocate community, quasi-community, or quasi-marital realty assets or realty assets held in joint tenancy or tenancy in common between spouses, provided: (1) the owner-spouses acquired their respective interests in the same transaction; and (2) no consideration beyond a release from any indebtedness secured by the interest in realty conveyed is received by the transferor-spouse in effecting such conveyance. This subsection (b) shall not extend to the conveyance of realty assets wholly owned by the transferor-spouse to a transferee-spouse.","Any transfer, if made during the term of the marriage or domestic partnership, between husband and wife or duly registered domestic partners, shall be tax-exempt interspousal transfers.","No tax will apply to transfers of partial interests in property to a co-signor or from a co-owner as required pursuant to a verifiable demand by a lender in order to secure the debt for such transfer. Specifically, the subsequent removal or reinstatement of such co-owner or co-signing party(s) must be effected within seven years of the close of escrow pertaining to such loan in order to qualify for the exemption herein. Nothing herein contained shall be deemed to exclude the amount of any such indebtedness from being included in the ""value of consideration"" pursuant to Section 4.20.030 in connection with transfers which are not made solely to secure a debt.",No tax will apply to any reconveyance of real property from a family member who obtained a legal interest in the real property solely to satisfy a lender\'s requirement in qualifying for a loan to purchase or refinance that property; and the property is the principal residence of the transferee.,"No tax shall apply to the making, delivering, or filing of conveyances to make effective any plan of reorganization or adjustment confirmed under the federal Bankruptcy Act, as amended, if the making, delivery, or filing of instruments of transfer or conveyances occurs within five (5) years from the date of such confirmation, approval, or change and is expressly provided for therein.","No tax shall apply to transfers to make effective any plan of corporate reorganization or adjustment if: 1. Confirmed under the Bankruptcy Act, as amended, 2. Approved in an equity receivership proceeding in a court involving a railroad corporation as defined in Section 77(m) of the Bankruptcy Act, as amended, and 3. Approved in an equity receivership proceeding in a court involving a corporation, as defined in Section 106(3) of the Bankruptcy Act, as amended.","No tax shall apply to the making, delivering, or filing of conveyances to make effective any plan of reorganization or adjustment: (a) confirmed under the federal Bankruptcy Act, as amended, (b) approved in an equity receivership in a court involving a railroad as defined in subdivision (m) of Section\xA0205\xA0of Title\xA011\xA0of the United States Code, as amended, (c) approved in an equity receivership in a court involving a corporation, as in subdivision (3) of Section 506 of 11 of the United States Code, as amended, or (d) hereby a mere change in identity, form or place or organization is effected, if the making, delivery, or filing of instruments of transfer or conveyances occurs within five (5) years from the date of such confirmation, approval, or change and is expressly provided for therein."\nCA;Alameda;Alameda;12.00,x,x,x,x,x,x,x,x,x,x,,,,,,,,x,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Albany;11.50,x,,x,x,x,,x,x,x,,,x,,,,,,,x,x,x,x,x,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Berkeley;15.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Dublin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Emeryville;12.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Fremont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Hayward;4.50,x,x,,x,,x,x,x,x,,,x,,,,,,,x,x,x,x,,x,,,,,,,,,,,,,,,,x,,\nCA;Alameda;Livermore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Newark,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Oakland;15.00,x,,,x,x,x,x,,x,,,x,,,,,,,,,x,,,,x,,x,,,,,,,,,,x,,,,x,\nCA;Alameda;Piedmont;13.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;Pleasanton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Alameda;San Leandro;6.00,x,x,,x,,x,x,x,x,,,,,,,,,,,,,,,x,,x,,,,,,,,,,,,,,x,,\nCA;Alameda;Union City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nAlpine County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nAmador County\xA0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Amador,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Ione,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Jackson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Plymouth,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Amador;Sutter Creek,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nButte County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Biggs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Chico,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Gridley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Oroville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Butte;Paradise,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCalaveras County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Calaveras;Angels Camp,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nColusa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Colusa;Colusa,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Colusa;Williams,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nContra Costa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Antioch,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Brentwood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Clayton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Concord,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Danville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;El Cerrito,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Hercules,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Lafayette,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Martinez,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Moraga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Oakley,x,,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x\nCA;Contra Costa;Orinda,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pinole,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pittsburg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Pleasant Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Richmond;7.00 XX,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;San Pablo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;San Ramon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Contra Costa;Walnut Creek,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nDel Norte County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Del Norte;Crescent City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nEl Dorado County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;El Dorado;Placerville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;El Dorado;South Lake Tahoe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nFresno County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Clovis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Coalinga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Firebaugh,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Fowler,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Fresno,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Huron,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Kerman,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Kingsburg,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Mendota,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Orange Cove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Parlier,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Reedley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Sanger,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Fresno;Selma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nGlenn County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Glenn;Orland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Glenn;Willows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nHumboldt County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Arcata,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Blue Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Eureka,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Ferndale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Fortuna,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Rio Dell,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Humboldt;Trinidad,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nImperial County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Brawley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Calexico,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Calipatria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;El Centro,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Holtville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Imperial,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Imperial;Westmorland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nInyo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Inyo;Bishop,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nKern County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Arvin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Bakersfield,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;California City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Delano,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Maricopa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Mcfarland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Ridgecrest,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Shafter,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Taft,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Tehachapi,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kern;Wasco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nKings County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Avenal,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Corcoran,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Hanford,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Kings;Lemoore,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLake County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lake;Clearlake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lake;Lakeport,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLassen County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Lassen;Susanville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nLos Angeles County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Agoura Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Alhambra,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Arcadia,,x,x,x,,,,,,,,,,x,,x,,,,,x,x,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Artesia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Avalon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Azusa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Baldwin Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bell,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bellflower,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bell Gardens,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Beverly Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Bradbury,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Burbank,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Calabasas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Carson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Cerritos,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Claremont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Commerce,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Compton,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Covina,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Cudahy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Culver City;4.50,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Diamond Bar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Downey,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Duarte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;El Monte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;El Segundo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Gardena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Glendale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Glendora,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hawaiian Gardens,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hawthorne,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hermosa Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Hidden Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Huntington Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Industry,x,,x,x,,x,x,,,,,x,,,,,,,,,,,,,,,x,,,,,,,,,,,,,,,\nCA;Los Angeles;Inglewood,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Irwindale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Canada Flintridge,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Habra Heights,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lakewood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Mirada,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lancaster,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Puente,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;La Verne,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lawndale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Lomita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Long Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Los Angeles;4.50,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,x,x,,,,,,,,,,,,,\nCA;Los Angeles;Lynwood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Malibu,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Manhattan Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Maywood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Monrovia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Montebello,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Monterey Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Norwalk,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Palmdale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Palos Verdes Estates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Paramount,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pasadena,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pico Rivera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Pomona;2.20,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rancho Palos Verdes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Redondo Beach;2.20,x,x,x,x,,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rolling Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rolling Hills Estates,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Rosemead,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Dimas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Fernando,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Gabriel,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;San Marino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Clarita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Fe Springs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Santa Monica;3.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Sierra Madre,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Signal Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South El Monte,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South Gate,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;South Pasadena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Temple City,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Torrance,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Vernon,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Walnut,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;West Covina,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;West Hollywood,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Westlake Village,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Los Angeles;Whittier,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMadera County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Madera;Chowchilla,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Madera;Madera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMarin County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Belvedere,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Corte Madera,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Fairfax,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Larkspur,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Mill Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Novato,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Ross,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;San Anselmo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;San Rafael;2.00,x,x,,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x,,\nCA;Marin;Sausalito,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Marin;Tiburon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMariposa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMendocino County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Fort Bragg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Point Arena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Ukiah,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mendocino;Willits,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMerced County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Atwater,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Dos Palos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Gustine,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Livingston,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Los Banos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Merced;Merced,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nModoc County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Modoc;Alturas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMono,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Mono;Mammoth Lakes,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nMonterey County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Carmel-By-The-Sea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Del Rey Oaks,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Gonzales,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Greenfield,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;King City,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Marina,x,x,x,x,,,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Monterey,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Pacific Grove,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Salinas,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Sand City,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Seaside,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Monterey;Soledad,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNapa County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;American Canyon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Calistoga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Napa,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;St Helena,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Napa;Yountville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNevada County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Grass Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Nevada City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Nevada;Truckee,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nOrange County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Aliso Viejo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Anaheim,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Brea,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Buena Park,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Costa Mesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Cypress,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Dana Point,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Fountain Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Fullerton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Garden Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Huntington Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Irvine,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Niguel,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Laguna Woods,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;La Habra,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Lake Forest,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;La Palma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Los Alamitos,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Mission Viejo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Newport Beach,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Orange,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Placentia,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Rancho Santa Margarita,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;San Clemente,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;San Juan Capistrano,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Santa Ana,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Seal Beach,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Stanton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Tustin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Villa Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Westminster,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Orange;Yorba Linda,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nPlacer County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Auburn,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Colfax,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Lincoln,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Loomis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Rocklin,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Placer;Roseville,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nPlumas County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Plumas;Portola,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nRiverside County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Banning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Beaumont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Blythe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Calimesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Canyon Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Cathedral City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Coachella,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Corona,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Desert Hot Springs,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Eastvale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Hemet,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Indian Wells,x,x,x,x,,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Indio,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Jurupa Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Lake Elsinore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;La Quinta,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Menifee,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Moreno Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Murrieta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Norco,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Palm Desert,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Palm Springs,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Perris,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Rancho Mirage,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Riverside;1.10,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;San Jacinto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Temecula,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Riverside;Wildomar,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSacramento County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Citrus Heights,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Elk Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Folsom,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Galt,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Isleton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Rancho Cordova,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sacramento;Sacramento;2.75,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Benito County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Benito;Hollister,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Benito;San Juan Bautista,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Bernardino County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Adelanto,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Apple Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Barstow,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Big Bear Lake,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Chino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Chino Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Colton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Fontana,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Grand Terrace,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Hesperia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Highland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Loma Linda,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Montclair,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Needles,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Ontario,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Rancho Cucamonga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Redlands,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Rialto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;San Bernardino,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Twentynine Palms,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Upland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Victorville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Yucaipa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Bernardino;Yucca Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Diego County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Carlsbad,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Chula Vista,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Coronado,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Del Mar,x,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;El Cajon,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Encinitas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Escondido,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Imperial Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;La Mesa,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Lemon Grove,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;National City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Oceanside,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Poway,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;San Diego,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;San Marcos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Santee,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Solana Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Diego;Vista,,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Francisco City & County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Francisco;San Francisco,x,x,x,x,x,x,x,,,,"\n\n",,"\n","\n",x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Joaquin County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Escalon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Lathrop,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Lodi,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Manteca,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Ripon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Stockton,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Joaquin;Tracy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Luis Obispo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Arroyo Grande,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Atascadero,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;El Paso De Robles,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Grover Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;Morro Bay,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo; Beach,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Luis Obispo;San Luis Obispo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSan Mateo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Atherton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Belmont,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Brisbane,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Burlingame,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Colma,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Daly City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;East Palo Alto,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Foster City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Half Moon Bay,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Hillsborough,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Menlo Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Millbrae,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Pacifica,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Portola Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Redwood City,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;San Bruno,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;San Carlos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo; San Mateo;.5% of property value,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,x,x,x,,,,,,,,,,\nCA;San Mateo;South San Francisco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;San Mateo;Woodside,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Barbara County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Buellton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Carpinteria,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Goleta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Guadalupe,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Lompoc,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Santa Barbara,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Santa Maria,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Barbara;Solvang,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Clara County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Campbell,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Cupertino,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Gilroy,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Altos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Altos Hills,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Los Gatos,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Milpitas,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Monte Sereno,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Morgan Hill,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Mountain View;3.30,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Palo Alto;3.30,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,x,x,x,x,,,,,,\nCA;Santa Clara;San Jose;3.30,x,x,x,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,x,,x,,,\nCA;Santa Clara;Santa Clara,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Saratoga,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Clara;Sunnyvale,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSanta Cruz County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Capitola,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Santa Cruz,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Scotts Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Santa Cruz;Watsonville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nShasta County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Anderson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Redding,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Shasta;Shasta Lake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSierra County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sierra;Loyalton,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSiskiyou County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Dorris,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Dunsmuir,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Etna,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Fort Jones,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Montague,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Mount Shasta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Tulelake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Weed,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Siskiyou;Yreka,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSolano County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Benicia,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Dixon,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Fairfield,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Rio Vista,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Suisun City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Vacaville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Solano;Vallejo;3.30,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSonoma County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Cloverdale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Cotati,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Healdsburg,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Petaluma;2.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Rohnert Park,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Santa Rosa;2.00,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Sebastopol,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Sonoma\xA0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sonoma;Windsor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nStanislaus County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Ceres,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Hughson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Modesto,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Newman,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Oakdale,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Patterson,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Riverbank,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Turlock,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Stanislaus;Waterford,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nSutter County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sutter;Live Oak,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Sutter;Yuba City,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTehama County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Corning,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Red Bluff,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tehama;Tehama,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTrinity County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nNo Cities,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTulare County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Dinuba,x,x,x,x,,x,,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Exeter,x,x,x,x,,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Farmersville,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Lindsay,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Porterville,x,x,x,x,,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Tulare\xA0,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Visalia,x,x,x,x,,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tulare;Woodlake,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nTuolumne County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Tuolumne;Sonora,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nVentura County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Camarillo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Fillmore,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Moorpark,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Ojai,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Oxnard,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Port Hueneme,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Santa Paula,x,x,x,x,x,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Simi Valley,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Thousand Oaks,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Ventura;Ventura,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nYolo County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Davis,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;West Sacramento,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Winters,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yolo;Woodland;1.10,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nYuba County,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\n,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Marysville,x,x,x,x,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Wheatland,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Goleta,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,\nCA;Yuba;Rancho Cordova,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,';
 	
 	var list = (0, _csv2array2.default)(csv, ',');
-	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 	
-	exports.default = list;
+	var exemption = exports.exemption = function exemption(county, city) {
+	  var reg = new RegExp('^CA;' + county + ';' + city);
+	  return list.find(function (e) {
+	    return e[0].match(reg);
+	  });
+	};
+	
+	var label = exports.label = list[0];
+	var note = exports.note = list[1];
+	
+	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 
 /***/ },
-/* 83 */
+/* 99 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6139,7 +8360,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 84 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6148,13 +8369,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.indexArray = undefined;
+	exports.indexArray = exports.note = exports.label = exports.exemption = undefined;
 	
-	var _csv2array = __webpack_require__(31);
+	var _csv2array = __webpack_require__(35);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
-	var _sort = __webpack_require__(32);
+	var _sort = __webpack_require__(36);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -6162,162 +8383,20 @@
 	
 	var list = (0, _csv2array2.default)(csv, ',');
 	
+	var exemption = exports.exemption = function exemption(county) {
+	  var reg = new RegExp('^CA;' + county);
+	  return list.find(function (e) {
+	    return e[0].match(reg);
+	  });
+	};
+	
+	var label = exports.label = list[0];
+	var note = exports.note = list[1];
+	
 	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
-	
-	exports.default = list;
 
 /***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _output = {
-	  "container": "_3gBXDWgr5DHVVvAmmJ0EW9",
-	  "content": "_1anoN8KZErQuG6Y1dNbrSP"
-	};
-	
-	var _output2 = _interopRequireDefault(_output);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _ref = _jsx('div', {}, void 0, _jsx('div', {}, void 0, _jsx('h3', {}, void 0, 'STATE OF CALIFORNIA'), _jsx('h3', {}, void 0, 'ARTICLES OF INCORPORATION')));
-	
-	var _ref2 = _jsx('br', {});
-	
-	var _ref3 = _jsx('div', {}, void 0, '2.\u2003The address in the State of California of the corporation is: ');
-	
-	var _ref4 = _jsx('br', {});
-	
-	var _ref5 = _jsx('br', {});
-	
-	var _ref6 = _jsx('div', {}, void 0, '3.\u2003The purpose of the corporation is to engage in any lawful act or activity for which a corporation may be organized under the General Corporation Law of California other than the banking business, the trust company business or the practice of a profession permitted to be incorporated by the California Corporations Code.');
-	
-	var _ref7 = _jsx('br', {});
-	
-	var _ref8 = _jsx('br', {});
-	
-	var _ref9 = _jsx('br', {});
-	
-	var _ref10 = _jsx('br', {});
-	
-	var _ref11 = _jsx('br', {});
-	
-	var _ref12 = _jsx('br', {});
-	
-	var _ref13 = _jsx('div', {}, void 0, '6.\u2003The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
-	
-	var _ref14 = _jsx('br', {});
-	
-	var _ref15 = _jsx('div', {}, void 0, '7.\u2003The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
-	
-	var _ref16 = _jsx('br', {});
-	
-	var _ref17 = _jsx('br', {});
-	
-	var _ref18 = _jsx('br', {});
-	
-	var _ref19 = _jsx('div', {}, void 0, 'Dated: __________ 2017,\u2003\u2003\u2003\u2003__________________________________');
-	
-	var _ref20 = _jsx('br', {});
-	
-	var CAFormArticlesOfIncorporation1 = function CAFormArticlesOfIncorporation1(props) {
-	  return _jsx('div', {
-	    className: _output2.default.container
-	  }, void 0, _ref, _jsx('div', {
-	    className: _output2.default.content
-	  }, void 0, _jsx('div', {}, void 0, _jsx('div', {}, void 0, '1.\u2003The name of the corporation is ___', props.input.company_name, '___.'), _ref2, _jsx('div', {}, void 0, _ref3, _ref4, _jsx('div', {}, void 0, ' Address: ___', props.input.company_address, '___')), _ref5, _ref6, _ref7, _jsx('div', {}, void 0, '4.\u2003The name and address in the State of California of the corporation\u201As agent for the service of process is:', _ref8, _ref9, _jsx('div', {}, void 0, 'Name: ___', props.input.registered_agent_name, '___'), _ref10, _jsx('div', {}, void 0, 'Address: ___', props.input.registered_agent_address, '___')), _ref11, _jsx('div', {}, void 0, '5.\u2003The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ___', props.input.number_of_shares, '___.'), _ref12, _ref13, _ref14, _ref15), _ref16, _ref17, _ref18, _ref19, _ref20, _jsx('div', {}, void 0, '\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003___', props.input.incorporator_name, '___, Incorporator ')));
-	};
-	
-	exports.default = CAFormArticlesOfIncorporation1;
-
-/***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _output = {
-	  "container": "_3gBXDWgr5DHVVvAmmJ0EW9",
-	  "content": "_1anoN8KZErQuG6Y1dNbrSP"
-	};
-	
-	var _output2 = _interopRequireDefault(_output);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _ref = _jsx('div', {}, void 0, _jsx('div', {}, void 0, _jsx('h3', {}, void 0, 'STATE OF CALIFORNIA'), _jsx('h3', {}, void 0, 'ARTICLES OF INCORPORATION')));
-	
-	var _ref2 = _jsx('br', {});
-	
-	var _ref3 = _jsx('div', {}, void 0, '2.\u2003The address in the State of California of the corporation is: ');
-	
-	var _ref4 = _jsx('br', {});
-	
-	var _ref5 = _jsx('br', {});
-	
-	var _ref6 = _jsx('div', {}, void 0, '3.\u2003The purpose of the corporation is to engage in any lawful act or activity for which a corporation may be organized under the General Corporation Law of California other than the banking business, the trust company business or the practice of a profession permitted to be incorporated by the California Corporations Code.');
-	
-	var _ref7 = _jsx('br', {});
-	
-	var _ref8 = _jsx('br', {});
-	
-	var _ref9 = _jsx('br', {});
-	
-	var _ref10 = _jsx('br', {});
-	
-	var _ref11 = _jsx('br', {});
-	
-	var _ref12 = _jsx('div', {}, void 0, '6.\u2003The corporation is authorized to indemnify, to the fullest extent permissible under California law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
-	
-	var _ref13 = _jsx('br', {});
-	
-	var _ref14 = _jsx('div', {}, void 0, '7.\u2003The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under California law, as it may be amended from time to time.');
-	
-	var _ref15 = _jsx('br', {});
-	
-	var _ref16 = _jsx('br', {});
-	
-	var _ref17 = _jsx('br', {});
-	
-	var _ref18 = _jsx('div', {}, void 0, 'Dated: __________ 2017,\u2003\u2003\u2003\u2003__________________________________');
-	
-	var _ref19 = _jsx('br', {});
-	
-	var CAFormArticlesOfIncorporation2 = function CAFormArticlesOfIncorporation2(props) {
-	  return _jsx('div', {
-	    className: _output2.default.container
-	  }, void 0, _ref, _jsx('div', {
-	    className: _output2.default.content
-	  }, void 0, _jsx('div', {}, void 0, _jsx('div', {}, void 0, '1.\u2003The name of the corporation is ___', props.input.company_name, '___.'), _ref2, _jsx('div', {}, void 0, _ref3, _ref4, _jsx('div', {}, void 0, ' Address: ___', props.input.company_address, '___')), _ref5, _ref6, _ref7, _jsx('div', {}, void 0, '4.\u2003The name of the corporation"s agent for the service of process is:', _ref8, _ref9, _jsx('div', {}, void 0, 'Name: ___', props.input.registered_agent_name, '___')), _ref10, _jsx('div', {}, void 0, '5.\u2003The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ___', props.input.number_of_shares, '___.'), _ref11, _ref12, _ref13, _ref14), _ref15, _ref16, _ref17, _ref18, _ref19, _jsx('div', {}, void 0, '\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003\u2003___', props.input.incorporator_name, '___, Incorporator ')));
-	};
-	
-	exports.default = CAFormArticlesOfIncorporation2;
-
-/***/ },
-/* 87 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6342,9 +8421,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(4);
+	var _reactIntl = __webpack_require__(5);
 	
 	var _SideBar = {
 	  "sidebar": "_1YLBu1Iy70Vdzaqx2-x1UN",
@@ -6394,7 +8473,8 @@
 	  }, void 0, 'Need Help?'), _jsx('div', {
 	    className: _SideBar2.default.text
 	  }, void 0, 'Not sure what to do? Click here and let us know how we can help! We would love to hear from you.'), _jsx('div', {}, void 0, _jsx('a', {
-	    className: _SideBar2.default.link
+	    className: _SideBar2.default.link,
+	    onClick: props.showContact
 	  }, void 0, _ref, '\xA0\xA0 Send us a message '))), _jsx('div', {
 	    className: _SideBar2.default.block
 	  }, void 0, _jsx('div', {
@@ -6415,7 +8495,7 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 88 */
+/* 102 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6429,7 +8509,7 @@
 	  description: "Creating The California Professional Corporation",
 	  start: "input_1",
 	  kind: "Form",
-	  step: 10,
+	  step: 12,
 	  node: [{
 	    id: "input_1",
 	    kind: "Input",
@@ -6471,7 +8551,7 @@
 	    kind: "Single",
 	    content: {
 	      question: "What is the total number of shares the corporation will be authorized to issue?",
-	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,000", value: 100000 }, { kind: "number", label: "Other" }],
 	      store: "number_of_shares",
 	      next: "input_5",
 	      note: {
@@ -6567,7 +8647,7 @@
 	};
 
 /***/ },
-/* 89 */
+/* 103 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6581,7 +8661,7 @@
 	  description: "Creating The California S-Corporation",
 	  start: "single_1",
 	  kind: "Form",
-	  step: 9,
+	  step: 12,
 	  node: [{
 	    id: "single_1",
 	    kind: "Single",
@@ -6659,7 +8739,7 @@
 	    kind: "Single",
 	    content: {
 	      question: "What is the total number of shares the corporation will be authorized to issue?",
-	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,00", value: 10000 }, { kind: "number", label: "Other" }],
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,000", value: 100000 }, { kind: "number", label: "Other" }],
 	      store: "number_of_shares",
 	      next: "input_7",
 	      note: {
@@ -6742,20 +8822,20 @@
 	    kind: "Final",
 	    content: {
 	      kind: "Form",
-	      form: "ca_form_articles_of_professional_incorporation_1"
+	      form: "ca_form_articles_of_incorporation_1"
 	    }
 	  }, {
 	    id: "final_2",
 	    kind: "Final",
 	    content: {
 	      kind: "Form",
-	      form: "ca_form_articles_of_professional_incorporation_2"
+	      form: "ca_form_articles_of_incorporation_2"
 	    }
 	  }]
 	};
 
 /***/ },
-/* 90 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6767,31 +8847,31 @@
 	
 	var _ca_professional_corp;
 	
-	var _incorporate = __webpack_require__(88);
+	var _incorporate = __webpack_require__(102);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(89);
+	var _sIncorporate = __webpack_require__(103);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(95);
+	var _transfertax = __webpack_require__(109);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(91);
+	var _incorporate3 = __webpack_require__(105);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(92);
+	var _payroll = __webpack_require__(106);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(94);
+	var _trademark = __webpack_require__(108);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
-	var _securitydeposit = __webpack_require__(93);
+	var _securitydeposit = __webpack_require__(107);
 	
 	var _securitydeposit2 = _interopRequireDefault(_securitydeposit);
 	
@@ -6802,7 +8882,7 @@
 	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _defineProperty(_ca_professional_corp, 'securitydeposit', _securitydeposit2.default), _ca_professional_corp);
 
 /***/ },
-/* 91 */
+/* 105 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6856,7 +8936,6 @@
 	    id: "final_2",
 	    kind: "Final",
 	    content: {
-	      kind: "ToForm",
 	      title: "You should consider forming a C Corporation",
 	      attach: ['NOTE_5'],
 	      to: "Corp"
@@ -6879,7 +8958,6 @@
 	    id: "final_6",
 	    kind: "Final",
 	    content: {
-	      kind: "ToForm",
 	      title: "Form a C Corporation",
 	      message: "",
 	      attach: ['NOTE_6'],
@@ -6896,8 +8974,7 @@
 	    id: "final_7",
 	    kind: "Final",
 	    content: {
-	      kind: "ToForm",
-	      title: "Form S Corporation",
+	      title: "Form an S Corporation",
 	      attach: ['NOTE_7'],
 	      to: "S-Corp"
 	    }
@@ -6928,8 +9005,7 @@
 	    id: "final_3",
 	    kind: "Final",
 	    content: {
-	      kind: "ToForm",
-	      title: "Form S Corporation",
+	      title: "Form an S Corporation",
 	      attach: ['NOTE_4'],
 	      to: "S-Corp"
 	    }
@@ -7031,7 +9107,7 @@
 	};
 
 /***/ },
-/* 92 */
+/* 106 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7132,7 +9208,7 @@
 	};
 
 /***/ },
-/* 93 */
+/* 107 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7238,7 +9314,7 @@
 	};
 
 /***/ },
-/* 94 */
+/* 108 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7249,7 +9325,7 @@
 	});
 	exports.default = {
 	  name: "trademark",
-	  description: "TradeMark",
+	  description: "Trademark",
 	  start: "action_1",
 	  kind: "Topic",
 	  node: [{
@@ -7507,7 +9583,7 @@
 	};
 
 /***/ },
-/* 95 */
+/* 109 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7543,7 +9619,7 @@
 	      question: "County Exemptions",
 	      fields: [{ datasource: "county_exemption_list" }],
 	      store: "county_exemption",
-	      next: "multi_3"
+	      next: "action_1"
 	    }
 	  }, {
 	    id: "multi_3",
@@ -7552,7 +9628,7 @@
 	      question: "City Exemptions",
 	      fields: [{ datasource: "city_exemption_list" }],
 	      store: "city_exemption",
-	      next: "action_1"
+	      next: "action_2"
 	    }
 	  }, {
 	    id: "action_1",
@@ -7560,7 +9636,7 @@
 	    content: {
 	      kind: "CHECK_COUNTY_EXEMPTION",
 	      store: "county_exemption",
-	      next: ["action_2", "yesno_1"]
+	      next: ["multi_3", "yesno_1"]
 	    }
 	  }, {
 	    id: "action_2",
@@ -7568,31 +9644,31 @@
 	    content: {
 	      kind: "CHECK_CITY_EXEMPTION",
 	      store: "city_exemption",
-	      next: ["final_1", "yesno_1"]
+	      next: ["final_0", "yesno_1"]
 	    }
 	  }, {
 	    id: "yesno_1",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was the deed made as a result of or in lieu of foreclosure or trustee's sale?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "final_2" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_2" }, { kind: "choice", label: "No", next: "final_10" }]
 	    }
 	  }, {
 	    id: "yesno_2",
 	    kind: "YesNo",
 	    content: {
 	      question: "Did the consideration exceed the unpaid debt, including accrued interest and cost of foreclosure?",
-	      fields: [{ kind: "choice", label: "Yes", next: "final_2" }, { kind: "choice", label: "No", next: "final_1" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_10" }, { kind: "choice", label: "No", next: "final_0" }]
 	    }
 	  }, {
-	    id: "final_1",
+	    id: "final_0",
 	    kind: "Final",
 	    content: {
 	      title: "Transfer Tax",
 	      message: "<p>Congratulation! This transaction is exempt and no transfer taxes are due.</p>"
 	    }
 	  }, {
-	    id: "final_2",
+	    id: "final_10",
 	    kind: "Final",
 	    content: {
 	      kind: "CalculateTax"
@@ -7602,7 +9678,7 @@
 	    kind: "Single",
 	    content: {
 	      question: "What kind of entity is the property owner at the time of the transfer?",
-	      fields: [{ kind: "choice", label: "Partnership", next: "yesno_3" }, { kind: "choice", label: "Corporation", next: "yesno_4" }, { kind: "choice", label: "Disregarded", next: "yesno_4" }]
+	      fields: [{ kind: "choice", label: "Partnership", next: "yesno_3" }, { kind: "choice", label: "Corporation", next: "yesno_4" }, { kind: "choice", label: "Disregarded Entity", next: "yesno_4" }]
 	    }
 	  }, {
 	    id: "yesno_3",
@@ -7616,15 +9692,15 @@
 	    kind: "Final",
 	    content: {
 	      title: "Transfer tax",
-	      message: "<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>\n              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>"
-	    },
-	    next: "final_2"
+	      message: "<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>\n              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>",
+	      next: "CalculateTax"
+	    }
 	  }, {
 	    id: "final_2",
 	    kind: "Final",
 	    content: {
 	      title: "Transfer tax",
-	      message: "<p>Exempt from transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, Section 11925(a))</small></p>"
+	      message: "<p>Congratulations! This transaction is exempt and no transfer taxes are due.</p>\n          <p><small>(See California Revenue and Taxation Code, Section 11925(a))</small></p>"
 	    }
 	  }, {
 	    id: "yesno_4",
@@ -7638,49 +9714,43 @@
 	    kind: "YesNo",
 	    content: {
 	      question: "Did grantee own over 50% of the entity before the transaction?",
-	      fields: [{ kind: "choice", label: "Yes", next: "final_3" }, { kind: "choice", label: "No", next: "final_4" }]
-	    }
-	  }, {
-	    id: "final_3",
-	    kind: "Final",
-	    content: {
-	      title: "Transfer tax",
-	      message: "<p>Exempt from transfer tax</p>"
+	      fields: [{ kind: "choice", label: "Yes", next: "final_0" }, { kind: "choice", label: "No", next: "final_4" }]
 	    }
 	  }, {
 	    id: "final_4",
 	    kind: "Final",
 	    content: {
 	      title: "Transfer tax",
-	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>"
+	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>",
+	      next: "CalculateTax"
 	    }
 	  }, {
 	    id: "yesno_6",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was there a prior excluded proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "final_3" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "yesno_7" }, { kind: "choice", label: "No", next: "final_0" }]
 	    }
 	  }, {
 	    id: "yesno_7",
 	    kind: "YesNo",
 	    content: {
 	      question: "Was more than 50% cumulatively transferred since (and including) the prior proportional interest transfer?",
-	      fields: [{ kind: "choice", label: "Yes", next: "final_5" }, { kind: "choice", label: "No", next: "final_3" }]
+	      fields: [{ kind: "choice", label: "Yes", next: "final_5" }, { kind: "choice", label: "No", next: "final_0" }]
 	    }
 	  }, {
 	    id: "final_5",
 	    kind: "Final",
 	    content: {
 	      title: "Transfer tax",
-	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>"
-	    },
-	    next: "final_2"
+	      message: "<p>The transfer is subject to transfer tax.</p>\n          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>",
+	      next: "CalculateTax"
+	    }
 	  }]
 	};
 
 /***/ },
-/* 96 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7690,29 +9760,29 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(36);
+	var _redux = __webpack_require__(40);
 	
-	var _AppReducer = __webpack_require__(59);
+	var _AppReducer = __webpack_require__(72);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
-	var _PostReducer = __webpack_require__(69);
+	var _PostReducer = __webpack_require__(84);
 	
 	var _PostReducer2 = _interopRequireDefault(_PostReducer);
 	
-	var _IntlReducer = __webpack_require__(67);
+	var _IntlReducer = __webpack_require__(80);
 	
 	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
 	
-	var _ProgramReducer = __webpack_require__(30);
+	var _ProgramReducer = __webpack_require__(33);
 	
 	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
 	
-	var _AuthReducer = __webpack_require__(65);
+	var _AuthReducer = __webpack_require__(78);
 	
 	var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(8);
+	var _reactNotificationSystemRedux = __webpack_require__(9);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -7732,7 +9802,7 @@
 	     */
 
 /***/ },
-/* 97 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7749,11 +9819,11 @@
 	exports.logout = logout;
 	exports.getUser = getUser;
 	
-	var _user = __webpack_require__(16);
+	var _user = __webpack_require__(18);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _passport = __webpack_require__(17);
+	var _passport = __webpack_require__(19);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
@@ -7868,7 +9938,7 @@
 	}
 
 /***/ },
-/* 98 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7882,19 +9952,19 @@
 	exports.getPost = getPost;
 	exports.deletePost = deletePost;
 	
-	var _post = __webpack_require__(100);
+	var _post = __webpack_require__(114);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _cuid = __webpack_require__(104);
+	var _cuid = __webpack_require__(118);
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(109);
+	var _limax = __webpack_require__(123);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(120);
+	var _sanitizeHtml = __webpack_require__(133);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -7977,7 +10047,7 @@
 	}
 
 /***/ },
-/* 99 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7990,7 +10060,7 @@
 	exports.get = get;
 	exports.remove = remove;
 	
-	var _program = __webpack_require__(33);
+	var _program = __webpack_require__(37);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
@@ -8041,7 +10111,7 @@
 	}
 
 /***/ },
-/* 100 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8051,7 +10121,7 @@
 	  value: true
 	});
 	
-	var _mongoose = __webpack_require__(10);
+	var _mongoose = __webpack_require__(11);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
@@ -8071,7 +10141,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 101 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8083,111 +10153,111 @@
 	
 	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
 	
-	var _express = __webpack_require__(9);
+	var _express = __webpack_require__(10);
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(48);
+	var _compression = __webpack_require__(52);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
-	var _mongoose = __webpack_require__(10);
+	var _mongoose = __webpack_require__(11);
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(47);
+	var _bodyParser = __webpack_require__(51);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(53);
+	var _path = __webpack_require__(57);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(38);
+	var _IntlWrapper = __webpack_require__(42);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(49);
+	var _connectFlash = __webpack_require__(53);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(50);
+	var _cookieParser = __webpack_require__(54);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(51);
+	var _expressSession = __webpack_require__(55);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _passport = __webpack_require__(17);
+	var _passport = __webpack_require__(19);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
-	var _webpack = __webpack_require__(19);
+	var _webpack = __webpack_require__(21);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(46);
+	var _webpackConfig = __webpack_require__(50);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(55);
+	var _webpackDevMiddleware = __webpack_require__(59);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(56);
+	var _webpackHotMiddleware = __webpack_require__(60);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(40);
+	var _store = __webpack_require__(44);
 	
-	var _reactRedux = __webpack_require__(3);
+	var _reactRedux = __webpack_require__(2);
 	
 	var _react = __webpack_require__(0);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(54);
+	var _server = __webpack_require__(58);
 	
-	var _reactRouter = __webpack_require__(2);
+	var _reactRouter = __webpack_require__(3);
 	
-	var _reactHelmet = __webpack_require__(18);
+	var _reactHelmet = __webpack_require__(20);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(39);
+	var _routes = __webpack_require__(43);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(45);
+	var _fetchData = __webpack_require__(49);
 	
-	var _post = __webpack_require__(43);
+	var _post = __webpack_require__(47);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _program = __webpack_require__(44);
+	var _program = __webpack_require__(48);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(42);
+	var _auth = __webpack_require__(46);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
-	var _user = __webpack_require__(16);
+	var _user = __webpack_require__(18);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(41);
+	var _dummyData = __webpack_require__(45);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
-	var _config = __webpack_require__(15);
+	var _config = __webpack_require__(17);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(52).Strategy;
+	var LocalStrategy = __webpack_require__(56).Strategy;
 	
 	// Webpack Requirements
 	
@@ -8331,7 +10401,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 102 */
+/* 116 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8362,109 +10432,103 @@
 	}
 
 /***/ },
-/* 103 */
+/* 117 */
 /***/ function(module, exports) {
 
 	module.exports = require("better-react-spinkit");
 
 /***/ },
-/* 104 */
+/* 118 */
 /***/ function(module, exports) {
 
 	module.exports = require("cuid");
 
 /***/ },
-/* 105 */
+/* 119 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl");
 
 /***/ },
-/* 106 */
+/* 120 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl-locales-supported");
 
 /***/ },
-/* 107 */
+/* 121 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
-/* 108 */
+/* 122 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
 
 /***/ },
-/* 109 */
+/* 123 */
 /***/ function(module, exports) {
 
 	module.exports = require("limax");
 
 /***/ },
-/* 110 */
+/* 124 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 111 */
+/* 125 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 112 */
+/* 126 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 113 */
+/* 127 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-autosuggest");
 
 /***/ },
-/* 114 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-bootstrap");
-
-/***/ },
-/* 115 */
+/* 128 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
-/* 116 */
+/* 129 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 117 */
+/* 130 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 118 */
+/* 131 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 119 */
+/* 132 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 120 */
+/* 133 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");

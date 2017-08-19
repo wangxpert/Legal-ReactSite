@@ -9,7 +9,7 @@ import Document from '../../../../../components/Document';
 import TopicDialog from './Dialog';
 
 // Import Actions
-import { hideFinalNode } from '../../../ProgramActions';
+import { hideFinalNode, setFinalNode } from '../../../ProgramActions';
 
 // Import styles
 import styles from './styles.css';
@@ -44,6 +44,10 @@ class Topic extends Component {
     this.props.back();
   }
 
+  onCalcTax() {
+    this.props.setFinalNode('CalculateTax', { calcTaxInfo: this.props.calcTaxInfo });
+  }
+
   render() {
     const { title, message, to, toForm } = this.props;
     var toTitle = '';
@@ -65,13 +69,18 @@ class Topic extends Component {
         <div className={ styles.message }>
           { to && <Document empty={ false } icon="fa-file" title={ toTitle } description={ toDescription } onClick={ e=> toForm(to) } style={{ margin: '0 0 0rem 30rem', float: 'right' }} /> }
           { reactHtmlParser(message) }
+          <br />
+
+          { this.props.calcTaxInfo &&
+              <Button title="Calculate Tax" onClick={ this.onCalcTax.bind(this) } />
+          }
 
         </div>
         <div className={ styles.footer }>
           <Button title="Back" style={ btnStyle } onClick={ this.onBack.bind(this) } />
 
           <div className={ styles['btn-container'] }>
-            <span className={ styles['text'] }>Was this helpful?</span>
+            <span className={ styles['text'] }>Was this helpful? &nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Button title="Yes" style={ btnStyle } onClick={ this.onShowDialog.bind(this) } />
             <Button title="Need Help" style={ btnStyle } />
           </div>
@@ -98,9 +107,8 @@ function mapStateToProps(store) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    back: () => {
-      dispatch(hideFinalNode())
-    }
+    back: () => dispatch(hideFinalNode()),
+    setFinalNode: (kind, data) => dispatch(setFinalNode(kind, data))
   }
 }
 

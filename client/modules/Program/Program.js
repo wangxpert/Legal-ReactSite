@@ -74,10 +74,10 @@ class Program extends Component {
           { <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } show={state.showFinalNode} /> }
 
           { (state.showFinalNode && (state.finalKind === 'Topic')) &&
-            <FinalTopic title={ state.finalData.title } message={ state.finalData.message } to={ state.finalData.to } toForm={ this.toForm.bind(this) } />
+            <FinalTopic title={ state.finalData.title } message={ state.finalData.message } calcTaxInfo={ state.finalData.calcTaxInfo } to={ state.finalData.to } toForm={ this.toForm.bind(this) } />
           }
           { (state.showFinalNode && (state.finalKind === 'CalculateTax')) &&
-            <FinalCalculateTax county={ state.finalData.county } taxRate={ state.finalData.taxRate } />
+            <FinalCalculateTax calcTaxInfo={ state.finalData.calcTaxInfo } />
           }
           { (state.showFinalNode && (state.finalKind === 'Form')) &&
             <FinalForm data={state.finalData} />

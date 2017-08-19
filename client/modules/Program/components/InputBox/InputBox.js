@@ -190,13 +190,25 @@ class InputBox extends Component {
       if (node.content.kind === 'Form') {
         this.props.dispatch(setFinalNode('Form', { form: node.content.form, info: { ...this.state.store } }));
       } else if (node.content.kind === 'CalculateTax') {
-        const reg = new RegExp(`^CA;${this.state.store['county']};${this.state.store['city']}`);
-        const row = city_exemption.find(e => e[0].match(reg));
-        const taxRate = parseFloat(row[0].split(';')[3]);
+        const county_exemption = countyExemption.exemption(this.state.store['county']);
+        const countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
+        const city_exemption = countyExemption.exemption(this.state.store['county'], this.state.store['city']);
+        const cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
 
-        this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], taxRate: taxRate }));
+        this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate }));
       } else {
-        this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to }));
+        var calcTaxInfo;
+        if (node.content.next === 'CalculateTax') {
+          const county_exemption = countyExemption.exemption(this.state.store['county']);
+          const countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
+          const city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
+          const cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
+
+          calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate };
+        }
+
+        console.log(calcTaxInfo);
+        this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo }));
       }
     }
   }
@@ -297,7 +309,6 @@ class InputBox extends Component {
     store[field.store] = event.target.value;
     this.setState({store});
   }
-
 
   buildField(node, field, index) {
     const kind = node.kind;

@@ -135,9 +135,9 @@ export default {
       content: {
         title: "Transfer tax",
         message: `<p>100% of the net value of the partnership property is subject to transfer tax, even if less than 100% of the partnership is transferred.</p>
-              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>`
-      },
-      next: "final_10"
+              <p><small>(See California Revenue and Taxation Code, Section 11925(b))</small></p>`,
+        next: "CalculateTax"
+      }
     },
     {
       id: "final_2",
@@ -176,9 +176,9 @@ export default {
       content: {
         title: "Transfer tax",
         message: `<p>The transfer is subject to transfer tax.</p>
-          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>`
-      },
-      next: "final_10"
+          <p><small>(See California Revenue and Taxation Code, section 64(c)(1))</small></p>`,
+        next: "CalculateTax"
+      }
     },
     {
       id: "yesno_6",
@@ -208,9 +208,9 @@ export default {
       content: {
         title: "Transfer tax",
         message: `<p>The transfer is subject to transfer tax.</p>
-          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>`
-      },
-      next: "final_10"
+          <p><small>(See California Revenue and Taxation Code, section 64(d); 926 North Ardmore Avenue, LLC v. County of Los Angeles, California Supreme Court)</small></p>`,
+        next: "CalculateTax"
+      }
     },
   ]
 };
