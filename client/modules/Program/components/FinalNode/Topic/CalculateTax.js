@@ -52,7 +52,7 @@ class Topic extends Component {
     var taxRate = 0.0;
     const {county, city, countyTaxRate, exemptCounty} = this.props.calcTaxInfo;
 
-    if (this.props.countyExemptions && this.props.countyExemptions[0] === false) {
+    if (this.props.calcTaxInfo.countyExemptions[0] === false) {
       return 0.00;
     }
 
@@ -78,7 +78,7 @@ class Topic extends Component {
 
   calcCityTax(price) {
 
-    if (this.props.cityExemptions && this.props.cityExemptions[0] === false) {
+    if (this.props.calcTaxInfo.cityExemptions[0] === false) {
       return 0.00;
     }
 
@@ -117,14 +117,14 @@ class Topic extends Component {
 
         <div className={ styles['input-container'] }>
           Purchase Price :
-          <input type="number" className={`${styles.input}`} name="price" min="0.00" value={ this.state.price } placeholder="Enter Purchase Price" onChange={this.onPrice.bind(this)} />
+          <input type="number" className={`${styles.input}`} name="price" min="0.00" value={ this.state.price ? this.state.price : '' } placeholder="Enter Purchase Price" onChange={this.onPrice.bind(this)} />
           <br />
           County Tax :
-          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.countyTax } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.price ? this.state.countyTax : '' } readOnly/>
           City Tax :
-          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.cityTax } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.price ? this.state.cityTax: '' } readOnly/>
           Total Tax :
-          <input type="number" className={`${styles.input}`} placeholder="" value={ parseFloat(this.state.countyTax) + parseFloat(this.state.cityTax) } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.price ? (parseFloat(this.state.countyTax) + parseFloat(this.state.cityTax)).toFixed(2) : '' } readOnly/>
         </div>
 
         <div className={ styles.footer }>

@@ -96,7 +96,7 @@ class InputBox extends Component {
     const store = this.state.store;
     if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
       var next = 0;
-      if (store['county_exemption'][0] !== true) {
+      if (store['county_exemption'][0] !== false) {
         next = 1;
       }
 
@@ -104,7 +104,7 @@ class InputBox extends Component {
       this.setCurrent(program, nextIndex);
     } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
       var next = 0;
-      if (store['city_exemption'][0] !== true) {
+      if (store['city_exemption'][0] !== false) {
         next = 1;
       }
 
