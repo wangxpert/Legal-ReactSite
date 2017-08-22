@@ -96,7 +96,7 @@ class InputBox extends Component {
     const store = this.state.store;
     if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
       var next = 0;
-      if (store['county_exemption'][0]) {
+      if (store['county_exemption'][0] !== true) {
         next = 1;
       }
 
@@ -104,7 +104,7 @@ class InputBox extends Component {
       this.setCurrent(program, nextIndex);
     } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
       var next = 0;
-      if (store['city_exemption'][0]) {
+      if (store['city_exemption'][0] !== true) {
         next = 1;
       }
 
@@ -176,10 +176,11 @@ class InputBox extends Component {
       } else if (node.content.kind === 'CalculateTax') {
         const county_exemption = countyExemption.exemption(this.state.store['county']);
         const countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
-        const city_exemption = countyExemption.exemption(this.state.store['county'], this.state.store['city']);
+        const city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
         const cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
+        calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
 
-        this.props.dispatch(setFinalNode('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate }));
+        this.props.dispatch(setFinalNode('CalculateTax', { calcTaxInfo }));
       } else {
         var calcTaxInfo;
         if (node.content.next === 'CalculateTax') {
@@ -188,7 +189,7 @@ class InputBox extends Component {
           const city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
           const cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
 
-          calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate };
+          calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
         }
 
         this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo }));
@@ -478,8 +479,7 @@ class InputBox extends Component {
           </div>
 
           <div className={styles['button-group']}>
-
-            <div className={`${styles.button}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
+            <div className={`${styles.button} ${this.history.length ? '' : styles.disable}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
               Step Back
             </div>
 

@@ -22,9 +22,10 @@ export const SET_REDIRECT_URL = 'SET_REDIRECT_URL';
 import { browserHistory } from 'react-router';
 
 // Export Actions
-export function setLoginState() {
+export function setLoginState(state) {
   return {
-    type: SET_LOGIN_STATE
+    type: SET_LOGIN_STATE,
+    state
   }
 
 }
@@ -50,7 +51,6 @@ export function loginRequested() {
 }
 
 export function loginSucceeded(user) {
-  localStorage.setItem('clientId', user.id);
   return {
     type: LOGIN_SUCCEEDED,
     user: user
@@ -65,7 +65,6 @@ export function loginFailed(err) {
 }
 
 export function logoutSucceeded() {
-  localStorage.removeItem('clientId');
   browserHistory.push('/');
   return {
     type: LOGOUT_SUCCEEDED,
@@ -90,6 +89,15 @@ export function setRedirectUrl(url) {
   return {
     type: SET_REDIRECT_URL,
     url: url
+  }
+}
+
+export function checkLoginState() {
+  return (dispatch) => {
+    callApi('auth/profile', 'get')
+    .then(res => dispatch(setLoginState('LOGGED')),
+          err => dispatch(fetchUserProfileFailed('NOT_LOGGED'))
+    );
   }
 }
 

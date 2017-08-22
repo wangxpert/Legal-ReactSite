@@ -14,7 +14,7 @@ import SearchBox from './components/SearchBox/SearchBox'
 // Import Actions
 import { toggleAddPost } from './AppActions';
 import { switchLanguage } from '../../modules/Intl/IntlActions';
-import { setLoginState } from '../../modules/Auth/AuthActions';
+import { checkLoginState } from '../../modules/Auth/AuthActions';
 
 import Notifications from 'react-notification-system-redux';
 
@@ -26,7 +26,7 @@ export class App extends Component {
 
   componentDidMount() {
     this.setState({isMounted: true}); // eslint-disable-line
-    this.props.dispatch(setLoginState());
+    this.props.dispatch(checkLoginState());
   }
 
   toggleAddPostSection = () => {

@@ -11,6 +11,8 @@ import styles from './styles.css';
 
 // Import Actions
 import { hideFinalNode } from '../../../ProgramActions';
+import { saveDoc } from '../../../../Account/MyDocuments/actions';
+import { success, warning } from 'react-notification-system-redux';
 
 // Import components
 import CAForm from '../Document';
@@ -30,7 +32,8 @@ class Form extends Component {
     super(props);
 
     this.state = {
-      showDocument: false
+      showDocument: false,
+      isSaved: false
     };
   }
 
@@ -40,6 +43,27 @@ class Form extends Component {
 
   onEdit() {
     this.props.hide();
+  }
+
+  onSave() {
+    if (this.state.isSaved === true) {
+      this.props.warningMessage({
+        // uid: 'once-please', // you can specify your own uid if required
+        title: 'Already saved',
+        message: 'This form is already saved.',
+        position: 'tr',
+      });
+      return;
+    }
+
+    this.props.save();
+    this.setState({ isSaved: true });
+    this.props.successMessage({
+      // uid: 'once-please', // you can specify your own uid if required
+      title: 'Save',
+      message: 'This form is saved successfully.',
+      position: 'tr',
+    });
   }
 
   onHideDocument() {
@@ -60,7 +84,7 @@ class Form extends Component {
           <div className={ styles['actions'] }>
             <Cover title='VIEW' icon='fa-eye' description='Review your document' onClick={ e => this.onView() } />
             <Cover title='EDIT' icon='fa-pencil' description='Make changes to document' onClick={ e => this.onEdit() } />
-            <Cover title='SAVE' icon='fa-save' description='Save document to profile' />
+            <Cover title='SAVE' icon='fa-save' description='Save document to profile' onClick={ e => this.onSave() } />
           </div>
         </div>
         <div className={ styles.footer }>
@@ -81,9 +105,12 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, orgProps) {
   return {
-    hide: () => dispatch(hideFinalNode())
+    hide: () => dispatch(hideFinalNode()),
+    save: () => dispatch(saveDoc(orgProps.data.form, orgProps.data.info)),
+    warningMessage: (opt) => dispatch(warning(opt)),
+    successMessage: (opt) => dispatch(success(opt))
   }
 }
 

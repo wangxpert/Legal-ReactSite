@@ -19,10 +19,9 @@ const initialState = { user: {}, state: 'NOT_LOGGED' };
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_STATE:
-      const clientId = localStorage.getItem('clientId');
       return {
         ...state,
-        state: clientId ? 'LOGGED' : 'NOT_LOGGED'
+        state: action.state
       }
 
     case REGISTER_SUCCEEDED:

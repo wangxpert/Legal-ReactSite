@@ -48,8 +48,13 @@ class Topic extends Component {
   }
 
   calcCountyTax(price) {
+    console.log(this.props);
     var taxRate = 0.0;
-    const {county, city, countyTaxRate} = this.props.calcTaxInfo;
+    const {county, city, countyTaxRate, exemptCounty} = this.props.calcTaxInfo;
+
+    if (this.props.countyExemptions && this.props.countyExemptions[0] === false) {
+      return 0.00;
+    }
 
     if (county === 'San Francisco') {
       if (price > 100 && price <= 250000) {
@@ -68,12 +73,17 @@ class Topic extends Component {
     } else {
       taxRate = countyTaxRate ? countyTaxRate : 0;
     }
-    return Math.ceil(price / 500) * taxRate;
+    return (Math.ceil(price / 500) * taxRate).toFixed(2);
   }
 
   calcCityTax(price) {
+
+    if (this.props.cityExemptions && this.props.cityExemptions[0] === false) {
+      return 0.00;
+    }
+
     var taxRate = this.props.calcTaxInfo.cityTaxRate ? this.props.calcTaxInfo.cityTaxRate : 0;
-    return Math.ceil(price / 500) * taxRate;
+    return (Math.ceil(price / 500) * taxRate).toFixed(2);
   }
 
   onPrice(e) {
@@ -110,11 +120,11 @@ class Topic extends Component {
           <input type="number" className={`${styles.input}`} name="price" min="0.00" value={ this.state.price } placeholder="Enter Purchase Price" onChange={this.onPrice.bind(this)} />
           <br />
           County Tax :
-          <input type="text" className={`${styles.input}`} placeholder="" value={ this.state.countyTax } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.countyTax } readOnly/>
           City Tax :
-          <input type="text" className={`${styles.input}`} placeholder="" value={ this.state.cityTax } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ this.state.cityTax } readOnly/>
           Total Tax :
-          <input type="text" className={`${styles.input}`} placeholder="" value={ this.state.countyTax + this.state.cityTax } readOnly/>
+          <input type="number" className={`${styles.input}`} placeholder="" value={ parseFloat(this.state.countyTax) + parseFloat(this.state.cityTax) } readOnly/>
         </div>
 
         <div className={ styles.footer }>

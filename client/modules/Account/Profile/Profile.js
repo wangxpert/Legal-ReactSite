@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import styles from './Profile.css';
 
 // Import Components
+import { browserHistory } from 'react-router';
+
 import Button from '../../../components/Button/Button';
 import UserInfo from './components/UserInfo';
 import Membership from './components/Membership';
@@ -34,7 +36,7 @@ class Profile extends Component {
   }
 
   onViewAll() {
-    alert('View All');
+    browserHistory.push('/mydocuments')
   }
 
   onAsk() {

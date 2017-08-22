@@ -8,6 +8,7 @@ import flash from 'connect-flash';
 
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import connectMongo from 'connect-mongo';
 
 import passport from 'passport';
 const LocalStrategy = require('passport-local').Strategy;
@@ -40,6 +41,7 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import { fetchComponentData } from './util/fetchData';
 import posts from './routes/post.routes';
+import docs from './routes/document.routes';
 import programs from './routes/program.routes';
 import auth from './routes/auth.routes';
 
@@ -63,6 +65,8 @@ mongoose.connect(serverConfig.mongoURL, (error) => {
 });
 
 // Apply body Parser and server public assets and routes
+const MongoStore = connectMongo(session);
+
 app.use(compression());
 app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
@@ -72,7 +76,8 @@ app.use(session({
     secret: 'snowsea love',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -112,6 +117,7 @@ passport.use(new LocalStrategy({
 app.use('/api/auth', auth(passport));
 app.use('/api', posts);
 app.use('/api/programs', programs);
+app.use('/api/docs', docs);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

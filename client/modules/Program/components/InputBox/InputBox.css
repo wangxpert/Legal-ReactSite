@@ -171,6 +171,10 @@
   cursor: pointer;
 }
 
+.button.disable {
+  color: #aaa;
+}
+
 .button.big {
   color: white;
   padding: 8rem 68rem;

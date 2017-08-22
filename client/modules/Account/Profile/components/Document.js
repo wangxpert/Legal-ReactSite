@@ -14,12 +14,12 @@ class Document extends Component {
 
   render() {
     return (
-      <div className={`${styles.container} row`}>
-        <div className={`${styles['container-title']} col-xs-12`}>
+      <div className={ `${ styles.container } row` } style={ this.props.style }>
+        <div className={`${ styles['container-title'] } col-xs-12`}>
           My Documents
         </div>
 
-        <div className={`${styles['text-box']} col-xs-12`}>
+        <div className={ `${ styles['text-box'] } col-xs-12` }>
           <div className={styles['title']}>
             View or start a new document:
           </div>
@@ -29,8 +29,8 @@ accusantium doloremque laudantium, totam rem.
           </span>
         </div>
 
-        <div className={`${styles['button-container2']} col-xs-12`}>
-          <Button title={'View All'} onClick={this.props.onView}/>
+        <div className={ `${ styles['button-container2'] } col-xs-12` }>
+          <Button title={'View All'} onClick={ this.props.onView }/>
           <span className={styles['tip-text']}>
             Click to review my documents.
           </span>

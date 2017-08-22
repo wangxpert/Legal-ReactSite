@@ -16,6 +16,7 @@ import NeedHelp from './components/NeedHelp';
 
 // Import Actions
 import { fetchUserProfileRequested } from '../../Auth/AuthActions';
+import { fetchDocs } from './actions';
 
 class Profile extends Component {
   constructor(props) {
@@ -24,14 +25,7 @@ class Profile extends Component {
 
   componentWillMount() {
     this.props.dispatch(fetchUserProfileRequested());
-  }
-
-  onUpdateInfo() {
-    alert('Update Information');
-  }
-
-  onUpgradeMembership() {
-    alert('Upgrade')
+    this.props.dispatch(fetchDocs());
   }
 
   onViewAll() {
@@ -40,6 +34,7 @@ class Profile extends Component {
 
   onAsk() {
     alert('On Ask');
+    console.log(this.props.documents);
   }
 
   onNewDocument() {
@@ -51,7 +46,7 @@ class Profile extends Component {
       <div className={`${styles['page-container']} container wow fadeIn`}>
         <div className='row'>
           <div className='col-xs-12'>
-            <MyDocuments />
+            <MyDocuments docs={ this.props.documents.docs } />
           </div>
           <div className='col-xs-12'>
             <ContinueDocument onView={ this.onViewAll.bind(this) } />
@@ -71,12 +66,13 @@ class Profile extends Component {
 // Retrieve data from store as props
 function mapStateToProps(store) {
   return {
-    auth: store.auth
+    auth: store.auth,
+    documents: store.documents
   };
 }
 
 Profile.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps)(Profile);

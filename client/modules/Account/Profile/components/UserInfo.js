@@ -32,7 +32,7 @@ class UserInfo extends Component {
 
   render() {
     const user = this.props.user;
-    console.log(user);
+
     return (
       <div className={`${styles.container}`}>
         <div className={styles['avatar-container']}>

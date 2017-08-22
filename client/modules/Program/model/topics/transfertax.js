@@ -36,7 +36,7 @@ export default {
           { datasource: "county_exemption_list" },
         ],
         store: "county_exemption",
-        next: "action_1"
+        next: "multi_3"
       }
     },
     {
@@ -48,7 +48,7 @@ export default {
           { datasource: "city_exemption_list" },
         ],
         store: "city_exemption",
-        next: "action_2"
+        next: "action_1"
       }
     },
     {
@@ -57,7 +57,7 @@ export default {
       content: {
         kind: "CHECK_COUNTY_EXEMPTION",
         store: "county_exemption",
-        next: ["multi_3", "yesno_1"]
+        next: ["action_2", "yesno_1"]
       }
     },
     {

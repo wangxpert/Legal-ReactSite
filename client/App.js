@@ -13,6 +13,7 @@ import routes from './routes';
 import './main.css';
 
 export default function App(props) {
+
   return (
     <Provider store={props.store}>
       <IntlWrapper>

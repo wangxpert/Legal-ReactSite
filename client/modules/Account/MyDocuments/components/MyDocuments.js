@@ -11,26 +11,38 @@ import Document from '../../../../components/Document';
 class MyDocuments extends Component {
   constructor(props) {
     super(props);
+
+    this.icons = {
+      ['ca_form_articles_of_professional_incorporation_1']: 'fa-book',
+      ['ca_form_articles_of_professional_incorporation_2']: 'fa-book'
+    }
+  }
+
+  getIcon(docKind) {
+    return this.icons[docKind] ? this.icons[docKind] : 'fa-file'
+  }
+
+  renderDocs() {
+    if (!this.props.docs)
+      return null;
+    return this.props.docs.map((doc, index) => (
+      <div key={ index } className={ `col-xs-3` }>
+        <Document empty={ false } icon={ this.getIcon(doc.kind) } title={ doc.title } description={ doc.description } onClick={ e => alert('book') } style={{ marginTop: '20rem' }} />
+      </div>
+    ));
   }
 
   render() {
     return (
-      <div className={`${styles.container} row`} onClick={ e => this.props.onClick() } style={ this.props.style } >
-        <div className={`${styles['container-title']} text-center col-xs-12`}>
+      <div className={ `${ styles.container } row` } style={ this.props.style } >
+        <div className={ `${ styles['container-title'] } text-center col-xs-12` }>
           My Documents
         </div>
 
-        <div className={`${styles['doc-container']} col-xs-12`}>
-          <div className={`col-xs-3`}>
-            <Document empty={ false } icon="fa-plus" title="Articles of Professional Incorporation" description="Let's begin the professional incorporation process." />
-          </div>
-          <div className={`col-xs-3`}>
-            <Document empty={ true } icon="fa-plus" title="<br />Create New" />
-          </div>
-          <div className={`col-xs-3`}>
-            <Document empty={ true } icon="fa-plus" title="<br />Create New" />
-          </div>
-          <div className={`col-xs-3`}>
+        <div className={ `${ styles['doc-container'] } col-xs-12` }>
+          { this.renderDocs() }
+
+          <div className={ `col-xs-3` } style={{ marginTop: '20rem' }} >
             <Document empty={ true } icon="fa-plus" title="<br />Create New" />
           </div>
         </div>
@@ -40,7 +52,7 @@ class MyDocuments extends Component {
 }
 
 MyDocuments.PropTypes = {
-  onClick: PropTypes.func
+  docs: PropTypes.array.required
 }
 
 export default MyDocuments;

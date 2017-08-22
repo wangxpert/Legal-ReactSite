@@ -12,7 +12,6 @@ function social(provider, req, res) {
     .then(user => {
       if (user) {
         return user;
-
       } else {
         const newUser = User({
           provider: provider,
@@ -34,13 +33,6 @@ function social(provider, req, res) {
         return newUser.save();
       }
     });
-    // .then(user => {
-    //   req.login(user, function(err) {
-    //     if (err) loginFailure(req, res);
-    //     loginSuccess(loginSuccess(req, res));
-    //   });
-    // });
-
 }
 
 export function google(req, res) {
@@ -48,7 +40,7 @@ export function google(req, res) {
     .then(user => {
       req.login(user, function(err) {
         if (err) loginFailure(req, res);
-        loginSuccess(loginSuccess(req, res));
+        else loginSuccess(req, res);
       });
     });
 }
@@ -58,7 +50,7 @@ export function facebook(req, res) {
     .then(user => {
       req.login(user, function(err) {
         if (err) loginFailure(req, res);
-        loginSuccess(loginSuccess(req, res));
+        else loginSuccess(req, res);
       });
     });
 }
