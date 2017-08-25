@@ -15,7 +15,7 @@ export default class NoteDialog extends React.Component {
     return (
       <Modal show={this.props.show} onHide={this.props.close}>
         <Modal.Header bsClass={styles['modal-header']} closeButton>
-          <Modal.Title>{this.props.title}</Modal.Title>
+          <Modal.Title>{ ReactHtmlParser(this.props.title) }</Modal.Title>
         </Modal.Header>
         <Modal.Body bsClass={styles['modal-body']}>
           <div>{ ReactHtmlParser(this.props.content) }</div>

@@ -12,7 +12,7 @@ export default {
         question: "In which state would you like to incorporate your company?",
         fields: [
           { kind: "choice", label: "California", next: "single_2" },
-          { kind: "choice", label: "Delaware", next: "Creating the Delware" }
+          { kind: "choice", label: "Delaware", next: "goto_0" }
         ],
         note: {
           title: 'State of incorporation',
@@ -21,6 +21,14 @@ export default {
             <li>In deciding in which state to incorporate, it is important to note that there may be adverse tax consequences to incorporating in one state over another. For example, if you incorporate in Delaware, but conduct all of your business in California, you will still be required to pay a Delaware franchise tax in addition to California taxes. If you incorporate in California and conduct all of your business in California, you will not pay Delaware taxes.</li>
           </ul>`
         }
+      }
+    },
+    {
+      id: "goto_0",
+      kind: "Goto",
+      content: {
+        kind: "form",
+        id: "de_s_corporation"
       }
     },
     {

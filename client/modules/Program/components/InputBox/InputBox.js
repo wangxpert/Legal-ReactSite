@@ -220,11 +220,25 @@ class InputBox extends Component {
     if (!this.props.program)
       return;
 
-    console.log(this.state.store);
-
     const node = this.props.program.node[this.state.current];
-
     this.setInput(node);
+
+    // Check wheter input is empty or not
+    var empty = false;
+    node.content.fields.forEach(e => {
+      if (e.store)
+        if (this.state.store[e.store] === '') {
+          empty = true;
+          return;
+        }
+    })
+
+    if (node.content.store)
+      if (this.state.store[node.content.store] === '')
+        empty = true;
+
+    if (empty === true)
+      return;
 
     const next = this.getNextId(node);
     const nextIndex = this.getNodeIndex(this.props.program.node, next);
