@@ -7,8 +7,8 @@ import CAFormProfessionalIncorporate1 from './CAFormProfessionalIncorporate1';
 import CAFormIncorporate2 from './CAFormIncorporate2';
 import CAFormIncorporate1 from './CAFormIncorporate1';
 
-import CAFormDEIncorporate2 from './DEFormIncorporate2';
-import CAFormDEIncorporate1 from './DEFormIncorporate1';
+import DEFormIncorporate2 from './DEFormIncorporate2';
+import DEFormIncorporate1 from './DEFormIncorporate1';
 import DEFormProfessionalIncorporate2 from './DEFormProfessionalIncorporate2';
 import DEFormProfessionalIncorporate1 from './DEFormProfessionalIncorporate1';
 

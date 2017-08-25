@@ -42,8 +42,8 @@ export default function Form(props) {
             </div>
             <div className={ styles.info }>
               <span className={ styles['info-title'] }>Address :</span>
-              <span className={ styles['info-content'] }> { info.registered_agent_address_street }<br />
-                    { info.registered_agent_address_city }, { info.registered_agent_address_state }, { info.registered_agent_address_zipcode }
+              <span className={ styles['info-content'] }> { info.incorporator_address_street }<br />
+                    { info.incorporator_address_city }, { info.incorporator_address_state }, { info.incorporator_address_zipcode }
               </span>
             </div>
           </li>
