@@ -220,6 +220,8 @@ class InputBox extends Component {
     if (!this.props.program)
       return;
 
+    console.log(this.state.store);
+
     const node = this.props.program.node[this.state.current];
 
     this.setInput(node);
@@ -303,16 +305,18 @@ class InputBox extends Component {
     const check_url = this.state.singleChoice === index ? `url(${check_img})` : '';
 
     if (kind === 'Single' || kind === 'YesNo' ) {
-      if (field.kind === 'number') {
-        if (this.state.store[node.content.store] === undefined) {
-          this.state.store[node.content.store] = '';
+      var storeName = field.store;
+      if (!storeName) storeName = node.content.store;
+      if (field.kind === 'number' || field.kind === 'text') {
+        if (this.state.store[storeName] === undefined) {
+          this.state.store[storeName] = '';
         }
       }
 
       return (
         <div key={index} className={`${styles.answer} ${this.state.singleChoice === index ? styles.active : ''} `} onClick={() => this.onSingleSelect(index)} style={{ backgroundImage: check_url }}>
-          { field.label }
-          { field.kind === 'number' ? <input type='number' className={styles.input} value={this.state.store[node.content.store]} onChange={(event) => {this.onInput(event, node, field)}} /> : null  }
+          { this.replaceStoreValue(field.label) }
+          { (field.kind === 'number' || field.kind === 'text') ? <input type={field.kind} className={styles.input} value={this.state.store[storeName]} onChange={(event) => {this.onInput(event, node, field)}} /> : null  }
           { field.note && <i className="fa fa-info-circle" aria-hidden="true" onClick={()=>{alert('info')}}></i>}
         </div>
       );
@@ -412,6 +416,16 @@ class InputBox extends Component {
     this.setState({ noteTitle: title, noteContent: content, showNote: true });
   };
 
+  replaceStoreValue(str) {
+    let reg=/\${(.*)}/g;
+
+    var vName = reg.exec(str);
+    if (vName) {
+      str = str.replace(reg, this.state.store[vName[1]]);
+    }
+    return str;
+  }
+
   render() {
     var lstEle = null;
     var question = null;
@@ -428,13 +442,8 @@ class InputBox extends Component {
 
         title = this.props.program.description;
 
-        var reg=/\${(.*)}/g;
-
         question = `${node.content.question}`;
-        var vName = reg.exec(question);
-        if (vName) {
-          question = question.replace(reg, this.state.store[vName[1]]);
-        }
+        question = this.replaceStoreValue(question);
         description = this.getDescription(node.kind);
 
         if (node.content.note) {

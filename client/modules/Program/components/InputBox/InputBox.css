@@ -242,7 +242,8 @@
   text-decoration: underline;
 }
 
-.modal-body li {
+.modal-body ul {
+  margin-left: 20rem;
   padding: 3rem;
 }
 

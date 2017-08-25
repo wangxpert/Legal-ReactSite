@@ -42,6 +42,14 @@ export default [
       {
         title: 'CA - S-Corporation',
         href: '/legalforms/ca_s_corporation'
+      },
+      {
+        title: 'DE - Professional Corporation',
+        href: '/legalforms/de_professional_corporation'
+      },
+      {
+        title: 'DE - S-Corporation',
+        href: '/legalforms/de_s_corporation'
       }
     ]
   }

@@ -5,11 +5,11 @@
   display: inline-block;
   font-family: 'Times New Roman';
   font-size: 12pt;
-  padding: 50rem 50rem;
+  padding: 50rem 50rem 80rem 50rem;
   text-align: left;
   text-align: justify;
   width: 830rem;
-  height: 1150rem;
+  min-height: 1150rem;
 }
 
 /* Header */
