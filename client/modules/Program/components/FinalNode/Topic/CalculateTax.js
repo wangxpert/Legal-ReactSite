@@ -9,7 +9,7 @@ import Document from '../../../../../components/Document';
 import TopicDialog from './Dialog';
 
 // Import Actions
-import { hideFinalNode, setFinalNode } from '../../../ProgramActions';
+import { hideFinalNode, setFinalNode } from '../../../actions';
 
 // Import styles
 import styles from './styles.css';

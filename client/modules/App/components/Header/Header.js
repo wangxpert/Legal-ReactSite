@@ -12,7 +12,7 @@ import { toggleSearchBar } from '../../AppActions';
 
 // Import Style
 import styles from './Header.css';
-import Navbar from '../NavBar/NavBar';
+import NavBar from '../NavBar/NavBar';
 import select_img from './select.png';
 
 class Header extends Component {
@@ -98,21 +98,6 @@ class Header extends Component {
 
     const isLogged = (this.props.auth.state === 'LOGGED');
     return (
-      /*<div className={styles.header}>
-        <a className={styles.logo} href="/">
-          Legal Maven
-        </a>
-        <div className={styles.nav}>
-          {!this.state.showSubNav && items.legalTopics}
-          {!this.state.showSubNav && items.legalForms}
-          {!this.state.showSubNav && items.services}
-          {!this.state.showSubNav && items.contact}
-          {this.state.showSubNav && items.search}
-          {items.account}
-          {items.setting}
-        </div>
-        {this.state.showSubNav && <Navbar />}
-      </div>*/
       <div className={styles.header}>
         <nav className={`navbar ${styles.navbar}`} style={{ zIndex: 999 }}>
           <div className="container-fluid">
@@ -139,6 +124,7 @@ class Header extends Component {
           </div>
         </nav>
         <div>
+          { /*<NavBar />*/ }
         </div>
       </div>
     );

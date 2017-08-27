@@ -17,7 +17,7 @@ if (typeof require.ensure !== 'function') {
 if (process.env.NODE_ENV !== 'production') {
   // Require async routes only in development for react-hot-reloader to work.
   require('./modules/Home/Home');
-  require('./modules/Program/Program');
+  require('./modules/Program');
   require('./modules/LegalForms/LegalForms');
   require('./modules/LegalTopics/LegalTopics');
   require('./modules/Account/Profile/Profile');
@@ -57,7 +57,7 @@ export default (
       path="/legaltopics/:name"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Program/Program').default);
+          cb(null, require('./modules/Program').default);
         });
       }}
     />
@@ -65,7 +65,7 @@ export default (
       path="/legalforms/:name"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Program/Program').default);
+          cb(null, require('./modules/Program').default);
         });
       }}
     />

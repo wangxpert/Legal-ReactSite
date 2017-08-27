@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 import app from './modules/App/AppReducer';
 import posts from './modules/Post/PostReducer';
 import intl from './modules/Intl/IntlReducer';
-import programs from './modules/Program/ProgramReducer';
+import programs from './modules/Program/reducer';
 import auth from './modules/Auth/AuthReducer';
 import documents from './modules/Account/MyDocuments/reducer';
 

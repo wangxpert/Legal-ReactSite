@@ -1,27 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router'
 
 // Import Style
-import styles from './NavBar.css';
+import styles from './NavBar.css'
 
 export function NavBar(props, context) {
   return (
     <div className={styles.navbar} style={{ zIndex: 999 }}>
       <div className={styles.nav}>
 
-        <div className={styles['nav-item']}>
-          <Link to='/legaltopics'><FormattedMessage id="legalTopics" /></Link>
-        </div>
+        <div className={styles['nav-item']}><Link to='/profile'>Profile</Link></div>
+        <div className={styles['nav-item']}><Link to='/profile'>Membership</Link></div>
+        <div className={styles['nav-item']}><Link to='/profile'>My Documents</Link></div>
+        <div className={styles['nav-item']}><Link to='/profile'>My History</Link></div>
+        <div className={styles['nav-item']}><Link to='/profile'>Checkout</Link></div>
 
-        <div className={styles['nav-item']}>
-          <Link to='/legalforms'><FormattedMessage id="legalForms" /></Link>
-        </div>
-
-        <div className={styles['nav-item']}><FormattedMessage id="services" /></div>
-
-        <div className={styles['nav-item']}><FormattedMessage id="contact" /></div>
       </div>
     </div>
   );
@@ -35,4 +29,4 @@ NavBar.propTypes = {
 
 };
 
-export default NavBar;
+export default NavBar

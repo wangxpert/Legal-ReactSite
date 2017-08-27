@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
 
 // Import Style
 import styles from './Program.css';
 
 // Import Components
-import SideBar from './components/SideBar/SideBar';
-import InputBox from './components/InputBox/InputBox';
-import FinalForm from './components/FinalNode/Form/Form';
-import FinalTopic from './components/FinalNode/Topic/Topic';
-import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax';
-import ContactDialog from './components/ContactDialog';
-
-// Import Actions
-import { toggleSideBar, resetProgram } from './ProgramActions';
+import SideBar from './components/SideBar/SideBar'
+import InputBox from './components/InputBox'
+import FinalForm from './components/FinalNode/Form/Form'
+import FinalTopic from './components/FinalNode/Topic/Topic'
+import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax'
+import ContactDialog from './components/ContactDialog'
 
 class Program extends Component {
 
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showContact: false
+    }
+
+    props.fetchProgram(props.params.name);
+    props.setCurrentProgram(props.params.name);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.params.name !== nextProps.params.name) {
+      this.props.fetchProgram(nextProps.params.name)
+      this.props.setCurrentProgram(nextProps.params.name)
     }
   }
 
@@ -37,15 +42,11 @@ class Program extends Component {
   };
 
   componentDidMount() {
-    this.props.dispatch(resetProgram());
-  }
-
-  toggleSide() {
-    this.props.dispatch(toggleSideBar());
+    // this.props.dispatch(resetProgram());
   }
 
   toForm(to) {
-    this.props.dispatch(resetProgram());
+    // this.props.dispatch(resetProgram());
     if (to === 'Corp') {
       browserHistory.push('/legalforms/ca_professional_corporation');
     } else if (to === 'S-Corp') {
@@ -54,33 +55,34 @@ class Program extends Component {
   }
 
   render() {
+    const { showSideBar, showFinalNode, finalKind, finalData, program, history } = this.props;
+
     var paddingLeft = 12;
     var minWidth = 900;
-    if ( this.props.state.showSideBar ) {
+
+    if (showSideBar) {
       paddingLeft += 325;
       minWidth += 325;
     }
     paddingLeft += 'rem';
     minWidth += 'rem';
 
-    const { state } = this.props;
-
     return (
-      <div className={`${styles.program} wow fadeIn`} style={{ minWidth: minWidth }}>
+      <div className={ `${styles.program} wow fadeIn` } style={{ minWidth: minWidth }}>
         <div className={styles['sidebar-container']}>
-          <SideBar show={ this.props.state.showSideBar } toggle={ this.toggleSide.bind(this) } showContact={ this.showContact.bind(this) } />
+          <SideBar show={ showSideBar } toggle={ this.props.toggleSideBar } showContact={ this.showContact.bind(this) } />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { <InputBox name={ this.props.params.name } showContact={ this.showContact.bind(this) } show={state.showFinalNode} /> }
+          { <InputBox program={ program } history={ history } showContact={ this.showContact.bind(this) } show={ showFinalNode } /> }
 
-          { (state.showFinalNode && (state.finalKind === 'Topic')) &&
-            <FinalTopic title={ state.finalData.title } message={ state.finalData.message } calcTaxInfo={ state.finalData.calcTaxInfo } to={ state.finalData.to } toForm={ this.toForm.bind(this) } showContact={ this.showContact.bind(this) } />
+          { (showFinalNode && (finalKind === 'Topic')) &&
+            <FinalTopic title={ finalData.title } message={ finalData.message } calcTaxInfo={ finalData.calcTaxInfo } to={ finalData.to } toForm={ this.toForm.bind(this) } showContact={ this.showContact.bind(this) } />
           }
-          { (state.showFinalNode && (state.finalKind === 'CalculateTax')) &&
-            <FinalCalculateTax calcTaxInfo={ state.finalData.calcTaxInfo } showContact={ this.showContact.bind(this) } />
+          { (showFinalNode && (finalKind === 'CalculateTax')) &&
+            <FinalCalculateTax calcTaxInfo={ finalData.calcTaxInfo } showContact={ this.showContact.bind(this) } />
           }
-          { (state.showFinalNode && (state.finalKind === 'Form')) &&
-            <FinalForm data={state.finalData} />
+          { (showFinalNode && (finalKind === 'Form')) &&
+            <FinalForm data={ finalData } />
           }
         </div>
 
@@ -90,21 +92,12 @@ class Program extends Component {
   }
 }
 
-
-// Retrieve data from store as props
-function mapStateToProps(state) {
-  return {
-    state: state.programs
-  };
-}
-
 Program.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  resetPrograms: PropTypes.func.isRequired,
+  fetchProgram: PropTypes.func.isRequired,
+  setCurrentProgram: PropTypes.func.isRequired,
+  toggleSideBar: PropTypes.func.isRequired,
+  showSideBar: PropTypes.bool.isRequired
 };
 
-
-Program.contextTypes = {
-  router: React.PropTypes.object,
-};
-
-export default connect(mapStateToProps)(Program);
+export default Program

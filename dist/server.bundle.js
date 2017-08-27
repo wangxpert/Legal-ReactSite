@@ -641,7 +641,7 @@
 	
 	var _ContactDialog2 = _interopRequireDefault(_ContactDialog);
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -687,17 +687,17 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	      this.props.dispatch((0, _actions.resetProgram)());
 	    }
 	  }, {
 	    key: 'toggleSide',
 	    value: function toggleSide() {
-	      this.props.dispatch((0, _ProgramActions.toggleSideBar)());
+	      this.props.dispatch((0, _actions.toggleSideBar)());
 	    }
 	  }, {
 	    key: 'toForm',
 	    value: function toForm(to) {
-	      this.props.dispatch((0, _ProgramActions.resetProgram)());
+	      this.props.dispatch((0, _actions.resetProgram)());
 	      if (to === 'Corp') {
 	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
 	      } else if (to === 'S-Corp') {
@@ -2524,7 +2524,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	// Initial State
 	var initialState = exports.initialState = { programs: {}, current: '', showSideBar: true };
@@ -2534,36 +2534,36 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	    case _ProgramActions.ADD_PROGRAM:
+	    case _actions.ADD_PROGRAM:
 	      var newPrograms = Object.assign({}, state.programs);
 	      newPrograms[action.name] = action.program;
 	      return _extends({}, state, {
 	        programs: newPrograms
 	      });
 	
-	    case _ProgramActions.SET_CURRENT_PROGRAM:
+	    case _actions.SET_CURRENT_PROGRAM:
 	      return _extends({}, state, {
 	        current: action.name
 	      });
 	
-	    case _ProgramActions.TOGGLE_SIDEBAR:
+	    case _actions.TOGGLE_SIDEBAR:
 	      return _extends({}, state, {
 	        showSideBar: !state.showSideBar
 	      });
 	
-	    case _ProgramActions.SET_FINAL_NODE:
+	    case _actions.SET_FINAL_NODE:
 	      return _extends({}, state, {
 	        showFinalNode: true,
 	        finalKind: action.finalKind,
 	        finalData: action.finalData
 	      });
 	
-	    case _ProgramActions.HIDE_FINAL_NODE:
+	    case _actions.HIDE_FINAL_NODE:
 	      return _extends({}, state, {
 	        showFinalNode: false
 	      });
 	
-	    case _ProgramActions.RESET_PROGRAM:
+	    case _actions.RESET_PROGRAM:
 	      return _extends({}, state, {
 	        showFinalNode: false
 	      });
@@ -6675,7 +6675,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	var _Document = __webpack_require__(90);
 	
@@ -6839,7 +6839,7 @@
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	var _styles = {
 	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
@@ -7134,10 +7134,10 @@
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    back: function back() {
-	      return dispatch((0, _ProgramActions.hideFinalNode)());
+	      return dispatch((0, _actions.hideFinalNode)());
 	    },
 	    setFinalNode: function setFinalNode(kind, data) {
-	      return dispatch((0, _ProgramActions.setFinalNode)(kind, data));
+	      return dispatch((0, _actions.setFinalNode)(kind, data));
 	    }
 	  };
 	}
@@ -7343,7 +7343,7 @@
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	var _styles = {
 	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
@@ -7492,10 +7492,10 @@
 	function mapDispatchToProps(dispatch, ownProps) {
 	  return {
 	    back: function back() {
-	      return dispatch((0, _ProgramActions.hideFinalNode)());
+	      return dispatch((0, _actions.hideFinalNode)());
 	    },
 	    setFinalNode: function setFinalNode(kind, data) {
-	      return dispatch((0, _ProgramActions.setFinalNode)(kind, data));
+	      return dispatch((0, _actions.setFinalNode)(kind, data));
 	    }
 	  };
 	}
@@ -7557,7 +7557,7 @@
 	
 	var cityExemption = _interopRequireWildcard(_city_exemption2);
 	
-	var _ProgramActions = __webpack_require__(8);
+	var _actions = __webpack_require__(8);
 	
 	var _ProgramReducer = __webpack_require__(33);
 	
@@ -7640,8 +7640,8 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      if (this.props.name) {
-	        this.props.dispatch((0, _ProgramActions.fetchProgram)(this.props.name));
-	        this.props.dispatch((0, _ProgramActions.setCurrentProgram)(this.props.name));
+	        this.props.dispatch((0, _actions.fetchProgram)(this.props.name));
+	        this.props.dispatch((0, _actions.setCurrentProgram)(this.props.name));
 	
 	        if (this.props.program) {
 	          this.history = [];
@@ -7657,8 +7657,8 @@
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      if (this.props.name !== nextProps.name) {
-	        this.props.dispatch((0, _ProgramActions.fetchProgram)(nextProps.name));
-	        this.props.dispatch((0, _ProgramActions.setCurrentProgram)(nextProps.name));
+	        this.props.dispatch((0, _actions.fetchProgram)(nextProps.name));
+	        this.props.dispatch((0, _actions.setCurrentProgram)(nextProps.name));
 	      }
 	
 	      if (this.props.program !== nextProps.program) {
@@ -7791,14 +7791,14 @@
 	        }
 	
 	        if (node.content.kind === 'Form') {
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Form', { form: node.content.form, info: _extends({}, this.state.store) }));
+	          this.props.dispatch((0, _actions.setFinalNode)('Form', { form: node.content.form, info: _extends({}, this.state.store) }));
 	        } else if (node.content.kind === 'CalculateTax') {
 	          var county_exemption = countyExemption.exemption(this.state.store['county']);
 	          var countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
 	          var city_exemption = countyExemption.exemption(this.state.store['county'], this.state.store['city']);
 	          var cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
 	
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: countyTaxRate, cityTaxRate: cityTaxRate }));
+	          this.props.dispatch((0, _actions.setFinalNode)('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: countyTaxRate, cityTaxRate: cityTaxRate }));
 	        } else {
 	          var calcTaxInfo;
 	          if (node.content.next === 'CalculateTax') {
@@ -7811,7 +7811,7 @@
 	          }
 	
 	          console.log(calcTaxInfo);
-	          this.props.dispatch((0, _ProgramActions.setFinalNode)('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo: calcTaxInfo }));
+	          this.props.dispatch((0, _actions.setFinalNode)('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo: calcTaxInfo }));
 	        }
 	      }
 	    }

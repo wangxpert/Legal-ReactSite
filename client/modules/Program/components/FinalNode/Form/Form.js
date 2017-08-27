@@ -10,7 +10,7 @@ import Cover from '../../../../../components/Cover';
 import styles from './styles.css';
 
 // Import Actions
-import { hideFinalNode } from '../../../ProgramActions';
+import { hideFinalNode } from '../../../actions';
 import { saveDoc } from '../../../../Account/MyDocuments/actions';
 import { success, warning } from 'react-notification-system-redux';
 

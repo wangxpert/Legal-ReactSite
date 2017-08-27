@@ -1,26 +1,19 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
-import ReactHtmlParser from 'react-html-parser';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link, browserHistory } from 'react-router'
+import ReactHtmlParser from 'react-html-parser'
 
 import NoteDialog from './NoteDialog'
 
-import County from './datasource/county';
-import City from './datasource/city';
-import * as countyExemption from './datasource/county_exemption';
-import * as cityExemption from './datasource/city_exemption';
-
-// Import Actions
-import { addProgram, setCurrentProgram, fetchProgram, setFinalNode } from '../../ProgramActions';
-
-// Import Selectors
-import { getCurrentProgram } from '../../ProgramReducer';
+import County from './datasource/county'
+import City from './datasource/city'
+import * as countyExemption from './datasource/county_exemption'
+import * as cityExemption from './datasource/city_exemption'
 
 // Import Style
 import styles from './InputBox.css';
 
+// Import Assets
 import check_img from './green_check.png';
 
 class InputBox extends Component {
@@ -36,40 +29,6 @@ class InputBox extends Component {
       noteContent: '',
       store: {}
     };
-
-    this.history = [];
-  }
-
-  componentWillMount() {
-    if (this.props.name) {
-      this.props.dispatch(fetchProgram(this.props.name));
-      this.props.dispatch(setCurrentProgram(this.props.name));
-
-      if (this.props.program) {
-        this.history = [];
-        var initIndex = this.getNodeIndex(this.props.program.node, this.props.program.start);
-        this.setCurrent(this.props.program, initIndex);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-  }
-
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.name !== nextProps.name ) {
-      this.props.dispatch(fetchProgram(nextProps.name));
-      this.props.dispatch(setCurrentProgram(nextProps.name));
-    }
-
-    if (this.props.program !== nextProps.program) {
-      if (nextProps.program) {
-        this.history = [];
-        var initIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start);
-        this.setCurrent(nextProps.program, initIndex);
-      }
-    }
   }
 
   getNodeIndex(node, id) {
@@ -165,14 +124,14 @@ class InputBox extends Component {
     }
 
     if (kind === 'final') {
-      this.history.pop();
+      // this.props.history.pop();
       var message = node.content.message ? node.content.message : '';
       if (node.content.attach) {
         node.content.attach.forEach((elt) => { message += program.attach[elt] })
       }
 
       if (node.content.kind === 'Form') {
-        this.props.dispatch(setFinalNode('Form', { form: node.content.form, info: { ...this.state.store } }));
+        this.props.setFinalNode('Form', { form: node.content.form, info: { ...this.state.store } });
       } else if (node.content.kind === 'CalculateTax') {
         const county_exemption = countyExemption.exemption(this.state.store['county']);
         const countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
@@ -180,7 +139,7 @@ class InputBox extends Component {
         const cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
         calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
 
-        this.props.dispatch(setFinalNode('CalculateTax', { calcTaxInfo }));
+        this.props.setFinalNode('CalculateTax', { calcTaxInfo });
       } else {
         var calcTaxInfo;
         if (node.content.next === 'CalculateTax') {
@@ -192,7 +151,7 @@ class InputBox extends Component {
           calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate, cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
         }
 
-        this.props.dispatch(setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo }));
+        this.props.setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo });
       }
     }
   }
@@ -223,8 +182,6 @@ class InputBox extends Component {
     const node = this.props.program.node[this.state.current];
     this.setInput(node);
 
-    console.log(this.state.store);
-
     // Check wheter input is empty or not
     var empty = false;
     if (node.kind === 'Input') {
@@ -247,7 +204,8 @@ class InputBox extends Component {
     const next = this.getNextId(node);
     const nextIndex = this.getNodeIndex(this.props.program.node, next);
 
-    this.history.push({
+    this.props.stepNext(
+      {
       current: this.state.current,
       singleChoice: this.state.singleChoice,
       multiChoice: this.state.multiChoice,
@@ -259,12 +217,12 @@ class InputBox extends Component {
 
   onBack() {
     if (this.props.program) {
-      if (this.history.length === 0) return;
+      if (this.props.history.length === 0) return;
 
-      const state = this.history[this.history.length - 1];
+      const state = this.props.history[this.props.history.length - 1];
       this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, store: state.store });
 
-      this.history.pop();
+      this.props.stepBack();
     }
   }
 
@@ -474,6 +432,10 @@ class InputBox extends Component {
       }
     }
 
+    if (!this.props.history) {
+      return null
+    }
+
     return (
       <div className={`${styles.inputbox}`} style={{display: this.props.show ? 'none' : ''}}>
         <div className={styles.title}>
@@ -484,7 +446,7 @@ class InputBox extends Component {
         <div className={styles['progress-container']}>
           <div className={`progress ${styles['progress']}`}>
             <div className="progress-bar active" role="progressbar"
-            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${this.history.length * 100.0 / this.props.program.step}%`}}>
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${this.props.history.length * 100.0 / this.props.program.step}%`}}>
 
             </div>
           </div>
@@ -493,7 +455,7 @@ class InputBox extends Component {
 
         <div className={`${styles['main-container']}`}>
           <div className={styles['question']}>
-            <span>{`${this.history.length + 1}. `}</span>
+            <span>{`${this.props.history.length + 1}. `}</span>
             <span>{ ReactHtmlParser(question) }</span>
             { eleNote }
           </div>
@@ -506,7 +468,7 @@ class InputBox extends Component {
           </div>
 
           <div className={styles['button-group']}>
-            <div className={`${styles.button} ${this.history.length ? '' : styles.disable}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
+            <div className={`${styles.button} ${this.props.history.length ? '' : styles.disable}`} style={{ float: 'left' }} onClick={ this.onBack.bind(this) }>
               Step Back
             </div>
 
@@ -535,15 +497,4 @@ class InputBox extends Component {
   }
 }
 
-// Retrieve data from store as props
-function mapStateToProps(state) {
-  return {
-    program: getCurrentProgram(state)
-  };
-}
-
-InputBox.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps)(InputBox);
+export default InputBox

@@ -1,0 +1,109 @@
+import * as Actions from './actions'
+
+// Initial State
+export const initialState = {
+  programs: {},
+  current: '',
+  history: {},
+  showSideBar: true,
+  showFinalNode: false
+};
+
+const resetPrograms = () => {
+  return initialState
+}
+
+const addProgram = (state, action) => {
+  const programs = Object.assign({}, state.programs)
+  programs[action.name] = action.program
+  return {
+    ...state,
+    programs
+  };
+}
+
+const setCurrentProgram = (state, action) => {
+  const history = Object.assign({}, state.history)
+  const current = action.name
+
+  if (!history[current])
+    history[current] = []
+
+  return {
+    ...state,
+    current: action.name,
+    history: history
+  };
+}
+
+const stepNext = (state, action) => {
+  const history = Object.assign({}, state.history);
+
+  history[state.current].push(action.data);
+
+  return {
+    ...state,
+    history: history
+  }
+}
+
+const stepBack = (state, action) => {
+  const history = Object.assign({}, state.history);
+
+  history[state.current].pop();
+
+  return {
+    ...state,
+    history: history
+  }
+}
+
+const ProgramReducer = (state = initialState, action) => {
+  switch (action.type) {
+
+    case Actions.TOGGLE_SIDEBAR:
+      return {
+        ...state,
+        showSideBar: !state.showSideBar
+      }
+
+    case Actions.SET_FINAL_NODE:
+      return {
+        ...state,
+        showFinalNode: true,
+        finalKind: action.finalKind,
+        finalData: action.finalData
+      }
+
+    case Actions.HIDE_FINAL_NODE:
+      return {
+        ...state,
+        showFinalNode: false
+      }
+
+    case Actions.RESET_PROGRAMS:        return resetPrograms()
+    case Actions.ADD_PROGRAM:           return addProgram(state, action)
+    case Actions.SET_CURRENT_PROGRAM:   return setCurrentProgram(state, action)
+    case Actions.STEP_NEXT:             return stepNext(state, action)
+    case Actions.STEP_BACK:             return stepBack(state, action)
+
+    default:
+      return state;
+  }
+};
+
+/* Selectors */
+
+// Get all programs
+export const getPrograms = state => state.programs.programs
+
+// Get program by name
+export const getCurrentProgram = state => state.programs.programs[state.programs.current]
+
+// Get Current history
+export const getCurrentHistory = state => {
+  return state.programs.history[state.programs.current]
+}
+
+// Export Reducer
+export default ProgramReducer
