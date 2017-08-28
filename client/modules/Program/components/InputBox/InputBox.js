@@ -38,11 +38,15 @@ class InputBox extends Component {
         this.singleChoice = -1
         this.multiChoice = []
         this.state.store = state.store
+      } else {
+
       }
     }
+    console.log('CONSTRUCTOR')
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('RECEIVE')
     if (this.props.program !== nextProps.program) {
       if (!nextProps.history.length) {
         const nextIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start)
@@ -438,6 +442,10 @@ class InputBox extends Component {
     const program = this.props.program
     if (program) {
       node = program.node[this.state.current];
+      if (node.kind === 'Action') {
+        this.setCurrent(program, this.state.current)
+        return null
+      }
 
       if (node.kind !== 'Form' && node.kind !== 'Action') {
 
