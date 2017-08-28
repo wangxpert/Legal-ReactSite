@@ -46,7 +46,7 @@ class Program extends Component {
   }
 
   toForm(to) {
-    // this.props.dispatch(resetProgram());
+    this.props.hideFinalNode()
     if (to === 'Corp') {
       browserHistory.push('/legalforms/ca_professional_corporation');
     } else if (to === 'S-Corp') {
@@ -55,7 +55,7 @@ class Program extends Component {
   }
 
   render() {
-    const { showSideBar, showFinalNode, finalKind, finalData, program, history } = this.props;
+    const { showSideBar, showFinalNode, finalKind, finalData, program, history, progress } = this.props;
 
     var paddingLeft = 12;
     var minWidth = 900;
@@ -73,7 +73,7 @@ class Program extends Component {
           <SideBar show={ showSideBar } toggle={ this.props.toggleSideBar } showContact={ this.showContact.bind(this) } />
         </div>
         <div className={`${styles['inputbox-container']}`} style={{ paddingLeft: paddingLeft }}>
-          { <InputBox program={ program } history={ history } showContact={ this.showContact.bind(this) } show={ showFinalNode } /> }
+          { <InputBox program={ program } history={ history } progress={ progress } showContact={ this.showContact.bind(this) } show={ showFinalNode } /> }
 
           { (showFinalNode && (finalKind === 'Topic')) &&
             <FinalTopic title={ finalData.title } message={ finalData.message } calcTaxInfo={ finalData.calcTaxInfo } to={ finalData.to } toForm={ this.toForm.bind(this) } showContact={ this.showContact.bind(this) } />

@@ -11,14 +11,14 @@ import * as countyExemption from './datasource/county_exemption'
 import * as cityExemption from './datasource/city_exemption'
 
 // Import Style
-import styles from './InputBox.css';
+import styles from './InputBox.css'
 
 // Import Assets
-import check_img from './green_check.png';
+import check_img from './green_check.png'
 
 class InputBox extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       current: 0,
@@ -28,7 +28,31 @@ class InputBox extends Component {
       noteTitle: '',
       noteContent: '',
       store: {}
-    };
+    }
+
+    if (props.program) {
+      if (props.history.length) {
+        const state = props.history[props.history.length - 1]
+        const current = props.progress
+        this.state.current = current
+        this.singleChoice = -1
+        this.multiChoice = []
+        this.state.store = state.store
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.program !== nextProps.program) {
+      if (!nextProps.history.length) {
+        const nextIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start)
+        this.setCurrent(nextProps.program, nextIndex)
+      } else {
+        const state = nextProps.history[nextProps.history.length - 1]
+        const current = nextProps.progress
+        this.setState({ current: current, singleChoice: -1, multiChoice: [], store: state.store })
+      }
+    }
   }
 
   getNodeIndex(node, id) {
@@ -125,6 +149,7 @@ class InputBox extends Component {
 
     if (kind === 'final') {
       // this.props.history.pop();
+      this.props.stepBack()
       var message = node.content.message ? node.content.message : '';
       if (node.content.attach) {
         node.content.attach.forEach((elt) => { message += program.attach[elt] })
@@ -175,11 +200,8 @@ class InputBox extends Component {
     }
   }
 
-  onNext() {
-    if (!this.props.program)
-      return;
-
-    const node = this.props.program.node[this.state.current];
+  onNext(program) {
+    const node = program.node[this.state.current];
     this.setInput(node);
 
     // Check wheter input is empty or not
@@ -202,7 +224,7 @@ class InputBox extends Component {
     }
 
     const next = this.getNextId(node);
-    const nextIndex = this.getNodeIndex(this.props.program.node, next);
+    const nextIndex = this.getNodeIndex(program.node, next);
 
     this.props.stepNext(
       {
@@ -210,13 +232,15 @@ class InputBox extends Component {
       singleChoice: this.state.singleChoice,
       multiChoice: this.state.multiChoice,
       store: {...this.state.store}
-    });
+    }, nextIndex);
 
-    this.setCurrent(this.props.program, nextIndex);
+    this.setCurrent(program, nextIndex);
   }
 
   onBack() {
-    if (this.props.program) {
+    const program = this.props.program
+
+    if (program) {
       if (this.props.history.length === 0) return;
 
       const state = this.props.history[this.props.history.length - 1];
@@ -410,13 +434,14 @@ class InputBox extends Component {
     var node = null;
     var eleNote = null;
     var note = { title: '', content: '' };
-    if (this.props.program) {
 
-      node = this.props.program.node[this.state.current];
+    const program = this.props.program
+    if (program) {
+      node = program.node[this.state.current];
 
       if (node.kind !== 'Form' && node.kind !== 'Action') {
 
-        title = this.props.program.description;
+        title = program.description;
 
         question = `${node.content.question}`;
         question = this.replaceStoreValue(question);
@@ -442,11 +467,11 @@ class InputBox extends Component {
           { title }
         </div>
 
-        { this.props.program && this.props.program.step &&
+        { program && program.step &&
         <div className={styles['progress-container']}>
           <div className={`progress ${styles['progress']}`}>
             <div className="progress-bar active" role="progressbar"
-            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${this.props.history.length * 100.0 / this.props.program.step}%`}}>
+            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{width: `${this.props.history.length * 100.0 / program.step}%`}}>
 
             </div>
           </div>
@@ -472,7 +497,7 @@ class InputBox extends Component {
               Step Back
             </div>
 
-            <div className={`${styles.button} ${styles.big}`} onClick={ this.onNext.bind(this) }>
+            <div className={`${styles.button} ${styles.big}`} onClick={ e => this.onNext(program) }>
               Continue
             </div>
 

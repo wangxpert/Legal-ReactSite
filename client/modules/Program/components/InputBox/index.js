@@ -16,7 +16,7 @@ function mapStateToProps(dispatch, ownProps) {
 
 function mapDispatchToProps(dispatch, ownProps) {
   return {
-    stepNext: (data) => dispatch(Actions.stepNext(data)),
+    stepNext: (data, next) => dispatch(Actions.stepNext(data, next)),
     stepBack: () => dispatch(Actions.stepBack()),
     stepSave: () => dispatch(Actions.stepSave()),
     setFinalNode: (kind, data) => dispatch(Actions.setFinalNode(kind, data)),

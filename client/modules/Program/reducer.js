@@ -5,6 +5,7 @@ export const initialState = {
   programs: {},
   current: '',
   history: {},
+  progress: {},
   showSideBar: true,
   showFinalNode: false
 };
@@ -37,24 +38,29 @@ const setCurrentProgram = (state, action) => {
 }
 
 const stepNext = (state, action) => {
-  const history = Object.assign({}, state.history);
+  const history = Object.assign({}, state.history)
+  const progress = Object.assign({}, state.progress)
 
-  history[state.current].push(action.data);
+  history[state.current].push(action.data)
+  progress[state.current] = action.next
 
   return {
     ...state,
-    history: history
+    history: history,
+    progress: progress
   }
 }
 
 const stepBack = (state, action) => {
-  const history = Object.assign({}, state.history);
+  const history = Object.assign({}, state.history)
+  const progress = Object.assign({}, state.progress)
 
-  history[state.current].pop();
+  progress[state.current] = (history[state.current].pop()).current
 
   return {
     ...state,
-    history: history
+    history: history,
+    progress: progress
   }
 }
 
@@ -103,6 +109,11 @@ export const getCurrentProgram = state => state.programs.programs[state.programs
 // Get Current history
 export const getCurrentHistory = state => {
   return state.programs.history[state.programs.current]
+}
+
+// Get Current progress
+export const getCurrentProgress = state => {
+  return state.programs.progress[state.programs.current]
 }
 
 // Export Reducer

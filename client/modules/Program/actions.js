@@ -7,7 +7,7 @@ export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 export const SET_FINAL_NODE = 'SET_FINAL_NODE';
 export const HIDE_FINAL_NODE = 'HIDE_FINAL_NODE';
 
-export const RESET_PROGRAMS = 'RESET_PROGRAM';
+export const RESET_PROGRAMS = 'RESET_PROGRAMS';
 export const ADD_PROGRAM = 'ADD_PROGRAM';
 export const SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
 
@@ -38,9 +38,9 @@ export function hideFinalNode() {
   }
 }
 
-export function resetProgram() {
+export function resetPrograms() {
   return {
-    type: RESET_PROGRAM
+    type: RESET_PROGRAMS
   }
 }
 
@@ -68,10 +68,11 @@ export function fetchProgram(name) {
   }
 }
 
-export function stepNext(data) {
+export function stepNext(data, next) {
   return {
     type: STEP_NEXT,
-    data
+    data,
+    next
   }
 }
 
