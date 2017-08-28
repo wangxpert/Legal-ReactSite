@@ -108,12 +108,12 @@ export const getCurrentProgram = state => state.programs.programs[state.programs
 
 // Get Current history
 export const getCurrentHistory = state => {
-  return state.programs.history[state.programs.current]
+  return state.programs.history ? state.programs.history[state.programs.current] : undefined
 }
 
 // Get Current progress
 export const getCurrentProgress = state => {
-  return state.programs.progress[state.programs.current]
+  return state.programs.progress ? state.programs.progress[state.programs.current] : undefined
 }
 
 // Export Reducer

@@ -1,10 +1,10 @@
 // Import Actions
-import * as Actions from './actions';
+import * as Actions from './actions'
 
 // Initial State
 const initialState = {
 
-};
+}
 
 const DocReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -32,15 +32,15 @@ const DocReducer = (state = initialState, action) => {
       return {
         ...state,
         state: 'SAVE_DOC_FAILED',
-        err
+        err: action.err
       }
 
     default:
-      return state;
+      return state
   }
-};
+}
 
 /* Selectors */
 
 // Export Reducer
-export default DocReducer;
+export default DocReducer

@@ -32,8 +32,7 @@ class Form extends Component {
     super(props);
 
     this.state = {
-      showDocument: false,
-      isSaved: false
+      showDocument: false
     };
   }
 
@@ -46,8 +45,8 @@ class Form extends Component {
   }
 
   onSave() {
-    if (this.state.isSaved === true) {
-      this.props.warningMessage({
+    if (this.props.state === 'SAVE_DOC_SUCCEEDED') {
+      this.props.warning({
         // uid: 'once-please', // you can specify your own uid if required
         title: 'Already saved',
         message: 'This form is already saved.',
@@ -57,13 +56,6 @@ class Form extends Component {
     }
 
     this.props.save();
-    this.setState({ isSaved: true });
-    this.props.successMessage({
-      // uid: 'once-please', // you can specify your own uid if required
-      title: 'Save',
-      message: 'This form is saved successfully.',
-      position: 'tr',
-    });
   }
 
   onHideDocument() {
@@ -101,7 +93,7 @@ class Form extends Component {
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-
+    state: state.documents.state
   };
 }
 
