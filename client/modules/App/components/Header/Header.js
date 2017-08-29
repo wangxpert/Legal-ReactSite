@@ -12,7 +12,6 @@ import { toggleSearchBar } from '../../AppActions';
 
 // Import Style
 import styles from './Header.css';
-import NavBar from '../NavBar/NavBar';
 import select_img from './select.png';
 
 class Header extends Component {
@@ -81,8 +80,8 @@ class Header extends Component {
           </div>
 
           <ul className={styles['dropdown']}>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/mydocuments">Documents</Link></li>
+            <li><Link to="/account/profile">Profile</Link></li>
+            <li><Link to="/account/mydocuments">Documents</Link></li>
             <li><a href="javascript:void(0)" onClick={this.onLogout.bind(this)}>Log Out</a></li>
           </ul>
         </li>

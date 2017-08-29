@@ -42,11 +42,9 @@ class InputBox extends Component {
 
       }
     }
-    console.log('CONSTRUCTOR')
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('RECEIVE')
     if (this.props.program !== nextProps.program) {
       if (!nextProps.history.length) {
         const nextIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start)

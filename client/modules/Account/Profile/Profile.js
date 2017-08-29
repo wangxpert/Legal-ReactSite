@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 // Import Style
-import styles from './Profile.css';
+import styles from './Profile.css'
 
 // Import Components
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
 
-import Button from '../../../components/Button/Button';
-import UserInfo from './components/UserInfo';
-import Membership from './components/Membership';
-import Conversation from './components/Conversation';
-import Activity from './components/Activity';
-import Document from './components/Document';
+import Button from '../../../components/Button/Button'
+import UserInfo from './components/UserInfo'
+import Membership from './components/Membership'
+import Conversation from './components/Conversation'
+import Activity from './components/Activity'
+import Document from './components/Document'
 
 // Import Actions
-import { fetchUserProfileRequested } from '../../Auth/AuthActions';
+import { fetchUserProfileRequested } from '../../Auth/AuthActions'
 
 class Profile extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchUserProfileRequested());
+    this.props.dispatch(fetchUserProfileRequested())
   }
 
   onUpdateInfo() {
-    alert('Update Information');
+    alert('Update Information')
   }
 
   onUpgradeMembership() {
@@ -40,7 +40,7 @@ class Profile extends Component {
   }
 
   onAsk() {
-    alert('Ask a Maven');
+    alert('Ask a Maven')
   }
 
   render() {
@@ -65,7 +65,7 @@ class Profile extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -73,11 +73,11 @@ class Profile extends Component {
 function mapStateToProps(store) {
   return {
     auth: store.auth
-  };
+  }
 }
 
 Profile.propTypes = {
   dispatch: PropTypes.func.isRequired,
-};
+}
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Profile)

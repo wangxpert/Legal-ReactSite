@@ -20,6 +20,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/Program');
   require('./modules/LegalForms/LegalForms');
   require('./modules/LegalTopics/LegalTopics');
+  require('./modules/Account');
   require('./modules/Account/Profile/Profile');
   require('./modules/Account/MyDocuments');
   require('./modules/Auth/Login');
@@ -86,20 +87,29 @@ export default (
       }}
     />
     <Route
-      path="/profile"
+      path="account"
       getComponent={(nextState, cb) => {
         require.ensure([], require => {
-          cb(null, require('./modules/Account/Profile/Profile').default);
+          cb(null, require('./modules/Account').default);
         });
       }}
-    />
-    <Route
-      path="/mydocuments"
-      getComponent={(nextState, cb) => {
-        require.ensure([], require => {
-          cb(null, require('./modules/Account/MyDocuments').default);
-        });
-      }}
-    />
+    >
+      <Route
+        path="profile"
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Account/Profile/Profile').default);
+          });
+        }}
+      />
+      <Route
+        path="mydocuments"
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Account/MyDocuments').default);
+          });
+        }}
+      />
+    </Route>
   </Route>
 );
