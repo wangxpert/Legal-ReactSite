@@ -14,6 +14,7 @@ function mapStateToProps(state) {
     program: getCurrentProgram(state),
     history: getCurrentHistory(state),
     progress: getCurrentProgress(state),
+    current: state.programs.current,
     showSideBar: state.programs.showSideBar,
     showFinalNode: state.programs.showFinalNode,
     finalKind: state.programs.finalKind,
@@ -27,7 +28,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     fetchProgram: (name) => dispatch(Actions.fetchProgram(name)),
     setCurrentProgram: (name) => dispatch(Actions.setCurrentProgram(name)),
     hideFinalNode: () => dispatch(Actions.hideFinalNode()),
-    toggleSideBar: () => dispatch(Actions.toggleSideBar())
+    toggleSideBar: () => dispatch(Actions.toggleSideBar()),
+    savePlace: (info) => dispatch(Actions.savePlace(info))
   }
 }
 

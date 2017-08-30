@@ -34,7 +34,6 @@ class Profile extends Component {
 
   onAsk() {
     alert('On Ask');
-    console.log(this.props.documents);
   }
 
   onNewDocument() {

@@ -9,7 +9,6 @@ export function NavBar(props) {
 
   const path = props.location.pathname.split('/')
   const selected = path[path.length - 1]
-  console.log(selected)
 
   return (
     <div className={styles.navbar} style={{ zIndex: 1 }}>
@@ -18,7 +17,7 @@ export function NavBar(props) {
         <div className={ `${ styles['nav-item'] } ${ selected === 'profile' ? styles.active: '' } ` }><Link to='/account/profile'>Profile</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'membership' ? styles.active: '' } ` }><Link to='/account/membership'>Membership</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'mydocuments' ? styles.active: '' } ` }><Link to='/account/mydocuments'>My Documents</Link></div>
-        <div className={ `${ styles['nav-item'] } ${ selected === 'history' ? styles.active: '' } ` }><Link to='/account/history'>My History</Link></div>
+        <div className={ `${ styles['nav-item'] } ${ selected === 'activity' ? styles.active: '' } ` }><Link to='/account/activity'>My Activity</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'checkout' ? styles.active: '' } ` }><Link to='/account/checkout'>Checkout</Link></div>
 
       </div>

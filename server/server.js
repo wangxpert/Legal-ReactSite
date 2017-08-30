@@ -44,6 +44,7 @@ import posts from './routes/post.routes';
 import docs from './routes/document.routes';
 import programs from './routes/program.routes';
 import auth from './routes/auth.routes';
+import activities from './routes/activity.routes'
 
 import User from './models/user';
 
@@ -118,6 +119,7 @@ app.use('/api/auth', auth(passport));
 app.use('/api', posts);
 app.use('/api/programs', programs);
 app.use('/api/docs', docs);
+app.use('/api/activities', activities);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

@@ -85,7 +85,7 @@ export class App extends Component {
               />
 
           </div>
-          <div className={ styles.password } hidden={ this.state.password == 'Passw0rd' }>
+          <div className={ styles.password } hidden={ this.state.password == 'Passw0rd' } style={{ zIndex: 1001 }}>
             <input value={ this.state.password } onChange={ e => this.setState({ password: e.target.value }) } style={{ padding: '5rem', textAlign: 'center' }} />
           </div>
         </div>

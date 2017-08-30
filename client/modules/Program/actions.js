@@ -1,19 +1,20 @@
-import callApi from '../../util/apiCaller';
-import model from './model';
+import callApi from '../../util/apiCaller'
+import model from './model'
 
 // Export Constants
 
-export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
-export const SET_FINAL_NODE = 'SET_FINAL_NODE';
-export const HIDE_FINAL_NODE = 'HIDE_FINAL_NODE';
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
+export const SET_FINAL_NODE = 'SET_FINAL_NODE'
+export const HIDE_FINAL_NODE = 'HIDE_FINAL_NODE'
 
-export const RESET_PROGRAMS = 'RESET_PROGRAMS';
-export const ADD_PROGRAM = 'ADD_PROGRAM';
-export const SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
+export const RESET_PROGRAMS = 'RESET_PROGRAMS'
+export const ADD_PROGRAM = 'ADD_PROGRAM'
+export const SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM'
 
-export const STEP_NEXT      = 'STEP_NEXT';
-export const STEP_BACK      = 'STEP_BACK';
-export const STEP_SAVE      = 'STEP_SAVE';
+export const STEP_NEXT      = 'STEP_NEXT'
+export const STEP_BACK      = 'STEP_BACK'
+export const STEP_SAVE      = 'STEP_SAVE'
+export const RESTORE_STEP = 'RESTORE_STEP'
 
 // Export Actions
 
@@ -49,7 +50,7 @@ export function addProgram(name, program) {
     type: ADD_PROGRAM,
     name,
     program
-  };
+  }
 }
 
 export function setCurrentProgram(name) {
@@ -62,8 +63,8 @@ export function setCurrentProgram(name) {
 export function fetchProgram(name) {
   return (dispatch) => {
     /*return callApi(`programs/${name}`).then(program => {
-      dispatch(addProgram(name, program));
-    });*/
+      dispatch(addProgram(name, program))
+    })*/
     dispatch(addProgram(name, model[name]))
   }
 }
@@ -82,6 +83,17 @@ export function stepBack() {
   }
 }
 
-export function stepSave() {
+export function savePlace(info) {
+  return (dispatch) => {
+    return callApi(`activities`, 'post', info).then(response => {
+      console.log(response)
+    })
+  }
+}
 
+export function restoreStep(info) {
+  return {
+    type: RESTORE_STEP,
+    info
+  }
 }

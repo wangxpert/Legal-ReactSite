@@ -66,7 +66,16 @@ class Program extends Component {
   };
 
   saveStep(name) {
-    alert('name')
+    this.props.savePlace({
+      name: name,
+      program: {
+        name: this.props.current,
+        description: this.props.program.description,
+        kind: this.props.program.kind
+      },
+      history: this.props.history,
+      progress: this.props.progress
+    })
   }
 
   toForm(to) {

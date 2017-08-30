@@ -51,6 +51,22 @@ const stepNext = (state, action) => {
   }
 }
 
+const restoreStep = (state, action) => {
+
+  const info = action.info
+  const history = Object.assign({}, state.history)
+  const progress = Object.assign({}, state.progress)
+
+  history[info.name] = info.history
+  progress[info.name] = info.progress
+
+  return {
+    ...state,
+    history: history,
+    progress: progress
+  }
+}
+
 const stepBack = (state, action) => {
   const history = Object.assign({}, state.history)
   const progress = Object.assign({}, state.progress)
@@ -92,6 +108,7 @@ const ProgramReducer = (state = initialState, action) => {
     case Actions.SET_CURRENT_PROGRAM:   return setCurrentProgram(state, action)
     case Actions.STEP_NEXT:             return stepNext(state, action)
     case Actions.STEP_BACK:             return stepBack(state, action)
+    case Actions.RESTORE_STEP:          return restoreStep(state, action)
 
     default:
       return state;

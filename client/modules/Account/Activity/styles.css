@@ -1,0 +1,95 @@
+.container {
+  box-shadow: 0 0 5rem rgb(0, 0, 0, .3);
+  padding: 30rem;
+  margin: 8rem -10rem;
+  background: #f5f5f5;
+}
+
+.container .container-title {
+  color: #02b2fb;
+  font-size: 28rem;
+  font-weight: 700;
+  margin-bottom: 20rem;
+  padding: 0;
+}
+
+.container .title {
+  font-size: 20rem;
+  font-weight: 500;
+}
+
+.container .text {
+  font-size: 18rem;
+  line-height: 30rem;
+  color: #000;
+}
+
+
+.container hr {
+  color: black;
+  border-color: #aaa;
+}
+
+.container .search-container {
+  padding: 20rem 0rem 0rem 0rem;
+}
+
+.container .activity-container {
+  padding: 0rem 0rem;
+}
+
+.activity-container .activity {
+  border: 1rem solid rgba(0, 0, 0, .15);
+  cursor: pointer;
+  margin: 6rem 0;
+  padding: 15rem 16rem 10rem 16rem;
+}
+
+.activity-container .activity:hover {
+  background: #fff;
+  box-shadow: 0 1rem 6rem rgba(0, 0, 0, .1)
+}
+
+.activity .icon {
+  color: #000;
+  font-size: 24rem;
+}
+
+.activity .link {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0 10rem;
+  cursor: pointer;
+}
+
+.activity-seemore {
+  text-align: center;
+  font-size: 80rem;
+  margin-top: -30rem;
+  margin-bottom: 10rem;
+  height: 30rem;
+  cursor: pointer;
+}
+
+.activity-seemore i {
+  color: #02b2fb;
+  text-shadow: 0 2rem 3rem rgba(0, 0, 0, .3);
+}
+
+.activity-seemore i:active {
+  color: #02b2fb;
+  text-shadow: 0 0;
+}
+
+@media (max-width: 992px) and (min-width: 600px) {
+  .container .avatar-container {
+    float: left;
+  }
+
+  .container .info-container {
+    margin-top: 30rem;
+    margin-left: 50rem;
+    display: inline-block;
+  }
+}

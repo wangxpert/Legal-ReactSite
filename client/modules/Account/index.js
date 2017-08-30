@@ -13,9 +13,11 @@ import NavBar from './components/NavBar/NavBar'
 class Account extends Component {
   render() {
     return (
-      <div className={ styles.container }>
+      <div className={ styles['page-container'] }>
         <NavBar location={ this.props.location }/>
-        { this.props.children }
+        <div className={ styles['page-content'] }>
+          { this.props.children }
+        </div>
       </div>
     )
   }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 // Import Style
-import styles from './Profile.css'
+// import styles from './Profile.css'
 
 // Import Components
 import { browserHistory } from 'react-router'
@@ -45,7 +45,7 @@ class Profile extends Component {
 
   render() {
     return (
-      <div className={`${styles.profile} container wow fadeIn`}>
+      <div className={`container wow fadeIn`}>
         <div className='row'>
           <div className='col-md-4 col-xs-12'>
             <UserInfo user={this.props.auth.user} onUpdate={this.onUpdateInfo.bind(this)}/>

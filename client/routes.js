@@ -22,6 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/LegalTopics/LegalTopics');
   require('./modules/Account');
   require('./modules/Account/Profile/Profile');
+  require('./modules/Account/Activity');
   require('./modules/Account/MyDocuments');
   require('./modules/Auth/Login');
   require('./modules/Auth/Register');
@@ -107,6 +108,14 @@ export default (
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
             cb(null, require('./modules/Account/MyDocuments').default);
+          });
+        }}
+      />
+      <Route
+        path="activity"
+        getComponent={(nextState, cb) => {
+          require.ensure([], require => {
+            cb(null, require('./modules/Account/Activity').default);
           });
         }}
       />

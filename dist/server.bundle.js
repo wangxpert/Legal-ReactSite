@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 115);
+/******/ 	return __webpack_require__(__webpack_require__.s = 139);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -138,16 +138,22 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-intl");
+	module.exports = require("react-html-parser");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-html-parser");
+	module.exports = require("react-intl");
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	module.exports = require("react-notification-system-redux");
+
+/***/ },
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -167,17 +173,18 @@
 	exports.fetchUserProfileSucceeded = fetchUserProfileSucceeded;
 	exports.fetchUserProfileFailed = fetchUserProfileFailed;
 	exports.setRedirectUrl = setRedirectUrl;
+	exports.checkLoginState = checkLoginState;
 	exports.registerRequest = registerRequest;
 	exports.loginRequest = loginRequest;
 	exports.socialLoginRequest = socialLoginRequest;
 	exports.logoutRequested = logoutRequested;
 	exports.fetchUserProfileRequested = fetchUserProfileRequested;
 	
-	var _apiCaller = __webpack_require__(16);
+	var _apiCaller = __webpack_require__(12);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(9);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -205,9 +212,10 @@
 	var SET_REDIRECT_URL = exports.SET_REDIRECT_URL = 'SET_REDIRECT_URL';
 	
 	// Export Actions
-	function setLoginState() {
+	function setLoginState(state) {
 	  return {
-	    type: SET_LOGIN_STATE
+	    type: SET_LOGIN_STATE,
+	    state: state
 	  };
 	}
 	
@@ -232,7 +240,6 @@
 	}
 	
 	function loginSucceeded(user) {
-	  localStorage.setItem('clientId', user.id);
 	  return {
 	    type: LOGIN_SUCCEEDED,
 	    user: user
@@ -247,7 +254,6 @@
 	}
 	
 	function logoutSucceeded() {
-	  localStorage.removeItem('clientId');
 	  _reactRouter.browserHistory.push('/');
 	  return {
 	    type: LOGOUT_SUCCEEDED
@@ -272,6 +278,16 @@
 	  return {
 	    type: SET_REDIRECT_URL,
 	    url: url
+	  };
+	}
+	
+	function checkLoginState() {
+	  return function (dispatch) {
+	    (0, _apiCaller2.default)('auth/profile', 'get').then(function (res) {
+	      return dispatch(setLoginState('LOGGED'));
+	    }, function (err) {
+	      return dispatch(fetchUserProfileFailed('NOT_LOGGED'));
+	    });
 	  };
 	}
 	
@@ -366,7 +382,7 @@
 	}
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -375,57 +391,46 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.RESET_PROGRAM = exports.HIDE_FINAL_NODE = exports.SET_FINAL_NODE = exports.TOGGLE_SIDEBAR = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = undefined;
-	exports.addProgram = addProgram;
-	exports.setCurrentProgram = setCurrentProgram;
-	exports.fetchProgram = fetchProgram;
+	exports.RESTORE_STEP = exports.STEP_SAVE = exports.STEP_BACK = exports.STEP_NEXT = exports.SET_CURRENT_PROGRAM = exports.ADD_PROGRAM = exports.RESET_PROGRAMS = exports.HIDE_FINAL_NODE = exports.SET_FINAL_NODE = exports.TOGGLE_SIDEBAR = undefined;
 	exports.toggleSideBar = toggleSideBar;
 	exports.setFinalNode = setFinalNode;
 	exports.hideFinalNode = hideFinalNode;
-	exports.resetProgram = resetProgram;
+	exports.resetPrograms = resetPrograms;
+	exports.addProgram = addProgram;
+	exports.setCurrentProgram = setCurrentProgram;
+	exports.fetchProgram = fetchProgram;
+	exports.stepNext = stepNext;
+	exports.stepBack = stepBack;
+	exports.savePlace = savePlace;
+	exports.restoreStep = restoreStep;
 	
-	var _apiCaller = __webpack_require__(16);
+	var _apiCaller = __webpack_require__(12);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
-	var _model = __webpack_require__(104);
+	var _model = __webpack_require__(124);
 	
 	var _model2 = _interopRequireDefault(_model);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	// Export Constants
-	var ADD_PROGRAM = exports.ADD_PROGRAM = 'ADD_PROGRAM';
-	var SET_CURRENT_PROGRAM = exports.SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
+	
 	var TOGGLE_SIDEBAR = exports.TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR';
 	var SET_FINAL_NODE = exports.SET_FINAL_NODE = 'SET_FINAL_NODE';
 	var HIDE_FINAL_NODE = exports.HIDE_FINAL_NODE = 'HIDE_FINAL_NODE';
-	var RESET_PROGRAM = exports.RESET_PROGRAM = 'RESET_PROGRAM';
+	
+	var RESET_PROGRAMS = exports.RESET_PROGRAMS = 'RESET_PROGRAMS';
+	var ADD_PROGRAM = exports.ADD_PROGRAM = 'ADD_PROGRAM';
+	var SET_CURRENT_PROGRAM = exports.SET_CURRENT_PROGRAM = 'SET_CURRENT_PROGRAM';
+	
+	var STEP_NEXT = exports.STEP_NEXT = 'STEP_NEXT';
+	var STEP_BACK = exports.STEP_BACK = 'STEP_BACK';
+	var STEP_SAVE = exports.STEP_SAVE = 'STEP_SAVE';
+	var RESTORE_STEP = exports.RESTORE_STEP = 'RESTORE_STEP';
 	
 	// Export Actions
-	function addProgram(name, program) {
-	  return {
-	    type: ADD_PROGRAM,
-	    name: name,
-	    program: program
-	  };
-	}
 	
-	function setCurrentProgram(name) {
-	  return {
-	    type: SET_CURRENT_PROGRAM,
-	    name: name
-	  };
-	}
-	
-	function fetchProgram(name) {
-	  return function (dispatch) {
-	    /*return callApi(`programs/${name}`).then(program => {
-	      dispatch(addProgram(name, program));
-	    });*/
-	    dispatch(addProgram(name, _model2.default[name]));
-	  };
-	}
 	
 	function toggleSideBar() {
 	  return {
@@ -447,17 +452,64 @@
 	  };
 	}
 	
-	function resetProgram() {
+	function resetPrograms() {
 	  return {
-	    type: RESET_PROGRAM
+	    type: RESET_PROGRAMS
 	  };
 	}
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = require("react-notification-system-redux");
+	
+	function addProgram(name, program) {
+	  return {
+	    type: ADD_PROGRAM,
+	    name: name,
+	    program: program
+	  };
+	}
+	
+	function setCurrentProgram(name) {
+	  return {
+	    type: SET_CURRENT_PROGRAM,
+	    name: name
+	  };
+	}
+	
+	function fetchProgram(name) {
+	  return function (dispatch) {
+	    /*return callApi(`programs/${name}`).then(program => {
+	      dispatch(addProgram(name, program))
+	    })*/
+	    dispatch(addProgram(name, _model2.default[name]));
+	  };
+	}
+	
+	function stepNext(data, next) {
+	  return {
+	    type: STEP_NEXT,
+	    data: data,
+	    next: next
+	  };
+	}
+	
+	function stepBack() {
+	  return {
+	    type: STEP_BACK
+	  };
+	}
+	
+	function savePlace(info) {
+	  return function (dispatch) {
+	    return (0, _apiCaller2.default)('activities', 'post', info).then(function (response) {
+	      console.log(response);
+	    });
+	  };
+	}
+	
+	function restoreStep(info) {
+	  return {
+	    type: RESTORE_STEP,
+	    info: info
+	  };
+	}
 
 /***/ },
 /* 10 */
@@ -473,12 +525,62 @@
 
 /***/ },
 /* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.API_URL = undefined;
+	exports.default = callApi;
+	
+	var _isomorphicFetch = __webpack_require__(146);
+	
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	var _config = __webpack_require__(18);
+	
+	var _config2 = _interopRequireDefault(_config);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var API_URL = exports.API_URL = typeof window === 'undefined' || process.env.NODE_ENV === 'test' ? process.env.BASE_URL || 'http://localhost:' + (process.env.PORT || _config2.default.port) + '/api' : '/api';
+	
+	function callApi(endpoint) {
+	  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'get';
+	  var body = arguments[2];
+	
+	
+	  return (0, _isomorphicFetch2.default)(API_URL + '/' + endpoint, {
+	    credentials: 'include',
+	    headers: { 'content-type': 'application/json' },
+	    method: method,
+	    body: JSON.stringify(body)
+	  }).then(function (response) {
+	    return response.json().then(function (json) {
+	      return { json: json, response: response };
+	    });
+	  }).then(function (_ref) {
+	    var json = _ref.json,
+	        response = _ref.response;
+	
+	    if (!response.ok) {
+	      return Promise.reject(json);
+	    }
+	    return Promise.resolve(json);
+	  });
+	}
+
+/***/ },
+/* 13 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-bootstrap");
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -501,7 +603,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -560,7 +662,106 @@
 	exports.default = Document;
 
 /***/ },
-/* 14 */
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.SAVE_DOC_FAILED = exports.SAVE_DOC_SUCCEEDED = exports.FETCH_DOCS_FAILED = exports.FETCH_DOCS_SUCCEEDED = undefined;
+	exports.fetchDocsSucceeded = fetchDocsSucceeded;
+	exports.fetchDocsFailed = fetchDocsFailed;
+	exports.fetchDocs = fetchDocs;
+	exports.saveDocSucceeded = saveDocSucceeded;
+	exports.saveDocFailed = saveDocFailed;
+	exports.saveDoc = saveDoc;
+	
+	var _apiCaller = __webpack_require__(12);
+	
+	var _apiCaller2 = _interopRequireDefault(_apiCaller);
+	
+	var _reactNotificationSystemRedux = __webpack_require__(7);
+	
+	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Export Constants
+	var FETCH_DOCS_SUCCEEDED = exports.FETCH_DOCS_SUCCEEDED = 'FETCH_DOCS_SUCCEEDED';
+	var FETCH_DOCS_FAILED = exports.FETCH_DOCS_FAILED = 'FETCH_DOCS_FAILED';
+	var SAVE_DOC_SUCCEEDED = exports.SAVE_DOC_SUCCEEDED = 'SAVE_DOC_SUCCEEDED';
+	var SAVE_DOC_FAILED = exports.SAVE_DOC_FAILED = 'SAVE_DOC_FAILED';
+	
+	// Export Actions
+	function fetchDocsSucceeded(docs) {
+	  return {
+	    type: FETCH_DOCS_SUCCEEDED,
+	    docs: docs
+	  };
+	}
+	
+	function fetchDocsFailed(err) {
+	  return {
+	    type: FETCH_DOCS_FAILED,
+	    err: err
+	  };
+	}
+	
+	function fetchDocs() {
+	  return function (dispatch) {
+	    return (0, _apiCaller2.default)('docs').then(function (res) {
+	      dispatch(fetchDocsSucceeded(res.docs));
+	    }).catch(function (err) {
+	      dispatch(fetchDocsFailed(err));
+	    });
+	  };
+	}
+	
+	function saveDocSucceeded() {
+	  return {
+	    type: SAVE_DOC_SUCCEEDED
+	  };
+	}
+	
+	function saveDocFailed(err) {
+	  return {
+	    type: SAVE_DOC_FAILED,
+	    err: err
+	  };
+	}
+	
+	function saveDoc(kind, store) {
+	  return function (dispatch) {
+	    return (0, _apiCaller2.default)('docs', 'post', {
+	      kind: kind, store: store
+	    }).then(function (res) {
+	      dispatch(_reactNotificationSystemRedux2.default.success({
+	        // uid: 'once-please', // you can specify your own uid if required
+	        title: 'Save',
+	        message: 'This form is saved successfully.',
+	        position: 'tr'
+	      }));
+	      dispatch(saveDocSucceeded());
+	    }).catch(function (err) {
+	      console.log(err);
+	      if (err.status === 401) {
+	        dispatch(_reactNotificationSystemRedux2.default.error({
+	          // uid: 'once-please', // you can specify your own uid if required
+	          title: 'Save',
+	          message: 'Please log in to save this document.',
+	          position: 'tr'
+	        }));
+	      }
+	      dispatch(saveDocFailed(err));
+	    });
+	  };
+	}
+
+/***/ },
+/* 16 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -581,7 +782,7 @@
 	}
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -590,237 +791,74 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(0);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reactRouter = __webpack_require__(3);
-	
-	var _reactIntl = __webpack_require__(5);
-	
-	var _Program = {
-	  "program": "_3cVgjsWA141eMGNQ4o-3C1",
-	  "inputbox-container": "_1SVSo2dfamAlo3zLiBg-0t",
-	  "sidebar-container": "_32_53-I0qr4_x_As9i9gWq"
-	};
+	var _Program = __webpack_require__(96);
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
-	var _SideBar = __webpack_require__(101);
+	var _actions = __webpack_require__(9);
 	
-	var _SideBar2 = _interopRequireDefault(_SideBar);
+	var Actions = _interopRequireWildcard(_actions);
 	
-	var _InputBox = __webpack_require__(95);
+	var _reducer = __webpack_require__(38);
 	
-	var _InputBox2 = _interopRequireDefault(_InputBox);
-	
-	var _Form = __webpack_require__(91);
-	
-	var _Form2 = _interopRequireDefault(_Form);
-	
-	var _Topic = __webpack_require__(94);
-	
-	var _Topic2 = _interopRequireDefault(_Topic);
-	
-	var _CalculateTax = __webpack_require__(92);
-	
-	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
-	
-	var _ContactDialog = __webpack_require__(85);
-	
-	var _ContactDialog2 = _interopRequireDefault(_ContactDialog);
-	
-	var _actions = __webpack_require__(8);
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// Import Style
-	
-	
-	// Import Components
-	
-	
-	// Import Actions
-	
-	
-	var Program = function (_Component) {
-	  _inherits(Program, _Component);
-	
-	  function Program(props) {
-	    _classCallCheck(this, Program);
-	
-	    var _this = _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
-	
-	    _this.state = {
-	      showContact: false
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Program, [{
-	    key: 'showContact',
-	    value: function showContact() {
-	      this.setState({ showContact: true });
-	    }
-	  }, {
-	    key: 'closeContact',
-	    value: function closeContact() {
-	      this.setState({ showContact: false });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.dispatch((0, _actions.resetProgram)());
-	    }
-	  }, {
-	    key: 'toggleSide',
-	    value: function toggleSide() {
-	      this.props.dispatch((0, _actions.toggleSideBar)());
-	    }
-	  }, {
-	    key: 'toForm',
-	    value: function toForm(to) {
-	      this.props.dispatch((0, _actions.resetProgram)());
-	      if (to === 'Corp') {
-	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
-	      } else if (to === 'S-Corp') {
-	        _reactRouter.browserHistory.push('/legalforms/ca_s_corporation');
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var paddingLeft = 12;
-	      var minWidth = 900;
-	      if (this.props.state.showSideBar) {
-	        paddingLeft += 325;
-	        minWidth += 325;
-	      }
-	      paddingLeft += 'rem';
-	      minWidth += 'rem';
-	
-	      var state = this.props.state;
-	
-	
-	      return _jsx('div', {
-	        className: _Program2.default.program + ' wow fadeIn',
-	        style: { minWidth: minWidth }
-	      }, void 0, _jsx('div', {
-	        className: _Program2.default['sidebar-container']
-	      }, void 0, _jsx(_SideBar2.default, {
-	        show: this.props.state.showSideBar,
-	        toggle: this.toggleSide.bind(this),
-	        showContact: this.showContact.bind(this)
-	      })), _jsx('div', {
-	        className: '' + _Program2.default['inputbox-container'],
-	        style: { paddingLeft: paddingLeft }
-	      }, void 0, _jsx(_InputBox2.default, {
-	        name: this.props.params.name,
-	        showContact: this.showContact.bind(this),
-	        show: state.showFinalNode
-	      }), state.showFinalNode && state.finalKind === 'Topic' && _jsx(_Topic2.default, {
-	        title: state.finalData.title,
-	        message: state.finalData.message,
-	        calcTaxInfo: state.finalData.calcTaxInfo,
-	        to: state.finalData.to,
-	        toForm: this.toForm.bind(this)
-	      }), state.showFinalNode && state.finalKind === 'CalculateTax' && _jsx(_CalculateTax2.default, {
-	        calcTaxInfo: state.finalData.calcTaxInfo
-	      }), state.showFinalNode && state.finalKind === 'Form' && _jsx(_Form2.default, {
-	        data: state.finalData
-	      })), _jsx(_ContactDialog2.default, {
-	        show: this.state.showContact,
-	        close: this.closeContact.bind(this)
-	      }));
-	    }
-	  }]);
-	
-	  return Program;
-	}(_react.Component);
 	
 	// Retrieve data from store as props
 	
 	
+	// Import Actions
 	function mapStateToProps(state) {
 	  return {
-	    state: state.programs
+	    program: (0, _reducer.getCurrentProgram)(state),
+	    history: (0, _reducer.getCurrentHistory)(state),
+	    progress: (0, _reducer.getCurrentProgress)(state),
+	    current: state.programs.current,
+	    showSideBar: state.programs.showSideBar,
+	    showFinalNode: state.programs.showFinalNode,
+	    finalKind: state.programs.finalKind,
+	    finalData: state.programs.finalData
 	  };
 	}
 	
-	Program.contextTypes = {
-	  router: _react2.default.PropTypes.object
-	};
+	// Import View
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Program);
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.API_URL = undefined;
-	exports.default = callApi;
-	
-	var _isomorphicFetch = __webpack_require__(122);
-	
-	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-	
-	var _config = __webpack_require__(17);
-	
-	var _config2 = _interopRequireDefault(_config);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var API_URL = exports.API_URL = typeof window === 'undefined' || process.env.NODE_ENV === 'test' ? process.env.BASE_URL || 'http://localhost:' + (process.env.PORT || _config2.default.port) + '/api' : '/api';
-	
-	function callApi(endpoint) {
-	  var method = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'get';
-	  var body = arguments[2];
-	
-	  return (0, _isomorphicFetch2.default)(API_URL + '/' + endpoint, {
-	    credentials: 'include',
-	    headers: { 'content-type': 'application/json' },
-	    method: method,
-	    body: JSON.stringify(body)
-	  }).then(function (response) {
-	    return response.json().then(function (json) {
-	      return { json: json, response: response };
-	    });
-	  }).then(function (_ref) {
-	    var json = _ref.json,
-	        response = _ref.response;
-	
-	    if (!response.ok) {
-	      return Promise.reject(json);
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    resetPrograms: function resetPrograms() {
+	      return dispatch(Actions.resetPrograms());
+	    },
+	    fetchProgram: function fetchProgram(name) {
+	      return dispatch(Actions.fetchProgram(name));
+	    },
+	    setCurrentProgram: function setCurrentProgram(name) {
+	      return dispatch(Actions.setCurrentProgram(name));
+	    },
+	    hideFinalNode: function hideFinalNode() {
+	      return dispatch(Actions.hideFinalNode());
+	    },
+	    toggleSideBar: function toggleSideBar() {
+	      return dispatch(Actions.toggleSideBar());
+	    },
+	    savePlace: function savePlace(info) {
+	      return dispatch(Actions.savePlace(info));
 	    }
-	    return Promise.resolve(json);
-	  });
+	  };
 	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Program2.default);
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -837,7 +875,7 @@
 	exports.default = config;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -935,25 +973,25 @@
 	exports.default = _mongoose2.default.model('User', userSchema);
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport");
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-helmet");
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack");
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -964,23 +1002,23 @@
 	});
 	exports.localizationData = exports.enabledLanguages = undefined;
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
-	var _intl = __webpack_require__(119);
+	var _intl = __webpack_require__(143);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(120);
+	var _intlLocalesSupported = __webpack_require__(144);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(121);
+	__webpack_require__(145);
 	
-	var _en = __webpack_require__(128);
+	var _en = __webpack_require__(152);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(61);
+	var _en3 = __webpack_require__(68);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -1042,7 +1080,7 @@
 	localizationData.en.messages = flattenMessages(localizationData.en.messages);
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1065,7 +1103,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -1111,7 +1149,116 @@
 	exports.default = Cover;
 
 /***/ },
-/* 24 */
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.FETCH_ACTIVITIES_FAILED = exports.FETCH_ACTIVITIES_SUCCEEDED = undefined;
+	exports.fetchActivitiesSucceeded = fetchActivitiesSucceeded;
+	exports.fetchActivitiesFailed = fetchActivitiesFailed;
+	exports.fetchActivities = fetchActivities;
+	
+	var _apiCaller = __webpack_require__(12);
+	
+	var _apiCaller2 = _interopRequireDefault(_apiCaller);
+	
+	var _reactNotificationSystemRedux = __webpack_require__(7);
+	
+	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Export Constants
+	var FETCH_ACTIVITIES_SUCCEEDED = exports.FETCH_ACTIVITIES_SUCCEEDED = 'FETCH_ACTIVITIES_SUCCEEDED';
+	var FETCH_ACTIVITIES_FAILED = exports.FETCH_ACTIVITIES_FAILED = 'FETCH_ACTIVITIES_FAILED';
+	
+	// Export Actions
+	function fetchActivitiesSucceeded(activities) {
+	  return {
+	    type: FETCH_ACTIVITIES_SUCCEEDED,
+	    activities: activities
+	  };
+	}
+	
+	function fetchActivitiesFailed(err) {
+	  return {
+	    type: FETCH_ACTIVITIES_FAILED,
+	    err: err
+	  };
+	}
+	
+	function fetchActivities() {
+	  return function (dispatch) {
+	    return (0, _apiCaller2.default)('activities').then(function (res) {
+	      dispatch(fetchActivitiesSucceeded(res.activities));
+	    }, function (err) {
+	      dispatch(fetchActivitiesFailed(err));
+	    });
+	  };
+	}
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _activity = __webpack_require__(69);
+	
+	var _activity2 = _interopRequireDefault(_activity);
+	
+	var _actions = __webpack_require__(25);
+	
+	var Actions = _interopRequireWildcard(_actions);
+	
+	var _actions2 = __webpack_require__(9);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// import { getCurrentProgram, getCurrentHistory, getCurrentProgress } from './reducer'
+	
+	// Retrieve data from store as props
+	
+	
+	// Import Actions
+	function mapStateToProps(state) {
+	  return {
+	    activities: state.activities ? state.activities.activities : []
+	  };
+	}
+	
+	// Import View
+	
+	
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    fetchActivities: function fetchActivities() {
+	      return dispatch(Actions.fetchActivities());
+	    },
+	    restoreStep: function restoreStep(info) {
+	      return dispatch((0, _actions2.restoreStep)(info));
+	    }
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_activity2.default);
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1141,27 +1288,31 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
+	var _reactRouter = __webpack_require__(3);
+	
 	var _Button = __webpack_require__(4);
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _MyDocuments = __webpack_require__(63);
+	var _MyDocuments = __webpack_require__(73);
 	
 	var _MyDocuments2 = _interopRequireDefault(_MyDocuments);
 	
-	var _ContinueDocument = __webpack_require__(62);
+	var _ContinueDocument = __webpack_require__(72);
 	
 	var _ContinueDocument2 = _interopRequireDefault(_ContinueDocument);
 	
-	var _NewDocument = __webpack_require__(65);
+	var _NewDocument = __webpack_require__(75);
 	
 	var _NewDocument2 = _interopRequireDefault(_NewDocument);
 	
-	var _NeedHelp = __webpack_require__(64);
+	var _NeedHelp = __webpack_require__(74);
 	
 	var _NeedHelp2 = _interopRequireDefault(_NeedHelp);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
+	
+	var _actions = __webpack_require__(15);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1180,10 +1331,6 @@
 	// Import Actions
 	
 	
-	var _ref = _jsx('div', {
-	  className: 'col-xs-12'
-	}, void 0, _jsx(_MyDocuments2.default, {}));
-	
 	var Profile = function (_Component) {
 	  _inherits(Profile, _Component);
 	
@@ -1197,16 +1344,7 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      this.props.dispatch((0, _AuthActions.fetchUserProfileRequested)());
-	    }
-	  }, {
-	    key: 'onUpdateInfo',
-	    value: function onUpdateInfo() {
-	      alert('Update Information');
-	    }
-	  }, {
-	    key: 'onUpgradeMembership',
-	    value: function onUpgradeMembership() {
-	      alert('Upgrade');
+	      this.props.dispatch((0, _actions.fetchDocs)());
 	    }
 	  }, {
 	    key: 'onViewAll',
@@ -1221,7 +1359,7 @@
 	  }, {
 	    key: 'onNewDocument',
 	    value: function onNewDocument() {
-	      alert('On New Document');
+	      _reactRouter.browserHistory.push('/legalforms');
 	    }
 	  }, {
 	    key: 'render',
@@ -1230,7 +1368,11 @@
 	        className: _styles2.default['page-container'] + ' container wow fadeIn'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
-	      }, void 0, _ref, _jsx('div', {
+	      }, void 0, _jsx('div', {
+	        className: 'col-xs-12'
+	      }, void 0, _jsx(_MyDocuments2.default, {
+	        docs: this.props.documents.docs
+	      })), _jsx('div', {
 	        className: 'col-xs-12'
 	      }, void 0, _jsx(_ContinueDocument2.default, {
 	        onView: this.onViewAll.bind(this)
@@ -1254,14 +1396,15 @@
 	
 	function mapStateToProps(store) {
 	  return {
-	    auth: store.auth
+	    auth: store.auth,
+	    documents: store.documents
 	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ },
-/* 25 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1285,37 +1428,33 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _Profile = {
-	  "profile": "_1V60Xbw1jHy3vltw6hVTx"
-	};
-	
-	var _Profile2 = _interopRequireDefault(_Profile);
+	var _reactRouter = __webpack_require__(3);
 	
 	var _Button = __webpack_require__(4);
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _UserInfo = __webpack_require__(70);
+	var _UserInfo = __webpack_require__(81);
 	
 	var _UserInfo2 = _interopRequireDefault(_UserInfo);
 	
-	var _Membership = __webpack_require__(69);
+	var _Membership = __webpack_require__(80);
 	
 	var _Membership2 = _interopRequireDefault(_Membership);
 	
-	var _Conversation = __webpack_require__(67);
+	var _Conversation = __webpack_require__(78);
 	
 	var _Conversation2 = _interopRequireDefault(_Conversation);
 	
-	var _Activity = __webpack_require__(66);
+	var _Activity = __webpack_require__(77);
 	
 	var _Activity2 = _interopRequireDefault(_Activity);
 	
-	var _Document = __webpack_require__(68);
+	var _Document = __webpack_require__(79);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1326,7 +1465,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	// Import Style
-	
+	// import styles from './Profile.css'
 	
 	// Import Components
 	
@@ -1365,7 +1504,7 @@
 	  }, {
 	    key: 'onViewAll',
 	    value: function onViewAll() {
-	      alert('View All');
+	      _reactRouter.browserHistory.push('/mydocuments');
 	    }
 	  }, {
 	    key: 'onAsk',
@@ -1376,7 +1515,7 @@
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {
-	        className: _Profile2.default.profile + ' container wow fadeIn'
+	        className: 'container wow fadeIn'
 	      }, void 0, _jsx('div', {
 	        className: 'row'
 	      }, void 0, _jsx('div', {
@@ -1415,7 +1554,90 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Profile);
 
 /***/ },
-/* 26 */
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _styles = {
+	  "page-container": "_1yQIEjR00vNt7nk-cAQuIm",
+	  "page-content": "_1XQgCC7QTMSH0b_X3MukEy",
+	  "container": "_1bPBOYJ4jCYgImOVGekTWY",
+	  "container-title": "_3pm9ACej3xa5qRf6ej1ibA",
+	  "title": "_2bluXxDBAhwbaLssmLxXXb",
+	  "text": "_3tTJVePxtwZNT9CzWdVx0O"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _NavBar = __webpack_require__(82);
+	
+	var _NavBar2 = _interopRequireDefault(_NavBar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import styles
+	
+	
+	// Import Components
+	
+	
+	// Import Actions
+	
+	var Account = function (_Component) {
+	  _inherits(Account, _Component);
+	
+	  function Account() {
+	    _classCallCheck(this, Account);
+	
+	    return _possibleConstructorReturn(this, (Account.__proto__ || Object.getPrototypeOf(Account)).apply(this, arguments));
+	  }
+	
+	  _createClass(Account, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default['page-container']
+	      }, void 0, _jsx(_NavBar2.default, {
+	        location: this.props.location
+	      }), _jsx('div', {
+	        className: _styles2.default['page-content']
+	      }, void 0, this.props.children));
+	    }
+	  }]);
+	
+	  return Account;
+	}(_react.Component);
+	
+	exports.default = Account;
+
+/***/ },
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1431,13 +1653,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(129);
+	var _reduxDevtools = __webpack_require__(153);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(131);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(155);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(130);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(154);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -1449,7 +1671,7 @@
 	}, void 0, _jsx(_reduxDevtoolsLogMonitor2.default, {})));
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1475,23 +1697,23 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _validator = __webpack_require__(41);
+	var _validator = __webpack_require__(45);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(9);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(38);
+	var _reactFacebookLogin = __webpack_require__(42);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(39);
+	var _reactGoogleLogin = __webpack_require__(43);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
-	var _betterReactSpinkit = __webpack_require__(117);
+	var _betterReactSpinkit = __webpack_require__(141);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -1519,7 +1741,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1754,7 +1976,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Login);
 
 /***/ },
-/* 28 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1780,19 +2002,19 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _validator = __webpack_require__(41);
+	var _validator = __webpack_require__(45);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(9);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(38);
+	var _reactFacebookLogin = __webpack_require__(42);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(39);
+	var _reactGoogleLogin = __webpack_require__(43);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
@@ -1822,7 +2044,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2090,7 +2312,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Register);
 
 /***/ },
-/* 29 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2116,7 +2338,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _Home = {
 	  "home": "_37C9HJPUzY52Ex490y87_h",
@@ -2135,7 +2357,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(79);
+	var _Footer = __webpack_require__(90);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -2210,7 +2432,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Home);
 
 /***/ },
-/* 30 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2225,7 +2447,7 @@
 	
 	exports.switchLanguage = switchLanguage;
 	
-	var _setup = __webpack_require__(22);
+	var _setup = __webpack_require__(23);
 	
 	// Export Constants
 	var SWITCH_LANGUAGE = exports.SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
@@ -2237,7 +2459,7 @@
 	}
 
 /***/ },
-/* 31 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2263,7 +2485,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _LegalForms = {
 	  "legalforms": "teKUuQkyz6mW5tTfLFx9y",
@@ -2280,7 +2502,7 @@
 	
 	var _LegalForms2 = _interopRequireDefault(_LegalForms);
 	
-	var _PageHeader = __webpack_require__(81);
+	var _PageHeader = __webpack_require__(92);
 	
 	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
@@ -2316,6 +2538,12 @@
 	      }, {
 	        title: 'CA - S-Corporation',
 	        href: '/legalforms/ca_s_corporation'
+	      }, {
+	        title: 'DE - Professional Corporation',
+	        href: '/legalforms/de_professional_corporation'
+	      }, {
+	        title: 'DE - S-Corporation',
+	        href: '/legalforms/de_s_corporation'
 	      }]
 	    }];
 	    return _this;
@@ -2366,7 +2594,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalForms);
 
 /***/ },
-/* 32 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2392,7 +2620,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _LegalTopics = {
 	  "legaltopics": "_1QnudGqMJ6jjuh23uIYNrr",
@@ -2408,7 +2636,7 @@
 	
 	var _LegalTopics2 = _interopRequireDefault(_LegalTopics);
 	
-	var _PageHeader = __webpack_require__(82);
+	var _PageHeader = __webpack_require__(93);
 	
 	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
@@ -2511,85 +2739,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LegalTopics);
 
 /***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getCurrentProgram = exports.getPrograms = exports.initialState = undefined;
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _actions = __webpack_require__(8);
-	
-	// Initial State
-	var initialState = exports.initialState = { programs: {}, current: '', showSideBar: true };
-	
-	var ProgramReducer = function ProgramReducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case _actions.ADD_PROGRAM:
-	      var newPrograms = Object.assign({}, state.programs);
-	      newPrograms[action.name] = action.program;
-	      return _extends({}, state, {
-	        programs: newPrograms
-	      });
-	
-	    case _actions.SET_CURRENT_PROGRAM:
-	      return _extends({}, state, {
-	        current: action.name
-	      });
-	
-	    case _actions.TOGGLE_SIDEBAR:
-	      return _extends({}, state, {
-	        showSideBar: !state.showSideBar
-	      });
-	
-	    case _actions.SET_FINAL_NODE:
-	      return _extends({}, state, {
-	        showFinalNode: true,
-	        finalKind: action.finalKind,
-	        finalData: action.finalData
-	      });
-	
-	    case _actions.HIDE_FINAL_NODE:
-	      return _extends({}, state, {
-	        showFinalNode: false
-	      });
-	
-	    case _actions.RESET_PROGRAM:
-	      return _extends({}, state, {
-	        showFinalNode: false
-	      });
-	
-	    default:
-	      return state;
-	  }
-	};
-	
-	/* Selectors */
-	
-	// Get all programs
-	var getPrograms = exports.getPrograms = function getPrograms(state) {
-	  return state.programs.programs;
-	};
-	
-	// Get program by name
-	var getCurrentProgram = exports.getCurrentProgram = function getCurrentProgram(state) {
-	  return state.programs.programs[state.programs.current];
-	};
-	
-	// Export Reducer
-	exports.default = ProgramReducer;
-
-/***/ },
-/* 34 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2611,13 +2761,13 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(12);
+	var _reactBootstrap = __webpack_require__(13);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _Topic = __webpack_require__(93);
+	var _Topic = __webpack_require__(109);
 	
 	var _Topic2 = _interopRequireDefault(_Topic);
 	
@@ -2674,7 +2824,167 @@
 	exports.default = TopicDialog;
 
 /***/ },
-/* 35 */
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getCurrentProgress = exports.getCurrentHistory = exports.getCurrentProgram = exports.getPrograms = exports.initialState = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _actions = __webpack_require__(9);
+	
+	var Actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	// Initial State
+	var initialState = exports.initialState = {
+	  programs: {},
+	  current: '',
+	  history: {},
+	  progress: {},
+	  showSideBar: true,
+	  showFinalNode: false
+	};
+	
+	var resetPrograms = function resetPrograms() {
+	  return initialState;
+	};
+	
+	var addProgram = function addProgram(state, action) {
+	  var programs = Object.assign({}, state.programs);
+	  programs[action.name] = action.program;
+	  return _extends({}, state, {
+	    programs: programs
+	  });
+	};
+	
+	var setCurrentProgram = function setCurrentProgram(state, action) {
+	  var history = Object.assign({}, state.history);
+	  var current = action.name;
+	
+	  if (!history[current]) history[current] = [];
+	
+	  return _extends({}, state, {
+	    current: action.name,
+	    history: history
+	  });
+	};
+	
+	var stepNext = function stepNext(state, action) {
+	  var history = Object.assign({}, state.history);
+	  var progress = Object.assign({}, state.progress);
+	
+	  history[state.current].push(action.data);
+	  progress[state.current] = action.next;
+	
+	  return _extends({}, state, {
+	    history: history,
+	    progress: progress
+	  });
+	};
+	
+	var restoreStep = function restoreStep(state, action) {
+	
+	  var info = action.info;
+	  var history = Object.assign({}, state.history);
+	  var progress = Object.assign({}, state.progress);
+	
+	  history[info.name] = info.history;
+	  progress[info.name] = info.progress;
+	
+	  return _extends({}, state, {
+	    history: history,
+	    progress: progress
+	  });
+	};
+	
+	var stepBack = function stepBack(state, action) {
+	  var history = Object.assign({}, state.history);
+	  var progress = Object.assign({}, state.progress);
+	
+	  progress[state.current] = history[state.current].pop().current;
+	
+	  return _extends({}, state, {
+	    history: history,
+	    progress: progress
+	  });
+	};
+	
+	var ProgramReducer = function ProgramReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	
+	    case Actions.TOGGLE_SIDEBAR:
+	      return _extends({}, state, {
+	        showSideBar: !state.showSideBar
+	      });
+	
+	    case Actions.SET_FINAL_NODE:
+	      return _extends({}, state, {
+	        showFinalNode: true,
+	        finalKind: action.finalKind,
+	        finalData: action.finalData
+	      });
+	
+	    case Actions.HIDE_FINAL_NODE:
+	      return _extends({}, state, {
+	        showFinalNode: false
+	      });
+	
+	    case Actions.RESET_PROGRAMS:
+	      return resetPrograms();
+	    case Actions.ADD_PROGRAM:
+	      return addProgram(state, action);
+	    case Actions.SET_CURRENT_PROGRAM:
+	      return setCurrentProgram(state, action);
+	    case Actions.STEP_NEXT:
+	      return stepNext(state, action);
+	    case Actions.STEP_BACK:
+	      return stepBack(state, action);
+	    case Actions.RESTORE_STEP:
+	      return restoreStep(state, action);
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	/* Selectors */
+	
+	// Get all programs
+	var getPrograms = exports.getPrograms = function getPrograms(state) {
+	  return state.programs.programs;
+	};
+	
+	// Get program by name
+	var getCurrentProgram = exports.getCurrentProgram = function getCurrentProgram(state) {
+	  return state.programs.programs[state.programs.current];
+	};
+	
+	// Get Current history
+	var getCurrentHistory = exports.getCurrentHistory = function getCurrentHistory(state) {
+	  return state.programs.history ? state.programs.history[state.programs.current] : undefined;
+	};
+	
+	// Get Current progress
+	var getCurrentProgress = exports.getCurrentProgress = function getCurrentProgress(state) {
+	  return state.programs.progress ? state.programs.progress[state.programs.current] : undefined;
+	};
+	
+	// Export Reducer
+	exports.default = ProgramReducer;
+
+/***/ },
+/* 39 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2736,7 +3046,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 40 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2765,7 +3075,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2822,31 +3132,31 @@
 	exports.default = _mongoose2.default.model('Program', programSchema);
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-facebook-login");
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-google-login");
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux");
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports) {
 
 	module.exports = require("validator");
 
 /***/ },
-/* 42 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2865,7 +3175,7 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _reactRedux = __webpack_require__(2);
 	
@@ -2889,7 +3199,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 43 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2908,7 +3218,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _App = __webpack_require__(71);
+	var _App = __webpack_require__(83);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -2927,14 +3237,16 @@
 	 */
 	if (process.env.NODE_ENV !== 'production') {
 	  // Require async routes only in development for react-hot-reloader to work.
+	  __webpack_require__(33);
+	  __webpack_require__(17);
+	  __webpack_require__(35);
+	  __webpack_require__(36);
 	  __webpack_require__(29);
-	  __webpack_require__(15);
+	  __webpack_require__(28);
+	  __webpack_require__(26);
+	  __webpack_require__(27);
 	  __webpack_require__(31);
 	  __webpack_require__(32);
-	  __webpack_require__(25);
-	  __webpack_require__(24);
-	  __webpack_require__(27);
-	  __webpack_require__(28);
 	}
 	
 	// react-router setup with code-splitting
@@ -2945,69 +3257,83 @@
 	}, void 0, _jsx(_reactRouter.IndexRoute, {
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(29).default);
+	      cb(null, __webpack_require__(33).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(32).default);
+	      cb(null, __webpack_require__(36).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(31).default);
+	      cb(null, __webpack_require__(35).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legaltopics/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(15).default);
+	      cb(null, __webpack_require__(17).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/legalforms/:name',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(15).default);
+	      cb(null, __webpack_require__(17).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signin',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(27).default);
+	      cb(null, __webpack_require__(31).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
 	  path: '/signup',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, __webpack_require__(32).default);
+	    }).bind(null, __webpack_require__));
+	  }
+	}), _jsx(_reactRouter.Route, {
+	  path: 'account',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
+	      cb(null, __webpack_require__(29).default);
+	    }).bind(null, __webpack_require__));
+	  }
+	}, void 0, _jsx(_reactRouter.Route, {
+	  path: 'profile',
+	  getComponent: function getComponent(nextState, cb) {
+	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
 	      cb(null, __webpack_require__(28).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
-	  path: '/profile',
+	  path: 'mydocuments',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(25).default);
+	      cb(null, __webpack_require__(27).default);
 	    }).bind(null, __webpack_require__));
 	  }
 	}), _jsx(_reactRouter.Route, {
-	  path: '/mydocuments',
+	  path: 'activity',
 	  getComponent: function getComponent(nextState, cb) {
 	    Promise.resolve().catch(function(err) { __webpack_require__.oe(err); }).then((function (require) {
-	      cb(null, __webpack_require__(24).default);
+	      cb(null, __webpack_require__(26).default);
 	    }).bind(null, __webpack_require__));
 	  }
-	}));
+	})));
 
 /***/ },
-/* 44 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3018,17 +3344,17 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(40);
+	var _redux = __webpack_require__(44);
 	
-	var _reduxThunk = __webpack_require__(132);
+	var _reduxThunk = __webpack_require__(156);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _DevTools = __webpack_require__(26);
+	var _DevTools = __webpack_require__(30);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(110);
+	var _reducers = __webpack_require__(130);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -3063,7 +3389,7 @@
 	}
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3096,14 +3422,45 @@
 	  });
 	};
 	
-	var _program = __webpack_require__(37);
+	var _program = __webpack_require__(41);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 46 */
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _express = __webpack_require__(10);
+	
+	var _activity = __webpack_require__(131);
+	
+	var ActivityController = _interopRequireWildcard(_activity);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var router = new _express.Router();
+	
+	router.route('/').get(ActivityController.getActivities);
+	
+	router.route('/:docId').get(ActivityController.getActivity);
+	
+	router.route('/').post(ActivityController.addActivity);
+	
+	router.route('/:docId').delete(ActivityController.deleteActivity);
+	
+	exports.default = router;
+
+/***/ },
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3139,7 +3496,7 @@
 	
 	var _express = __webpack_require__(10);
 	
-	var _auth = __webpack_require__(111);
+	var _auth = __webpack_require__(132);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -3150,7 +3507,7 @@
 	;
 
 /***/ },
-/* 47 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3162,7 +3519,38 @@
 	
 	var _express = __webpack_require__(10);
 	
-	var _post = __webpack_require__(112);
+	var _document = __webpack_require__(133);
+	
+	var DocController = _interopRequireWildcard(_document);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	var router = new _express.Router();
+	
+	router.route('/').get(DocController.getDocuments);
+	
+	router.route('/:docId').get(DocController.getDocument);
+	
+	router.route('/').post(DocController.addDocument);
+	
+	router.route('/:docId').delete(DocController.deleteDocument);
+	
+	exports.default = router;
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _express = __webpack_require__(10);
+	
+	var _post = __webpack_require__(134);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -3185,7 +3573,7 @@
 	exports.default = router;
 
 /***/ },
-/* 48 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3197,7 +3585,7 @@
 	
 	var _express = __webpack_require__(10);
 	
-	var _program = __webpack_require__(113);
+	var _program = __webpack_require__(135);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -3217,7 +3605,7 @@
 	exports.default = router;
 
 /***/ },
-/* 49 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3228,7 +3616,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(116);
+	var _promiseUtils = __webpack_require__(140);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -3244,16 +3632,16 @@
 	  */
 
 /***/ },
-/* 50 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
-	var webpack = __webpack_require__(21);
-	var cssnext = __webpack_require__(124);
-	var postcssFocus = __webpack_require__(125);
-	var postcssReporter = __webpack_require__(126);
+	var webpack = __webpack_require__(22);
+	var cssnext = __webpack_require__(148);
+	var postcssFocus = __webpack_require__(149);
+	var postcssReporter = __webpack_require__(150);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -3318,67 +3706,73 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 51 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 52 */
+/* 58 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 53 */
+/* 59 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 54 */
+/* 60 */
+/***/ function(module, exports) {
+
+	module.exports = require("connect-mongo");
+
+/***/ },
+/* 61 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 55 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 56 */
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 57 */
+/* 64 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 58 */
+/* 65 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 59 */
+/* 66 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 60 */
+/* 67 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 61 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3413,7 +3807,278 @@
 	};
 
 /***/ },
-/* 62 */
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_1PclISfoyPdKPYYpzgJmmc",
+	  "container-title": "_3PV-mKR-kMvdZ_Fg8N5hNA",
+	  "title": "_1kQZS9CH9RWEWTHAPGe3x-",
+	  "text": "_1NHUDMhPQmD5wR-zwAJIZk",
+	  "search-container": "_2lidkjEnb_d6_cwpkibWjo",
+	  "activity-container": "ekEuIQXpnLkrkNYtms0uw",
+	  "activity": "_1F1PjdHWWY20GIOV4-INyA",
+	  "icon": "_1X75Wglg9Oigqji6r9ddKe",
+	  "link": "_368oVmd4OlUsxYSzEo0tHM",
+	  "activity-seemore": "_13luWzlq0glIG1AAZdbDhG",
+	  "avatar-container": "_2QMVIz0au8l8FUZL-iFzzU",
+	  "info-container": "LjKhFED-QasG8-RTE2_7Y"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _Button = __webpack_require__(4);
+	
+	var _Button2 = _interopRequireDefault(_Button);
+	
+	var _Item = __webpack_require__(70);
+	
+	var _Item2 = _interopRequireDefault(_Item);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var _ref = _jsx('hr', {});
+	
+	var Activity = function (_Component) {
+	  _inherits(Activity, _Component);
+	
+	  function Activity(props) {
+	    _classCallCheck(this, Activity);
+	
+	    return _possibleConstructorReturn(this, (Activity.__proto__ || Object.getPrototypeOf(Activity)).call(this, props));
+	  }
+	
+	  _createClass(Activity, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.fetchActivities();
+	    }
+	  }, {
+	    key: 'restoreActivity',
+	    value: function restoreActivity(activity) {
+	      this.props.restoreStep({
+	        name: activity.name,
+	        history: activity.history,
+	        progress: activity.progress
+	      });
+	
+	      _reactRouter.browserHistory.push('/legal' + activity.program.kind + 's/' + activity.program.name);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var items;
+	      if (this.props.activities) {
+	        items = this.props.activities.map(function (e, index) {
+	          return _jsx(_Item2.default, {
+	            name: e.program.name,
+	            program: e.program.description,
+	            date: e.updated,
+	            onClick: function onClick(event) {
+	              return _this2.restoreActivity(e);
+	            }
+	          }, index);
+	        });
+	      }
+	
+	      return _jsx('div', {
+	        className: 'container wow fadeIn'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.container + ' row'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['container-title'] + ' col-xs-12'
+	      }, void 0, 'My Activity'), _jsx('div', {
+	        className: _styles2.default['search-container'] + ' col-xs-12'
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default.text
+	      }, void 0, ' Search Container. Will Put Search Element '), _ref), _jsx('div', {
+	        className: _styles2.default['activity-container'] + ' col-xs-12'
+	      }, void 0, items)));
+	    }
+	  }]);
+	
+	  return Activity;
+	}(_react.Component);
+	
+	exports.default = Activity;
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _styles = {
+	  "container": "_1PclISfoyPdKPYYpzgJmmc",
+	  "container-title": "_3PV-mKR-kMvdZ_Fg8N5hNA",
+	  "title": "_1kQZS9CH9RWEWTHAPGe3x-",
+	  "text": "_1NHUDMhPQmD5wR-zwAJIZk",
+	  "search-container": "_2lidkjEnb_d6_cwpkibWjo",
+	  "activity-container": "ekEuIQXpnLkrkNYtms0uw",
+	  "activity": "_1F1PjdHWWY20GIOV4-INyA",
+	  "icon": "_1X75Wglg9Oigqji6r9ddKe",
+	  "link": "_368oVmd4OlUsxYSzEo0tHM",
+	  "activity-seemore": "_13luWzlq0glIG1AAZdbDhG",
+	  "avatar-container": "_2QMVIz0au8l8FUZL-iFzzU",
+	  "info-container": "LjKhFED-QasG8-RTE2_7Y"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Styles
+	
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-briefcase',
+	  'aria-hidden': 'true'
+	});
+	
+	var Item = function (_Component) {
+	  _inherits(Item, _Component);
+	
+	  function Item() {
+	    _classCallCheck(this, Item);
+	
+	    return _possibleConstructorReturn(this, (Item.__proto__ || Object.getPrototypeOf(Item)).apply(this, arguments));
+	  }
+	
+	  _createClass(Item, [{
+	    key: 'render',
+	    value: function render() {
+	      return _jsx('div', {
+	        className: _styles2.default['activity'] + ' col-xs-12',
+	        onClick: this.props.onClick
+	      }, void 0, _jsx('div', {
+	        className: _styles2.default['icon'] + ' col-xs-1'
+	      }, void 0, _ref), _jsx('div', {
+	        className: _styles2.default['title'] + ' col-md-3 col-xs-10'
+	      }, void 0, this.props.name), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-xs-push-1 col-xs-12 col-sm-push-0 col-sm-8 col-md-push-0 col-md-5 '
+	      }, void 0, this.props.program), _jsx('div', {
+	        className: _styles2.default['text'] + ' col-xs-push-1 col-xs-11 col-sm-push-0 col-sm-3 col-md-push-0 col-md-3'
+	      }, void 0, new Date(this.props.date).toDateString()));
+	    }
+	  }]);
+	
+	  return Item;
+	}(_react.Component);
+	
+	exports.default = Item;
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // Import Actions
+	
+	
+	var _actions = __webpack_require__(25);
+	
+	var Actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	// Initial State
+	var initialState = {
+	  activities: []
+	};
+	
+	var ActivityReducer = function ActivityReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.FETCH_ACTIVITIES_SUCCEEDED:
+	      return _extends({}, state, {
+	        state: 'FETCH_ACTIVITIES_SUCCEEDED',
+	        activities: action.activities
+	      });
+	
+	    case Actions.FETCH_ACTIVITIES_FAILED:
+	      return _extends({}, state, {
+	        state: 'FETCH_ACTIVITIES_FAILED',
+	        err: action.err
+	      });
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	/* Selectors */
+	
+	// Export Reducer
+	exports.default = ActivityReducer;
+
+/***/ },
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3541,7 +4206,7 @@
 	exports.default = ContinueDocument;
 
 /***/ },
-/* 63 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3588,11 +4253,13 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _Document = __webpack_require__(13);
+	var _Document = __webpack_require__(14);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -3607,25 +4274,6 @@
 	
 	
 	var _ref = _jsx(_Document2.default, {
-	  empty: false,
-	  icon: 'fa-plus',
-	  title: 'Articles of Professional Incorporation',
-	  description: 'Let\'s begin the professional incorporation process.'
-	});
-	
-	var _ref2 = _jsx(_Document2.default, {
-	  empty: true,
-	  icon: 'fa-plus',
-	  title: '<br />Create New'
-	});
-	
-	var _ref3 = _jsx(_Document2.default, {
-	  empty: true,
-	  icon: 'fa-plus',
-	  title: '<br />Create New'
-	});
-	
-	var _ref4 = _jsx(_Document2.default, {
 	  empty: true,
 	  icon: 'fa-plus',
 	  title: '<br />Create New'
@@ -3635,35 +4283,56 @@
 	  _inherits(MyDocuments, _Component);
 	
 	  function MyDocuments(props) {
+	    var _this$icons;
+	
 	    _classCallCheck(this, MyDocuments);
 	
-	    return _possibleConstructorReturn(this, (MyDocuments.__proto__ || Object.getPrototypeOf(MyDocuments)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (MyDocuments.__proto__ || Object.getPrototypeOf(MyDocuments)).call(this, props));
+	
+	    _this.icons = (_this$icons = {}, _defineProperty(_this$icons, 'ca_form_articles_of_professional_incorporation_1', 'fa-book'), _defineProperty(_this$icons, 'ca_form_articles_of_professional_incorporation_2', 'fa-book'), _this$icons);
+	    return _this;
 	  }
 	
 	  _createClass(MyDocuments, [{
-	    key: 'render',
-	    value: function render() {
+	    key: 'getIcon',
+	    value: function getIcon(docKind) {
+	      return this.icons[docKind] ? this.icons[docKind] : 'fa-file';
+	    }
+	  }, {
+	    key: 'renderDocs',
+	    value: function renderDocs() {
 	      var _this2 = this;
 	
+	      if (!this.props.docs) return null;
+	      return this.props.docs.map(function (doc, index) {
+	        return _jsx('div', {
+	          className: 'col-xs-3'
+	        }, index, _jsx(_Document2.default, {
+	          empty: false,
+	          icon: _this2.getIcon(doc.kind),
+	          title: doc.title,
+	          description: doc.description,
+	          onClick: function onClick(e) {
+	            return alert('book');
+	          },
+	          style: { marginTop: '20rem' }
+	        }));
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 	      return _jsx('div', {
 	        className: _styles2.default.container + ' row',
-	        onClick: function onClick(e) {
-	          return _this2.props.onClick();
-	        },
 	        style: this.props.style
 	      }, void 0, _jsx('div', {
 	        className: _styles2.default['container-title'] + ' text-center col-xs-12'
 	      }, void 0, 'My Documents'), _jsx('div', {
 	        className: _styles2.default['doc-container'] + ' col-xs-12'
-	      }, void 0, _jsx('div', {
-	        className: 'col-xs-3'
-	      }, void 0, _ref), _jsx('div', {
-	        className: 'col-xs-3'
-	      }, void 0, _ref2), _jsx('div', {
-	        className: 'col-xs-3'
-	      }, void 0, _ref3), _jsx('div', {
-	        className: 'col-xs-3'
-	      }, void 0, _ref4)));
+	      }, void 0, this.renderDocs(), _jsx('div', {
+	        className: 'col-xs-3',
+	        style: { marginTop: '20rem' }
+	      }, void 0, _ref)));
 	    }
 	  }]);
 	
@@ -3671,13 +4340,13 @@
 	}(_react.Component);
 	
 	MyDocuments.PropTypes = {
-	  onClick: _propTypes2.default.func
+	  docs: _propTypes2.default.array.required
 	};
 	
 	exports.default = MyDocuments;
 
 /***/ },
-/* 64 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3781,7 +4450,7 @@
 	exports.default = NeedHelp;
 
 /***/ },
-/* 65 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3869,7 +4538,7 @@
 	        onClick: this.props.onNewDocument
 	      }), _jsx('span', {
 	        className: _styles2.default['tip-text']
-	      }, void 0, 'Click to review my documents.')));
+	      }, void 0, 'Start a new document.')));
 	    }
 	  }]);
 	
@@ -3883,7 +4552,68 @@
 	exports.default = NewDocument;
 
 /***/ },
-/* 66 */
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // Import Actions
+	
+	
+	var _actions = __webpack_require__(15);
+	
+	var Actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	// Initial State
+	var initialState = {};
+	
+	var DocReducer = function DocReducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case Actions.FETCH_DOCS_SUCCEEDED:
+	      return _extends({}, state, {
+	        state: 'FETCH_DOCS_SUCCEEDED',
+	        docs: action.docs
+	      });
+	
+	    case Actions.FETCH_DOCS_FAILED:
+	      return _extends({}, state, {
+	        state: 'FETCH_DOCS_FAILED',
+	        err: action.err
+	      });
+	
+	    case Actions.SAVE_DOC_SUCCEEDED:
+	      return _extends({}, state, {
+	        state: 'SAVE_DOC_SUCCEEDED'
+	      });
+	
+	    case Actions.SAVE_DOC_FAILED:
+	      return _extends({}, state, {
+	        state: 'SAVE_DOC_FAILED',
+	        err: action.err
+	      });
+	
+	    default:
+	      return state;
+	  }
+	};
+	
+	/* Selectors */
+	
+	// Export Reducer
+	exports.default = DocReducer;
+
+/***/ },
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4010,7 +4740,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 67 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4111,7 +4841,7 @@
 	exports.default = Conversation;
 
 /***/ },
-/* 68 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4184,7 +4914,8 @@
 	    key: 'render',
 	    value: function render() {
 	      return _jsx('div', {
-	        className: _styles2.default.container + ' row'
+	        className: _styles2.default.container + ' row',
+	        style: this.props.style
 	      }, void 0, _jsx('div', {
 	        className: _styles2.default['container-title'] + ' col-xs-12'
 	      }, void 0, 'My Documents'), _jsx('div', {
@@ -4214,7 +4945,7 @@
 	exports.default = Document;
 
 /***/ },
-/* 69 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4323,7 +5054,7 @@
 	exports.default = Membership;
 
 /***/ },
-/* 70 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4417,7 +5148,7 @@
 	    key: 'render',
 	    value: function render() {
 	      var user = this.props.user;
-	      console.log(user);
+	
 	      return _jsx('div', {
 	        className: '' + _styles2.default.container
 	      }, void 0, _jsx('div', {
@@ -4446,7 +5177,98 @@
 	exports.default = UserInfo;
 
 /***/ },
-/* 71 */
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	// Import Style
+	
+	
+	exports.NavBar = NavBar;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _NavBar = {
+	  "navbar": "_1FXlIDdiWUY2j2G96V5qiN",
+	  "nav": "RrgnSXiWpZlhvxsbA-0kk",
+	  "nav-item": "_2MvGPBonedZq5UEjZCnW-A",
+	  "active": "_2C4CgHLZHk8XFkbemMYzUZ",
+	  "dropdown": "Tho9MiuX2Rw64tL5_ItEB",
+	  "section": "_3BhkLjeYvNDhkGA5j6nnf4",
+	  "section-title": "_2RrMOqRI4m0noxgyOI3IOE"
+	};
+	
+	var _NavBar2 = _interopRequireDefault(_NavBar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx(_reactRouter.Link, {
+	  to: '/account/profile'
+	}, void 0, 'Profile');
+	
+	var _ref2 = _jsx(_reactRouter.Link, {
+	  to: '/account/membership'
+	}, void 0, 'Membership');
+	
+	var _ref3 = _jsx(_reactRouter.Link, {
+	  to: '/account/mydocuments'
+	}, void 0, 'My Documents');
+	
+	var _ref4 = _jsx(_reactRouter.Link, {
+	  to: '/account/activity'
+	}, void 0, 'My Activity');
+	
+	var _ref5 = _jsx(_reactRouter.Link, {
+	  to: '/account/checkout'
+	}, void 0, 'Checkout');
+	
+	function NavBar(props) {
+	
+	  var path = props.location.pathname.split('/');
+	  var selected = path[path.length - 1];
+	
+	  return _jsx('div', {
+	    className: _NavBar2.default.navbar,
+	    style: { zIndex: 1 }
+	  }, void 0, _jsx('div', {
+	    className: _NavBar2.default.nav
+	  }, void 0, _jsx('div', {
+	    className: _NavBar2.default['nav-item'] + ' ' + (selected === 'profile' ? _NavBar2.default.active : '') + ' '
+	  }, void 0, _ref), _jsx('div', {
+	    className: _NavBar2.default['nav-item'] + ' ' + (selected === 'membership' ? _NavBar2.default.active : '') + ' '
+	  }, void 0, _ref2), _jsx('div', {
+	    className: _NavBar2.default['nav-item'] + ' ' + (selected === 'mydocuments' ? _NavBar2.default.active : '') + ' '
+	  }, void 0, _ref3), _jsx('div', {
+	    className: _NavBar2.default['nav-item'] + ' ' + (selected === 'activity' ? _NavBar2.default.active : '') + ' '
+	  }, void 0, _ref4), _jsx('div', {
+	    className: _NavBar2.default['nav-item'] + ' ' + (selected === 'checkout' ? _NavBar2.default.active : '') + ' '
+	  }, void 0, _ref5)));
+	}
+	
+	NavBar.contextTypes = {
+	  router: _react2.default.PropTypes.object
+	};
+	
+	exports.default = NavBar;
+
+/***/ },
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4469,38 +5291,39 @@
 	
 	var _App = {
 	  "container": "_4uEyKcd5WHob5qPzotT7",
-	  "search-box-container": "_34URlSEfBI-87eZbNFn_20"
+	  "search-box-container": "_34URlSEfBI-87eZbNFn_20",
+	  "password": "_1_xBtw6G4KpUKs8WLgvnfF"
 	};
 	
 	var _App2 = _interopRequireDefault(_App);
 	
-	var _reactHelmet = __webpack_require__(20);
+	var _reactHelmet = __webpack_require__(21);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _DevTools = __webpack_require__(26);
+	var _DevTools = __webpack_require__(30);
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(74);
+	var _Header = __webpack_require__(86);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(73);
+	var _Footer = __webpack_require__(85);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _SearchBox = __webpack_require__(76);
+	var _SearchBox = __webpack_require__(87);
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _AppActions = __webpack_require__(14);
+	var _AppActions = __webpack_require__(16);
 	
-	var _IntlActions = __webpack_require__(30);
+	var _IntlActions = __webpack_require__(34);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(9);
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
@@ -4535,7 +5358,7 @@
 	      _this.props.dispatch((0, _AppActions.toggleAddPost)());
 	    };
 	
-	    _this.state = { isMounted: false };
+	    _this.state = { isMounted: false, password: '' };
 	    return _this;
 	  }
 	
@@ -4543,11 +5366,13 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.setState({ isMounted: true }); // eslint-disable-line
-	      this.props.dispatch((0, _AuthActions.setLoginState)());
+	      this.props.dispatch((0, _AuthActions.checkLoginState)());
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      var notifications = this.props.notifications;
 	
 	      //Optional styling
@@ -4584,6 +5409,16 @@
 	      }, void 0, this.props.children, _jsx(_reactNotificationSystemRedux2.default, {
 	        notifications: notifications,
 	        style: style
+	      })), _jsx('div', {
+	        className: _App2.default.password,
+	        hidden: this.state.password == 'Passw0rd',
+	        style: { zIndex: 1001 }
+	      }, void 0, _jsx('input', {
+	        value: this.state.password,
+	        onChange: function onChange(e) {
+	          return _this2.setState({ password: e.target.value });
+	        },
+	        style: { padding: '5rem', textAlign: 'center' }
 	      }))));
 	    }
 	  }]);
@@ -4603,7 +5438,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 72 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4613,7 +5448,7 @@
 	  value: true
 	});
 	
-	var _AppActions = __webpack_require__(14);
+	var _AppActions = __webpack_require__(16);
 	
 	// Initial State
 	var initialState = {
@@ -4642,7 +5477,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 73 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4666,7 +5501,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _Footer = {
 	  "footer": "_3vPEi87A1wyh1iLR3bsBGf"
@@ -4699,7 +5534,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 74 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4725,11 +5560,11 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
-	var _AppActions = __webpack_require__(14);
+	var _AppActions = __webpack_require__(16);
 	
 	var _Header = {
 	  "header": "_2sEZYfHlvDy9uXqVIXG1aM",
@@ -4750,10 +5585,6 @@
 	};
 	
 	var _Header2 = _interopRequireDefault(_Header);
-	
-	var _NavBar = __webpack_require__(75);
-	
-	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
 	var _select = '/' + "b76618df6a7d751327e52da61da43ba3.png";
 	
@@ -4803,19 +5634,21 @@
 	});
 	
 	var _ref9 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
-	  to: '/profile'
+	  to: '/account/profile'
 	}, void 0, 'Profile'));
 	
 	var _ref10 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
-	  to: '/mydocuments'
+	  to: '/account/mydocuments'
 	}, void 0, 'Documents'));
 	
-	var _ref11 = _jsx('i', {
+	var _ref11 = _jsx('li', {}, void 0, _jsx(_reactRouter.Link, {
+	  to: '/account/activity'
+	}, void 0, 'Activity'));
+	
+	var _ref12 = _jsx('i', {
 	  className: 'fa fa-bars',
 	  'aria-hidden': 'true'
 	});
-	
-	var _ref12 = _jsx('div', {}, void 0);
 	
 	var Header = function (_Component) {
 	  _inherits(Header, _Component);
@@ -4888,7 +5721,7 @@
 	          className: 'fa fa-user ' + _Header2.default['icon']
 	        }), ' \xA0Account ', _ref8), _jsx('ul', {
 	          className: _Header2.default['dropdown']
-	        }, void 0, _ref9, _ref10, _jsx('li', {}, void 0, _jsx('a', {
+	        }, void 0, _ref9, _ref10, _ref11, _jsx('li', {}, void 0, _jsx('a', {
 	          href: 'javascript:void(0)',
 	          onClick: this.onLogout.bind(this)
 	        }, void 0, 'Log Out')))),
@@ -4900,46 +5733,29 @@
 	      };
 	
 	      var isLogged = this.props.auth.state === 'LOGGED';
-	      return (
-	        /*<div className={styles.header}>
-	          <a className={styles.logo} href="/">
-	            Legal Maven
-	          </a>
-	          <div className={styles.nav}>
-	            {!this.state.showSubNav && items.legalTopics}
-	            {!this.state.showSubNav && items.legalForms}
-	            {!this.state.showSubNav && items.services}
-	            {!this.state.showSubNav && items.contact}
-	            {this.state.showSubNav && items.search}
-	            {items.account}
-	            {items.setting}
-	          </div>
-	          {this.state.showSubNav && <Navbar />}
-	        </div>*/
-	        _jsx('div', {
-	          className: _Header2.default.header
-	        }, void 0, _jsx('nav', {
-	          className: 'navbar ' + _Header2.default.navbar,
-	          style: { zIndex: 999 }
-	        }, void 0, _jsx('div', {
-	          className: 'container-fluid'
-	        }, void 0, _jsx('div', {
-	          className: 'navbar-header'
-	        }, void 0, _jsx('button', {
-	          type: 'button',
-	          className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
-	          'data-toggle': 'collapse',
-	          'data-target': '#myNavbar'
-	        }, void 0, _ref11), _jsx('a', {
-	          className: 'navbar-brand ' + _Header2.default.logo,
-	          href: '/'
-	        }, void 0, 'Legal Maven')), _jsx('div', {
-	          className: 'collapse navbar-collapse',
-	          id: 'myNavbar'
-	        }, void 0, _jsx('ul', {
-	          className: 'nav navbar-nav navbar-right'
-	        }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _ref12)
-	      );
+	      return _jsx('div', {
+	        className: _Header2.default.header
+	      }, void 0, _jsx('nav', {
+	        className: 'navbar ' + _Header2.default.navbar,
+	        style: { zIndex: 999 }
+	      }, void 0, _jsx('div', {
+	        className: 'container-fluid'
+	      }, void 0, _jsx('div', {
+	        className: 'navbar-header'
+	      }, void 0, _jsx('button', {
+	        type: 'button',
+	        className: 'navbar-toggle ' + _Header2.default['navbar-toggle'],
+	        'data-toggle': 'collapse',
+	        'data-target': '#myNavbar'
+	      }, void 0, _ref12), _jsx('a', {
+	        className: 'navbar-brand ' + _Header2.default.logo,
+	        href: '/'
+	      }, void 0, 'Legal Maven')), _jsx('div', {
+	        className: 'collapse navbar-collapse',
+	        id: 'myNavbar'
+	      }, void 0, _jsx('ul', {
+	        className: 'nav navbar-nav navbar-right'
+	      }, void 0, items.legalTopics, items.legalForms, items.services, items.contact, items.search, !isLogged && items.signIn, !isLogged && items.signUp, isLogged && items.account)))), _jsx('div', {}, void 0));
 	    }
 	  }]);
 	
@@ -4961,93 +5777,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 75 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
-	
-	// Import Style
-	
-	
-	exports.NavBar = NavBar;
-	
-	var _react = __webpack_require__(0);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
-	var _reactRouter = __webpack_require__(3);
-	
-	var _reactIntl = __webpack_require__(5);
-	
-	var _NavBar = {
-	  "navbar": "UBwu_MobkjeXEfKrEAvqv",
-	  "nav": "_3ueR40igGy0m0rrCWMvd5X",
-	  "nav-item": "lq02e1RYhofZRlrFS9xou",
-	  "dropdown": "_1_7z3sRyRcN2-XL-CZujTA",
-	  "section": "_-EXnUJz40krEoMFznsSBN",
-	  "section-title": "hBj7p7j1UnK1y7-2UDOUd"
-	};
-	
-	var _NavBar2 = _interopRequireDefault(_NavBar);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var _ref = _jsx(_reactRouter.Link, {
-	  to: '/legaltopics'
-	}, void 0, _jsx(_reactIntl.FormattedMessage, {
-	  id: 'legalTopics'
-	}));
-	
-	var _ref2 = _jsx(_reactRouter.Link, {
-	  to: '/legalforms'
-	}, void 0, _jsx(_reactIntl.FormattedMessage, {
-	  id: 'legalForms'
-	}));
-	
-	var _ref3 = _jsx(_reactIntl.FormattedMessage, {
-	  id: 'services'
-	});
-	
-	var _ref4 = _jsx(_reactIntl.FormattedMessage, {
-	  id: 'contact'
-	});
-	
-	function NavBar(props, context) {
-	  return _jsx('div', {
-	    className: _NavBar2.default.navbar,
-	    style: { zIndex: 999 }
-	  }, void 0, _jsx('div', {
-	    className: _NavBar2.default.nav
-	  }, void 0, _jsx('div', {
-	    className: _NavBar2.default['nav-item']
-	  }, void 0, _ref), _jsx('div', {
-	    className: _NavBar2.default['nav-item']
-	  }, void 0, _ref2), _jsx('div', {
-	    className: _NavBar2.default['nav-item']
-	  }, void 0, _ref3), _jsx('div', {
-	    className: _NavBar2.default['nav-item']
-	  }, void 0, _ref4)));
-	}
-	
-	NavBar.contextTypes = {
-	  router: _react2.default.PropTypes.object
-	};
-	
-	exports.default = NavBar;
-
-/***/ },
-/* 76 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5076,9 +5806,9 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
-	var _reactAutosuggest = __webpack_require__(127);
+	var _reactAutosuggest = __webpack_require__(151);
 	
 	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 	
@@ -5102,7 +5832,7 @@
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _SearchList = __webpack_require__(77);
+	var _SearchList = __webpack_require__(88);
 	
 	var _SearchList2 = _interopRequireDefault(_SearchList);
 	
@@ -5250,7 +5980,7 @@
 	exports.default = SearchBox;
 
 /***/ },
-/* 77 */
+/* 88 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5291,11 +6021,17 @@
 	  }, {
 	    title: 'CA - S-Corporation',
 	    href: '/legalforms/ca_s_corporation'
+	  }, {
+	    title: 'DE - Professional Corporation',
+	    href: '/legalforms/de_professional_corporation'
+	  }, {
+	    title: 'DE - S-Corporation',
+	    href: '/legalforms/de_s_corporation'
 	  }]
 	}];
 
 /***/ },
-/* 78 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5307,7 +6043,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _AuthActions = __webpack_require__(7);
+	var _AuthActions = __webpack_require__(8);
 	
 	var _reactRouter = __webpack_require__(3);
 	
@@ -5320,9 +6056,8 @@
 	
 	  switch (action.type) {
 	    case _AuthActions.SET_LOGIN_STATE:
-	      var clientId = localStorage.getItem('clientId');
 	      return _extends({}, state, {
-	        state: clientId ? 'LOGGED' : 'NOT_LOGGED'
+	        state: action.state
 	      });
 	
 	    case _AuthActions.REGISTER_SUCCEEDED:
@@ -5389,7 +6124,7 @@
 	exports.default = AuthReducer;
 
 /***/ },
-/* 79 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5456,7 +6191,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _Home = {
 	  "home": "_37C9HJPUzY52Ex490y87_h",
@@ -5509,7 +6244,7 @@
 	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
-/* 80 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5521,9 +6256,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _setup = __webpack_require__(22);
+	var _setup = __webpack_require__(23);
 	
-	var _IntlActions = __webpack_require__(30);
+	var _IntlActions = __webpack_require__(34);
 	
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
@@ -5556,7 +6291,7 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 81 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5656,7 +6391,7 @@
 	exports.default = PageHeader;
 
 /***/ },
-/* 82 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5756,7 +6491,7 @@
 	exports.default = PageHeader;
 
 /***/ },
-/* 83 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5774,7 +6509,7 @@
 	exports.deletePost = deletePost;
 	exports.deletePostRequest = deletePostRequest;
 	
-	var _apiCaller = __webpack_require__(16);
+	var _apiCaller = __webpack_require__(12);
 	
 	var _apiCaller2 = _interopRequireDefault(_apiCaller);
 	
@@ -5846,7 +6581,7 @@
 	}
 
 /***/ },
-/* 84 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5857,7 +6592,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(83);
+	var _PostActions = __webpack_require__(94);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -5909,7 +6644,238 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 85 */
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRouter = __webpack_require__(3);
+	
+	var _Program = {
+	  "program": "_3cVgjsWA141eMGNQ4o-3C1",
+	  "inputbox-container": "_1SVSo2dfamAlo3zLiBg-0t",
+	  "sidebar-container": "_32_53-I0qr4_x_As9i9gWq"
+	};
+	
+	var _Program2 = _interopRequireDefault(_Program);
+	
+	var _SideBar = __webpack_require__(119);
+	
+	var _SideBar2 = _interopRequireDefault(_SideBar);
+	
+	var _InputBox = __webpack_require__(117);
+	
+	var _InputBox2 = _interopRequireDefault(_InputBox);
+	
+	var _Form = __webpack_require__(107);
+	
+	var _Form2 = _interopRequireDefault(_Form);
+	
+	var _Topic = __webpack_require__(110);
+	
+	var _Topic2 = _interopRequireDefault(_Topic);
+	
+	var _CalculateTax = __webpack_require__(108);
+	
+	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
+	
+	var _ContactDialog = __webpack_require__(97);
+	
+	var _ContactDialog2 = _interopRequireDefault(_ContactDialog);
+	
+	var _SaveStepDialog = __webpack_require__(118);
+	
+	var _SaveStepDialog2 = _interopRequireDefault(_SaveStepDialog);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import Style
+	
+	
+	// Import Components
+	
+	
+	var Program = function (_Component) {
+	  _inherits(Program, _Component);
+	
+	  function Program(props) {
+	    _classCallCheck(this, Program);
+	
+	    var _this = _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
+	
+	    _this.state = {
+	      showContact: false,
+	      showSaveStep: false
+	    };
+	
+	    props.fetchProgram(props.params.name);
+	    props.setCurrentProgram(props.params.name);
+	
+	    _this.showContact = _this.showContact.bind(_this);
+	    _this.closeContact = _this.closeContact.bind(_this);
+	    _this.showSaveStep = _this.showSaveStep.bind(_this);
+	    _this.closeSaveStep = _this.closeSaveStep.bind(_this);
+	    _this.saveStep = _this.saveStep.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Program, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.params.name !== nextProps.params.name) {
+	        this.props.fetchProgram(nextProps.params.name);
+	        this.props.setCurrentProgram(nextProps.params.name);
+	      }
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      // this.props.dispatch(resetProgram());
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      this.props.hideFinalNode();
+	    }
+	  }, {
+	    key: 'showContact',
+	    value: function showContact() {
+	      this.setState({ showContact: true });
+	    }
+	  }, {
+	    key: 'closeContact',
+	    value: function closeContact() {
+	      this.setState({ showContact: false });
+	    }
+	  }, {
+	    key: 'showSaveStep',
+	    value: function showSaveStep() {
+	      this.setState({ showSaveStep: true });
+	    }
+	  }, {
+	    key: 'closeSaveStep',
+	    value: function closeSaveStep() {
+	      this.setState({ showSaveStep: false });
+	    }
+	  }, {
+	    key: 'saveStep',
+	    value: function saveStep(name) {
+	      this.props.savePlace({
+	        name: name,
+	        program: {
+	          name: this.props.current,
+	          description: this.props.program.description,
+	          kind: this.props.program.kind
+	        },
+	        history: this.props.history,
+	        progress: this.props.progress
+	      });
+	    }
+	  }, {
+	    key: 'toForm',
+	    value: function toForm(to) {
+	      this.props.hideFinalNode();
+	      if (to === 'Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_professional_corporation');
+	      } else if (to === 'S-Corp') {
+	        _reactRouter.browserHistory.push('/legalforms/ca_s_corporation');
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          showSideBar = _props.showSideBar,
+	          showFinalNode = _props.showFinalNode,
+	          finalKind = _props.finalKind,
+	          finalData = _props.finalData,
+	          program = _props.program,
+	          history = _props.history,
+	          progress = _props.progress;
+	
+	
+	      var paddingLeft = 12;
+	      var minWidth = 900;
+	
+	      if (showSideBar) {
+	        paddingLeft += 325;
+	        minWidth += 325;
+	      }
+	      paddingLeft += 'rem';
+	      minWidth += 'rem';
+	
+	      return _jsx('div', {
+	        className: _Program2.default.program + ' wow fadeIn',
+	        style: { minWidth: minWidth }
+	      }, void 0, _jsx('div', {
+	        className: _Program2.default['sidebar-container']
+	      }, void 0, _jsx(_SideBar2.default, {
+	        show: showSideBar,
+	        toggle: this.props.toggleSideBar,
+	        showContact: this.showContact
+	      })), _jsx('div', {
+	        className: '' + _Program2.default['inputbox-container'],
+	        style: { paddingLeft: paddingLeft }
+	      }, void 0, _jsx(_InputBox2.default, {
+	        program: program,
+	        history: history,
+	        progress: progress,
+	        showContact: this.showContact,
+	        showStepSave: this.showSaveStep,
+	        show: showFinalNode
+	      }), showFinalNode && finalKind === 'Topic' && _jsx(_Topic2.default, {
+	        title: finalData.title,
+	        message: finalData.message,
+	        calcTaxInfo: finalData.calcTaxInfo,
+	        to: finalData.to,
+	        toForm: this.toForm.bind(this),
+	        showContact: this.showContact
+	      }), showFinalNode && finalKind === 'CalculateTax' && _jsx(_CalculateTax2.default, {
+	        calcTaxInfo: finalData.calcTaxInfo,
+	        showContact: this.showContact
+	      }), showFinalNode && finalKind === 'Form' && _jsx(_Form2.default, {
+	        data: finalData
+	      })), _jsx(_ContactDialog2.default, {
+	        show: this.state.showContact,
+	        close: this.closeContact
+	      }), _jsx(_SaveStepDialog2.default, {
+	        show: this.state.showSaveStep,
+	        close: this.closeSaveStep,
+	        save: this.saveStep
+	      }));
+	    }
+	  }]);
+	
+	  return Program;
+	}(_react.Component);
+	
+	exports.default = Program;
+
+/***/ },
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5933,21 +6899,22 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reactBootstrap = __webpack_require__(12);
+	var _reactBootstrap = __webpack_require__(13);
 	
 	var _styles = {
-	  "modal-content": "_2Ch1F0uydig688T1oL6NZK",
-	  "modal-header": "_20IKjmqQlwrXm5BsXI-47D",
-	  "modal-body": "C3-eaK9V8I7L4ifhHQDRi",
-	  "form-group": "_2pBBaFg6H2mxa4L9j-HcYa",
-	  "modal-footer": "_1kZV6Ymgso-RtVtpKl55gY"
+	  "container": "upSez-OSnO25NW_VJvPSI",
+	  "header": "N8fPCLZ6-7WqTIfIY_aKB",
+	  "title": "_2bmpYNUa_ZOhxz3_-nPhkE",
+	  "content": "_8rz06_fP3JkaVFzuDaNoj",
+	  "input": "_17f1ydA72vQXSJUCqiJHQO",
+	  "textarea": "_1CYSoMWdMY0MgTtMZQLgX6",
+	  "footer": "_3T45ymHqwUL5UHq-ZrVsD9",
+	  "button": "_2dwyuceAkLzcAwkr7fCRZu"
 	};
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -5964,54 +6931,10 @@
 	
 	// Import Assets
 	
-	var _ref = _jsx(_reactBootstrap.Modal.Title, {}, void 0, 'Contact Us');
-	
-	var _ref2 = _jsx('label', {
-	  htmlFor: 'email'
-	}, void 0, 'Your Email address :');
-	
-	var _ref3 = _jsx('span', {
-	  className: 'input-group-addon'
-	}, void 0, _jsx('i', {
-	  className: 'glyphicon glyphicon-envelope'
-	}));
-	
-	var _ref4 = _jsx('br', {});
-	
-	var _ref5 = _jsx('label', {
-	  htmlFor: 'email'
-	}, void 0, 'Your Phone Number :');
-	
-	var _ref6 = _jsx('span', {
-	  className: 'input-group-addon'
-	}, void 0, _jsx('i', {
-	  className: 'glyphicon glyphicon-earphone'
-	}));
-	
-	var _ref7 = _jsx('br', {});
-	
-	var _ref8 = _jsx('label', {
-	  htmlFor: 'email'
-	}, void 0, 'Message :');
-	
-	var _ref9 = _jsx('span', {
-	  className: 'input-group-addon'
-	}, void 0, _jsx('i', {
-	  className: 'glyphicon glyphicon-pencil'
-	}));
-	
-	var _ref10 = _jsx('br', {});
-	
-	var _ref11 = _jsx('div', {
-	  className: 'form-group'
-	}, void 0, _jsx('div', {
-	  className: 'col-md-12'
-	}, void 0, _jsx('button', {
-	  type: 'submit',
-	  className: 'btn btn-info pull-right'
-	}, void 0, 'Send ', _jsx('span', {
-	  className: 'glyphicon glyphicon-send'
-	}))));
+	var _ref = _jsx('i', {
+	  className: 'fa fa-envelop',
+	  'aria-hidden': 'true'
+	}, void 0, '\xA0\xA0');
 	
 	var ContactDialog = function (_Component) {
 	  _inherits(ContactDialog, _Component);
@@ -6019,28 +6942,12 @@
 	  function ContactDialog(props) {
 	    _classCallCheck(this, ContactDialog);
 	
-	    var _this = _possibleConstructorReturn(this, (ContactDialog.__proto__ || Object.getPrototypeOf(ContactDialog)).call(this, props));
-	
-	    _this.state = {
-	      email: '',
-	      phone: '',
-	      message: ''
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (ContactDialog.__proto__ || Object.getPrototypeOf(ContactDialog)).call(this, props));
 	  }
 	
 	  _createClass(ContactDialog, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
-	  }, {
-	    key: 'onChange',
-	    value: function onChange(e) {
-	      var target = e.target;
-	      var value = target.type === 'checkbox' ? target.checked : target.value;
-	      var name = target.name;
-	
-	      this.setState(_defineProperty({}, name, value));
-	    }
 	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit(e) {
@@ -6054,63 +6961,24 @@
 	        show: this.props.show,
 	        onHide: this.props.close
 	      }, void 0, _jsx(_reactBootstrap.Modal.Header, {
-	        bsClass: _styles2.default['modal-header'],
+	        bsClass: _styles2.default['header'],
 	        closeButton: true
-	      }, void 0, _ref), _jsx(_reactBootstrap.Modal.Body, {
-	        bsClass: _styles2.default['modal-body']
+	      }, void 0, _jsx(_reactBootstrap.Modal.Title, {
+	        bsClass: _styles2.default['title']
+	      }, void 0, 'How can we help?')), _jsx(_reactBootstrap.Modal.Body, {
+	        bsClass: _styles2.default['content']
+	      }, void 0, 'Enter your email:', _jsx('input', {
+	        type: 'email',
+	        className: '' + _styles2.default.input,
+	        name: 'email'
+	      }), 'Enter Message :', _jsx('textarea', {
+	        className: _styles2.default.input + ' ' + _styles2.default.textarea,
+	        name: 'message'
+	      })), _jsx(_reactBootstrap.Modal.Footer, {
+	        bsClass: _styles2.default['footer']
 	      }, void 0, _jsx('div', {
-	        className: 'container-fluid'
-	      }, void 0, _jsx('div', {
-	        className: ''
-	      }, void 0, _jsx('form', {
-	        className: 'form',
-	        onSubmit: this.onSubmit.bind(this)
-	      }, void 0, _jsx('div', {
-	        className: 'form-group'
-	      }, void 0, _jsx('div', {
-	        className: 'col-md-12'
-	      }, void 0, _ref2, _jsx('div', {
-	        className: 'input-group'
-	      }, void 0, _ref3, _jsx('input', {
-	        name: 'email',
-	        placeholder: 'Email Address',
-	        className: 'form-control',
-	        type: 'text',
-	        required: true,
-	        value: this.state.email,
-	        onChange: this.onChange.bind(this)
-	      })), _ref4)), _jsx('div', {
-	        className: 'form-group'
-	      }, void 0, _jsx('div', {
-	        className: 'col-md-12'
-	      }, void 0, _ref5, _jsx('div', {
-	        className: 'input-group'
-	      }, void 0, _ref6, _jsx('input', {
-	        name: 'phone',
-	        placeholder: '(000)000-000000',
-	        className: 'form-control',
-	        type: 'text',
-	        required: true,
-	        value: this.state.phone,
-	        onChange: this.onChange.bind(this)
-	      })), _ref7)), _jsx('div', {
-	        className: 'form-group'
-	      }, void 0, _jsx('div', {
-	        className: 'col-md-12 inputGroupContainer'
-	      }, void 0, _ref8, _jsx('div', {
-	        className: 'input-group'
-	      }, void 0, _ref9, _jsx('textarea', {
-	        className: 'form-control',
-	        name: 'message',
-	        placeholder: 'Message',
-	        rows: '4',
-	        cols: '50',
-	        required: true,
-	        value: this.state.message,
-	        onChange: this.onChange.bind(this)
-	      }, void 0)), _ref10)), _ref11)))), _jsx(_reactBootstrap.Modal.Footer, {
-	        bsClass: _styles2.default['modal-footer']
-	      }, void 0));
+	        className: _styles2.default.button
+	      }, void 0, _ref, 'SEND MESSAGE')));
 	    }
 	  }]);
 	
@@ -6125,7 +6993,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ContactDialog);
 
 /***/ },
-/* 86 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6177,6 +7045,8 @@
 	
 	var _ref9 = _jsx('br', {});
 	
+	var _ref10 = _jsx('br', {});
+	
 	function Form(props) {
 	  var info = props.data.info;
 	
@@ -6223,13 +7093,13 @@
 	    className: _styles2.default.info
 	  }, void 0, _jsx('span', {
 	    className: _styles2.default['info-content']
-	  }, void 0, '________________'), _ref9, _jsx('span', {
+	  }, void 0, '________________'), _ref9, _ref10, _jsx('span', {
 	    className: _styles2.default['info-content']
 	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
 	}
 
 /***/ },
-/* 87 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6281,6 +7151,8 @@
 	
 	var _ref9 = _jsx('br', {});
 	
+	var _ref10 = _jsx('br', {});
+	
 	function Form(props) {
 	  var info = props.data.info;
 	
@@ -6321,13 +7193,13 @@
 	    className: _styles2.default.info
 	  }, void 0, _jsx('span', {
 	    className: _styles2.default['info-content']
-	  }, void 0, '________________'), _ref8, _ref9, _jsx('span', {
+	  }, void 0, '________________'), _ref8, _ref9, _ref10, _jsx('span', {
 	    className: _styles2.default['info-content']
 	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
 	}
 
 /***/ },
-/* 88 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6377,6 +7249,8 @@
 	
 	var _ref8 = _jsx('br', {});
 	
+	var _ref9 = _jsx('br', {});
+	
 	function Form(props) {
 	  var info = props.data.info;
 	
@@ -6423,13 +7297,13 @@
 	    className: _styles2.default.info
 	  }, void 0, _jsx('span', {
 	    className: _styles2.default['info-content']
-	  }, void 0, '________________'), _ref8, _jsx('span', {
+	  }, void 0, '________________'), _ref8, _ref9, _jsx('span', {
 	    className: _styles2.default['info-content']
 	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
 	}
 
 /***/ },
-/* 89 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6525,7 +7399,451 @@
 	}
 
 /***/ },
-/* 90 */
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('li', {}, void 0, 'The purpose of the corporation is to engage in any lawful act or activity for which corporations may be organized under the General Corporation Law of Delaware.');
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('br', {});
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under Delaware law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref8 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under Delaware law, as it may be amended from time to time.');
+	
+	var _ref9 = _jsx('br', {});
+	
+	var _ref10 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'DE Form Articles of Incorporation 1'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF DELAWARE', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address of the Registered Office of the corporation and the name and address in the State of Delaware of the corporation\u2019s agent for service of process are:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_street, ' ', _ref3, info.company_address_city, ', ', info.company_address_state, ', ', info.company_address_zipcode))), _ref4, _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, ', with a par value of $', info.par_value_of_shares, ' per share.'), _jsx('li', {}, void 0, 'The name and mailing address of the corporation\u2019s incorporator are:', _ref5, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname, ' ', info.incorporator_name_lastname, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_address_street, _ref6, info.incorporator_address_city, ', ', info.incorporator_address_state, ', ', info.incorporator_address_zipcode))), _ref7, _ref8)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref9, _ref10, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('li', {}, void 0, 'The purpose of the corporation is to engage in any lawful act or activity for which corporations may be organized under the General Corporation Law of Delaware.');
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('br', {});
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under Delaware law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref8 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under Delaware law, as it may be amended from time to time.');
+	
+	var _ref9 = _jsx('br', {});
+	
+	var _ref10 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'DE Form Articles of Incorporation 2'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF DELAWARE', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address of the Registered Office of the corporation and the name and address in the State of Delaware of the corporation\u2019s agent for service of process are:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_address_street, ' ', _ref3, info.registered_agent_address_city, ', ', info.registered_agent_address_state, ', ', info.registered_agent_address_zipcode))), _ref4, _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, ', with a par value of $', info.par_value_of_shares, ' per share.'), _jsx('li', {}, void 0, 'The name and mailing address of the corporation\u2019s incorporator are:', _ref5, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname, ' ', info.incorporator_name_lastname, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_address_street, _ref6, info.incorporator_address_city, ', ', info.incorporator_address_state, ', ', info.incorporator_address_zipcode))), _ref7, _ref8)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref9, _ref10, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('br', {});
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under Delaware law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under Delaware law, as it may be amended from time to time.');
+	
+	var _ref8 = _jsx('br', {});
+	
+	var _ref9 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'DE Form Articles of Professional Incorporation 1'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF DELAWARE', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address of the Registered Office of the corporation and the name and address in the State of Delaware of the corporation\u2019s agent for service of process are:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.company_address_street, ' ', _ref3, info.company_address_city, ', ', info.company_address_state, ', ', info.company_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is a professional corporation within the meaning of Delaware  Code Title 8 section 601 et seq. The purpose of the corporation is to engage in the profession of ', info.company_profession, ' and any lawful act or activity for which a corporation engaging in such profession may be organized under the applicable laws and regulations of Delaware, other than the banking business or the trust company business.'), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, ', with a par value of $', info.par_value_of_shares, ' per share.'), _jsx('li', {}, void 0, 'The name and mailing address of the corporation\u2019s incorporator are:', _ref4, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname, ' ', info.incorporator_name_lastname, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_address_street, _ref5, info.incorporator_address_city, ', ', info.incorporator_address_state, ', ', info.incorporator_address_zipcode))), _ref6, _ref7)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref8, _ref9, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 105 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	exports.default = Form;
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _styles = {
+	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
+	  "header": "_3f7I9xLQkmPpKrlD3aa9zV",
+	  "head": "WVziBuyG_sRCEShC-TfUQ",
+	  "title": "_2BT8rd2TxedmnGmroJK6vz",
+	  "content": "yLqaYKwwKklKiQ5YxRzhr",
+	  "info": "vgM5fwZVbuu45RM5bbg5w",
+	  "info-title": "_1s_GZrUqxg8S6qm8dzpaoF",
+	  "info-content": "_1cQGBnTJnuSGznLGpOt6SD",
+	  "footer": "qdnLC2K40mGKgCSgceqcm"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var _ref = _jsx('br', {});
+	
+	var _ref2 = _jsx('br', {});
+	
+	var _ref3 = _jsx('br', {});
+	
+	var _ref4 = _jsx('br', {});
+	
+	var _ref5 = _jsx('br', {});
+	
+	var _ref6 = _jsx('li', {}, void 0, 'The corporation is authorized to indemnify, to the fullest extent permissible under Delaware law (as it may be amended from time to time), any person who at any time acts in the capacity of, or serves as, a director or officer of the corporation.');
+	
+	var _ref7 = _jsx('li', {}, void 0, 'The liability of the directors of the corporation for monetary damages shall be eliminated to the fullest extent permissible under Delaware law, as it may be amended from time to time.');
+	
+	var _ref8 = _jsx('br', {});
+	
+	var _ref9 = _jsx('br', {});
+	
+	function Form(props) {
+	  var info = props.data.info;
+	
+	  return _jsx('div', {
+	    className: _styles2.default.container
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.header
+	  }, void 0, _jsx('div', {
+	    className: _styles2.default.head
+	  }, void 0, 'DE Form Articles of Professional Incorporation 2'), _jsx('h2', {
+	    className: _styles2.default.title
+	  }, void 0, 'STATE OF DELAWARE', _ref, 'ARTICLES OF INCORPORATION')), _jsx('div', {
+	    className: _styles2.default.content
+	  }, void 0, _jsx('ol', {}, void 0, _jsx('li', {}, void 0, 'The name of the corporation is ', info.company_name, '.'), _jsx('li', {}, void 0, 'The address of the Registered Office of the corporation and the name and address in the State of Delaware of the corporation\u2019s agent for service of process are:', _ref2, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_name, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.registered_agent_address_street, ' ', _ref3, info.registered_agent_address_city, ', ', info.registered_agent_address_state, ', ', info.registered_agent_address_zipcode))), _jsx('li', {}, void 0, 'The corporation is a professional corporation within the meaning of Delaware  Code Title 8 section 601 et seq. The purpose of the corporation is to engage in the profession of ', info.company_profession, ' and any lawful act or activity for which a corporation engaging in such profession may be organized under the applicable laws and regulations of Delaware, other than the banking business or the trust company business.'), _jsx('li', {}, void 0, 'The corporation is authorized to issue only one class of shares of stock; and the total number of shares that the corporation is authorized to issue is ', info.number_of_shares, ', with a par value of $', info.par_value_of_shares, ' per share.'), _jsx('li', {}, void 0, 'The name and mailing address of the corporation\u2019s incorporator are:', _ref4, _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Name :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname, ' ', info.incorporator_name_lastname, ' ')), _jsx('div', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Address :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_address_street, _ref5, info.incorporator_address_city, ', ', info.incorporator_address_state, ', ', info.incorporator_address_zipcode))), _ref6, _ref7)), _jsx('div', {
+	    className: _styles2.default.footer
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info + ' col-xs-5'
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-title']
+	  }, void 0, 'Dated :'), _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '_____________, ', new Date().getFullYear())), _jsx('div', {
+	    className: 'col-xs-7',
+	    style: { textAlign: 'right' }
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default.info
+	  }, void 0, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, '________________'), _ref8, _ref9, _jsx('span', {
+	    className: _styles2.default['info-content']
+	  }, void 0, ' ', info.incorporator_name_firstname + ' ' + info.incorporator_name_lastname, ' , Incorporator')))));
+	}
+
+/***/ },
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6547,27 +7865,43 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(12);
+	var _reactBootstrap = __webpack_require__(13);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormProfessionalIncorporate = __webpack_require__(89);
+	var _CAFormProfessionalIncorporate = __webpack_require__(101);
 	
 	var _CAFormProfessionalIncorporate2 = _interopRequireDefault(_CAFormProfessionalIncorporate);
 	
-	var _CAFormProfessionalIncorporate3 = __webpack_require__(88);
+	var _CAFormProfessionalIncorporate3 = __webpack_require__(100);
 	
 	var _CAFormProfessionalIncorporate4 = _interopRequireDefault(_CAFormProfessionalIncorporate3);
 	
-	var _CAFormIncorporate = __webpack_require__(87);
+	var _CAFormIncorporate = __webpack_require__(99);
 	
 	var _CAFormIncorporate2 = _interopRequireDefault(_CAFormIncorporate);
 	
-	var _CAFormIncorporate3 = __webpack_require__(86);
+	var _CAFormIncorporate3 = __webpack_require__(98);
 	
 	var _CAFormIncorporate4 = _interopRequireDefault(_CAFormIncorporate3);
+	
+	var _DEFormIncorporate = __webpack_require__(103);
+	
+	var _DEFormIncorporate2 = _interopRequireDefault(_DEFormIncorporate);
+	
+	var _DEFormIncorporate3 = __webpack_require__(102);
+	
+	var _DEFormIncorporate4 = _interopRequireDefault(_DEFormIncorporate3);
+	
+	var _DEFormProfessionalIncorporate = __webpack_require__(105);
+	
+	var _DEFormProfessionalIncorporate2 = _interopRequireDefault(_DEFormProfessionalIncorporate);
+	
+	var _DEFormProfessionalIncorporate3 = __webpack_require__(104);
+	
+	var _DEFormProfessionalIncorporate4 = _interopRequireDefault(_DEFormProfessionalIncorporate3);
 	
 	var _styles = {
 	  "container": "_1CtFM9-WzUC60EfHEIcEyv",
@@ -6617,6 +7951,14 @@
 	        data: this.props.data
 	      }), this.props.data.form === 'ca_form_articles_of_incorporation_2' && _jsx(_CAFormIncorporate2.default, {
 	        data: this.props.data
+	      }), this.props.data.form === 'de_form_articles_of_professional_incorporation_1' && _jsx(_DEFormProfessionalIncorporate4.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'de_form_articles_of_professional_incorporation_2' && _jsx(_DEFormProfessionalIncorporate2.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'de_form_articles_of_incorporation_1' && _jsx(_DEFormIncorporate4.default, {
+	        data: this.props.data
+	      }), this.props.data.form === 'de_form_articles_of_incorporation_2' && _jsx(_DEFormIncorporate2.default, {
+	        data: this.props.data
 	      }));
 	    }
 	  }]);
@@ -6627,7 +7969,7 @@
 	exports.default = DocumentDialog;
 
 /***/ },
-/* 91 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6645,13 +7987,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _propTypes = __webpack_require__(1);
-	
-	var _propTypes2 = _interopRequireDefault(_propTypes);
-	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -6659,7 +7997,7 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _Cover = __webpack_require__(23);
+	var _Cover = __webpack_require__(24);
 	
 	var _Cover2 = _interopRequireDefault(_Cover);
 	
@@ -6675,9 +8013,13 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _actions = __webpack_require__(8);
+	var _actions = __webpack_require__(9);
 	
-	var _Document = __webpack_require__(90);
+	var _actions2 = __webpack_require__(15);
+	
+	var _reactNotificationSystemRedux = __webpack_require__(7);
+	
+	var _Document = __webpack_require__(106);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
@@ -6712,19 +8054,7 @@
 	  'aria-hidden': 'true'
 	});
 	
-	var _ref2 = _jsx(_Cover2.default, {
-	  title: 'EDIT',
-	  icon: 'fa-pencil',
-	  description: 'Make changes to document'
-	});
-	
-	var _ref3 = _jsx(_Cover2.default, {
-	  title: 'SAVE',
-	  icon: 'fa-save',
-	  description: 'Save document to profile'
-	});
-	
-	var _ref4 = _jsx('i', {
+	var _ref2 = _jsx('i', {
 	  className: 'fa fa-download',
 	  'aria-hidden': 'true'
 	}, void 0, '\xA0\xA0');
@@ -6746,9 +8076,27 @@
 	  _createClass(Form, [{
 	    key: 'onView',
 	    value: function onView() {
-	      //if (props.data.form === 'ca_form_articles_of_professional_incorporation_1')
-	      // props.dispatch(setFinalNode(props.data.form, props.data));
 	      this.setState({ showDocument: true });
+	    }
+	  }, {
+	    key: 'onEdit',
+	    value: function onEdit() {
+	      this.props.hide();
+	    }
+	  }, {
+	    key: 'onSave',
+	    value: function onSave() {
+	      if (this.props.state === 'SAVE_DOC_SUCCEEDED') {
+	        this.props.warning({
+	          // uid: 'once-please', // you can specify your own uid if required
+	          title: 'Already saved',
+	          message: 'This form is already saved.',
+	          position: 'tr'
+	        });
+	        return;
+	      }
+	
+	      this.props.save();
 	    }
 	  }, {
 	    key: 'onHideDocument',
@@ -6777,11 +8125,25 @@
 	        onClick: function onClick(e) {
 	          return _this2.onView();
 	        }
-	      }), _ref2, _ref3)), _jsx('div', {
+	      }), _jsx(_Cover2.default, {
+	        title: 'EDIT',
+	        icon: 'fa-pencil',
+	        description: 'Make changes to document',
+	        onClick: function onClick(e) {
+	          return _this2.onEdit();
+	        }
+	      }), _jsx(_Cover2.default, {
+	        title: 'SAVE',
+	        icon: 'fa-save',
+	        description: 'Save document to profile',
+	        onClick: function onClick(e) {
+	          return _this2.onSave();
+	        }
+	      }))), _jsx('div', {
 	        className: _styles2.default.footer
 	      }, void 0, _jsx('div', {
 	        className: _styles2.default.button
-	      }, void 0, _ref4, 'CHECKOUT TO DOWNLOAD')), _jsx(_Document2.default, {
+	      }, void 0, _ref2, 'CHECKOUT TO DOWNLOAD')), _jsx(_Document2.default, {
 	        show: this.state.showDocument,
 	        close: this.onHideDocument.bind(this),
 	        data: this.props.data
@@ -6793,13 +8155,35 @@
 	}(_react.Component);
 	
 	// Retrieve data from store as props
+	
+	
 	function mapStateToProps(state) {
-	  return {};
+	  return {
+	    state: state.documents.state
+	  };
 	}
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Form);
+	
+	function mapDispatchToProps(dispatch, orgProps) {
+	  return {
+	    hide: function hide() {
+	      return dispatch((0, _actions.hideFinalNode)());
+	    },
+	    save: function save() {
+	      return dispatch((0, _actions2.saveDoc)(orgProps.data.form, orgProps.data.info));
+	    },
+	    warningMessage: function warningMessage(opt) {
+	      return dispatch((0, _reactNotificationSystemRedux.warning)(opt));
+	    },
+	    successMessage: function successMessage(opt) {
+	      return dispatch((0, _reactNotificationSystemRedux.success)(opt));
+	    }
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Form);
 
 /***/ },
-/* 92 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6823,7 +8207,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -6831,15 +8215,15 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _Document = __webpack_require__(13);
+	var _Document = __webpack_require__(14);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
-	var _Dialog = __webpack_require__(34);
+	var _Dialog = __webpack_require__(37);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _actions = __webpack_require__(8);
+	var _actions = __webpack_require__(9);
 	
 	var _styles = {
 	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
@@ -6860,95 +8244,7 @@
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /*import React, { Component } from 'react';
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import PropTypes from 'prop-types';
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import Button from '../../../../../components/Button/Button';
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               // Import styles
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               import styles from './styles.css';
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               const btnStyle = {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 backgroundColor: 'white',
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 color: '#02b2fb',
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 fontSize: '17rem',
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 fontWeight: 400,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 margin: '0rem 10rem',
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 padding: '7rem 18rem'
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               class CalculateTax extends Component {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 constructor(props) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   super(props);
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.state = {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     price: 0,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     tax: 0
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 onPrice(e) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   const price = e.target.value;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   var tax = price;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   var taxRate = 0.0;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   if (this.props.county === 'San Francisco') {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     if (price > 100 && price <= 250000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 2.50;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 250000 && price <= 1000000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 3.40;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 1000000 && price <= 5000000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 3.75;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 5000000 && price <= 10000000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 11.25;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 10000000 && price <= 25000000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 13.75;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     } else if (price > 25000000) {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       taxRate = 15.00;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   } else {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     taxRate = this.props.taxRate ? this.props.taxRate : 0;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   tax = Math.ceil(tax / 500) * taxRate;
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   this.setState({ price, tax });
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 render() {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   return (
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <div className={ `${styles.container} wow fadeIn`}>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <h1 className={ styles.title }>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Calculation
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </h1>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <div className={ styles['input-container'] }>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Purchase Price :
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <input type="number" className={`${styles.input}`} name="price" min="0.00" value={ this.state.price } placeholder="Enter Purchase Price" onChange={this.onPrice.bind(this)} />
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <br />
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Calcuated Tax:
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <input type="text" className={`${styles.input}`} placeholder="" value={ this.state.tax } readOnly/>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </div>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       <div className={ styles.footer }>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <span className={ styles['text'] }>Was this helpful?</span>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         <div className={ styles['btn-container'] }>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <Button title="Yes" style={ btnStyle } />
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           <Button title="Need Help" style={ btnStyle } />
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         </div>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </div>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </div>
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   );
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               }
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               CalculateTax.propTypes = {
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 title: PropTypes.string,
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 message: PropTypes.string
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               };
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               export default CalculateTax;*/
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	// Import Actions
 	
@@ -6966,11 +8262,6 @@
 	};
 	
 	var _ref = _jsx('br', {});
-	
-	var _ref2 = _jsx(_Button2.default, {
-	  title: 'Need Help',
-	  style: btnStyle
-	});
 	
 	var Topic = function (_Component) {
 	  _inherits(Topic, _Component);
@@ -7007,12 +8298,18 @@
 	  }, {
 	    key: 'calcCountyTax',
 	    value: function calcCountyTax(price) {
+	      console.log(this.props);
 	      var taxRate = 0.0;
 	      var _props$calcTaxInfo = this.props.calcTaxInfo,
 	          county = _props$calcTaxInfo.county,
 	          city = _props$calcTaxInfo.city,
-	          countyTaxRate = _props$calcTaxInfo.countyTaxRate;
+	          countyTaxRate = _props$calcTaxInfo.countyTaxRate,
+	          exemptCounty = _props$calcTaxInfo.exemptCounty;
 	
+	
+	      if (this.props.calcTaxInfo.countyExemptions[0] === false) {
+	        return 0.00;
+	      }
 	
 	      if (county === 'San Francisco') {
 	        if (price > 100 && price <= 250000) {
@@ -7031,13 +8328,18 @@
 	      } else {
 	        taxRate = countyTaxRate ? countyTaxRate : 0;
 	      }
-	      return Math.ceil(price / 500) * taxRate;
+	      return (Math.ceil(price / 500) * taxRate).toFixed(2);
 	    }
 	  }, {
 	    key: 'calcCityTax',
 	    value: function calcCityTax(price) {
+	
+	      if (this.props.calcTaxInfo.cityExemptions[0] === false) {
+	        return 0.00;
+	      }
+	
 	      var taxRate = this.props.calcTaxInfo.cityTaxRate ? this.props.calcTaxInfo.cityTaxRate : 0;
-	      return Math.ceil(price / 500) * taxRate;
+	      return (Math.ceil(price / 500) * taxRate).toFixed(2);
 	    }
 	  }, {
 	    key: 'onPrice',
@@ -7081,26 +8383,26 @@
 	        className: '' + _styles2.default.input,
 	        name: 'price',
 	        min: '0.00',
-	        value: this.state.price,
+	        value: this.state.price ? this.state.price : '',
 	        placeholder: 'Enter Purchase Price',
 	        onChange: this.onPrice.bind(this)
 	      }), _ref, 'County Tax :', _jsx('input', {
-	        type: 'text',
+	        type: 'number',
 	        className: '' + _styles2.default.input,
 	        placeholder: '',
-	        value: this.state.countyTax,
+	        value: this.state.price ? this.state.countyTax : '',
 	        readOnly: true
 	      }), 'City Tax :', _jsx('input', {
-	        type: 'text',
+	        type: 'number',
 	        className: '' + _styles2.default.input,
 	        placeholder: '',
-	        value: this.state.cityTax,
+	        value: this.state.price ? this.state.cityTax : '',
 	        readOnly: true
 	      }), 'Total Tax :', _jsx('input', {
-	        type: 'text',
+	        type: 'number',
 	        className: '' + _styles2.default.input,
 	        placeholder: '',
-	        value: this.state.countyTax + this.state.cityTax,
+	        value: this.state.price ? (parseFloat(this.state.countyTax) + parseFloat(this.state.cityTax)).toFixed(2) : '',
 	        readOnly: true
 	      })), _jsx('div', {
 	        className: _styles2.default.footer
@@ -7116,7 +8418,11 @@
 	        title: 'Yes',
 	        style: btnStyle,
 	        onClick: this.onShowDialog.bind(this)
-	      }), _ref2)), _jsx(_Dialog2.default, {
+	      }), _jsx(_Button2.default, {
+	        title: 'Need Help',
+	        style: btnStyle,
+	        onClick: this.props.showContact
+	      }))), _jsx(_Dialog2.default, {
 	        show: this.state.showDialog,
 	        close: this.onCloseDialog.bind(this)
 	      }));
@@ -7145,7 +8451,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
 
 /***/ },
-/* 93 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7171,15 +8477,11 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _Button = __webpack_require__(4);
-	
-	var _Button2 = _interopRequireDefault(_Button);
-	
-	var _Cover = __webpack_require__(23);
+	var _Cover = __webpack_require__(24);
 	
 	var _Cover2 = _interopRequireDefault(_Cover);
 	
@@ -7210,15 +8512,6 @@
 	// Import Actions
 	
 	// Import components
-	
-	var btnStyle = {
-	  backgroundColor: 'white',
-	  color: '#02b2fb',
-	  fontSize: '17rem',
-	  fontWeight: 400,
-	  margin: '0rem 10rem',
-	  padding: '7rem 18rem'
-	};
 	
 	var _ref = _jsx('i', {
 	  className: 'fa fa-envelop',
@@ -7303,7 +8596,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Topic);
 
 /***/ },
-/* 94 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7327,7 +8620,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -7335,15 +8628,15 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _Document = __webpack_require__(13);
+	var _Document = __webpack_require__(14);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
-	var _Dialog = __webpack_require__(34);
+	var _Dialog = __webpack_require__(37);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _actions = __webpack_require__(8);
+	var _actions = __webpack_require__(9);
 	
 	var _styles = {
 	  "container": "_1cfTN_KLvWaMKwWF5x_IdX",
@@ -7383,11 +8676,6 @@
 	
 	var _ref = _jsx('br', {});
 	
-	var _ref2 = _jsx(_Button2.default, {
-	  title: 'Need Help',
-	  style: btnStyle
-	});
-	
 	var Topic = function (_Component) {
 	  _inherits(Topic, _Component);
 	
@@ -7420,6 +8708,7 @@
 	  }, {
 	    key: 'onCalcTax',
 	    value: function onCalcTax() {
+	      console.log(this.props.calcTaxInfo);
 	      this.props.setFinalNode('CalculateTax', { calcTaxInfo: this.props.calcTaxInfo });
 	    }
 	  }, {
@@ -7474,7 +8763,11 @@
 	        title: 'Yes',
 	        style: btnStyle,
 	        onClick: this.onShowDialog.bind(this)
-	      }), _ref2)), _jsx(_Dialog2.default, {
+	      }), _jsx(_Button2.default, {
+	        title: 'Need Help',
+	        style: btnStyle,
+	        onClick: this.props.showContact
+	      }))), _jsx(_Dialog2.default, {
 	        show: this.state.showDialog,
 	        close: this.onCloseDialog.bind(this)
 	      }));
@@ -7503,7 +8796,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
 
 /***/ },
-/* 95 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7527,39 +8820,31 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRedux = __webpack_require__(2);
-	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
-	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _NoteDialog = __webpack_require__(96);
+	var _NoteDialog = __webpack_require__(112);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county = __webpack_require__(99);
+	var _county = __webpack_require__(115);
 	
 	var _county2 = _interopRequireDefault(_county);
 	
-	var _city = __webpack_require__(97);
+	var _city = __webpack_require__(113);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption2 = __webpack_require__(100);
+	var _county_exemption2 = __webpack_require__(116);
 	
 	var countyExemption = _interopRequireWildcard(_county_exemption2);
 	
-	var _city_exemption2 = __webpack_require__(98);
+	var _city_exemption2 = __webpack_require__(114);
 	
 	var cityExemption = _interopRequireWildcard(_city_exemption2);
-	
-	var _actions = __webpack_require__(8);
-	
-	var _ProgramReducer = __webpack_require__(33);
 	
 	var _InputBox = {
 	  "inputbox": "_252oDSSw6rez-ligl-plwk",
@@ -7577,6 +8862,7 @@
 	  "input": "qN9gtS3cAWNWxqx3TTywY",
 	  "button-group": "_2Z02RusD2iWi1ZLFEhz-Eq",
 	  "button": "NreoSJKxAQg1BEw-dOAPR",
+	  "disable": "RrbwVVOJ-sGaKjr8yhCSx",
 	  "big": "_70E9JUCxe3919qgaTx0GZ",
 	  "help": "_1j1uahoOf5WuAv24jsuIeN",
 	  "help-container": "pjYF7jSBEBXUVCUyI6QH-",
@@ -7605,13 +8891,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	// Import Actions
-	
-	
-	// Import Selectors
-	
-	
 	// Import Style
+	
+	
+	// Import Assets
 	
 	
 	var InputBox = function (_Component) {
@@ -7632,42 +8915,37 @@
 	      store: {}
 	    };
 	
-	    _this.history = [];
+	    if (props.program) {
+	      if (props.history.length) {
+	        var state = props.history[props.history.length - 1];
+	        var current = props.progress;
+	        _this.state.current = current;
+	        _this.singleChoice = -1;
+	        _this.multiChoice = [];
+	        _this.state.store = state.store;
+	      } else {}
+	    }
 	    return _this;
 	  }
 	
 	  _createClass(InputBox, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      if (this.props.name) {
-	        this.props.dispatch((0, _actions.fetchProgram)(this.props.name));
-	        this.props.dispatch((0, _actions.setCurrentProgram)(this.props.name));
-	
-	        if (this.props.program) {
-	          this.history = [];
-	          var initIndex = this.getNodeIndex(this.props.program.node, this.props.program.start);
-	          this.setCurrent(this.props.program, initIndex);
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.program !== nextProps.program) {
+	        if (!nextProps.history.length) {
+	          var nextIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start);
+	          this.setCurrent(nextProps.program, nextIndex);
+	        } else {
+	          var state = nextProps.history[nextProps.history.length - 1];
+	          var current = nextProps.progress;
+	          this.setState({ current: current, singleChoice: -1, multiChoice: [], store: state.store });
 	        }
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {}
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      if (this.props.name !== nextProps.name) {
-	        this.props.dispatch((0, _actions.fetchProgram)(nextProps.name));
-	        this.props.dispatch((0, _actions.setCurrentProgram)(nextProps.name));
-	      }
-	
-	      if (this.props.program !== nextProps.program) {
-	        if (nextProps.program) {
-	          this.history = [];
-	          var initIndex = this.getNodeIndex(nextProps.program.node, nextProps.program.start);
-	          this.setCurrent(nextProps.program, initIndex);
-	        }
-	      }
+	    value: function componentWillUnmount() {
+	      this.props.showContact();
 	    }
 	  }, {
 	    key: 'getNodeIndex',
@@ -7697,7 +8975,7 @@
 	      var store = this.state.store;
 	      if (node.content.kind === 'CHECK_COUNTY_EXEMPTION') {
 	        var next = 0;
-	        if (store['county_exemption'][0]) {
+	        if (store['county_exemption'][0] !== false) {
 	          next = 1;
 	        }
 	
@@ -7705,7 +8983,7 @@
 	        this.setCurrent(program, _nextIndex);
 	      } else if (node.content.kind === 'CHECK_CITY_EXEMPTION') {
 	        var next = 0;
-	        if (store['city_exemption'][0]) {
+	        if (store['city_exemption'][0] !== false) {
 	          next = 1;
 	        }
 	
@@ -7749,24 +9027,7 @@
 	      var kind = node.kind.toLowerCase();
 	
 	      if (kind === 'input' || kind === 'single' || kind === 'yesno' || kind === 'multi') {
-	        this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
-	        this.history.push({
-	          current: curIndex,
-	          singleChoice: this.state.singleChoice,
-	          multiChoice: this.state.multiChoice,
-	          store: _extends({}, this.state.store)
-	        });
-	        return;
-	      }
-	
-	      if (kind === 'form') {
-	        this.setState({ current: curIndex, singleChoice: -1, multiChoice: [], initialInput: '' });
-	        this.history.push({
-	          index: this.state.index,
-	          current: curIndex,
-	          singleChoice: this.state.singleChoice,
-	          store: this.state.store
-	        });
+	        this.setState({ current: curIndex, singleChoice: -1, multiChoice: [] });
 	        return;
 	      }
 	
@@ -7783,6 +9044,8 @@
 	      }
 	
 	      if (kind === 'final') {
+	        // this.props.history.pop();
+	        this.props.stepBack();
 	        var message = node.content.message ? node.content.message : '';
 	        if (node.content.attach) {
 	          node.content.attach.forEach(function (elt) {
@@ -7791,14 +9054,15 @@
 	        }
 	
 	        if (node.content.kind === 'Form') {
-	          this.props.dispatch((0, _actions.setFinalNode)('Form', { form: node.content.form, info: _extends({}, this.state.store) }));
+	          this.props.setFinalNode('Form', { form: node.content.form, info: _extends({}, this.state.store) });
 	        } else if (node.content.kind === 'CalculateTax') {
 	          var county_exemption = countyExemption.exemption(this.state.store['county']);
 	          var countyTaxRate = parseFloat(county_exemption[0].split(';')[2]);
-	          var city_exemption = countyExemption.exemption(this.state.store['county'], this.state.store['city']);
+	          var city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
 	          var cityTaxRate = parseFloat(city_exemption[0].split(';')[3]);
+	          calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: countyTaxRate, cityTaxRate: cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
 	
-	          this.props.dispatch((0, _actions.setFinalNode)('CalculateTax', { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: countyTaxRate, cityTaxRate: cityTaxRate }));
+	          this.props.setFinalNode('CalculateTax', { calcTaxInfo: calcTaxInfo });
 	        } else {
 	          var calcTaxInfo;
 	          if (node.content.next === 'CalculateTax') {
@@ -7807,17 +9071,17 @@
 	            var _city_exemption = cityExemption.exemption(this.state.store['county'], this.state.store['city']);
 	            var _cityTaxRate = parseFloat(_city_exemption[0].split(';')[3]);
 	
-	            calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: _countyTaxRate, cityTaxRate: _cityTaxRate };
+	            calcTaxInfo = { county: this.state.store['county'], city: this.state.store['city'], countyTaxRate: _countyTaxRate, cityTaxRate: _cityTaxRate, countyExemptions: this.state.store['county_exemption'], cityExemptions: this.state.store['city_exemption'] };
 	          }
 	
-	          console.log(calcTaxInfo);
-	          this.props.dispatch((0, _actions.setFinalNode)('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo: calcTaxInfo }));
+	          this.props.setFinalNode('Topic', { title: node.content.title, message: message, to: node.content.to, calcTaxInfo: calcTaxInfo });
 	        }
 	      }
 	    }
 	  }, {
 	    key: 'setInput',
 	    value: function setInput(node) {
+	      // Save selected choice in store
 	      if (node.kind === 'Single') {
 	        if (node.content.store) {
 	          var field = node.content.fields[this.state.singleChoice];
@@ -7837,34 +9101,57 @@
 	    }
 	  }, {
 	    key: 'onNext',
-	    value: function onNext() {
-	      if (!this.props.program) return;
+	    value: function onNext(program) {
+	      var _this2 = this;
 	
-	      var node = this.props.program.node[this.state.current];
-	
+	      var node = program.node[this.state.current];
 	      this.setInput(node);
 	
+	      // Check wheter input is empty or not
+	      var empty = false;
+	      if (node.kind === 'Input') {
+	        node.content.fields.forEach(function (e) {
+	          if (e.store) if (_this2.state.store[e.store] === '') {
+	            empty = true;
+	            return;
+	          }
+	        });
+	
+	        if (node.content.store) if (this.state.store[node.content.store] === '') empty = true;
+	
+	        if (empty === true) return;
+	      }
+	
 	      var next = this.getNextId(node);
-	      var nextIndex = this.getNodeIndex(this.props.program.node, next);
-	      this.setCurrent(this.props.program, nextIndex);
+	      var nextIndex = this.getNodeIndex(program.node, next);
+	
+	      this.props.stepNext({
+	        current: this.state.current,
+	        singleChoice: this.state.singleChoice,
+	        multiChoice: this.state.multiChoice,
+	        store: _extends({}, this.state.store)
+	      }, nextIndex);
+	
+	      this.setCurrent(program, nextIndex);
 	    }
 	  }, {
 	    key: 'onBack',
 	    value: function onBack() {
-	      if (this.props.program) {
-	        if (this.history.length === 1) return;
-	        this.history.pop();
-	        var state = this.history[this.history.length - 1];
-	        if (state) {
-	          this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, store: state.store });
-	        }
+	      var program = this.props.program;
+	
+	      if (program) {
+	        if (this.props.history.length === 0) return;
+	
+	        var state = this.props.history[this.props.history.length - 1];
+	        this.setState({ current: state.current, singleChoice: state.singleChoice, multiChoice: state.multiChoice, store: state.store });
+	
+	        this.props.stepBack();
 	      }
 	    }
 	  }, {
 	    key: 'onSingleSelect',
 	    value: function onSingleSelect(index) {
 	      this.setState({ singleChoice: index });
-	      this.history[this.history.length - 1].singleChoice = index;
 	    }
 	  }, {
 	    key: 'onMultiSelect',
@@ -7872,14 +9159,11 @@
 	      var multiChoice = this.state.multiChoice;
 	      if (index === noneApplyIndex) {
 	        multiChoice = [];
-	        this.history[this.history.length - 1].multiChoice = [];
 	      } else {
 	        multiChoice[noneApplyIndex] = false;
-	        this.history[this.history.length - 1].multiChoice[noneApplyIndex] = false;
 	      }
 	      multiChoice[index] = !multiChoice[index];
 	      this.setState({ multiChoice: multiChoice });
-	      this.history[this.history.length - 1].multiChoice[index] = multiChoice[index];
 	    }
 	  }, {
 	    key: 'getDescription',
@@ -7922,30 +9206,32 @@
 	  }, {
 	    key: 'buildField',
 	    value: function buildField(node, field, index) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var kind = node.kind;
 	      var check_url = this.state.singleChoice === index ? 'url(' + _green_check2.default + ')' : '';
 	
 	      if (kind === 'Single' || kind === 'YesNo') {
-	        if (field.kind === 'number') {
-	          if (this.state.store[node.content.store] === undefined) {
-	            this.state.store[node.content.store] = '';
+	        var storeName = field.store;
+	        if (!storeName) storeName = node.content.store;
+	        if (field.kind === 'number' || field.kind === 'text') {
+	          if (this.state.store[storeName] === undefined) {
+	            this.state.store[storeName] = '';
 	          }
 	        }
 	
 	        return _jsx('div', {
 	          className: _InputBox2.default.answer + ' ' + (this.state.singleChoice === index ? _InputBox2.default.active : '') + ' ',
 	          onClick: function onClick() {
-	            return _this2.onSingleSelect(index);
+	            return _this3.onSingleSelect(index);
 	          },
 	          style: { backgroundImage: check_url }
-	        }, index, field.label, field.kind === 'number' ? _jsx('input', {
-	          type: 'number',
+	        }, index, this.replaceStoreValue(field.label), field.kind === 'number' || field.kind === 'text' ? _jsx('input', {
+	          type: field.kind,
 	          className: _InputBox2.default.input,
-	          value: this.state.store[node.content.store],
+	          value: this.state.store[storeName],
 	          onChange: function onChange(event) {
-	            _this2.onInput(event, node, field);
+	            _this3.onInput(event, node, field);
 	          }
 	        }) : null, field.note && _jsx('i', {
 	          className: 'fa fa-info-circle',
@@ -7985,7 +9271,7 @@
 	            className: _InputBox2.default.input,
 	            value: store[field.store],
 	            onChange: function onChange(event) {
-	              return _this2.onSelectChange(event, field);
+	              return _this3.onSelectChange(event, field);
 	            }
 	          }, index, datasource);
 	        } else {
@@ -7997,7 +9283,7 @@
 	            className: '' + _InputBox2.default.input,
 	            value: this.state.store[field.store],
 	            onChange: function onChange(event) {
-	              _this2.onInput(event, node, field);
+	              _this3.onInput(event, node, field);
 	            },
 	            placeholder: field.placeholder
 	          }, index);
@@ -8015,15 +9301,15 @@
 	          var eleExemptions = indexArray.map(function (elt, i) {
 	            if (exemption[indexArray[i]] !== 'x') return;
 	            return _jsx('div', {
-	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
+	              className: _InputBox2.default.answer + ' ' + (_this3.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
-	                return _this2.onMultiSelect(i, 0);
+	                return _this3.onMultiSelect(i, 0);
 	              }
 	            }, i, label[indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', note[indexArray[i]]);
+	                return _this3.openNote(e, 'Note', note[indexArray[i]]);
 	              }
 	            }));
 	          });
@@ -8031,7 +9317,7 @@
 	          return _jsx('div', {}, index, eleExemptions, _jsx('div', {
 	            className: _InputBox2.default.answer + ' ' + (this.state.multiChoice[0] ? _InputBox2.default.active : ''),
 	            onClick: function onClick() {
-	              return _this2.onMultiSelect(0, 0);
+	              return _this3.onMultiSelect(0, 0);
 	            },
 	            style: { backgroundImage: check_url }
 	          }, void 0, 'None Apply'));
@@ -8044,15 +9330,15 @@
 	          var _eleExemptions = _indexArray.map(function (elt, i) {
 	            if (_exemption[_indexArray[i]] !== 'x') return;
 	            return _jsx('div', {
-	              className: _InputBox2.default.answer + ' ' + (_this2.state.multiChoice[i] ? _InputBox2.default.active : ''),
+	              className: _InputBox2.default.answer + ' ' + (_this3.state.multiChoice[i] ? _InputBox2.default.active : ''),
 	              onClick: function onClick() {
-	                return _this2.onMultiSelect(i, 0);
+	                return _this3.onMultiSelect(i, 0);
 	              }
 	            }, i, _label[_indexArray[i]], _jsx('i', {
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this2.openNote(e, 'Note', _note[_indexArray[i]]);
+	                return _this3.openNote(e, 'Note', _note[_indexArray[i]]);
 	              }
 	            }));
 	          });
@@ -8060,7 +9346,7 @@
 	          return _jsx('div', {}, index, _eleExemptions, _jsx('div', {
 	            className: _InputBox2.default.answer + ' ' + (this.state.multiChoice[0] ? _InputBox2.default.active : ''),
 	            onClick: function onClick() {
-	              return _this2.onMultiSelect(0, 0);
+	              return _this3.onMultiSelect(0, 0);
 	            }
 	          }, void 0, 'None Apply'));
 	        }
@@ -8078,9 +9364,20 @@
 	      this.setState({ noteTitle: title, noteContent: content, showNote: true });
 	    }
 	  }, {
+	    key: 'replaceStoreValue',
+	    value: function replaceStoreValue(str) {
+	      var reg = /\${(.*)}/g;
+	
+	      var vName = reg.exec(str);
+	      if (vName) {
+	        str = str.replace(reg, this.state.store[vName[1]]);
+	      }
+	      return str;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this4 = this;
 	
 	      var lstEle = null;
 	      var question = null;
@@ -8089,21 +9386,21 @@
 	      var node = null;
 	      var eleNote = null;
 	      var note = { title: '', content: '' };
-	      if (this.props.program) {
 	
-	        node = this.props.program.node[this.state.current];
+	      var program = this.props.program;
+	      if (program) {
+	        node = program.node[this.state.current];
+	        if (node.kind === 'Action') {
+	          this.setCurrent(program, this.state.current);
+	          return null;
+	        }
 	
 	        if (node.kind !== 'Form' && node.kind !== 'Action') {
 	
-	          title = this.props.program.description;
-	
-	          var reg = /\${(.*)}/g;
+	          title = program.description;
 	
 	          question = '' + node.content.question;
-	          var vName = reg.exec(question);
-	          if (vName) {
-	            question = question.replace(reg, this.state.store[vName[1]]);
-	          }
+	          question = this.replaceStoreValue(question);
 	          description = this.getDescription(node.kind);
 	
 	          if (node.content.note) {
@@ -8111,15 +9408,19 @@
 	              className: 'fa fa-info-circle ' + _InputBox2.default['note-icon-global'],
 	              'aria-hidden': 'true',
 	              onClick: function onClick(e) {
-	                return _this3.openNote(e, node.content.note.title, node.content.note.content);
+	                return _this4.openNote(e, node.content.note.title, node.content.note.content);
 	              }
 	            });
 	          }
 	
 	          lstEle = node.content.fields.map(function (elt, i) {
-	            return _this3.buildField(node, elt, i);
+	            return _this4.buildField(node, elt, i);
 	          });
 	        }
+	      }
+	
+	      if (!this.props.history) {
+	        return null;
 	      }
 	
 	      return _jsx('div', {
@@ -8127,7 +9428,7 @@
 	        style: { display: this.props.show ? 'none' : '' }
 	      }, void 0, _jsx('div', {
 	        className: _InputBox2.default.title
-	      }, void 0, title), this.props.program && this.props.program.step && _jsx('div', {
+	      }, void 0, title), program && program.step && _jsx('div', {
 	        className: _InputBox2.default['progress-container']
 	      }, void 0, _jsx('div', {
 	        className: 'progress ' + _InputBox2.default['progress']
@@ -8137,27 +9438,32 @@
 	        'aria-valuenow': '40',
 	        'aria-valuemin': '0',
 	        'aria-valuemax': '100',
-	        style: { width: (this.history.length - 1) * 100.0 / this.props.program.step + '%' }
+	        style: { width: this.props.history.length * 100.0 / program.step + '%' }
 	      }, void 0))), _jsx('div', {
 	        className: '' + _InputBox2.default['main-container']
 	      }, void 0, _jsx('div', {
 	        className: _InputBox2.default['question']
-	      }, void 0, _jsx('span', {}, void 0, this.history.length + '. '), _jsx('span', {}, void 0, (0, _reactHtmlParser2.default)(question)), eleNote), _jsx('div', {
+	      }, void 0, _jsx('span', {}, void 0, this.props.history.length + 1 + '. '), _jsx('span', {}, void 0, (0, _reactHtmlParser2.default)(question)), eleNote), _jsx('div', {
 	        className: _InputBox2.default['description']
 	      }, void 0, description), _jsx('div', {
 	        className: _InputBox2.default['answer-container']
 	      }, void 0, lstEle), _jsx('div', {
 	        className: _InputBox2.default['button-group']
 	      }, void 0, _jsx('div', {
-	        className: '' + _InputBox2.default.button,
+	        className: _InputBox2.default.button + ' ' + (this.props.history.length ? '' : _InputBox2.default.disable),
 	        style: { float: 'left' },
 	        onClick: this.onBack.bind(this)
 	      }, void 0, 'Step Back'), _jsx('div', {
 	        className: _InputBox2.default.button + ' ' + _InputBox2.default.big,
-	        onClick: this.onNext.bind(this)
+	        onClick: function onClick(e) {
+	          return _this4.onNext(program);
+	        }
 	      }, void 0, 'Continue'), _jsx('div', {
 	        className: '' + _InputBox2.default.button,
-	        style: { float: 'right' }
+	        style: { float: 'right' },
+	        onClick: function onClick(e) {
+	          return _this4.props.showStepSave();
+	        }
 	      }, void 0, 'Save Place')), _jsx('div', {
 	        className: _InputBox2.default['help-container']
 	      }, void 0, _jsx('span', {
@@ -8179,19 +9485,10 @@
 	  return InputBox;
 	}(_react.Component);
 	
-	// Retrieve data from store as props
-	
-	
-	function mapStateToProps(state) {
-	  return {
-	    program: (0, _ProgramReducer.getCurrentProgram)(state)
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(InputBox);
+	exports.default = InputBox;
 
 /***/ },
-/* 96 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8213,9 +9510,9 @@
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactBootstrap = __webpack_require__(12);
+	var _reactBootstrap = __webpack_require__(13);
 	
-	var _reactHtmlParser = __webpack_require__(6);
+	var _reactHtmlParser = __webpack_require__(5);
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
@@ -8235,6 +9532,7 @@
 	  "input": "qN9gtS3cAWNWxqx3TTywY",
 	  "button-group": "_2Z02RusD2iWi1ZLFEhz-Eq",
 	  "button": "NreoSJKxAQg1BEw-dOAPR",
+	  "disable": "RrbwVVOJ-sGaKjr8yhCSx",
 	  "big": "_70E9JUCxe3919qgaTx0GZ",
 	  "help": "_1j1uahoOf5WuAv24jsuIeN",
 	  "help-container": "pjYF7jSBEBXUVCUyI6QH-",
@@ -8278,7 +9576,7 @@
 	      }, void 0, _jsx(_reactBootstrap.Modal.Header, {
 	        bsClass: _InputBox2.default['modal-header'],
 	        closeButton: true
-	      }, void 0, _jsx(_reactBootstrap.Modal.Title, {}, void 0, this.props.title)), _jsx(_reactBootstrap.Modal.Body, {
+	      }, void 0, _jsx(_reactBootstrap.Modal.Title, {}, void 0, (0, _reactHtmlParser2.default)(this.props.title))), _jsx(_reactBootstrap.Modal.Body, {
 	        bsClass: _InputBox2.default['modal-body']
 	      }, void 0, _jsx('div', {}, void 0, (0, _reactHtmlParser2.default)(this.props.content))), _jsx(_reactBootstrap.Modal.Footer, {
 	        bsClass: _InputBox2.default['modal-footer']
@@ -8300,7 +9598,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 97 */
+/* 113 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8312,7 +9610,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 98 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8323,11 +9621,11 @@
 	});
 	exports.indexArray = exports.note = exports.label = exports.exemption = undefined;
 	
-	var _csv2array = __webpack_require__(35);
+	var _csv2array = __webpack_require__(39);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
-	var _sort = __webpack_require__(36);
+	var _sort = __webpack_require__(40);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8348,7 +9646,7 @@
 	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 
 /***/ },
-/* 99 */
+/* 115 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8360,7 +9658,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 100 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8371,11 +9669,11 @@
 	});
 	exports.indexArray = exports.note = exports.label = exports.exemption = undefined;
 	
-	var _csv2array = __webpack_require__(35);
+	var _csv2array = __webpack_require__(39);
 	
 	var _csv2array2 = _interopRequireDefault(_csv2array);
 	
-	var _sort = __webpack_require__(36);
+	var _sort = __webpack_require__(40);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -8396,7 +9694,203 @@
 	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 
 /***/ },
-/* 101 */
+/* 117 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _InputBox = __webpack_require__(111);
+	
+	var _InputBox2 = _interopRequireDefault(_InputBox);
+	
+	var _actions = __webpack_require__(9);
+	
+	var Actions = _interopRequireWildcard(_actions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	// Retrieve data from store as props
+	
+	
+	// Import View
+	function mapStateToProps(dispatch, ownProps) {
+	  return {};
+	}
+	
+	// Import Actions
+	
+	
+	function mapDispatchToProps(dispatch, ownProps) {
+	  return {
+	    stepNext: function stepNext(data, next) {
+	      return dispatch(Actions.stepNext(data, next));
+	    },
+	    stepBack: function stepBack() {
+	      return dispatch(Actions.stepBack());
+	    },
+	    stepSave: function stepSave() {
+	      return dispatch(Actions.stepSave());
+	    },
+	    setFinalNode: function setFinalNode(kind, data) {
+	      return dispatch(Actions.setFinalNode(kind, data));
+	    }
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_InputBox2.default);
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(0);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(1);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+	
+	var _reactRedux = __webpack_require__(2);
+	
+	var _reactBootstrap = __webpack_require__(13);
+	
+	var _styles = {
+	  "container": "ISulDkScn7NOfh0P5UV75",
+	  "header": "_2ESLCSZHCEc6ZdnyoBp87N",
+	  "title": "_32Hz6mrl5WFCA6sWTuofiN",
+	  "content": "_2voRUIoqwDh-QDRhi5skGn",
+	  "input": "_1Uw3lkIHnFwEs5A5YGO5PT",
+	  "textarea": "k58RBTiBFZ1R50Lq56gS7",
+	  "footer": "_1zZuAt3wfwMs8I5H9CPN3R",
+	  "button": "_1mYWx64hIPzMuio0pZqCne"
+	};
+	
+	var _styles2 = _interopRequireDefault(_styles);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// Import styles
+	
+	
+	// Import Components
+	
+	// Import Actions
+	
+	// Import Assets
+	
+	var _ref = _jsx('i', {
+	  className: 'fa fa-envelop',
+	  'aria-hidden': 'true'
+	}, void 0, '\xA0\xA0');
+	
+	var SaveStepDialog = function (_Component) {
+	  _inherits(SaveStepDialog, _Component);
+	
+	  function SaveStepDialog(props) {
+	    _classCallCheck(this, SaveStepDialog);
+	
+	    var _this = _possibleConstructorReturn(this, (SaveStepDialog.__proto__ || Object.getPrototypeOf(SaveStepDialog)).call(this, props));
+	
+	    _this.state = {
+	      name: ''
+	    };
+	
+	    _this.onChange = _this.onChange.bind(_this);
+	    _this.onSubmit = _this.onSubmit.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(SaveStepDialog, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'onSubmit',
+	    value: function onSubmit(e) {
+	      e.preventDefault();
+	      this.props.save(this.state.name);
+	      this.props.close();
+	    }
+	  }, {
+	    key: 'onChange',
+	    value: function onChange(e) {
+	      this.setState(_defineProperty({}, e.target.name, e.target.value));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _jsx(_reactBootstrap.Modal, {
+	        show: this.props.show,
+	        onHide: this.props.close
+	      }, void 0, _jsx(_reactBootstrap.Modal.Header, {
+	        bsClass: _styles2.default['header'],
+	        closeButton: true
+	      }, void 0, _jsx(_reactBootstrap.Modal.Title, {
+	        bsClass: _styles2.default['title']
+	      }, void 0, 'Save Place')), _jsx('form', {
+	        onSubmit: this.onSubmit
+	      }, void 0, _jsx(_reactBootstrap.Modal.Body, {
+	        bsClass: _styles2.default['content']
+	      }, void 0, 'Enter the Name :', _jsx('input', {
+	        type: 'text',
+	        className: '' + _styles2.default.input,
+	        name: 'name',
+	        value: this.state.name,
+	        onChange: this.onChange,
+	        required: true
+	      })), _jsx(_reactBootstrap.Modal.Footer, {
+	        bsClass: _styles2.default['footer']
+	      }, void 0, _jsx('button', {
+	        className: _styles2.default.button,
+	        type: 'submit'
+	      }, void 0, _ref, 'SAVE PLACE'))));
+	    }
+	  }]);
+	
+	  return SaveStepDialog;
+	}(_react.Component);
+	
+	// Retrieve data from store as props
+	function mapStateToProps(store) {
+	  return {};
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(SaveStepDialog);
+
+/***/ },
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8423,7 +9917,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactIntl = __webpack_require__(5);
+	var _reactIntl = __webpack_require__(6);
 	
 	var _SideBar = {
 	  "sidebar": "_1YLBu1Iy70Vdzaqx2-x1UN",
@@ -8495,7 +9989,351 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 102 */
+/* 120 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "de_professional_corporation",
+	  description: "Creating The Delaware Professional Corporation",
+	  start: "input_1",
+	  kind: "Form",
+	  step: 9,
+	  node: [{
+	    id: "input_1",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the profession of your corporation?",
+	      fields: [{ kind: "text", store: "company_profession" }],
+	      next: "input_2",
+	      note: {
+	        title: 'What will be the profession of your corporation?',
+	        content: "You should write the formal name of your profession, describing your profession as what the profession is, not what the professionals are called. For example, a lawyer would indicate “law”, a dentist would indicate “dentistry”, an accountant would indicate “accountancy”, a marriage and family therapist would indicate “marriage and family therapy”. You can ask yourself, I engage in the profession of ..."
+	      }
+	    }
+	  }, {
+	    id: "input_2",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the name of your company?<br />\n                <small>Your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
+	      fields: [{ kind: "text", store: "company_name" }],
+	      next: "single_3",
+	      note: {
+	        title: 'Name of your company',
+	        content: "<ul>\n            <li>The name of your corporation cannot contain the words \"company\", \"corporation\" or \"incorporated\u201D, or any affix or prefix indicating it is a corporation.</li>\n            <li>The name of your corporation must contain\n              <ul>\n                <li>a word or words descriptive of your professional service, or the last name of at least one shareholder, and</li>\n                <li>\"chartered\", \"professional association\" or \"P.A.\"</li>\n              </ul>\n            </li>\n            <li>The name of your corporation cannot include the words \u201Cbank\u201D or \u201Ctrust\u201D.</li>\n            <li>The name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and <a href=\"https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx\" target=\"_blank\">here</a> to see if there is a preexisting entity with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D.\n              <ul>\n                <li>\u201CEntity\u201D includes corporations, partnerships, LLCs, or trusts.</li>\n                <li>Similar names may be approved with written consent, or by special application.</li>\n              </ul>\n            </li>\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the Delaware Secretary of State.</lil>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_3",
+	    kind: "Single",
+	    content: {
+	      question: "What is the total number of shares the corporation will be authorized to issue?",
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,000", value: 100000 }, { kind: "number", label: "Other" }],
+	      store: "number_of_shares",
+	      next: "single_4",
+	      note: {
+	        title: 'Number of Shares',
+	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of Delaware to establish your corporation).</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n            <li>In determining how many shares to authorize and their par value, it is important to consider franchise taxes. Delaware charges an annual tax to its corporations based on either the number of shares authorized, or a calculation involving the corporation\u2019s assets. The corporation can select which method it would like to use to calculate its tax bill.\n              <ul>\n              <li>\n                Authorized shares method:\n                <ul>\n                  <li>There is a $175 fee for corporations with between 1 and 5,000 authorized shares, or a $250 fee for corporations with between 5,001 and 10,000 shares.</li>\n                  <li>After the first 10,000 shares, there is a $75 fee for each additional 10,000 shares (or portion thereof).</li>\n                  <li>\n                    For example, authorizing 100,000 shares would result in a franchise tax bill of $925.\n                    <ul>\n                      <li>First 10,000 shares results in fee of $250</li>\n                      <li>Next 90,000 shares is a fee of $75 per 10,000, so $75 * 9 = $675\n                        <ul>\n                          <li>\n                          Total = $250 + $675 = $925\n                          </li>\n                        </ul>\n                      </li>\n                    </ul>\n                  </li>\n                  <li>Authorizing one million shares would result in a franchise tax bill of $7,675.</li>\n                </ul>\n              </li>\n              <li>\n                Assumed Par Value Capital\n                <ul>\n                  <li>There is a $350 fee per $1,000,000 or portion thereof of Assumed Par Value Capital.</li>\n                  <li>\n                    The Assumed Par Value Capital is dependent upon the number of authorized shares, the number of issued shares, and the corporation\u2019s total gross assets.\n                    <ul>\n                      <li>Assumed Par Value = Total Gross Assets divided by the Total Issued Shares</li>\n                      <li>Assumed Par Value Capital = Assumed Par Value (from above) multiplied by the Authorized Shares</li>\n                    </ul>\n                  </li>\n                  <li>\n                    For example, issuing 500,000 of 1,000,000 authorized shares with total gross assets of $1,000,000 would result in a franchise tax bill of $700.\n                    <ul>\n                      <li>Assumed Par Value = $1,000,000 Total Gross Assets / 500,000 Total Issued Shares = 2.0</li>\n                      <li>Assumed Par Value Capital = 2.0 Assumed Par Value x 1,000,000 Authorized Shares = 2,000,000</li>\n                      <li>2,000,000 / $1,000,000 = 2</li>\n                      <li>2 * $350 = $700</li>\n                    </ul>\n                  </li>\n                </ul>\n\n              </li>\n              <li>\n                The Delaware Franchise Tax Board has a preliminary franchise tax calculator which can help to estimate franchise tax costs. Available <a href=\"https://corp.delaware.gov/taxcalc.shtml\" target=\"_blank\">here</a>.\n              </li>\n              </ul>\n            </li>\n            <li>\n              Notes\n              <ul>\n                <li>The Assumed Par Value Capital is based upon the assumption that assumed par value (as calculated) is higher than the par value assigned in the Articles of Incorporation</li>\n              </ul>\n            </li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_4",
+	    kind: "Single",
+	    content: {
+	      question: "What is the par value of the shares?",
+	      fields: [{ kind: "choice", label: "$0.001", value: 0.001 }, { kind: "choice", label: "$0.0001", value: 0.0001 }, { kind: "number", label: "Other" }],
+	      store: "par_value_of_shares",
+	      next: "input_5",
+	      note: {
+	        title: 'Par value',
+	        content: "<ul>\n            <li>The par value is essentially the assigned price of the shares when they are issued. So if the company issued 1,000 shares at a par value of $0.01 per share, the total cost (and value) of the shares would be $10.00. So if the company issued 1,000,000 to the founders, with a par value of $0.0001, the founders would have to pay $100 for the shares.</li>\n            <li>Many attorneys recommend setting a par value of $0.0001 or $0.00001 per share. Setting the par value lower can help keep the franchise tax as low as possible (see Number of Shares, above).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>Notes\n              <ul>\n                <li>Must include a par value or \u201Ca statement that all such shares are to be without par value\u201D (\xA7 102(a)(4), <a href=\"http://delcode.delaware.gov/title8/c001/sc01/index.shtml\" target=\"_blank\">link</a>)</li>\n              </ul>\n            </li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_5",
+	    kind: "Input",
+	    content: {
+	      question: "Who will incorporate the company?",
+	      fields: [{ kind: "text", store: "incorporator_name_firstname", placeholder: "First Name" }, { kind: "text", store: "incorporator_name_lastname", placeholder: "Last Name" }],
+	      next: "input_6",
+	      note: {
+	        title: 'Name of incorporator (8 Del. C. 1953, § 101, <a href="http://delcode.delaware.gov/title8/c001/sc01/index.shtml" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be an entity or any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_6",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${incorporator_name_firstname} ${incorporator_name_lastname}</strong>'s primary address?",
+	      fields: [{ kind: "text", store: "incorporator_address_street", placeholder: "Street" }, { kind: "text", store: "incorporator_address_city", placeholder: "City" }, { kind: "text", store: "incorporator_address_state", placeholder: "State" }, { kind: "text", store: "incorporator_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "yesno_7",
+	      note: {
+	        title: 'Address of incorporator',
+	        content: "<ul>\n            <li>The mailing address of the incorporator (does not have to be a Delaware address).</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "yesno_7",
+	    kind: "YesNo",
+	    content: {
+	      question: "Will the company have an office in Delaware?",
+	      fields: [{ kind: "choice", label: "Yes", next: "single_8" }, { kind: "choice", label: "No", next: "input_10" }],
+	      note: {
+	        title: 'Office in Delaware?',
+	        content: "<ul>\n            <li>In Delaware, the corporation itself can serve as its own registered agent if it has a Delaware office.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_8",
+	    kind: "Single",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "choice", label: "${company_name}", next: "input_9" }, { kind: "text", label: "Other", store: "registered_agent_name", next: "input_11" }],
+	      note: {
+	        title: 'Name of registered agent (8 Del. C. 1953, § 132, <a href="http://delcode.delaware.gov/title8/c001/sc03/" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The registered agent is the local business or individual who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued. The registered agent can be the corporation itself if it has an office in Delaware; any individual adult resident of Delaware; or a corporation, partnership, LLC, or trust, with an office in Delaware. Alternatively, there are Delaware companies that will serve as registered agents for corporations operating outside Delaware.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_9",
+	    kind: "Input",
+	    content: {
+	      question: "What is the Delaware address of the company?",
+	      fields: [{ kind: "text", store: "company_address_street", placeholder: "Street" }, { kind: "text", store: "company_address_city", placeholder: "City" }, { kind: "text", store: "company_address_state", placeholder: "State" }, { kind: "text", store: "company_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "final_1",
+	      note: {
+	        title: 'Address of Corporation',
+	        content: "<ul>\n            <li>This is the Delaware address where official paperwork from the state and legal proceedings would be sent. The address must be in Delaware, and must contain the street, number, city, county, and postal code. There must regularly be an individual at this address during business hours (so, for example, it cannot be a P.O. Box).</li>\n            <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., no \u201CLA\u201D)</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_10",
+	    kind: "Input",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
+	      next: "input_11",
+	      note: {
+	        title: 'Name of registered agent (8 Del. C. 1953, § 132, <a href="http://delcode.delaware.gov/title8/c001/sc03/" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The registered agent is the local business or individual who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued. The registered agent can be any individual adult resident of Delaware, or a corporation, partnership, LLC, or trust, with an office in Delaware. Alternatively, there are Delaware companies that will serve as registered agents for corporations operating outside Delaware.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_11",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
+	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "final_2",
+	      note: {
+	        title: 'Address of registered agent',
+	        content: "<ul>\n            <li>This is the Delaware address where official paperwork from the state and legal proceedings would be sent. The address must be in Delaware, and must contain the street, number, city, county, and postal code. There must regularly be an individual at this address during business hours (so, for example, it cannot be a P.O. Box).</li>\n            <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., no \u201CLA\u201D)</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "final_1",
+	    kind: "Final",
+	    content: {
+	      kind: "Form",
+	      form: "de_form_articles_of_professional_incorporation_1"
+	    }
+	  }, {
+	    id: "final_2",
+	    kind: "Final",
+	    content: {
+	      kind: "Form",
+	      form: "de_form_articles_of_professional_incorporation_2"
+	    }
+	  }]
+	};
+
+/***/ },
+/* 121 */
+/***/ function(module, exports) {
+
+	"use strict";
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = {
+	  name: "de_professional_corporation",
+	  description: "Creating The Delaware S-Corporation",
+	  start: "single_0",
+	  kind: "Form",
+	  step: 10,
+	  node: [{
+	    id: "single_0",
+	    kind: "Single",
+	    content: {
+	      question: "What will be the primary business of your company?",
+	      fields: [{ kind: "choice", label: "Real Estate Investment" }, { kind: "choice", label: "A Profession", next: "yesno_1" }, { kind: "choice", label: "Personal Services (other than a Profession)" }, { kind: "choice", label: "Restaurant" }, { kind: "choice", label: "Hotel" }, { kind: "choice", label: "Farming" }, { kind: "choice", label: "Retail" }, { kind: "choice", label: "Construction" }, { kind: "choice", label: "A Brokerage" }, { kind: "choice", label: "Finance" }, { kind: "choice", label: "Insurance" }, { kind: "choice", label: "Manufacturing" }, { kind: "choice", label: "Mineral Extraction" }, { kind: "choice", label: "Other" }],
+	      next: "input_2"
+	    }
+	  }, {
+	    id: "yesno_1",
+	    kind: "YesNo",
+	    content: {
+	      question: "Does your profession require a license or other legal authorization to practice?",
+	      fields: [{ kind: "choice", label: "Yes", next: "goto_1" }, { kind: "choice", label: "No", next: "input_2" }],
+	      note: {
+	        title: 'Requires license, certification, or registration?',
+	        content: "<ul>\n            <li>If your profession requires a license, certification, or other registration from the state, there may be additional requirements in forming your corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "goto_1",
+	    kind: "Goto",
+	    content: {
+	      kind: "form",
+	      id: "de_professional_corporation"
+	    }
+	  }, {
+	    id: "input_2",
+	    kind: "Input",
+	    content: {
+	      question: "What will be the name of your company?<br />\n                <small>Your profession may have restrictions on the name of your corporation, consult your regulatory board for any restrictions</small>",
+	      fields: [{ kind: "text", store: "company_name" }],
+	      next: "single_3",
+	      note: {
+	        title: 'Name of your company',
+	        content: "<ul>\n            <li>The name of your business cannot be misleading or confusingly similar to that of a preexisting corporation. You can check search engines and <a href=\"https://icis.corp.delaware.gov/Ecorp/EntitySearch/NameSearch.aspx\" target=\"_blank\">here</a> to see if there is a preexisting entity with a similar name. A confusingly similar name does not have to be exactly the same, it includes subtle differences \u2013 like upper instead of lower case letters; \u201C&\u201D instead of \u201Cand\u201D; or \u201C7\u201D instead of \u201Cseven\u201D.\n              <ul>\n                <li>\u201CEntity\u201D includes corporations, partnerships, LLCs, or trusts.</li>\n                <li>Similar names may be approved with written consent, or by special application.</li>\n              </ul>\n            </li>\n            <li>The name of your corporation must include one of the following words: association, company, corporation, club, foundation, fund, incorporated, institute, society, union, syndicate, limited or one of the abbreviations thereof (with or without punctuation).\n              <ul>\n                <li>The name of your corporation cannot include the words \u201Cbank\u201D or \u201Ctrust\u201D.</li>\n              </ul>\n            </li>\n            <li>The name of your corporation cannot include the words \u201Cbank\u201D or \u201Ctrust\u201D.</li>\n\n            <li>You may also want to consider whether your corporate name will be eligible for trademark protection (see section on Trademark for more information).</li>\n            <li>You should input the entire name of the company as you would like it to appear on the records of the Delaware Secretary of State.</lil>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_3",
+	    kind: "Single",
+	    content: {
+	      question: "What is the total number of shares the corporation will be authorized to issue?",
+	      fields: [{ kind: "choice", label: "1,000,000", value: 1000000 }, { kind: "choice", label: "100,000", value: 100000 }, { kind: "number", label: "Other" }],
+	      store: "number_of_shares",
+	      next: "single_4",
+	      note: {
+	        title: 'Number of Shares',
+	        content: "<ul>\n            <li>Authorized shares are those which the company is allowed to issue \u2013 shares only become \u201Cissued\u201D once they are sold to someone.</li>\n            <li>Shares that are authorized but not yet issued are retained by the corporation (commonly called \u201Ctreasury shares\u201D).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of Delaware to establish your corporation).</li>\n            <li>The total number of shares is somewhat arbitrary; the more important part is the overall percentage of ownership. Owning one out of one hundred shares is the same as owning one million out of one hundred million shares. However, authorizing more shares can make it easier to issue shares to more people. For example, if you only authorize 10 shares, you can only issue shares to 10 people (without issuing fractional shares), and only in increments of 10% (like 10%, 20%, 30%, etc). By authorizing 100 shares, you could issue shares to 100 people, and in increments of 1% (like a 33% interest for example). In determining the total amount to authorize, consider the future of the corporation \u2013 will you issue stock or options to employees, directors, or investors?</li>\n            <li>In determining how many shares to authorize and their par value, it is important to consider franchise taxes. Delaware charges an annual tax to its corporations based on either the number of shares authorized, or a calculation involving the corporation\u2019s assets. The corporation can select which method it would like to use to calculate its tax bill.\n              <ul>\n              <li>\n                Authorized shares method:\n                <ul>\n                  <li>There is a $175 fee for corporations with between 1 and 5,000 authorized shares, or a $250 fee for corporations with between 5,001 and 10,000 shares.</li>\n                  <li>After the first 10,000 shares, there is a $75 fee for each additional 10,000 shares (or portion thereof).</li>\n                  <li>\n                    For example, authorizing 100,000 shares would result in a franchise tax bill of $925.\n                    <ul>\n                      <li>First 10,000 shares results in fee of $250</li>\n                      <li>Next 90,000 shares is a fee of $75 per 10,000, so $75 * 9 = $675\n                        <ul>\n                          <li>\n                          Total = $250 + $675 = $925\n                          </li>\n                        </ul>\n                      </li>\n                    </ul>\n                  </li>\n                  <li>Authorizing one million shares would result in a franchise tax bill of $7,675.</li>\n                </ul>\n              </li>\n              <li>\n                Assumed Par Value Capital\n                <ul>\n                  <li>There is a $350 fee per $1,000,000 or portion thereof of Assumed Par Value Capital.</li>\n                  <li>\n                    The Assumed Par Value Capital is dependent upon the number of authorized shares, the number of issued shares, and the corporation\u2019s total gross assets.\n                    <ul>\n                      <li>Assumed Par Value = Total Gross Assets divided by the Total Issued Shares</li>\n                      <li>Assumed Par Value Capital = Assumed Par Value (from above) multiplied by the Authorized Shares</li>\n                    </ul>\n                  </li>\n                  <li>\n                    For example, issuing 500,000 of 1,000,000 authorized shares with total gross assets of $1,000,000 would result in a franchise tax bill of $700.\n                    <ul>\n                      <li>Assumed Par Value = $1,000,000 Total Gross Assets / 500,000 Total Issued Shares = 2.0</li>\n                      <li>Assumed Par Value Capital = 2.0 Assumed Par Value x 1,000,000 Authorized Shares = 2,000,000</li>\n                      <li>2,000,000 / $1,000,000 = 2</li>\n                      <li>2 * $350 = $700</li>\n                    </ul>\n                  </li>\n                </ul>\n\n              </li>\n              <li>\n                The Delaware Franchise Tax Board has a preliminary franchise tax calculator which can help to estimate franchise tax costs. Available <a href=\"https://corp.delaware.gov/taxcalc.shtml\" target=\"_blank\">here</a>.\n              </li>\n              </ul>\n            </li>\n            <li>\n              Notes\n              <ul>\n                <li>The Assumed Par Value Capital is based upon the assumption that assumed par value (as calculated) is higher than the par value assigned in the Articles of Incorporation</li>\n              </ul>\n            </li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_4",
+	    kind: "Single",
+	    content: {
+	      question: "What is the par value of the shares?",
+	      fields: [{ kind: "choice", label: "$0.001", value: 0.001 }, { kind: "choice", label: "$0.0001", value: 0.0001 }, { kind: "number", label: "Other" }],
+	      store: "par_value_of_shares",
+	      next: "input_5",
+	      note: {
+	        title: 'Par value',
+	        content: "<ul>\n            <li>The par value is essentially the assigned price of the shares when they are issued. So if the company issued 1,000 shares at a par value of $0.01 per share, the total cost (and value) of the shares would be $10.00. So if the company issued 1,000,000 to the founders, with a par value of $0.0001, the founders would have to pay $100 for the shares.</li>\n            <li>Many attorneys recommend setting a par value of $0.0001 or $0.00001 per share. Setting the par value lower can help keep the franchise tax as low as possible (see Number of Shares, above).</li>\n            <li>You can only issue (or sell) as many shares as you have authorized. If you later decide you want to authorize more shares, you will have to pay a fee to the state to amend your articles of incorporation (the paperwork you file with the state of California to establish your corporation). In California, unlike Delaware, there is no an additional tax or fee for having a higher number of authorized shares.</li>\n            <li>Notes\n              <ul>\n                <li>Must include a par value or \u201Ca statement that all such shares are to be without par value\u201D (\xA7 102(a)(4), <a href=\"http://delcode.delaware.gov/title8/c001/sc01/index.shtml\" target=\"_blank\">link</a>)</li>\n              </ul>\n            </li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_5",
+	    kind: "Input",
+	    content: {
+	      question: "Who will incorporate the company?",
+	      fields: [{ kind: "text", store: "incorporator_name_firstname", placeholder: "First Name" }, { kind: "text", store: "incorporator_name_lastname", placeholder: "Last Name" }],
+	      next: "input_6",
+	      note: {
+	        title: 'Name of incorporator (8 Del. C. 1953, § 101, <a href="http://delcode.delaware.gov/title8/c001/sc01/index.shtml" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The incorporator is the person who is organizing the corporation. The incorporator signs documents and acts for the corporation until the board of directors is elected.</li>\n            <li>The incorporator can be an entity or any adult; it need not be an officer, director, or shareholder of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_6",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${incorporator_name_firstname} ${incorporator_name_lastname}</strong>'s primary address?",
+	      fields: [{ kind: "text", store: "incorporator_address_street", placeholder: "Street" }, { kind: "text", store: "incorporator_address_city", placeholder: "City" }, { kind: "text", store: "incorporator_address_state", placeholder: "State" }, { kind: "text", store: "incorporator_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "yesno_7",
+	      note: {
+	        title: 'Address of incorporator',
+	        content: "<ul>\n            <li>The mailing address of the incorporator (does not have to be a Delaware address).</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "yesno_7",
+	    kind: "YesNo",
+	    content: {
+	      question: "Will the company have an office in Delaware?",
+	      fields: [{ kind: "choice", label: "Yes", next: "single_8" }, { kind: "choice", label: "No", next: "input_10" }],
+	      note: {
+	        title: 'Office in Delaware?',
+	        content: "<ul>\n            <li>In Delaware, the corporation itself can serve as its own registered agent if it has a Delaware office.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "single_8",
+	    kind: "Single",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "choice", label: "${company_name}", next: "input_9" }, { kind: "text", label: "Other", store: "registered_agent_name", next: "input_11" }],
+	      note: {
+	        title: 'Name of registered agent (8 Del. C. 1953, § 132, <a href="http://delcode.delaware.gov/title8/c001/sc03/" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The registered agent is the local business or individual who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued. The registered agent can be the corporation itself if it has an office in Delaware; any individual adult resident of Delaware; or a corporation, partnership, LLC, or trust, with an office in Delaware. Alternatively, there are Delaware companies that will serve as registered agents for corporations operating outside Delaware.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_9",
+	    kind: "Input",
+	    content: {
+	      question: "What is the Delaware address of the company?",
+	      fields: [{ kind: "text", store: "company_address_street", placeholder: "Street" }, { kind: "text", store: "company_address_city", placeholder: "City" }, { kind: "text", store: "company_address_state", placeholder: "State" }, { kind: "text", store: "company_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "final_1",
+	      note: {
+	        title: 'Address of Corporation',
+	        content: "<ul>\n            <li>This is the Delaware address where official paperwork from the state and legal proceedings would be sent. The address must be in Delaware, and must contain the street, number, city, county, and postal code. There must regularly be an individual at this address during business hours (so, for example, it cannot be a P.O. Box).</li>\n            <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., no \u201CLA\u201D)</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_10",
+	    kind: "Input",
+	    content: {
+	      question: "Who will serve as the registered agent of the company?",
+	      fields: [{ kind: "text", store: "registered_agent_name" }],
+	      next: "input_11",
+	      note: {
+	        title: 'Name of registered agent (8 Del. C. 1953, § 132, <a href="http://delcode.delaware.gov/title8/c001/sc03/" target="_blank">link</a>)',
+	        content: "<ul>\n            <li>The registered agent is the local business or individual who receives official correspondence for the corporation. For example, the registered agent would be served (physically handed the papers) if the corporation were sued. The registered agent can be any individual adult resident of Delaware, or a corporation, partnership, LLC, or trust, with an office in Delaware. Alternatively, there are Delaware companies that will serve as registered agents for corporations operating outside Delaware.</li>\n            <li>The registered agent should agree beforehand to accept service of process on behalf of the corporation.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "input_11",
+	    kind: "Input",
+	    content: {
+	      question: "What is <strong>${registered_agent_name}</strong>'s primary address?",
+	      fields: [{ kind: "text", store: "registered_agent_address_street", placeholder: "Street" }, { kind: "text", store: "registered_agent_address_city", placeholder: "City" }, { kind: "text", store: "registered_agent_address_state", placeholder: "State" }, { kind: "text", store: "registered_agent_address_zipcode", placeholder: "ZIP Code" }],
+	      next: "final_2",
+	      note: {
+	        title: 'Address of registered agent',
+	        content: "<ul>\n            <li>This is the Delaware address where official paperwork from the state and legal proceedings would be sent. The address must be in Delaware, and must contain the street, number, city, county, and postal code. There must regularly be an individual at this address during business hours (so, for example, it cannot be a P.O. Box).</li>\n            <li>Cannot be a P.O. Box, \u201Cin care of\u201D, or have a city abbreviation (i.e., no \u201CLA\u201D)</li>\n            <li>You should note that this will be a public record.</li>\n          </ul>"
+	      }
+	    }
+	  }, {
+	    id: "final_1",
+	    kind: "Final",
+	    content: {
+	      kind: "Form",
+	      form: "de_form_articles_of_incorporation_1"
+	    }
+	  }, {
+	    id: "final_2",
+	    kind: "Final",
+	    content: {
+	      kind: "Form",
+	      form: "de_form_articles_of_incorporation_2"
+	    }
+	  }]
+	};
+
+/***/ },
+/* 122 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8647,7 +10485,7 @@
 	};
 
 /***/ },
-/* 103 */
+/* 123 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8667,11 +10505,18 @@
 	    kind: "Single",
 	    content: {
 	      question: "In which state would you like to incorporate your company?",
-	      fields: [{ kind: "choice", label: "California", next: "single_2" }, { kind: "choice", label: "Delaware", next: "Creating the Delware" }],
+	      fields: [{ kind: "choice", label: "California", next: "single_2" }, { kind: "choice", label: "Delaware", next: "goto_0" }],
 	      note: {
 	        title: 'State of incorporation',
 	        content: "<ul>\n            <li>You can incorporate your business in any state, even if you are not actually going to be conducting business there. However, you will be required to provide an address in the state of incorporation. If you want to incorporate in Delaware but do not have a Delaware address, there are services which will provide a registered agent address in Delaware.</li>\n            <li>In deciding in which state to incorporate, it is important to note that there may be adverse tax consequences to incorporating in one state over another. For example, if you incorporate in Delaware, but conduct all of your business in California, you will still be required to pay a Delaware franchise tax in addition to California taxes. If you incorporate in California and conduct all of your business in California, you will not pay Delaware taxes.</li>\n          </ul>"
 	      }
+	    }
+	  }, {
+	    id: "goto_0",
+	    kind: "Goto",
+	    content: {
+	      kind: "form",
+	      id: "de_s_corporation"
 	    }
 	  }, {
 	    id: "goto_1",
@@ -8835,7 +10680,7 @@
 	};
 
 /***/ },
-/* 104 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8847,31 +10692,39 @@
 	
 	var _ca_professional_corp;
 	
-	var _incorporate = __webpack_require__(102);
+	var _incorporate = __webpack_require__(122);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(103);
+	var _sIncorporate = __webpack_require__(123);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _transfertax = __webpack_require__(109);
+	var _de_corp = __webpack_require__(120);
+	
+	var _de_corp2 = _interopRequireDefault(_de_corp);
+	
+	var _de_s_corp = __webpack_require__(121);
+	
+	var _de_s_corp2 = _interopRequireDefault(_de_s_corp);
+	
+	var _transfertax = __webpack_require__(129);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(105);
+	var _incorporate3 = __webpack_require__(125);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(106);
+	var _payroll = __webpack_require__(126);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(108);
+	var _trademark = __webpack_require__(128);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
-	var _securitydeposit = __webpack_require__(107);
+	var _securitydeposit = __webpack_require__(127);
 	
 	var _securitydeposit2 = _interopRequireDefault(_securitydeposit);
 	
@@ -8879,10 +10732,10 @@
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _defineProperty(_ca_professional_corp, 'securitydeposit', _securitydeposit2.default), _ca_professional_corp);
+	exports.default = (_ca_professional_corp = {}, _defineProperty(_ca_professional_corp, 'ca_professional_corporation', _incorporate2.default), _defineProperty(_ca_professional_corp, 'ca_s_corporation', _sIncorporate2.default), _defineProperty(_ca_professional_corp, 'de_professional_corporation', _de_corp2.default), _defineProperty(_ca_professional_corp, 'de_s_corporation', _de_s_corp2.default), _defineProperty(_ca_professional_corp, 'incorporate', _incorporate4.default), _defineProperty(_ca_professional_corp, 'payroll', _payroll2.default), _defineProperty(_ca_professional_corp, 'trademark', _trademark2.default), _defineProperty(_ca_professional_corp, 'transfertax', _transfertax2.default), _defineProperty(_ca_professional_corp, 'securitydeposit', _securitydeposit2.default), _ca_professional_corp);
 
 /***/ },
-/* 105 */
+/* 125 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9107,7 +10960,7 @@
 	};
 
 /***/ },
-/* 106 */
+/* 126 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9208,7 +11061,7 @@
 	};
 
 /***/ },
-/* 107 */
+/* 127 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9314,7 +11167,7 @@
 	};
 
 /***/ },
-/* 108 */
+/* 128 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9583,7 +11436,7 @@
 	};
 
 /***/ },
-/* 109 */
+/* 129 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9619,7 +11472,7 @@
 	      question: "County Exemptions",
 	      fields: [{ datasource: "county_exemption_list" }],
 	      store: "county_exemption",
-	      next: "action_1"
+	      next: "multi_3"
 	    }
 	  }, {
 	    id: "multi_3",
@@ -9628,7 +11481,7 @@
 	      question: "City Exemptions",
 	      fields: [{ datasource: "city_exemption_list" }],
 	      store: "city_exemption",
-	      next: "action_2"
+	      next: "action_1"
 	    }
 	  }, {
 	    id: "action_1",
@@ -9636,7 +11489,7 @@
 	    content: {
 	      kind: "CHECK_COUNTY_EXEMPTION",
 	      store: "county_exemption",
-	      next: ["multi_3", "yesno_1"]
+	      next: ["action_2", "yesno_1"]
 	    }
 	  }, {
 	    id: "action_2",
@@ -9750,7 +11603,7 @@
 	};
 
 /***/ },
-/* 110 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9760,29 +11613,37 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(40);
+	var _redux = __webpack_require__(44);
 	
-	var _AppReducer = __webpack_require__(72);
+	var _AppReducer = __webpack_require__(84);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
-	var _PostReducer = __webpack_require__(84);
+	var _PostReducer = __webpack_require__(95);
 	
 	var _PostReducer2 = _interopRequireDefault(_PostReducer);
 	
-	var _IntlReducer = __webpack_require__(80);
+	var _IntlReducer = __webpack_require__(91);
 	
 	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
 	
-	var _ProgramReducer = __webpack_require__(33);
+	var _reducer = __webpack_require__(38);
 	
-	var _ProgramReducer2 = _interopRequireDefault(_ProgramReducer);
+	var _reducer2 = _interopRequireDefault(_reducer);
 	
-	var _AuthReducer = __webpack_require__(78);
+	var _AuthReducer = __webpack_require__(89);
 	
 	var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 	
-	var _reactNotificationSystemRedux = __webpack_require__(9);
+	var _reducer3 = __webpack_require__(76);
+	
+	var _reducer4 = _interopRequireDefault(_reducer3);
+	
+	var _reducer5 = __webpack_require__(71);
+	
+	var _reducer6 = _interopRequireDefault(_reducer5);
+	
+	var _reactNotificationSystemRedux = __webpack_require__(7);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -9792,17 +11653,124 @@
 	// Import Reducers
 	exports.default = (0, _redux.combineReducers)({
 	  app: _AppReducer2.default,
+	  notifications: _reactNotificationSystemRedux.reducer,
 	  posts: _PostReducer2.default,
 	  intl: _IntlReducer2.default,
-	  programs: _ProgramReducer2.default,
+	  programs: _reducer2.default,
 	  auth: _AuthReducer2.default,
-	  notifications: _reactNotificationSystemRedux.reducer
+	  documents: _reducer4.default,
+	  activities: _reducer6.default
 	}); /**
 	     * Root Reducer
 	     */
 
 /***/ },
-/* 111 */
+/* 131 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getActivities = getActivities;
+	exports.addActivity = addActivity;
+	exports.getActivity = getActivity;
+	exports.deleteActivity = deleteActivity;
+	
+	var _activity = __webpack_require__(136);
+	
+	var _activity2 = _interopRequireDefault(_activity);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function getActivities(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var userId = req.user.id;
+	
+	  _activity2.default.find({ userId: userId }).sort('-updated').exec(function (err, activities) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	    }
+	    return res.status(200).json({ status: 200, activities: activities });
+	  });
+	}
+	
+	function addActivity(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var userId = req.user.id;
+	
+	  var _req$body = req.body,
+	      name = _req$body.name,
+	      history = _req$body.history,
+	      progress = _req$body.progress,
+	      program = _req$body.program;
+	
+	
+	  if (!name || !history || !progress || !program) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameters' });
+	  }
+	
+	  var newActivity = new _activity2.default({
+	    userId: userId,
+	    name: name,
+	    program: program,
+	    history: history,
+	    progress: progress
+	  });
+	
+	  newActivity.save().then(function (saved) {
+	    return res.status(200).json({ status: 200, activity: saved });
+	  }).catch(function (err) {
+	    return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	  });
+	}
+	
+	function getActivity(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var activityId = req.params.activityId;
+	
+	
+	  if (!activityId) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameter' });
+	  }
+	
+	  _activity2.default.findOne({ _id: activityId }).exec(function (err, activity) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	    }
+	    return res.status(200).json({ status: 200, activity: activity });
+	  });
+	}
+	
+	function deleteActivity(req, res) {
+	
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var activityId = req.params.activityId;
+	
+	
+	  if (!activityId) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameter' });
+	  }
+	
+	  _activity2.default.findOne({ _id: activityId }).exec(function (err, activity) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server side Error', err: err });
+	    }
+	
+	    activity.remove(function () {
+	      return res.status(200).json({ status: 200, message: 'Successfully Deleted' });
+	    });
+	  });
+	}
+
+/***/ },
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9819,11 +11787,11 @@
 	exports.logout = logout;
 	exports.getUser = getUser;
 	
-	var _user = __webpack_require__(18);
+	var _user = __webpack_require__(19);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _passport = __webpack_require__(19);
+	var _passport = __webpack_require__(20);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
@@ -9858,19 +11826,12 @@
 	      return newUser.save();
 	    }
 	  });
-	  // .then(user => {
-	  //   req.login(user, function(err) {
-	  //     if (err) loginFailure(req, res);
-	  //     loginSuccess(loginSuccess(req, res));
-	  //   });
-	  // });
 	}
 	
 	function google(req, res) {
 	  social('google', req, res).then(function (user) {
 	    req.login(user, function (err) {
-	      if (err) loginFailure(req, res);
-	      loginSuccess(loginSuccess(req, res));
+	      if (err) loginFailure(req, res);else loginSuccess(req, res);
 	    });
 	  });
 	}
@@ -9878,8 +11839,7 @@
 	function facebook(req, res) {
 	  social('facebook', req, res).then(function (user) {
 	    req.login(user, function (err) {
-	      if (err) loginFailure(req, res);
-	      loginSuccess(loginSuccess(req, res));
+	      if (err) loginFailure(req, res);else loginSuccess(req, res);
 	    });
 	  });
 	}
@@ -9938,7 +11898,108 @@
 	}
 
 /***/ },
-/* 112 */
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getDocuments = getDocuments;
+	exports.addDocument = addDocument;
+	exports.getDocument = getDocument;
+	exports.deleteDocument = deleteDocument;
+	
+	var _document = __webpack_require__(137);
+	
+	var _document2 = _interopRequireDefault(_document);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function getDocuments(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var userId = req.user.id;
+	
+	  _document2.default.find({ userId: userId }).sort('-updated').exec(function (err, docs) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	    }
+	    return res.status(200).json({ status: 200, docs: docs });
+	  });
+	}
+	
+	function addDocument(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var userId = req.user.id;
+	
+	  var _req$body = req.body,
+	      kind = _req$body.kind,
+	      store = _req$body.store;
+	
+	
+	  if (!kind || !store) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameters' });
+	  }
+	
+	  var newDoc = new _document2.default({
+	    kind: kind,
+	    userId: userId,
+	    store: store
+	  });
+	
+	  newDoc.save().then(function (saved) {
+	    return res.status(200).json({ status: 200, doc: saved });
+	  }).catch(function (err) {
+	    return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	  });
+	}
+	
+	function getDocument(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var docId = req.params.docId;
+	
+	
+	  if (!docId) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameter' });
+	  }
+	
+	  _document2.default.findOne({ _id: docId }).exec(function (err, doc) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
+	    }
+	    return res.status(200).json({ status: 200, doc: doc });
+	  });
+	}
+	
+	function deleteDocument(req, res) {
+	
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var docId = req.params.docId;
+	
+	
+	  if (!docId) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameter' });
+	  }
+	
+	  _document2.default.findOne({ _id: docId }).exec(function (err, doc) {
+	    if (err) {
+	      return res.status(500).json({ status: 500, message: 'Server side Error', err: err });
+	    }
+	
+	    doc.remove(function () {
+	      return res.status(200).json({ status: 200, message: 'Successfully Deleted' });
+	    });
+	  });
+	}
+
+/***/ },
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9952,19 +12013,19 @@
 	exports.getPost = getPost;
 	exports.deletePost = deletePost;
 	
-	var _post = __webpack_require__(114);
+	var _post = __webpack_require__(138);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _cuid = __webpack_require__(118);
+	var _cuid = __webpack_require__(142);
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(123);
+	var _limax = __webpack_require__(147);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(133);
+	var _sanitizeHtml = __webpack_require__(157);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -10047,7 +12108,7 @@
 	}
 
 /***/ },
-/* 113 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10060,7 +12121,7 @@
 	exports.get = get;
 	exports.remove = remove;
 	
-	var _program = __webpack_require__(37);
+	var _program = __webpack_require__(41);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
@@ -10111,7 +12172,105 @@
 	}
 
 /***/ },
-/* 114 */
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(11);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var activitySchema = new Schema({
+	  userId: {
+	    type: String,
+	    required: true
+	  },
+	  name: {
+	    type: String,
+	    default: ''
+	  },
+	  program: {
+	    name: String,
+	    description: String,
+	    kind: String
+	  },
+	  description: {
+	    type: String,
+	    default: ''
+	  },
+	  history: {
+	    type: Array,
+	    default: ''
+	  },
+	  progress: {
+	    type: Number,
+	    default: 0
+	  },
+	  updated: {
+	    type: Date,
+	    default: Date.now
+	  }
+	});
+	
+	exports.default = _mongoose2.default.model('Activity', activitySchema);
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(11);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var documentSchema = new Schema({
+	  kind: {
+	    type: String,
+	    required: true
+	  },
+	  title: {
+	    type: String,
+	    default: ''
+	  },
+	  description: {
+	    type: String,
+	    default: ''
+	  },
+	  userId: {
+	    type: String,
+	    required: true
+	  },
+	  store: Schema.Types.Mixed,
+	  updated: {
+	    type: Date,
+	    default: Date.now
+	  }
+	});
+	
+	exports.default = _mongoose2.default.model('Document', documentSchema);
+
+/***/ },
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10141,7 +12300,7 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 115 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10157,7 +12316,7 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(52);
+	var _compression = __webpack_require__(58);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
@@ -10165,51 +12324,55 @@
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(51);
+	var _bodyParser = __webpack_require__(57);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(57);
+	var _path = __webpack_require__(64);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(42);
+	var _IntlWrapper = __webpack_require__(46);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(53);
+	var _connectFlash = __webpack_require__(59);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(54);
+	var _cookieParser = __webpack_require__(61);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(55);
+	var _expressSession = __webpack_require__(62);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _passport = __webpack_require__(19);
+	var _connectMongo = __webpack_require__(60);
+	
+	var _connectMongo2 = _interopRequireDefault(_connectMongo);
+	
+	var _passport = __webpack_require__(20);
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
-	var _webpack = __webpack_require__(21);
+	var _webpack = __webpack_require__(22);
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(50);
+	var _webpackConfig = __webpack_require__(56);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(59);
+	var _webpackDevMiddleware = __webpack_require__(66);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(60);
+	var _webpackHotMiddleware = __webpack_require__(67);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(44);
+	var _store = __webpack_require__(48);
 	
 	var _reactRedux = __webpack_require__(2);
 	
@@ -10217,47 +12380,55 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(58);
+	var _server = __webpack_require__(65);
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactHelmet = __webpack_require__(20);
+	var _reactHelmet = __webpack_require__(21);
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(43);
+	var _routes = __webpack_require__(47);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(49);
+	var _fetchData = __webpack_require__(55);
 	
-	var _post = __webpack_require__(47);
+	var _post = __webpack_require__(53);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _program = __webpack_require__(48);
+	var _document = __webpack_require__(52);
+	
+	var _document2 = _interopRequireDefault(_document);
+	
+	var _program = __webpack_require__(54);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(46);
+	var _auth = __webpack_require__(51);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
-	var _user = __webpack_require__(18);
+	var _activity = __webpack_require__(50);
+	
+	var _activity2 = _interopRequireDefault(_activity);
+	
+	var _user = __webpack_require__(19);
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(45);
+	var _dummyData = __webpack_require__(49);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
-	var _config = __webpack_require__(17);
+	var _config = __webpack_require__(18);
 	
 	var _config2 = _interopRequireDefault(_config);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(56).Strategy;
+	var LocalStrategy = __webpack_require__(63).Strategy;
 	
 	// Webpack Requirements
 	
@@ -10293,6 +12464,8 @@
 	});
 	
 	// Apply body Parser and server public assets and routes
+	var MongoStore = (0, _connectMongo2.default)(_expressSession2.default);
+	
 	app.use((0, _compression2.default)());
 	app.use(_bodyParser2.default.json({ limit: '20mb' }));
 	app.use(_bodyParser2.default.urlencoded({ limit: '20mb', extended: false }));
@@ -10302,7 +12475,8 @@
 	  secret: 'snowsea love',
 	  resave: false,
 	  saveUninitialized: true,
-	  cookie: { secure: false }
+	  cookie: { secure: false },
+	  store: new MongoStore({ mongooseConnection: _mongoose2.default.connection })
 	}));
 	app.use(_passport2.default.initialize());
 	app.use(_passport2.default.session());
@@ -10342,6 +12516,8 @@
 	app.use('/api/auth', (0, _auth2.default)(_passport2.default));
 	app.use('/api', _post2.default);
 	app.use('/api/programs', _program2.default);
+	app.use('/api/docs', _document2.default);
+	app.use('/api/activities', _activity2.default);
 	
 	// Render Initial HTML
 	var renderFullPage = function renderFullPage(html, initialState) {
@@ -10401,7 +12577,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 116 */
+/* 140 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10432,103 +12608,103 @@
 	}
 
 /***/ },
-/* 117 */
+/* 141 */
 /***/ function(module, exports) {
 
 	module.exports = require("better-react-spinkit");
 
 /***/ },
-/* 118 */
+/* 142 */
 /***/ function(module, exports) {
 
 	module.exports = require("cuid");
 
 /***/ },
-/* 119 */
+/* 143 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl");
 
 /***/ },
-/* 120 */
+/* 144 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl-locales-supported");
 
 /***/ },
-/* 121 */
+/* 145 */
 /***/ function(module, exports) {
 
 	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
-/* 122 */
+/* 146 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
 
 /***/ },
-/* 123 */
+/* 147 */
 /***/ function(module, exports) {
 
 	module.exports = require("limax");
 
 /***/ },
-/* 124 */
+/* 148 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-cssnext");
 
 /***/ },
-/* 125 */
+/* 149 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-focus");
 
 /***/ },
-/* 126 */
+/* 150 */
 /***/ function(module, exports) {
 
 	module.exports = require("postcss-reporter");
 
 /***/ },
-/* 127 */
+/* 151 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-autosuggest");
 
 /***/ },
-/* 128 */
+/* 152 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
-/* 129 */
+/* 153 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools");
 
 /***/ },
-/* 130 */
+/* 154 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-dock-monitor");
 
 /***/ },
-/* 131 */
+/* 155 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-devtools-log-monitor");
 
 /***/ },
-/* 132 */
+/* 156 */
 /***/ function(module, exports) {
 
 	module.exports = require("redux-thunk");
 
 /***/ },
-/* 133 */
+/* 157 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");
