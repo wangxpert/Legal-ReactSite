@@ -57,6 +57,10 @@ class InputBox extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.showContact()
+  }
+
   getNodeIndex(node, id) {
     for (let i = 0; i < node.length; i++) {
       if (node[i].id === id) {
@@ -507,7 +511,7 @@ class InputBox extends Component {
               Continue
             </div>
 
-            <div className={`${styles.button}`} style={{float: 'right'}}>
+            <div className={`${styles.button}`} style={{float: 'right'}} onClick={ e=> this.props.showStepSave() }>
               Save Place
             </div>
 

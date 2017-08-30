@@ -21,7 +21,7 @@ import Notifications from 'react-notification-system-redux';
 export class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { isMounted: false };
+    this.state = { isMounted: false, password: '' };
   }
 
   componentDidMount() {
@@ -84,6 +84,9 @@ export class App extends Component {
                 style={style}
               />
 
+          </div>
+          <div className={ styles.password } hidden={ this.state.password == 'Passw0rd' }>
+            <input value={ this.state.password } onChange={ e => this.setState({ password: e.target.value }) } style={{ padding: '5rem', textAlign: 'center' }} />
           </div>
         </div>
       </div>

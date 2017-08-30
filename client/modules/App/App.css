@@ -12,10 +12,16 @@
   top: 82rem;
   z-index: 3;
 }
-/*
-.search-box-container {
-  transition: opacity .25s ease-in-out;
-  visibility: visible;
-  opacity: 1;
 
-}*/
+.password{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  padding-top: 50vh;
+  font-size: 30rem;
+  text-align: center;
+  z-index: 1000;
+}

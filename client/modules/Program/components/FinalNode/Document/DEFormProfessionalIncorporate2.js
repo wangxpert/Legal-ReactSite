@@ -7,7 +7,7 @@ export default function Form(props) {
   return (
     <div className={ styles.container }>
       <div className={ styles.header }>
-        <div className={ styles.head }>DE Form Articles of Professional Incorporation 1</div>
+        <div className={ styles.head }>DE Form Articles of Professional Incorporation 2</div>
         <h2 className={ styles.title }>STATE OF DELAWARE<br />
           ARTICLES OF INCORPORATION</h2>
       </div>
@@ -18,12 +18,12 @@ export default function Form(props) {
           <li>The address of the Registered Office of the corporation and the name and address in the State of Delaware of the corporation’s agent for service of process are:<br />
             <div className={ styles.info }>
               <span className={ styles['info-title'] }>Name :</span>
-              <span className={ styles['info-content'] }> { info.company_name } </span>
+              <span className={ styles['info-content'] }> { info.registered_agent_name } </span>
             </div>
             <div className={ styles.info }>
               <span className={ styles['info-title'] }>Address :</span>
-              <span className={ styles['info-content'] }> { info.company_address_street } <br />
-                  { info.company_address_city }, { info.company_address_state }, { info.company_address_zipcode }
+              <span className={ styles['info-content'] }> { info.registered_agent_address_street } <br />
+                  { info.registered_agent_address_city }, { info.registered_agent_address_state }, { info.registered_agent_address_zipcode }
               </span>
             </div>
           </li>
