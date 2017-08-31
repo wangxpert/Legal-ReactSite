@@ -12,7 +12,8 @@ import { restoreStep } from '../../Program/actions'
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    activities: state.activities ? state.activities.activities: []
+    activities: state.activities ? state.activities.activities: [],
+    selectedPrograms: state.activities.selectedPrograms
   }
 }
 

@@ -22,6 +22,12 @@ const ActivityReducer = (state = initialState, action) => {
         err: action.err
       }
 
+    case Actions.SET_SELECTED_PROGRAMS:
+      return {
+        ...state,
+        selectedPrograms: action.selectedPrograms
+      }
+
     default:
       return state
   }

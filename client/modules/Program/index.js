@@ -6,6 +6,7 @@ import Program from './Program.js'
 
 // Import Actions
 import * as Actions from './actions'
+import { fetchActivities, setSelectedPrograms } from '../Account/Activity/actions'
 import { getCurrentProgram, getCurrentHistory, getCurrentProgress } from './reducer'
 
 // Retrieve data from store as props
@@ -19,6 +20,7 @@ function mapStateToProps(state) {
     showFinalNode: state.programs.showFinalNode,
     finalKind: state.programs.finalKind,
     finalData: state.programs.finalData,
+    activities: state.activities.activities
   }
 }
 
@@ -29,7 +31,9 @@ function mapDispatchToProps(dispatch, ownProps) {
     setCurrentProgram: (name) => dispatch(Actions.setCurrentProgram(name)),
     hideFinalNode: () => dispatch(Actions.hideFinalNode()),
     toggleSideBar: () => dispatch(Actions.toggleSideBar()),
-    savePlace: (info) => dispatch(Actions.savePlace(info))
+    savePlace: (info) => dispatch(Actions.savePlace(info)),
+    fetchActivities: () => dispatch(fetchActivities()),
+    setSelectedPrograms: (selectedPrograms) => dispatch(setSelectedPrograms(selectedPrograms))
   }
 }
 

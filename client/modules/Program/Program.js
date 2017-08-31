@@ -13,6 +13,8 @@ import FinalTopic from './components/FinalNode/Topic/Topic'
 import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax'
 import ContactDialog from './components/ContactDialog'
 import SaveStepDialog from './components/SaveStepDialog'
+import GoActivityDialog from './components/GoActivityDialog'
+
 
 class Program extends Component {
 
@@ -21,7 +23,8 @@ class Program extends Component {
 
     this.state = {
       showContact: false,
-      showSaveStep: false
+      showSaveStep: false,
+      showGoActivity: false
     }
 
     props.fetchProgram(props.params.name);
@@ -31,7 +34,10 @@ class Program extends Component {
     this.closeContact = this.closeContact.bind(this)
     this.showSaveStep = this.showSaveStep.bind(this)
     this.closeSaveStep = this.closeSaveStep.bind(this)
+    this.showGoActivity = this.showGoActivity.bind(this)
+    this.closeGoActivity = this.closeGoActivity.bind(this)
     this.saveStep = this.saveStep.bind(this)
+    this.goActivity = this.goActivity.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,10 +45,17 @@ class Program extends Component {
       this.props.fetchProgram(nextProps.params.name)
       this.props.setCurrentProgram(nextProps.params.name)
     }
+
+    if (this.props.activities !== nextProps.activities && nextProps.activities && nextProps.history.length === 0) {
+      if (nextProps.activities.find(e => (e.program.name === this.props.program.name))) {
+        this.showGoActivity()
+      }
+    }
   }
 
   componentDidMount() {
     // this.props.dispatch(resetProgram());
+    this.props.fetchActivities()
   }
 
   componentWillUnmount() {
@@ -64,6 +77,22 @@ class Program extends Component {
   closeSaveStep() {
     this.setState({ showSaveStep: false });
   };
+
+  showGoActivity() {
+    this.setState({ showGoActivity: true });
+  }
+
+  closeGoActivity() {
+    this.setState({ showGoActivity: false });
+  };
+
+  goActivity() {
+    this.props.setSelectedPrograms([{
+      label: this.props.program.description,
+      value: this.props.program.name
+    }])
+    browserHistory.push('/account/activity');
+  }
 
   saveStep(name) {
     this.props.savePlace({
@@ -121,6 +150,7 @@ class Program extends Component {
 
         <ContactDialog show={ this.state.showContact } close={ this.closeContact } />
         <SaveStepDialog show={ this.state.showSaveStep } close={ this.closeSaveStep } save={ this.saveStep } />
+        <GoActivityDialog show={ this.state.showGoActivity } close={ this.closeGoActivity } go={ this.goActivity } />
       </div>
     );
   }

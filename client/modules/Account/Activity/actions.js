@@ -5,6 +5,8 @@ import Notifications from 'react-notification-system-redux'
 export const FETCH_ACTIVITIES_SUCCEEDED = 'FETCH_ACTIVITIES_SUCCEEDED'
 export const FETCH_ACTIVITIES_FAILED = 'FETCH_ACTIVITIES_FAILED'
 
+export const SET_SELECTED_PROGRAMS = 'SET_SELECTED_PROGRAMS'
+
 // Export Actions
 export function fetchActivitiesSucceeded(activities) {
   return {
@@ -28,5 +30,12 @@ export function fetchActivities() {
       }, err => {
         dispatch(fetchActivitiesFailed(err))
       })
+  }
+}
+
+export function setSelectedPrograms(selectedPrograms) {
+  return {
+    type: SET_SELECTED_PROGRAMS,
+    selectedPrograms
   }
 }

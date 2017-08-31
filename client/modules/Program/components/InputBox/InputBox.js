@@ -511,7 +511,7 @@ class InputBox extends Component {
               Continue
             </div>
 
-            <div className={`${styles.button}`} style={{float: 'right'}} onClick={ e=> this.props.showStepSave() }>
+            <div className={`${styles.button} ${this.props.history.length ? '' : styles.disable}`} style={{float: 'right'}} onClick={ e=> { if (this.props.history.length) this.props.showStepSave() } }>
               Save Place
             </div>
 

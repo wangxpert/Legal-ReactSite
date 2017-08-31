@@ -8,22 +8,40 @@ import styles from './styles.css'
 import { browserHistory } from 'react-router'
 
 import Button from '../../../components/Button/Button'
-
+import VirtualizedSelect from 'react-virtualized-select'
 
 import Item from './components/Item'
+import { program_list as Programs } from '../../Program/model'
 
 class Activity extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      selectedPrograms: []
+    }
+
+    this.options = Programs.map((e, index) => (
+      { label: e.description, value: e.name }
+    ))
+
+    if (this.props.selectedPrograms)
+      this.state.selectedPrograms = this.props.selectedPrograms.slice()
   }
 
   componentDidMount() {
     this.props.fetchActivities()
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedPrograms != nextProps.selectedPrograms) {
+      this.setState({ selectedPrograms: nextProps.selectedPrograms.slice() })
+    }
+  }
+
   restoreActivity(activity) {
     this.props.restoreStep({
-      name: activity.name,
+      name: activity.program.name,
       history: activity.history,
       progress: activity.progress
     })
@@ -32,12 +50,13 @@ class Activity extends Component {
   }
 
   render() {
-    var items;
-    if (this.props.activities) {
-      items = this.props.activities.map((e, index) => (
-        <Item key={ index } name={ e.program.name } program={ e.program.description } date={ e.updated } onClick={ event => this.restoreActivity(e) } />
-      ))
-    }
+    const items = this.props.activities.map((e, index) => {
+
+        if (!this.state.selectedPrograms.length || this.state.selectedPrograms.find(option => ( option.value === e.program.name ))) {
+          return <Item key={ index } name={ e.name } program={ e.program.description } date={ e.updated } onClick={ event => this.restoreActivity(e) } />
+        }
+      })
+
 
     return (
       <div className={ `container wow fadeIn` }>
@@ -47,7 +66,13 @@ class Activity extends Component {
           </div>
 
           <div className={ `${styles['search-container']} col-xs-12` }>
-            <div className={ styles.text }> Search Container. Will Put Search Element </div>
+            <div className={ styles.text }> Program:  </div>
+            <VirtualizedSelect
+              options={ this.options }
+              multi={ true }
+              onChange={(selectedPrograms) => this.setState({ selectedPrograms })}
+              value={ this.state.selectedPrograms  }
+            />
             <hr />
           </div>
 

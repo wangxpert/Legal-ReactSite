@@ -21,3 +21,15 @@ export default {
   ['transfertax']: topic_transfertax,
   ['securitydeposit']: topic_securitydeposit
 };
+
+export const program_list = [
+  { name: 'ca_professional_corporation', description: 'Creating The California Professional Corporation' },
+  { name: 'ca_s_corporation', description: 'Creating The California S-Corporation' },
+  { name: 'de_professional_corporation', description: 'Creating The Delaware Professional Corporation' },
+  { name: 'de_s_corporation', description: 'Creating The Delaware S-Corporation' },
+  { name: 'incorporate', description: 'Should I incorporate ( or become an LLC )?' },
+  { name: 'payroll', description: 'Do I need to set up Payroll?' },
+  { name: 'trademark', description: 'Trademark' },
+  { name: 'transfertax', description: 'California Documentary Transfer Tax' },
+  { name: 'securitydeposit', description: 'Security Deposit' },
+]
