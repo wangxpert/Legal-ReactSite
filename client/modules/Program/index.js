@@ -5,9 +5,13 @@ import { connect } from 'react-redux'
 import Program from './Program.js'
 
 // Import Actions
+import Notifications from 'react-notification-system-redux'
+
 import * as Actions from './actions'
 import { fetchActivities, setSelectedPrograms } from '../Account/Activity/actions'
 import { getCurrentProgram, getCurrentHistory, getCurrentProgress } from './reducer'
+import { updateActivity } from '../Account/Activity/actions'
+
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
@@ -20,7 +24,9 @@ function mapStateToProps(state) {
     showFinalNode: state.programs.showFinalNode,
     finalKind: state.programs.finalKind,
     finalData: state.programs.finalData,
-    activities: state.activities.activities
+    activities: state.activities.activities,
+    currentActivity: state.programs.currentActivity,
+    docState: state.documents.state
   }
 }
 
@@ -33,7 +39,9 @@ function mapDispatchToProps(dispatch, ownProps) {
     toggleSideBar: () => dispatch(Actions.toggleSideBar()),
     savePlace: (info) => dispatch(Actions.savePlace(info)),
     fetchActivities: () => dispatch(fetchActivities()),
-    setSelectedPrograms: (selectedPrograms) => dispatch(setSelectedPrograms(selectedPrograms))
+    setSelectedPrograms: (selectedPrograms) => dispatch(setSelectedPrograms(selectedPrograms)),
+    errorMessage: (option) => dispatch(Notifications.error(option)),
+    updateActivity: (id, data) => dispatch(updateActivity(id, data))
   }
 }
 

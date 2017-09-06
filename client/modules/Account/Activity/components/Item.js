@@ -32,11 +32,13 @@ class Item extends Component {
             { this.props.program }
           </div>
           <div className={ styles.status }>
-            Status: Incomplete
+            Status: <span style={{ fontWeight: '300' }}>{ this.props.status }</span>
           </div>
-          <div className={ styles.continue } onClick={ this.props.onContinue }>
-            Continue &nbsp; &gt;
-          </div>
+          { this.props.status === 'Incomplete' &&
+            <div className={ styles.continue } onClick={ this.props.onContinue }>
+              Continue &nbsp; &gt;
+            </div>
+          }
         </div>
       </div>
     )

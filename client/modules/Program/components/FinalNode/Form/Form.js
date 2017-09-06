@@ -46,7 +46,7 @@ class Form extends Component {
 
   onSave() {
     if (this.props.state === 'SAVE_DOC_SUCCEEDED') {
-      this.props.warning({
+      this.props.warningMessage({
         // uid: 'once-please', // you can specify your own uid if required
         title: 'Already saved',
         message: 'This form is already saved.',

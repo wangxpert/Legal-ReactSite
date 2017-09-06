@@ -12,8 +12,8 @@ import FinalForm from './components/FinalNode/Form/Form'
 import FinalTopic from './components/FinalNode/Topic/Topic'
 import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax'
 import ContactDialog from './components/ContactDialog'
-import SaveStepDialog from './components/SaveStepDialog'
 import GoActivityDialog from './components/GoActivityDialog'
+import SaveStepDialog from '../../components/InputDialog'
 
 
 class Program extends Component {
@@ -24,7 +24,7 @@ class Program extends Component {
     this.state = {
       showContact: false,
       showSaveStep: false,
-      showGoActivity: false
+      showGoActivity: false,
     }
 
     props.fetchProgram(props.params.name);
@@ -50,6 +50,16 @@ class Program extends Component {
       if (nextProps.activities.find(e => (e.program.name === this.props.program.name))) {
         this.showGoActivity()
       }
+    }
+
+    if (nextProps.showFinalNode !== this.props.showFinalNode && nextProps.showFinalNode) {
+      if (nextProps.program.kind === 'Topic') {
+        if (this.props.currentActivity) this.props.updateActivity(this.props.currentActivity, { status: 'Complete' })
+      }
+    }
+
+    if (nextProps.docState !== this.props.docState && nextProps.docState === 'SAVE_DOC_SUCCEEDED') {
+      if (this.props.currentActivity) this.props.updateActivity(this.props.currentActivity, { status: 'Complete' })
     }
   }
 
@@ -95,16 +105,28 @@ class Program extends Component {
   }
 
   saveStep(name) {
-    this.props.savePlace({
-      name: name,
-      program: {
-        name: this.props.current,
-        description: this.props.program.description,
-        kind: this.props.program.kind
-      },
-      history: this.props.history,
-      progress: this.props.progress
-    })
+    if (this.props.activities.find(e => e.name === name)) {
+      this.props.errorMessage({
+        // uid: 'once-please', // you can specify your own uid if required
+        title: 'Error...',
+        message: 'There is already activity with that name. Please enter a different name.',
+        position: 'tr',
+      })
+    } else {
+      this.props.savePlace({
+        name: name,
+        program: {
+          name: this.props.current,
+          description: this.props.program.description,
+          kind: this.props.program.kind
+        },
+        history: this.props.history,
+        progress: this.props.progress,
+        status: 'Incomplete'
+      })
+
+      this.closeSaveStep()
+    }
   }
 
   toForm(to) {
@@ -149,7 +171,9 @@ class Program extends Component {
         </div>
 
         <ContactDialog show={ this.state.showContact } close={ this.closeContact } />
-        <SaveStepDialog show={ this.state.showSaveStep } close={ this.closeSaveStep } save={ this.saveStep } />
+        <SaveStepDialog buttonTitle="Save" title="Save Place" description="Enter the name"
+          show={ this.state.showSaveStep } close={ this.closeSaveStep } save={ this.saveStep } />
+
         <GoActivityDialog show={ this.state.showGoActivity } close={ this.closeGoActivity } go={ this.goActivity } />
       </div>
     );

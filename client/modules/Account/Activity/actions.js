@@ -53,20 +53,22 @@ export function updateActivitySucceeded(id, data) {
   }
 }
 
+export function updateActivityFailed(err) {
+  return {
+    type: UPDATE_ACTIVITY_FAILED,
+    err
+  }
+}
+
 export function updateActivity(id, data) {
   return (dispatch) => {
+    console.log(id, data)
     return callApi(`activities/${ id }`, 'PUT', data)
       .then(res => {
         dispatch(updateActivitySucceeded(id, data))
       }, err => {
         dispatch(updateActivityFailed(err))
       })
-  }
-}
-
-export function updateActivityFailed() {
-  return {
-    type: UPDATE_ACTIVITY_FAILED
   }
 }
 

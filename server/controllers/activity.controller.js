@@ -65,6 +65,7 @@ export function updateActivity(req, res) {
   const { activityId } = req.params
 
   const { name, status, program, history, progress } = req.body
+  console.log('snowsea', status)
 
   if ( !activityId ) {
     return res.status(403).json({ status: 403, message: 'Missing Parameter' })
@@ -87,18 +88,18 @@ export function updateActivity(req, res) {
 
       if (status) {
         activity.status = status
-        activity.updated = Date.now
+        // activity.updated = Date.now
       }
 
       if (program) {
         activity.program = program
-        activity.updated = Date.now
+        // activity.updated = Date.now
       }
 
       if (progress) {
         activity.progress = progress
         activity.history = history
-        activity.updated = Date.now
+        // activity.updated = Date.now
       }
 
       return activity.save()

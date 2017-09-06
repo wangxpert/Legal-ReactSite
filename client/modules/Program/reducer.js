@@ -7,7 +7,8 @@ export const initialState = {
   history: {},
   progress: {},
   showSideBar: true,
-  showFinalNode: false
+  showFinalNode: false,
+  currentActivity: ''
 };
 
 const resetPrograms = () => {
@@ -63,7 +64,8 @@ const restoreStep = (state, action) => {
   return {
     ...state,
     history: history,
-    progress: progress
+    progress: progress,
+    currentActivity: info.id
   }
 }
 

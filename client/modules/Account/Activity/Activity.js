@@ -69,7 +69,8 @@ class Activity extends Component {
     this.props.restoreStep({
       name: activity.program.name,
       history: activity.history,
-      progress: activity.progress
+      progress: activity.progress,
+      id: activity._id
     })
 
     browserHistory.push(`/legal${activity.program.kind}s/${activity.program.name}`)
@@ -82,7 +83,7 @@ class Activity extends Component {
   render() {
     const items = this.props.activities.map((e, index) => {
         if (!this.state.selectedPrograms.length || this.state.selectedPrograms.find(option => ( option.value === e.program.name ))) {
-          return <Item key={ index } name={ e.name } program={ e.program.description } kind={ e.program.kind } date={ e.updated }
+          return <Item key={ index } name={ e.name } program={ e.program.description } kind={ e.program.kind } date={ e.updated } status={ e.status }
             onContinue={ event => this.restoreActivity(e) } onDelete={ event => this.deleteActivity(e) } onRename={ event => this.toggleInputDialog(e) } />
         }
       })
