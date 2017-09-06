@@ -1,6 +1,4 @@
 .container {
-  box-shadow: 0 0 5rem rgb(0, 0, 0, .3);
-  padding: 30rem;
   margin: 8rem -10rem;
   background: #f5f5f5;
 }
@@ -35,7 +33,7 @@
 }
 
 .search-container * {
-  
+
 }
 
 .container .activity-container {
@@ -43,20 +41,106 @@
 }
 
 .activity-container .activity {
-  border: 1rem solid rgba(0, 0, 0, .15);
-  cursor: pointer;
+  background: #e5e8ed;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, .2);
   margin: 6rem 0;
-  padding: 15rem 16rem 10rem 16rem;
+  padding: 0;
 }
 
-.activity-container .activity:hover {
-  background: #fff;
-  box-shadow: 0 1rem 6rem rgba(0, 0, 0, .1)
+.activity .body {
+  background: white;
 }
 
-.activity .icon {
-  color: #000;
-  font-size: 24rem;
+.activity .footer {
+  background: #e5e8ed;
+  color: black;
+  text-align: center;
+}
+
+.body .icon {
+  color: white;
+  display: inline-block;
+  font-size: 36rem;
+  padding: 15rem 16rem;
+  background: #fe4f0a;
+  vertical-align: middle;
+}
+
+.body .info {
+  display: inline-block;
+  margin-left: 30rem;
+  vertical-align: middle;
+}
+
+.info .name {
+  color: black;
+  cursor: pointer;
+  font-size: 22rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+}
+
+.name:hover {
+  text-shadow: 0 1rem 3rem rgba(0, 0, 0, .3);
+}
+
+.info .date {
+  color: #02b2fb;
+  font-weight: 500;
+}
+
+.body .action {
+  margin-right: 25rem;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 30rem;
+  padding-top: 16rem;
+  float: right;
+}
+
+.action i {
+  color: #02b2fb;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.action i:hover {
+  text-shadow: 0 0 6rem #02b2fb88;
+}
+
+.footer .program {
+  display: inline-block;
+  font-size: 16rem;
+  font-weight: 500;
+  margin: 0;
+  padding: 10rem 16rem;
+}
+
+.footer .status {
+  display: inline-block;
+  float: left;
+  font-size: 16rem;
+  font-weight: 500;
+  padding: 10rem 16rem;
+}
+
+.footer .continue {
+  box-sizing: border-box;
+  background: #02b2fb;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  font-size: 16rem;
+  font-weight: 500;
+  padding: 10rem 16rem;
+}
+
+.continue:hover {
+  background: white;
+  border: 1rem solid #02b2fb;
+  color: #02b2fb;
+  padding: 9rem 16rem;
 }
 
 .activity .link {

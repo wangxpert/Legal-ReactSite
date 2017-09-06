@@ -58,6 +58,57 @@ export function getActivity(req, res) {
   })
 }
 
+export function updateActivity(req, res) {
+  if (!req.user)
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' })
+
+  const { activityId } = req.params
+
+  const { name, status, program, history, progress } = req.body
+
+  if ( !activityId ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  Activity.findOne({ _id: activityId }).exec((err, activity) => {
+    if (err) {
+      return res.status(500).json({ status: 500, message: 'Server Side Error',  err})
+    }
+    return res.status(200).json({ status: 200, activity })
+  })
+
+  Activity.findOne({ _id: activityId })
+    .then(activity => {
+      if (!activity) {
+        return res.status(500).json({ status: 401, message: 'No activity is founded!' })
+      }
+
+      if (name) activity.name = name
+
+      if (status) {
+        activity.status = status
+        activity.updated = Date.now
+      }
+
+      if (program) {
+        activity.program = program
+        activity.updated = Date.now
+      }
+
+      if (progress) {
+        activity.progress = progress
+        activity.history = history
+        activity.updated = Date.now
+      }
+
+      return activity.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
+}
+
 export function deleteActivity(req, res) {
 
   if (!req.user)

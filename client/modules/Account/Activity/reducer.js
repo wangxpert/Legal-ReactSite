@@ -28,6 +28,38 @@ const ActivityReducer = (state = initialState, action) => {
         selectedPrograms: action.selectedPrograms
       }
 
+    case Actions.UPDATE_ACTIVITY_SUCCEEDED:
+      var activities = state.activities.slice()
+      let activity = activities.find(e => e._id === action.id)
+      let data = action.data
+      for (let key in data) {
+        activity[key] = data[key]
+      }
+      return {
+        ...state,
+        activities: activities
+      }
+
+    case Actions.UPDATE_ACTIVITY_FAILED:
+      return {
+        ...state,
+        err: action.err
+      }
+
+    case Actions.DELETE_ACTIVITY_SUCCEEDED:
+      var activities = state.activities.slice()
+      activities.splice(activities.findIndex(e => e._id === action.id), 1)
+      return {
+        ...state,
+        activities: activities
+      }
+
+    case Actions.DELETE_ACTIVITY_FAILED:
+      return {
+        ...state,
+        err: action.err
+      }
+
     default:
       return state
   }

@@ -7,7 +7,7 @@ import Activity from './activity.js'
 import * as Actions from './actions'
 import { restoreStep } from '../../Program/actions'
 
-// import { getCurrentProgram, getCurrentHistory, getCurrentProgress } from './reducer'
+import Notifications from 'react-notification-system-redux'
 
 // Retrieve data from store as props
 function mapStateToProps(state) {
@@ -20,7 +20,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, ownProps) {
   return {
     fetchActivities: () => dispatch(Actions.fetchActivities()),
-    restoreStep: (info) => dispatch(restoreStep(info))
+    restoreStep: (info) => dispatch(restoreStep(info)),
+    updateActivity: (id, data) => dispatch(Actions.updateActivity(id, data)),
+    deleteActivity: (id) => dispatch(Actions.deleteActivity(id)),
+    errorMessage: (option) => dispatch(Notifications.error(option))
   }
 }
 

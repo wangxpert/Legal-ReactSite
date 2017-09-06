@@ -4,10 +4,12 @@ const router = new Router();
 
 router.route('/').get(ActivityController.getActivities);
 
-router.route('/:docId').get(ActivityController.getActivity);
+router.route('/:activityId').get(ActivityController.getActivity);
 
 router.route('/').post(ActivityController.addActivity);
 
-router.route('/:docId').delete(ActivityController.deleteActivity);
+router.route('/:activityId').put(ActivityController.updateActivity);
+
+router.route('/:activityId').delete(ActivityController.deleteActivity);
 
 export default router;

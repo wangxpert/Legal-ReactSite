@@ -15,9 +15,9 @@ const activitySchema = new Schema({
     description:  String,
     kind: String
   },
-  description: {
+  status: {
     type: String,
-    default: ''
+    default: 'Incomplete'
   },
   history: {
     type: Array,

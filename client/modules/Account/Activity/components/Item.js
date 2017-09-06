@@ -7,22 +7,36 @@ import styles from '../styles.css'
 class Item extends Component {
 
   render() {
+    const iconColor = this.props.kind === 'Topic' ? '#fe4f0a' : '#02b2fb'
+
     return (
-      <div className={`${styles['activity']} col-xs-12`} onClick={ this.props.onClick }>
-        <div className={`${styles['icon']} col-xs-1`}>
-          <i className="fa fa-briefcase" aria-hidden="true"></i>
+      <div className={`${styles['activity']} col-xs-12`}>
+        <div className={ styles.body }>
+          <div className={ styles.icon } style={{ background: iconColor }}>
+            <i className="fa fa-file-text-o" aria-hidden="true"></i>
+          </div>
+          <div className={ styles.info }>
+            <div className={ styles.name } onClick={ this.props.onRename }>
+              { this.props.name }
+            </div>
+            <div className={ styles.date }>
+              Created: { new Date(this.props.date).toDateString() }
+            </div>
+          </div>
+          <div className={ styles.action }>
+            <i className="fa fa-trash-o" aria-hidden="true" onClick={ this.props.onDelete }></i>
+          </div>
         </div>
-
-        <div className={`${styles['title']} col-md-3 col-xs-10`}>
-          { this.props.name }
-        </div>
-
-        <div className={`${styles['text']} col-xs-push-1 col-xs-12 col-sm-push-0 col-sm-8 col-md-push-0 col-md-5 `}>
-          { this.props.program }
-        </div>
-
-        <div className={`${styles['text']} col-xs-push-1 col-xs-11 col-sm-push-0 col-sm-3 col-md-push-0 col-md-3`}>
-          { new Date(this.props.date).toDateString() }
+        <div className={ styles.footer}>
+          <div className={ styles.program }>
+            { this.props.program }
+          </div>
+          <div className={ styles.status }>
+            Status: Incomplete
+          </div>
+          <div className={ styles.continue } onClick={ this.props.onContinue }>
+            Continue &nbsp; &gt;
+          </div>
         </div>
       </div>
     )
@@ -33,7 +47,9 @@ Item.propTypes = {
   name: PropTypes.string.isRequired,
   program: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  onClick: PropTypes.func
+  onContinue: PropTypes.func,
+  onDelete: PropTypes.func.isRequired,
+  onRename: PropTypes.func.isRequired
 }
 
 export default Item
