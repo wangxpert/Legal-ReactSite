@@ -7,6 +7,7 @@ import styles from './styles.css'
 // Import Components
 import { browserHistory } from 'react-router'
 import VirtualizedSelect from 'react-virtualized-select'
+import { ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap'
 
 import Item from './components/Item'
 import InputDialog from '../../../components/InputDialog'
@@ -20,7 +21,8 @@ class Activity extends Component {
     this.state = {
       selectedPrograms: [],
       showInputDialog: false,
-      activity: null
+      activity: null,
+      sortBy: 'Date'
     }
 
     this.options = Programs.map((e, index) => (
@@ -32,6 +34,7 @@ class Activity extends Component {
 
     this.toggleInputDialog = this.toggleInputDialog.bind(this)
     this.renameActivity = this.renameActivity.bind(this)
+    this.onSort = this.onSort.bind(this)
   }
 
   componentDidMount() {
@@ -80,8 +83,17 @@ class Activity extends Component {
     this.props.deleteActivity(activity._id)
   }
 
+  onSort(by) {
+    this.setState({ sortBy: by })
+  }
+
+  sort(a, b) {
+    if (this.state.sortBy === 'Date') return a.updated >= b.updated
+    else return (a.name.toLowerCase()) >= (b.name.toLowerCase())
+  }
+
   render() {
-    const items = this.props.activities.map((e, index) => {
+    const items = this.props.activities.sort(this.sort.bind(this)).map((e, index) => {
         if (!this.state.selectedPrograms.length || this.state.selectedPrograms.find(option => ( option.value === e.program.name ))) {
           return <Item key={ index } name={ e.name } program={ e.program.description } kind={ e.program.kind } date={ e.updated } status={ e.status }
             onContinue={ event => this.restoreActivity(e) } onDelete={ event => this.deleteActivity(e) } onRename={ event => this.toggleInputDialog(e) } />
@@ -97,14 +109,26 @@ class Activity extends Component {
           </div>
 
           <div className={ `${styles['search-container']} col-xs-12` }>
-            <div className={ styles.text }> Program:  </div>
-            <VirtualizedSelect
-              options={ this.options }
-              multi={ true }
-              onChange={(selectedPrograms) => this.setState({ selectedPrograms })}
-              value={ this.state.selectedPrograms  }
-            />
-            <hr />
+            <div className="row">
+              <div className="col-xs-12 col-sm-10">
+                <span className={ styles.text }> Program:  </span>
+                <VirtualizedSelect
+                  options={ this.options }
+                  multi={ true }
+                  onChange={(selectedPrograms) => this.setState({ selectedPrograms })}
+                  value={ this.state.selectedPrograms  }
+                />
+              </div>
+              <div className="col-xs-12 col-sm-2">
+                <div className={ styles.text }> Sort by:  </div>
+                <ButtonGroup vertical block>
+                  <DropdownButton title={ this.state.sortBy } pullRight id="split-button-pull-right" block onSelect={ this.onSort }>
+                    <MenuItem eventKey="Name" >Name</MenuItem>
+                    <MenuItem eventKey="Date">Date</MenuItem>
+                  </DropdownButton>
+                </ButtonGroup>
+              </div>
+            </div>
           </div>
 
           <div className={ `${styles['activity-container']} col-xs-12` }>

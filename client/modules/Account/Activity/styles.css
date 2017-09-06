@@ -19,6 +19,7 @@
 .container .text {
   font-size: 18rem;
   line-height: 30rem;
+  font-weight: 500;
   color: #000;
 }
 
@@ -29,7 +30,10 @@
 }
 
 .container .search-container {
-  padding: 20rem 0rem 0rem 0rem;
+  background: white;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, .2);
+  padding: 10rem 20rem;
+  margin-bottom: 20rem;
 }
 
 .search-container * {

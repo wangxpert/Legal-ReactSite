@@ -34,8 +34,9 @@ class Item extends Component {
           <div className={ styles.status }>
             Status: <span style={{ fontWeight: '300' }}>{ this.props.status }</span>
           </div>
-          { this.props.status === 'Incomplete' &&
-            <div className={ styles.continue } onClick={ this.props.onContinue }>
+
+          {
+            <div className={ styles.continue } onClick={ this.props.onContinue } style={{ visibility: this.props.status === 'Incomplete' ? 'visible' : 'hidden' }}>
               Continue &nbsp; &gt;
             </div>
           }
@@ -49,6 +50,7 @@ Item.propTypes = {
   name: PropTypes.string.isRequired,
   program: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
   onContinue: PropTypes.func,
   onDelete: PropTypes.func.isRequired,
   onRename: PropTypes.func.isRequired
