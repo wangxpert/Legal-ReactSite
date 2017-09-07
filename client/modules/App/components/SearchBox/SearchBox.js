@@ -87,7 +87,7 @@ class SearchBox extends Component {
 
   renderInputComponent = inputProps => (
     <span className={styles.inputContainer}>
-      <input {...inputProps} />
+      <input {...inputProps} autoFocus/>
       <i className={`fa fa-search ${styles['icon']}`} aria-hidden="true"></i>
     </span>
   );
