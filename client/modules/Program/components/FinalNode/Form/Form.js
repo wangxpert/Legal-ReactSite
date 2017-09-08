@@ -100,7 +100,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch, orgProps) {
   return {
     hide: () => dispatch(hideFinalNode()),
-    save: () => dispatch(saveDoc(orgProps.data.form, orgProps.data.info)),
     warningMessage: (opt) => dispatch(warning(opt)),
     successMessage: (opt) => dispatch(success(opt))
   }

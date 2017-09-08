@@ -1,6 +1,7 @@
 .container {
-  margin: 8rem -10rem;
-  background: #f5f5f5;
+  background: white;
+  margin: 8rem -16px;
+  padding: 0 30rem 30rem 30rem;
 }
 
 .container .container-title {
@@ -11,19 +12,6 @@
   padding: 0;
 }
 
-.container .title {
-  font-size: 20rem;
-  font-weight: 500;
-}
-
-.container .text {
-  font-size: 18rem;
-  line-height: 30rem;
-  font-weight: 500;
-  color: #000;
-}
-
-
 .container hr {
   color: black;
   border-color: #aaa;
@@ -31,13 +19,10 @@
 
 .container .search-container {
   background: white;
-  box-shadow: 0 3rem 6rem rgba(0, 0, 0, .2);
-  padding: 10rem 20rem;
+  border-bottom: 1rem solid rgba(0, 0, 0, .2);
+  /*box-shadow: 0 3rem 6rem rgba(0, 0, 0, .2);*/
+  padding: 20rem 0rem;
   margin-bottom: 20rem;
-}
-
-.search-container * {
-
 }
 
 .container .activity-container {
@@ -145,43 +130,4 @@
   border: 1rem solid #02b2fb;
   color: #02b2fb;
   padding: 9rem 16rem;
-}
-
-.activity .link {
-  color: #000;
-  font-weight: 500;
-  text-decoration: none;
-  padding: 0 10rem;
-  cursor: pointer;
-}
-
-.activity-seemore {
-  text-align: center;
-  font-size: 80rem;
-  margin-top: -30rem;
-  margin-bottom: 10rem;
-  height: 30rem;
-  cursor: pointer;
-}
-
-.activity-seemore i {
-  color: #02b2fb;
-  text-shadow: 0 2rem 3rem rgba(0, 0, 0, .3);
-}
-
-.activity-seemore i:active {
-  color: #02b2fb;
-  text-shadow: 0 0;
-}
-
-@media (max-width: 992px) and (min-width: 600px) {
-  .container .avatar-container {
-    float: left;
-  }
-
-  .container .info-container {
-    margin-top: 30rem;
-    margin-left: 50rem;
-    display: inline-block;
-  }
 }

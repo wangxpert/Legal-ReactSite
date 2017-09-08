@@ -48,7 +48,6 @@ class Topic extends Component {
   }
 
   calcCountyTax(price) {
-    console.log(this.props);
     var taxRate = 0.0;
     const {county, city, countyTaxRate, exemptCounty} = this.props.calcTaxInfo;
 

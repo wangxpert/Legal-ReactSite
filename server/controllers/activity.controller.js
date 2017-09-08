@@ -20,7 +20,7 @@ export function addActivity(req, res) {
 
   const userId = req.user.id
 
-  const { name, history, progress, program } = req.body
+  const { name, history, progress, program, status } = req.body
 
   if (!name || !history || !progress || !program) {
     return res.status(403).json({ status: 403, message: 'Missing Parameters' })
@@ -31,7 +31,8 @@ export function addActivity(req, res) {
     name,
     program,
     history,
-    progress
+    progress,
+    status
   })
 
   newActivity.save()

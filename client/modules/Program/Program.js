@@ -28,6 +28,11 @@ class Program extends Component {
     }
 
     props.fetchProgram(props.params.name);
+    if (props.current !== props.params.name) {
+      if (props.showFinalNode) {
+        props.hideFinalNode()
+      }
+    }
     props.setCurrentProgram(props.params.name);
 
     this.showContact = this.showContact.bind(this)
@@ -38,6 +43,7 @@ class Program extends Component {
     this.closeGoActivity = this.closeGoActivity.bind(this)
     this.saveStep = this.saveStep.bind(this)
     this.goActivity = this.goActivity.bind(this)
+    this.saveDoc = this.saveDoc.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -57,10 +63,6 @@ class Program extends Component {
         if (this.props.currentActivity) this.props.updateActivity(this.props.currentActivity, { status: 'Complete' })
       }
     }
-
-    if (nextProps.docState !== this.props.docState && nextProps.docState === 'SAVE_DOC_SUCCEEDED') {
-      if (this.props.currentActivity) this.props.updateActivity(this.props.currentActivity, { status: 'Complete' })
-    }
   }
 
   componentDidMount() {
@@ -69,7 +71,7 @@ class Program extends Component {
   }
 
   componentWillUnmount() {
-    this.props.hideFinalNode()
+    // this.props.hideFinalNode()
   }
 
   showContact() {
@@ -122,7 +124,7 @@ class Program extends Component {
         },
         history: this.props.history,
         progress: this.props.progress,
-        status: 'Incomplete'
+        status: this.props.showFinalNode ? 'Complete' : 'Incomplete'
       })
 
       this.closeSaveStep()
@@ -135,6 +137,14 @@ class Program extends Component {
       browserHistory.push('/legalforms/ca_professional_corporation');
     } else if (to === 'S-Corp') {
       browserHistory.push('/legalforms/ca_s_corporation');
+    }
+  }
+
+  saveDoc(e) {
+    if (this.props.currentActivity) {
+      this.props.updateActivity(this.props.currentActivity, { history: this.props.history, progress: this.props.progress, status: 'Complete' })
+    } else {
+      this.showSaveStep()
     }
   }
 
@@ -166,7 +176,7 @@ class Program extends Component {
             <FinalCalculateTax calcTaxInfo={ finalData.calcTaxInfo } showContact={ this.showContact } />
           }
           { (showFinalNode && (finalKind === 'Form')) &&
-            <FinalForm data={ finalData } />
+            <FinalForm data={ finalData } save={ this.saveDoc } />
           }
         </div>
 

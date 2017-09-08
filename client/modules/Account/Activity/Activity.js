@@ -12,7 +12,7 @@ import { ButtonGroup, DropdownButton, MenuItem } from 'react-bootstrap'
 import Item from './components/Item'
 import InputDialog from '../../../components/InputDialog'
 
-import { program_list as Programs } from '../../Program/model'
+import { topic_list, form_list } from '../../Program/model'
 
 class Activity extends Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class Activity extends Component {
       sortBy: 'Date'
     }
 
-    this.options = Programs.map((e, index) => (
+    let programs = topic_list.concat(form_list)
+    this.options = programs.map((e, index) => (
       { label: e.description, value: e.name }
     ))
 
@@ -104,14 +105,10 @@ class Activity extends Component {
     return (
       <div className={ `container wow fadeIn` }>
         <div className={ `${styles.container} row` }>
-          <div className={ `${styles['container-title']} col-xs-12` }>
-            My Activity
-          </div>
-
           <div className={ `${styles['search-container']} col-xs-12` }>
             <div className="row">
               <div className="col-xs-12 col-sm-10">
-                <span className={ styles.text }> Program:  </span>
+                <h5> Program:  </h5>
                 <VirtualizedSelect
                   options={ this.options }
                   multi={ true }
@@ -120,9 +117,9 @@ class Activity extends Component {
                 />
               </div>
               <div className="col-xs-12 col-sm-2">
-                <div className={ styles.text }> Sort by:  </div>
+                <h5> Sort by:  </h5>
                 <ButtonGroup vertical block>
-                  <DropdownButton title={ this.state.sortBy } pullRight id="split-button-pull-right" block onSelect={ this.onSort }>
+                  <DropdownButton bsStyle="info" title={ this.state.sortBy } pullRight id="split-button-pull-right" block onSelect={ this.onSort }>
                     <MenuItem eventKey="Name" >Name</MenuItem>
                     <MenuItem eventKey="Date">Date</MenuItem>
                   </DropdownButton>
