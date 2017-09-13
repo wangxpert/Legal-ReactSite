@@ -66,23 +66,15 @@ export function updateActivity(req, res) {
   const { activityId } = req.params
 
   const { name, status, program, history, progress } = req.body
-  console.log('snowsea', status)
 
   if ( !activityId ) {
     return res.status(403).json({ status: 403, message: 'Missing Parameter' })
   }
 
-  Activity.findOne({ _id: activityId }).exec((err, activity) => {
-    if (err) {
-      return res.status(500).json({ status: 500, message: 'Server Side Error',  err})
-    }
-    return res.status(200).json({ status: 200, activity })
-  })
-
   Activity.findOne({ _id: activityId })
     .then(activity => {
       if (!activity) {
-        return res.status(500).json({ status: 401, message: 'No activity is founded!' })
+        return res.status(500).json({ status: 404, message: 'No activity is founded!' })
       }
 
       if (name) activity.name = name

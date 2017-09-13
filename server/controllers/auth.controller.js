@@ -1,5 +1,7 @@
 import User from '../models/user';
 import passport from 'passport';
+import bcrypt from 'bcrypt-nodejs'
+import cuid from 'cuid'
 
 /**
  * Login a User
@@ -16,11 +18,7 @@ function social(provider, req, res) {
         const newUser = User({
           provider: provider,
           id: info.id,
-          emails: [
-            {
-              value: info.email
-            }
-          ],
+          email: info.email,
 
           name: {
             familyName: info.familyName,
@@ -69,21 +67,20 @@ export function loginFailure(req, res) {
  */
 export function register(req, res) {
 
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(req.body.password, salt)
+
   const newUser = new User({
     provider: 'local',
-    id: req.body.email,
-    emails: [
-      {
-        value: req.body.email
-      }
-    ],
+    id: cuid(),
+    email: req.body.email,
 
     name: {
       familyName: req.body.lastName,
       givenName: req.body.firstName
     },
 
-    password: req.body.password
+    password: hash
   });
 
   newUser.save()
@@ -108,4 +105,145 @@ export function getUser(req, res) {
   } else {
     res.status(401).json({ status: 401, message: 'UnAuthorized.' });
   }
+}
+
+export function updateName(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+  }
+
+  const { name } = req.body
+
+  if ( !name ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      if (!user) {
+        return res.status(500).json({ status: 404, message: 'No user is founded!' })
+      }
+
+      user.name = name
+
+      return user.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
+}
+
+export function updateEmail(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+  }
+
+  const { email } = req.body
+
+  if ( !email ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      if (!user) {
+        return res.status(500).json({ status: 404, message: 'No user is founded!' })
+      }
+
+      user.email = email
+
+      return user.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
+}
+
+export function updateAddress(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+  }
+
+  const { address } = req.body
+
+  if ( !address ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      if (!user) {
+        return res.status(500).json({ status: 404, message: 'No user is founded!' })
+      }
+
+      user.address = address
+
+      return user.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
+}
+
+export function updatePhone(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+  }
+
+  const { phone } = req.body
+
+  if ( !phone ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      if (!user) {
+        return res.status(500).json({ status: 404, message: 'No user is founded!' })
+      }
+
+      user.phone = phone
+
+      return user.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
+}
+
+export function updatePassword(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+  }
+
+  const { oldPassword, newPassword } = req.body
+
+  if ( !oldPassword || !newPassword ) {
+    return res.status(403).json({ status: 403, message: 'Missing Parameter' })
+  }
+
+  if (!bcrypt.compareSync(oldPassword, req.user.password))
+    return res.status(403).json({ status: 403, message: 'Current Password is not correct.' })
+
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(newPassword, salt)
+
+  User.findOne({ _id: req.user._id })
+    .then(user => {
+      if (!user) {
+        return res.status(500).json({ status: 404, message: 'No user is founded!' })
+      }
+
+      user.password = hash
+
+      return user.save()
+    })
+
+    .then(saved => res.status(200).json({ status: 200, saved }))
+
+    .catch(err => res.status(500).json({ status: 500, message: 'Server Side Error',  err}))
 }

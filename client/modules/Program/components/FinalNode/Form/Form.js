@@ -11,7 +11,7 @@ import styles from './styles.css';
 
 // Import Actions
 import { hideFinalNode } from '../../../actions';
-import { saveDoc } from '../../../../Account/MyDocuments/actions';
+import { saveDoc } from '../../../../Account/documents/actions';
 import { success, warning } from 'react-notification-system-redux';
 
 // Import components
@@ -45,7 +45,7 @@ class Form extends Component {
   }
 
   onSave() {
-    if (this.props.state === 'SAVE_DOC_SUCCEEDED') {
+    if (this.props.state === 'SAVE_DOC_SUCCESS') {
       this.props.warningMessage({
         // uid: 'once-please', // you can specify your own uid if required
         title: 'Already saved',

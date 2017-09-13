@@ -1,48 +1,45 @@
-import {
-  SET_LOGIN_STATE,
-  LOGIN_REQUESTED,
-  LOGIN_SUCCEEDED,
-  LOGIN_FAILED,
-  REGISTER_SUCCEEDED,
-  REGISTER_FAILED,
-  LOGOUT_SUCCEEDED,
-  FETCH_USER_PROFILE_SUCCEEDED,
-  FETCH_USER_PROFILE_FAILED,
-  SET_REDIRECT_URL
-} from './AuthActions';
+import * as Actions from './AuthActions';
 
 import { browserHistory } from 'react-router';
 
 // Initial State
 const initialState = { user: {}, state: 'NOT_LOGGED' };
 
+const updateProfileSuccess = (state, action) => {
+  return { ...state, user: action.result.saved }
+}
+
+const updateProfileFailure = (state, action) => {
+  return { ...state, err: action.err }
+}
+
 const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_LOGIN_STATE:
+    case Actions.SET_LOGIN_STATE:
       return {
         ...state,
         state: action.state
       }
 
-    case REGISTER_SUCCEEDED:
+    case Actions.REGISTER_SUCCESS:
       return {
         ...state,
         user: action.user
       };
 
-    case REGISTER_FAILED:
+    case Actions.REGISTER_FAILURE:
       return {
         ...state,
         err: action.err,
       }
 
-    case LOGIN_REQUESTED:
+    case Actions.LOGIN_REQUEST:
       return {
         ...state,
         state: 'LOGGING'
       }
 
-    case LOGIN_SUCCEEDED:
+    case Actions.LOGIN_SUCCESS:
       if (state.redirectUrl) {
         browserHistory.push(state.redirectUrl);
       } else {
@@ -55,36 +52,42 @@ const AuthReducer = (state = initialState, action) => {
         state: 'LOGGED'
       }
 
-    case LOGIN_FAILED:
+    case Actions.LOGIN_FAILURE:
       return {
         ...state,
         err: action.err,
         state: 'NOT_LOGGED'
       }
 
-    case LOGOUT_SUCCEEDED:
+    case Actions.LOGOUT_SUCCESS:
       return {
         ...state,
         state: 'NOT_LOGGED'
       }
 
-    case FETCH_USER_PROFILE_SUCCEEDED:
+    case Actions.FETCH_USER_PROFILE_SUCCESS:
       return {
         ...state,
         user: action.user
       }
 
-    case FETCH_USER_PROFILE_FAILED:
+    case Actions.FETCH_USER_PROFILE_FAILURE:
       return {
         ...state,
         err: action.err
       }
 
-    case SET_REDIRECT_URL:
+    case Actions.SET_REDIRECT_URL:
       return {
         ...state,
         redirectUrl: action.url
       }
+
+    case Actions.UPDATE_PROFILE_SUCCESS:
+      return updateProfileSuccess(state, action)
+
+    case Actions.UPDATE_PROFILE_FAILURE:
+      return updateProfileFailure(state, action)
 
 
     default:

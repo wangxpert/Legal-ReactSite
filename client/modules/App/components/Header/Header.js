@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
-import { logoutRequested } from '../../../Auth/AuthActions';
+import { logout } from '../../../Auth/AuthActions';
 
 import { toggleSearchBar } from '../../AppActions';
 
@@ -34,7 +34,7 @@ class Header extends Component {
   }
 
   onLogout() {
-    this.props.dispatch(logoutRequested());
+    this.props.dispatch(logout());
   }
 
   onSearch() {
@@ -81,7 +81,7 @@ class Header extends Component {
 
           <ul className={styles['dropdown']}>
             <li><Link to="/account/profile">Profile</Link></li>
-            <li><Link to="/account/mydocuments">Documents</Link></li>
+            <li><Link to="/account/documents">Documents</Link></li>
             <li><Link to="/account/activity">Activity</Link></li>
             <li><a href="javascript:void(0)" onClick={this.onLogout.bind(this)}>Log Out</a></li>
           </ul>
@@ -132,7 +132,7 @@ class Header extends Component {
 }
 
 Header.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 // Retrieve data from store as props

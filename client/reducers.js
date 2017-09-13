@@ -9,7 +9,7 @@ import posts from './modules/Post/PostReducer';
 import intl from './modules/Intl/IntlReducer';
 import programs from './modules/Program/reducer';
 import auth from './modules/Auth/AuthReducer';
-import documents from './modules/Account/MyDocuments/reducer';
+// import documents from './modules/Account/Documents/reducer';
 import activities from './modules/Account/Activity/reducer';
 
 import { reducer as notifications } from 'react-notification-system-redux';
@@ -22,6 +22,6 @@ export default combineReducers({
   intl,
   programs,
   auth,
-  documents,
+  // documents,
   activities
 });

@@ -10,7 +10,7 @@ import GoogleLogin from 'react-google-login';
 
 import styles from './styles.css';
 
-import { registerRequest, socialLoginRequest, setRedirectUrl } from './AuthActions.js';
+import { register, socialLogin, setRedirectUrl } from './AuthActions.js';
 
 class Register extends Component {
 
@@ -88,8 +88,8 @@ class Register extends Component {
   register() {
     if (!this.validation()) return;
 
-    this.props.dispatch(setRedirectUrl('/profile'));
-    this.props.dispatch(registerRequest({
+    this.props.dispatch(setRedirectUrl('/account/profile'));
+    this.props.dispatch(register({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -104,12 +104,13 @@ class Register extends Component {
   facebookLogin(response) {
     if (this.props.auth.state === 'LOGGING') return;
 
-    this.props.dispatch(setRedirectUrl('/profile'));
-    this.props.dispatch(socialLoginRequest('facebook', {
+    this.props.dispatch(setRedirectUrl('/account/profile'));
+    this.props.dispatch(socialLogin('facebook', {
       id: response.id,
       givenName: response.first_name,
       familyName: response.last_name,
-      photo: response.picture.data.url
+      photo: response.picture.data.url,
+      email: response.email
     }));
   }
 
@@ -121,12 +122,13 @@ class Register extends Component {
 
     if (this.props.auth.state === 'LOGGING') return;
 
-    this.props.dispatch(setRedirectUrl('/profile'));
-    this.props.dispatch(socialLoginRequest('google', {
+    this.props.dispatch(setRedirectUrl('/account/profile'));
+    this.props.dispatch(socialLogin('google', {
       id: response.googleId,
       givenName: response.profileObj.givenName,
       familyName: response.profileObj.familyName,
-      photo: response.profileObj.imageUrl
+      photo: response.profileObj.imageUrl,
+      email: response.profileObj.email
     }));
   }
 

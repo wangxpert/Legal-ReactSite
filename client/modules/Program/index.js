@@ -26,7 +26,7 @@ function mapStateToProps(state) {
     finalData: state.programs.finalData,
     activities: state.activities.activities,
     currentActivity: state.programs.currentActivity,
-    docState: state.documents.state
+    // docState: state.documents.state
   }
 }
 

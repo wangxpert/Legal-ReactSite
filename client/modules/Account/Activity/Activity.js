@@ -89,7 +89,7 @@ class Activity extends Component {
   }
 
   sort(a, b) {
-    if (this.state.sortBy === 'Date') return a.updated >= b.updated
+    if (this.state.sortBy === 'Date') return a.updated <= b.updated
     else return (a.name.toLowerCase()) >= (b.name.toLowerCase())
   }
 

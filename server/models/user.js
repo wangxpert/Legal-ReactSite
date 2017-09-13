@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
+import bcrypt from 'bcrypt-nodejs'
+
 const userSchema = new Schema({
   provider: {
     type: String,
@@ -10,7 +12,7 @@ const userSchema = new Schema({
 
   id: {
     type: String,
-    index: { unique: true }
+    unique: true
   },
 
   displayName: {
@@ -36,7 +38,10 @@ const userSchema = new Schema({
     }
   },
 
-  emails: [{ value: String, kind: String }],
+  email: {
+    type: String,
+    unique: true
+  },
 
   phone: {
     type: String,
@@ -44,8 +49,10 @@ const userSchema = new Schema({
   },
 
   address: {
-    type: String,
-    default: ''
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String
   },
 
   memberShip: {
@@ -75,7 +82,7 @@ const userSchema = new Schema({
 });
 
 userSchema.methods.validPassword = function(password) {
-  return password == this.password;
+  return bcrypt.compareSync(password, this.password)
 }
 
 export default mongoose.model('User', userSchema);

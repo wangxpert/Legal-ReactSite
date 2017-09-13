@@ -45,7 +45,6 @@ class Topic extends Component {
   }
 
   onCalcTax() {
-    console.log(this.props.calcTaxInfo);
     this.props.setFinalNode('CalculateTax', { calcTaxInfo: this.props.calcTaxInfo });
   }
 

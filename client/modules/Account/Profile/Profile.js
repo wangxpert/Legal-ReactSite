@@ -1,67 +1,44 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
 // Import Style
-// import styles from './Profile.css'
+import styles from './styles.css'
 
 // Import Components
 import { browserHistory } from 'react-router'
 
-import Button from '../../../components/Button/Button'
-import UserInfo from './components/UserInfo'
-import Membership from './components/Membership'
-import Conversation from './components/Conversation'
-import Activity from './components/Activity'
-import Document from './components/Document'
+import General from './components/General'
 
-// Import Actions
-import { fetchUserProfileRequested } from '../../Auth/AuthActions'
 
 class Profile extends Component {
   constructor(props) {
     super(props)
+
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchUserProfileRequested())
-  }
-
-  onUpdateInfo() {
-    alert('Update Information')
-  }
-
-  onUpgradeMembership() {
-    alert('Upgrade')
-  }
-
-  onViewAll() {
-    browserHistory.push('/mydocuments')
-  }
-
-  onAsk() {
-    alert('Ask a Maven')
+    this.props.fetchUserProfile()
   }
 
   render() {
-    return (
-      <div className={`container wow fadeIn`}>
-        <div className='row'>
-          <div className='col-md-4 col-xs-12'>
-            <UserInfo user={this.props.auth.user} onUpdate={this.onUpdateInfo.bind(this)}/>
-          </div>
-          <div className='col-md-8 col-xs-12'>
-            <Membership onUpgrade={this.onUpgradeMembership.bind(this)}/>
+    const { auth: { user } } = this.props
 
-          </div>
-          <div className='col-md-8 col-xs-12'>
-            <Document onView={this.onViewAll.bind(this)}/>
+    return (
+      <div className={ `container wow fadeIn` }>
+        <div className={ `${styles.container} row` }>
+          <div className={ `${styles['tab-bar']} col-xs-12` }>
+            <div className={ `${ styles.tab } ${ styles.active }` }>
+              <i className={ `fa fa-user-o ${ styles['tab-icon'] }` } aria-hidden="true"> </i> &nbsp;User #{ user.id ? user.id.substr(user.id.length - 6, 6) : '' }
             </div>
-          <div className='col-xs-12'>
-            <Activity />
           </div>
-          <div className='col-xs-12'>
-            <Conversation onAsk={this.onAsk.bind(this)}/>
+
+          <div className={ `${styles.content} col-xs-12` }>
+            <General user={ user } error={ this.props.errorMessage }
+              updateName={ this.props.updateName }
+              updateEmail={ this.props.updateEmail }
+              updatePassword={ this.props.updatePassword }
+              updateAddress={ this.props.updateAddress }
+              updatePhone={ this.props.updatePhone } />
           </div>
         </div>
       </div>
@@ -69,15 +46,8 @@ class Profile extends Component {
   }
 }
 
-// Retrieve data from store as props
-function mapStateToProps(store) {
-  return {
-    auth: store.auth
-  }
-}
-
 Profile.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+
 }
 
-export default connect(mapStateToProps)(Profile)
+export default Profile

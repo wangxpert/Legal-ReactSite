@@ -43,6 +43,7 @@
     "babel-preset-react-optimize": "^1.0.1",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.9.0",
+    "bcrypt-nodejs": "0.0.3",
     "better-react-spinkit": "^2.0.0",
     "body-parser": "^1.15.1",
     "chai": "^3.5.0",

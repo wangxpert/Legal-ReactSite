@@ -21,9 +21,9 @@ if (process.env.NODE_ENV !== 'production') {
   require('./modules/LegalForms/LegalForms');
   require('./modules/LegalTopics/LegalTopics');
   require('./modules/Account');
-  require('./modules/Account/Profile/Profile');
+  require('./modules/Account/Profile');
   require('./modules/Account/Activity');
-  require('./modules/Account/MyDocuments');
+  require('./modules/Account/Documents');
   require('./modules/Auth/Login');
   require('./modules/Auth/Register');
 }
@@ -99,15 +99,15 @@ export default (
         path="profile"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./modules/Account/Profile/Profile').default);
+            cb(null, require('./modules/Account/Profile').default);
           });
         }}
       />
       <Route
-        path="mydocuments"
+        path="documents"
         getComponent={(nextState, cb) => {
           require.ensure([], require => {
-            cb(null, require('./modules/Account/MyDocuments').default);
+            cb(null, require('./modules/Account/Documents').default);
           });
         }}
       />

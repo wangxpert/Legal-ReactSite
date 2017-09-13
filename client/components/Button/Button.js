@@ -15,9 +15,10 @@ class Button extends Component {
       className += ` ${styles['full-width']}`
     }
     return (
-      <div className={className} onClick={this.props.onClick} style={this.props.style}>
+      <button className={`${className} ${this.props.className}`} type={ this.props.type ? this.props.type : 'button' }
+        onClick={this.props.onClick} style={this.props.style}>
         {this.props.title}
-      </div>
+      </button>
     );
   }
 }

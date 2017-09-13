@@ -16,7 +16,7 @@ export function NavBar(props) {
 
         <div className={ `${ styles['nav-item'] } ${ selected === 'profile' ? styles.active: '' } ` }><Link to='/account/profile'>Profile</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'membership' ? styles.active: '' } ` }><Link to='/account/membership'>Membership</Link></div>
-        <div className={ `${ styles['nav-item'] } ${ selected === 'mydocuments' ? styles.active: '' } ` }><Link to='/account/mydocuments'>My Documents</Link></div>
+        <div className={ `${ styles['nav-item'] } ${ selected === 'documents' ? styles.active: '' } ` }><Link to='/account/documents'>Documents</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'activity' ? styles.active: '' } ` }><Link to='/account/activity'>Activity</Link></div>
 
       </div>
@@ -25,7 +25,7 @@ export function NavBar(props) {
 }
 
 NavBar.contextTypes = {
-  router: React.PropTypes.object,
+  router: PropTypes.object,
 };
 
 NavBar.propTypes = {
