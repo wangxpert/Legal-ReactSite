@@ -45,15 +45,15 @@ class Form extends Component {
   }
 
   onSave() {
-    if (this.props.state === 'SAVE_DOC_SUCCESS') {
-      this.props.warningMessage({
-        // uid: 'once-please', // you can specify your own uid if required
-        title: 'Already saved',
-        message: 'This form is already saved.',
-        position: 'tr',
-      });
-      return;
-    }
+    // if (this.props.state === 'SAVE_DOC_SUCCESS') {
+    //   this.props.warningMessage({
+    //     // uid: 'once-please', // you can specify your own uid if required
+    //     title: 'Already saved',
+    //     message: 'This form is already saved.',
+    //     position: 'tr',
+    //   });
+    //   return;
+    // }
 
     this.props.save();
   }
@@ -63,6 +63,7 @@ class Form extends Component {
   }
 
   render() {
+    console.log(this.props.checkout)
     return (
       <div className={ `${styles.container} wow fadeIn` }>
         <div className={ styles.header }>
@@ -80,7 +81,7 @@ class Form extends Component {
           </div>
         </div>
         <div className={ styles.footer }>
-          <div className={ styles.button }>
+          <div className={ styles.button } onClick={ this.props.checkout }>
             <i className="fa fa-download" aria-hidden="true">&nbsp;&nbsp;</i>CHECKOUT TO DOWNLOAD
           </div>
         </div>
@@ -93,7 +94,7 @@ class Form extends Component {
 // Retrieve data from store as props
 function mapStateToProps(state) {
   return {
-    state: state.documents.state
+
   };
 }
 

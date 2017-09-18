@@ -1,0 +1,29 @@
+.container {
+  background-color: #fff;
+  box-shadow: 0 0 6rem rgb(0, 0, 0, .1);
+  display: inline-block;
+  text-align: center;
+}
+
+.content {
+  padding: 30rem 50rem;
+  text-align: left;
+  font-size: 18rem;
+  font-weight: 500;
+}
+
+.close-button {
+  position: absolute;
+  color: #ccc;
+  text-align: right;
+  right: 30rem;
+  z-index: 100;
+}
+
+.close-button i {
+  cursor: pointer;
+}
+
+.close-button i:hover {
+  color: #666;
+}

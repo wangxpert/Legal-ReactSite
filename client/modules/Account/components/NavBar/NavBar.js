@@ -15,7 +15,7 @@ export function NavBar(props) {
       <div className={styles.nav}>
 
         <div className={ `${ styles['nav-item'] } ${ selected === 'profile' ? styles.active: '' } ` }><Link to='/account/profile'>Profile</Link></div>
-        <div className={ `${ styles['nav-item'] } ${ selected === 'membership' ? styles.active: '' } ` }><Link to='/account/membership'>Membership</Link></div>
+        <div className={ `${ styles['nav-item'] } ${ selected === 'billing' ? styles.active: '' } ` }><Link to='/account/billing'>Billing</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'documents' ? styles.active: '' } ` }><Link to='/account/documents'>Documents</Link></div>
         <div className={ `${ styles['nav-item'] } ${ selected === 'activity' ? styles.active: '' } ` }><Link to='/account/activity'>Activity</Link></div>
 

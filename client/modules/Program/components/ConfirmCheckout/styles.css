@@ -1,0 +1,63 @@
+.container {
+
+}
+
+.title {
+  color: #02b2fb;
+  font-size: 27rem;
+  font-weight: 500;
+  text-align: center;
+  padding: 8rem 0;
+}
+
+.description {
+  text-align: center;
+  font-size: 18rem;
+  font-weight: 500;
+  padding: 3rem 0;
+  margin-top: 10rem;
+}
+
+.button-text {
+  font-size: 20rem;
+  font-weight: 500;
+  padding: 10rem 0;
+}
+
+.info-container {
+  font-size: 20rem;
+  font-weight: 400;
+  padding: 10rem 0rem;
+}
+
+.info {
+  font-weight: 400;
+  padding: 2rem 0;
+}
+
+.info .info-title {
+  font-weight: 500;
+  color: #333;
+}
+
+.option {
+  color: rgba(0, 0, 0, .3);
+  cursor: pointer;
+  border: 3rem solid rgba(0, 0, 0, .3);
+  display: inline-block;
+  height: 110rem;
+  width: 120rem;
+  margin: 20rem 10rem;
+  padding-top: 20rem;
+  font-size: 20rem;
+  font-weight: 500;
+}
+
+.option:hover, .option.active {
+  border-color: #02b2fb;
+  color: #02b2fb;
+}
+
+.option i {
+  font-size: 52rem;
+}

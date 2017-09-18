@@ -17,7 +17,7 @@
 
 .nav .nav-item {
   display: inline-block;
-  padding: 20rem 16rem;
+  padding: 20rem 0rem;
   color: #0078c5;
   cursor: pointer;
 }
@@ -29,7 +29,7 @@
 }
 
 .nav-item > a {
-  padding: 20rem 0;
+  padding: 20rem 16rem;
   text-decoration: none;
   color: #0078c5;
 }

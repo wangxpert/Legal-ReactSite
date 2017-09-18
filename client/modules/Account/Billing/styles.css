@@ -58,7 +58,7 @@
   display: inline-block;
   font-size: 20rem;
   font-weight: 500;
-  padding: 16rem 0;
+  padding: 16rem;
   margin-right: 30rem;
 }
 
@@ -185,4 +185,51 @@
   border: 1rem solid #02b2fb;
   color: #02b2fb;
   padding: 9rem 16rem;
+}
+
+.card {
+  color: #02b2fb;
+  cursor: pointer;
+  border: 2rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 10rem;
+  font-size: 20rem;
+  height: 120rem;
+  line-height: 120rem;
+  margin: 20rem 0;
+  max-width: 270rem;
+  text-align: center;
+  position: relative;
+}
+
+.card .card-image {
+  width: 60rem;
+  height: auto;
+  position: absolute;
+  left: 16rem;
+  top: 10rem;
+}
+
+.card .card-number {
+  color: #000;
+  position: absolute;
+  bottom: 36rem;
+  right: 16rem;
+  letter-spacing: 2rem;
+}
+
+.card .card-expire {
+  color: #000;
+  position: absolute;
+  bottom: 10rem;
+  right: 16rem;
+  font-size: 16rem;
+}
+
+.card i {
+  font-size: 32rem;
+  vertical-align: middle;
+}
+
+.card:hover {
+  border-color: #02b2fb;
 }

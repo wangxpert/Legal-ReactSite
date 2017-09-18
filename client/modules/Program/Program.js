@@ -14,7 +14,10 @@ import FinalCalculateTax from './components/FinalNode/Topic/CalculateTax'
 import ContactDialog from './components/ContactDialog'
 import GoActivityDialog from './components/GoActivityDialog'
 import SaveStepDialog from '../../components/InputDialog'
-
+import ModalDialog from '../../components/ModalDialog'
+import AddCard from '../Account/Billing/components/AddCard'
+import ConfirmCheckout from './components/ConfirmCheckout'
+import OrderConfirmed from './components/OrderConfirmed'
 
 class Program extends Component {
 
@@ -25,6 +28,8 @@ class Program extends Component {
       showContact: false,
       showSaveStep: false,
       showGoActivity: false,
+      showCheckout: false,
+      checkoutStage: 'Card'
     }
 
     props.fetchProgram(props.params.name);
@@ -44,6 +49,10 @@ class Program extends Component {
     this.saveStep = this.saveStep.bind(this)
     this.goActivity = this.goActivity.bind(this)
     this.saveDoc = this.saveDoc.bind(this)
+    this.toggleCheckout = this.toggleCheckout.bind(this)
+    this.onCard = this.onCard.bind(this)
+    this.onConfirm = this.onConfirm.bind(this)
+    this.onConfirmed = this.onConfirmed.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -148,6 +157,24 @@ class Program extends Component {
     }
   }
 
+  toggleCheckout() {
+    console.log('ddd')
+    this.setState({ showCheckout: !this.state.showCheckout, checkoutStage: 'Card' })
+  }
+
+  onCard(data) {
+    this.setState({ checkoutStage: 'Confirm' })
+  }
+
+  onConfirm() {
+    this.setState({ checkoutStage: 'Confirmed' })
+  }
+
+  onConfirmed(rate) {
+    console.log(rate)
+    this.toggleCheckout()
+  }
+
   render() {
     const { showSideBar, showFinalNode, finalKind, finalData, program, history, progress } = this.props;
 
@@ -176,7 +203,7 @@ class Program extends Component {
             <FinalCalculateTax calcTaxInfo={ finalData.calcTaxInfo } showContact={ this.showContact } />
           }
           { (showFinalNode && (finalKind === 'Form')) &&
-            <FinalForm data={ finalData } save={ this.saveDoc } />
+            <FinalForm data={ finalData } save={ this.saveDoc } checkout={ this.toggleCheckout } />
           }
         </div>
 
@@ -185,6 +212,11 @@ class Program extends Component {
           show={ this.state.showSaveStep } close={ this.closeSaveStep } save={ this.saveStep } />
 
         <GoActivityDialog show={ this.state.showGoActivity } close={ this.closeGoActivity } go={ this.goActivity } />
+        <ModalDialog show={ this.state.showCheckout } close={ this.toggleCheckout }>
+          { this.state.checkoutStage === 'Card' && <AddCard buttonTitle="Continue to checkout" showRemember={ true } submit={ this.onCard }/>}
+          { this.state.checkoutStage === 'Confirm' && <ConfirmCheckout checkout={ this.onConfirm } form={ program.description } order="12345678" date={ (new Date()).toString() } amount={ 20 }/> }
+          { this.state.checkoutStage === 'Confirmed' && <OrderConfirmed noThanks={ this.toggleCheckout } comment={ this.onConfirmed } /> }
+        </ModalDialog>
       </div>
     );
   }
