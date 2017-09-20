@@ -17,29 +17,41 @@ class Billing extends Component {
 
     this.state = {
       showAddCard: false,
-      cards: []
     }
 
     this.onAddCard = this.onAddCard.bind(this)
   }
 
+  componentWillMount() {
+    this.props.fetchUserProfile()
+  }
+
   componentDidMount() {
+
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== this.props.user && nextProps.user) {
+      if (nextProps.user.customerId) this.props.getCustomer(nextProps.user.customerId)
+    }
+
+    if (nextProps.state !== this.props.state && nextProps.state === 'ADD_CARD_SUCCESS') {
+      this.props.getCustomer(nextProps.user.customerId)
+    }
   }
 
-  onAddCard(data) {
-    let cards = this.state.cards.slice()
-    cards.push(data)
-    console.log(cards)
-    this.setState({ showAddCard: false, cards: cards })
+  onAddCard(nonce, data, remember) {
+    this.props.addCard(this.props.user.customerId, nonce, { postal_code: data.billing_postal_code, country: 'US' })
+    this.setState({ showAddCard: false })
   }
 
   render() {
-    const cards = this.state.cards.map((e, index) =>
-      <Card key={ index } type={ e.type } number={ e.cvc } expire={ e.expiration } onClick={ e => this.setState({ showAddCard: true }) } />
-    )
+    let cards = null
+    if (this.props.customer && this.props.customer.cards) {
+      cards = this.props.customer.cards.map((e, index) =>
+        <Card key={ index } type={ e.card_brand } number={ e.last_4 } expire={ `${e.exp_month} / ${e.exp_year}` } onClick={ e => this.setState({ showAddCard: true }) } />
+      )
+    }
     return (
       <div className={ `container wow fadeIn` }>
         <SecurityPolicy />

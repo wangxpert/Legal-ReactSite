@@ -12,12 +12,12 @@
   margin-bottom: 16rem;
 }
 
-.card label {
+.card .label {
   font-size: 20rem;
   font-weight: 500;
 }
 
-.card input {
+.card .input {
   margin: 0 0 10rem 0;
   padding: 9.5rem 15rem;
   height: 45rem;
@@ -37,15 +37,48 @@
   font-weight: 500;
 }
 
-.card input::placeholder {
+.card .input::placeholder {
   font-size: 18rem;
   font-weight: 400;
 }
 
-.card input:hover, input:active {
+.card .input:hover, .input:active {
   border-color: #02b2fb;
 }
 
-.card input:active, input:focus {
+.card .input:active, .input:focus {
   outline: none;
+}
+
+.buttonWrapper {
+  padding: 0 16px;
+}
+
+.buttonWrapper button {
+  display: inline-block;
+  background: #02b2fb;
+  border: none;
+  height: 42rem;
+  border-radius: 7rem;
+  font-size: 18rem;
+  font-weight: 500;
+  margin-top: 20rem;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0rem 2rem 2rem rgba(0, 0, 0, .3);
+  width: 100%;
+
+}
+
+button:hover {
+  color: white;
+}
+
+button:focus {
+  outline: 0;
+}
+
+button:active {
+  box-shadow: 0 0;
 }

@@ -11,6 +11,7 @@ import programs from './modules/Program/reducer';
 import auth from './modules/Auth/AuthReducer';
 // import documents from './modules/Account/Documents/reducer';
 import activities from './modules/Account/Activity/reducer';
+import pay from './modules/Account/Billing/reducer'
 
 import { reducer as notifications } from 'react-notification-system-redux';
 
@@ -23,5 +24,6 @@ export default combineReducers({
   programs,
   auth,
   // documents,
-  activities
+  activities,
+  pay
 });

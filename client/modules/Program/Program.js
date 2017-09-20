@@ -72,6 +72,17 @@ class Program extends Component {
         if (this.props.currentActivity) this.props.updateActivity(this.props.currentActivity, { status: 'Complete' })
       }
     }
+
+    if (nextProps.payState !== this.props.payState) {
+      if (nextProps.payState === 'PAY_SUCCESS') {
+        this.setState({ checkoutStage: 'Confirmed' })
+        console.log('working')
+      }
+    }
+  }
+
+  componentWillMount() {
+    this.props.fetchUserProfile()
   }
 
   componentDidMount() {
@@ -158,16 +169,20 @@ class Program extends Component {
   }
 
   toggleCheckout() {
-    console.log('ddd')
     this.setState({ showCheckout: !this.state.showCheckout, checkoutStage: 'Card' })
   }
 
-  onCard(data) {
+  onCard(nonce, data, remember) {
+    this.props.setCard({nonce, data, remember})
+
+    if (remember) {
+      this.props.addCard(this.props.user.customerId, nonce, { postal_code: data.billing_postal_code, country: 'US' })
+    }
     this.setState({ checkoutStage: 'Confirm' })
   }
 
   onConfirm() {
-    this.setState({ checkoutStage: 'Confirmed' })
+    this.props.pay(this.props.card.nonce, 50 * 100)
   }
 
   onConfirmed(rate) {

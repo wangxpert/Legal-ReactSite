@@ -45,6 +45,7 @@ import docs from './routes/document.routes';
 import programs from './routes/program.routes';
 import auth from './routes/auth.routes';
 import activities from './routes/activity.routes'
+import pay from './routes/pay.routes'
 
 import User from './models/user';
 
@@ -120,6 +121,7 @@ app.use('/api', posts);
 app.use('/api/programs', programs);
 app.use('/api/docs', docs);
 app.use('/api/activities', activities);
+app.use('/api/pay', pay);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

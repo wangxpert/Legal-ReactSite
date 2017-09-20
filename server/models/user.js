@@ -75,6 +75,11 @@ const userSchema = new Schema({
     default: ''
   },
 
+  customerId: {
+    type: String,
+    default: ''
+  },
+
   created: {
     type: Date,
     default: Date.now

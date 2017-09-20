@@ -63,7 +63,7 @@ class Form extends Component {
   }
 
   render() {
-    console.log(this.props.checkout)
+
     return (
       <div className={ `${styles.container} wow fadeIn` }>
         <div className={ styles.header }>

@@ -2,6 +2,7 @@ import User from '../models/user';
 import passport from 'passport';
 import bcrypt from 'bcrypt-nodejs'
 import cuid from 'cuid'
+import { createCustomer } from './pay.controller'
 
 /**
  * Login a User
@@ -15,20 +16,33 @@ function social(provider, req, res) {
       if (user) {
         return user;
       } else {
-        const newUser = User({
-          provider: provider,
-          id: info.id,
-          email: info.email,
+        createCustomer({
+          given_name: info.givenName,
+          family_name: info.familyName,
+          email_address: info.email,
+          reference_id: info.id
+        }).then(({ json, response }) => {
 
-          name: {
-            familyName: info.familyName,
-            givenName: info.givenName
-          },
+          if (!response.ok) {
+            res.status(500).json({ status: 500, err: json.errors })
+          } else {
+            const newUser = User({
+              provider: provider,
+              id: info.id,
+              email: info.email,
 
-          photo: info.photo
+              name: {
+                familyName: info.familyName,
+                givenName: info.givenName
+              },
+
+              photo: info.photo,
+              customerId: json.customer.id
+            })
+
+            return newUser.save();
+          }
         })
-
-        return newUser.save();
       }
     });
 }
@@ -70,28 +84,44 @@ export function register(req, res) {
   const salt = bcrypt.genSaltSync(10)
   const hash = bcrypt.hashSync(req.body.password, salt)
 
-  const newUser = new User({
-    provider: 'local',
-    id: cuid(),
-    email: req.body.email,
+  const uid = cuid()
 
-    name: {
-      familyName: req.body.lastName,
-      givenName: req.body.firstName
-    },
+  createCustomer({
+    given_name: req.body.firstName,
+    family_name: req.body.lastName,
+    email_address: req.body.email,
+    reference_id: uid
+  })
+  .then(({ json, response }) => {
 
-    password: hash
+    if (!response.ok) {
+      res.status(500).json({ status: 500, err: json.errors })
+    } else {
+      const newUser = new User({
+        provider: 'local',
+        id: uid,
+        email: req.body.email,
+
+        name: {
+          familyName: req.body.lastName,
+          givenName: req.body.firstName
+        },
+
+        customerId: json.customer.id,
+        password: hash
+      });
+
+      return newUser.save()
+    }
+  })
+  .then( user => res.status(201).json({ status: 201, message: 'User Registered Successfully !', user: user }) )
+  .catch( err => {
+    if (err.code == 11000) {
+      res.status(409).json({ status: 409, message: 'The User Already Registered !' });
+    } else {
+      res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
+    }
   });
-
-  newUser.save()
-    .then( user => res.status(201).json({ status: 201, message: 'User Registered Successfully !', user: user }) )
-    .catch( err => {
-      if (err.code == 11000) {
-        res.status(409).json({ status: 409, message: 'The User Already Registered !' });
-      } else {
-        res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
-      }
-    });
 }
 
 export function logout(req, res) {
