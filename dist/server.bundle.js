@@ -4006,7 +4006,7 @@
 	    from: 'support@legalmaven.com',
 	    to: receiver,
 	    subject: 'LegalMaven - Purchased Form',
-	    html: '<html>Thanks for using Legal Maven<br/><p><a href="https://legalmaven.herokuapp.com/' + output + '" download>Click here to receive the form.</a></p></html>'
+	    html: '<!DOCTYPE html><html><body>Thanks for using Legal Maven<br/><p><a href="https://legalmaven.herokuapp.com/' + output + '" download>Click here to receive the form.</a></p></body></html>'
 	  };
 	
 	  transporter.sendMail(mailOptions, function (err, info) {
@@ -9373,7 +9373,7 @@
 	              _this.outputLink.click();
 	            }, 100);
 	          } else {
-	            nextProps.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc);
+	            this.props.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc);
 	          }
 	        } else if (nextProps.pay.state === 'SEND_OUTPUT_BY_EMAIL_SUCCESS') {
 	          this.props.successMessage({
