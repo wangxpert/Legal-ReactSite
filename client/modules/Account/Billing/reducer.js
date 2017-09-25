@@ -28,7 +28,7 @@ const getCustomerSuccess = (state, action) => {
 }
 
 const getCustomerFailure = (state, action) => {
-  return { ...state, state: 'GET_CUSTOMER_FAILURE', err: action.err }
+  return { ...state, state: 'GET_CUSTOMER_FAILURE', err: action.err.err }
 }
 
 const addCardRequest = (state, action) => {
@@ -47,8 +47,35 @@ const setCard = (state, action) => {
   return { ...state, state: 'SET_CARD', card: action.card }
 }
 
+const saveTransactionRequest = (state, action) => {
+  return { ...state, state: 'SAVE_TRANSACTION_REQUEST' }
+}
+
+const saveTransactionSuccess = (state, action) => {
+  return { ...state, state: 'SAVE_TRANSACTION_SUCCESS', transaction: action.result.transaction, result: action.result }
+}
+
+const saveTransactionFailure = (state, action) => {
+  return { ...state, state: 'SAVE_TRANSACTION_FAILURE', err: action.err }
+}
+
+const sendOutputByEmailRequest = (state, action) => {
+  return { ...state, state: 'SEND_OUTPUT_BY_EMAIL_REQUEST' }
+}
+
+const sendOutputByEmailSuccess = (state, action) => {
+  return { ...state, state: 'SEND_OUTPUT_BY_EMAIL_SUCCESS', result: action.result }
+}
+
+const sendOutputByEmailFailure = (state, action) => {
+  return { ...state, state: 'SEND_OUTPUT_BY_EMAIL_FAILURE', err: action.err }
+}
+
 const PayReducer = (state = initialState, action) => {
   switch (action.type) {
+    case Actions.PAY_REQUEST:
+      return payRequest(state, action)
+
     case Actions.PAY_SUCCESS:
       return paySuccess(state, action)
 
@@ -75,6 +102,24 @@ const PayReducer = (state = initialState, action) => {
 
     case Actions.ADD_CARD_FAILURE:
       return addCardFailure(state, action)
+
+    case Actions.SAVE_TRANSACTION_REQUEST:
+      return saveTransactionRequest(state, action)
+
+    case Actions.SAVE_TRANSACTION_SUCCESS:
+      return saveTransactionSuccess(state, action)
+
+    case Actions.SAVE_TRANSACTION_FAILURE:
+      return saveTransactionFailure(state, action)
+
+    case Actions.SEND_OUTPUT_BY_EMAIL_REQUEST:
+      return sendOutputByEmailRequest(state, action)
+
+    case Actions.SEND_OUTPUT_BY_EMAIL_SUCCESS:
+      return sendOutputByEmailSuccess(state, action)
+
+    case Actions.SEND_OUTPUT_BY_EMAIL_FAILURE:
+      return sendOutputByEmailFailure(state, action)
 
     default:
       return state

@@ -1,4 +1,7 @@
 import Document from '../models/document'
+import fetch from 'isomorphic-fetch'
+import Buffer from 'buffer'
+import fs from 'fs'
 
 export function getDocuments(req, res) {
   if (!req.user)
@@ -57,7 +60,6 @@ export function getDocument(req, res) {
 }
 
 export function deleteDocument(req, res) {
-
   if (!req.user)
     return res.status(401).json({ status: 401, message: 'UnAuthorized' })
 
@@ -69,11 +71,20 @@ export function deleteDocument(req, res) {
 
   Document.findOne({ _id: docId }).exec((err, doc) => {
     if (err) {
-      return res.status(500).json({ status: 500, message: 'Server side Error',  err})
+      return res.status(500).json({ status: 500, message: 'Server Side Error',  err})
     }
 
     doc.remove(() => {
       return res.status(200).json({ status: 200, message: 'Successfully Deleted' })
     })
   })
+}
+
+export function createOutput(req, res) {
+  if (!req.user)
+    return res.status(401).json({ status: 401, message: 'UnAuthorized' })
+
+  const { templateName, data } = req.body
+
+  createDocument(templateName, data)
 }

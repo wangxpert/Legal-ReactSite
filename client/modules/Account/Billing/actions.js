@@ -14,6 +14,14 @@ export const ADD_CARD_REQUEST = 'ADD_CARD_REQUEST'
 export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS'
 export const ADD_CARD_FAILURE = 'ADD_CARD_FAILURE'
 
+export const SAVE_TRANSACTION_REQUEST = 'SAVE_TRANSACTION_REQUEST'
+export const SAVE_TRANSACTION_SUCCESS = 'SAVE_TRANSACTION_SUCCESS'
+export const SAVE_TRANSACTION_FAILURE = 'SAVE_TRANSACTION_FAILURE'
+
+export const SEND_OUTPUT_BY_EMAIL_REQUEST = 'SEND_OUTPUT_BY_EMAIL_REQUEST'
+export const SEND_OUTPUT_BY_EMAIL_SUCCESS = 'SEND_OUTPUT_BY_EMAIL_SUCCESS'
+export const SEND_OUTPUT_BY_EMAIL_FAILURE = 'SEND_OUTPUT_BY_EMAIL_FAILURE'
+
 export const SET_CARD = 'SET_CARD'
 
 // Export Actions
@@ -93,3 +101,51 @@ export const addCardFailure = (err) =>
 
 export const setCard = (card) =>
   ({ type: SET_CARD, card })
+
+export function saveTransaction(transactionId, template, data) {
+
+  return (dispatch) => {
+    dispatch(saveTransactionRequest(transactionId, template, data))
+
+    return callApi('pay/transactions/save', 'POST', {
+      transactionId: transactionId,
+      template: template,
+      data: data
+    })
+    .then(res =>
+      dispatch(saveTransactionSuccess(res)),
+    err =>
+      dispatch(saveTransactionFailure(err))
+    )
+  }
+}
+
+export const saveTransactionRequest = (transactionId, template, data) =>
+  ({ type: SAVE_TRANSACTION_REQUEST, transactionId, template, data })
+
+export const saveTransactionSuccess = (result) =>
+  ({ type: SAVE_TRANSACTION_SUCCESS, result })
+
+export const saveTransactionFailure = (err) =>
+  ({ type: SAVE_TRANSACTION_FAILURE, err })
+
+export function sendOutputByEmail(receiver, output) {
+  return (dispatch) => {
+    dispatch(sendOutputByEmailRequest(receiver, output))
+    return callApi('pay/outputs/sendbyemail', 'POST', {
+      receiver: receiver,
+      output: output
+    })
+    .then(res => dispatch(sendOutputByEmailSuccess(res)))
+    .catch(err => dispatch(sendOutputByEmailFailure(err)))
+  }
+}
+
+export const sendOutputByEmailRequest = (receiver, output) =>
+  ({ type: SEND_OUTPUT_BY_EMAIL_REQUEST, receiver, output })
+
+export const sendOutputByEmailSuccess = (result) =>
+  ({ type: SEND_OUTPUT_BY_EMAIL_SUCCESS, result })
+
+export const sendOutputByEmailFailure = (err) =>
+  ({ type: SEND_OUTPUT_BY_EMAIL_FAILURE, err })

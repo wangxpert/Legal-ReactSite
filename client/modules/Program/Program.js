@@ -29,7 +29,8 @@ class Program extends Component {
       showSaveStep: false,
       showGoActivity: false,
       showCheckout: false,
-      checkoutStage: 'Card'
+      checkoutStage: 'Card',
+      receiveOption: 'download'
     }
 
     props.fetchProgram(props.params.name);
@@ -53,6 +54,7 @@ class Program extends Component {
     this.onCard = this.onCard.bind(this)
     this.onConfirm = this.onConfirm.bind(this)
     this.onConfirmed = this.onConfirmed.bind(this)
+    this.onReceiveOption = this.onReceiveOption.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -73,10 +75,23 @@ class Program extends Component {
       }
     }
 
-    if (nextProps.payState !== this.props.payState) {
-      if (nextProps.payState === 'PAY_SUCCESS') {
+    if (nextProps.pay.state !== this.props.pay.state) {
+      if (nextProps.pay.state === 'PAY_SUCCESS') {
+        this.props.saveTransaction(nextProps.pay.result.transaction.id, this.props.finalData.form, this.props.finalData.info)
+      } else if (nextProps.pay.state === 'SAVE_TRANSACTION_SUCCESS') {
         this.setState({ checkoutStage: 'Confirmed' })
-        console.log('working')
+        if (this.state.receiveOption === 'download') {
+          const _this = this
+          setTimeout(( ) => { _this.outputLink.click() }, 100)
+        } else {
+          nextProps.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc)
+        }
+      } else if (nextProps.pay.state === 'SEND_OUTPUT_BY_EMAIL_SUCCESS') {
+        this.props.successMessage({
+          title: 'Send Form',
+          message: 'The form is sent to your email',
+          position: 'tr',
+        })
       }
     }
   }
@@ -170,6 +185,7 @@ class Program extends Component {
 
   toggleCheckout() {
     this.setState({ showCheckout: !this.state.showCheckout, checkoutStage: 'Card' })
+
   }
 
   onCard(nonce, data, remember) {
@@ -182,7 +198,7 @@ class Program extends Component {
   }
 
   onConfirm() {
-    this.props.pay(this.props.card.nonce, 50 * 100)
+    this.props.buy(this.props.card.nonce, 50 * 100)
   }
 
   onConfirmed(rate) {
@@ -190,8 +206,12 @@ class Program extends Component {
     this.toggleCheckout()
   }
 
+  onReceiveOption(option) {
+    this.setState({ receiveOption: option })
+  }
+
   render() {
-    const { showSideBar, showFinalNode, finalKind, finalData, program, history, progress } = this.props;
+    const { showSideBar, showFinalNode, finalKind, finalData, program, history, progress, pay } = this.props;
 
     var paddingLeft = 12;
     var minWidth = 900;
@@ -228,9 +248,10 @@ class Program extends Component {
 
         <GoActivityDialog show={ this.state.showGoActivity } close={ this.closeGoActivity } go={ this.goActivity } />
         <ModalDialog show={ this.state.showCheckout } close={ this.toggleCheckout }>
-          { this.state.checkoutStage === 'Card' && <AddCard buttonTitle="Continue to checkout" showRemember={ true } submit={ this.onCard }/>}
-          { this.state.checkoutStage === 'Confirm' && <ConfirmCheckout checkout={ this.onConfirm } form={ program.description } order="12345678" date={ (new Date()).toString() } amount={ 20 }/> }
+          { this.state.checkoutStage === 'Card' && <AddCard buttonTitle="Continue to checkout" showRemember={ true } submit={ this.onCard } />}
+          { this.state.checkoutStage === 'Confirm' && <ConfirmCheckout checkout={ this.onConfirm } form={ program.description } amount={ 50 } onReceiveOption={ this.onReceiveOption } /> }
           { this.state.checkoutStage === 'Confirmed' && <OrderConfirmed noThanks={ this.toggleCheckout } comment={ this.onConfirmed } /> }
+          <a ref={ (input) => { this.outputLink = input } } href={ pay.transaction ? `/${ pay.transaction.doc} ` : '' } download />
         </ModalDialog>
       </div>
     );

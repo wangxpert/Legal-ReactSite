@@ -37,7 +37,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 157);
+/******/ 	return __webpack_require__(__webpack_require__.s = 160);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -690,7 +690,7 @@
 	exports.API_URL = undefined;
 	exports.default = callApi;
 	
-	var _isomorphicFetch = __webpack_require__(164);
+	var _isomorphicFetch = __webpack_require__(50);
 	
 	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 	
@@ -722,8 +722,9 @@
 	
 	    if (!response.ok) {
 	      return Promise.reject(json);
+	    } else {
+	      return Promise.resolve(json);
 	    }
-	    return Promise.resolve(json);
 	  });
 	}
 
@@ -990,10 +991,12 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.setCard = exports.addCardFailure = exports.addCardSuccess = exports.addCardRequest = exports.getCustomerFailure = exports.getCustomerSuccess = exports.getCustomerRequest = exports.payFailure = exports.paySuccess = exports.payRequest = exports.SET_CARD = exports.ADD_CARD_FAILURE = exports.ADD_CARD_SUCCESS = exports.ADD_CARD_REQUEST = exports.GET_CUSTOMER_FAILURE = exports.GET_CUSTOMER_SUCCESS = exports.GET_CUSTOMER_REQUEST = exports.PAY_FAILURE = exports.PAY_SUCCESS = exports.PAY_REQUEST = undefined;
+	exports.sendOutputByEmailFailure = exports.sendOutputByEmailSuccess = exports.sendOutputByEmailRequest = exports.saveTransactionFailure = exports.saveTransactionSuccess = exports.saveTransactionRequest = exports.setCard = exports.addCardFailure = exports.addCardSuccess = exports.addCardRequest = exports.getCustomerFailure = exports.getCustomerSuccess = exports.getCustomerRequest = exports.payFailure = exports.paySuccess = exports.payRequest = exports.SET_CARD = exports.SEND_OUTPUT_BY_EMAIL_FAILURE = exports.SEND_OUTPUT_BY_EMAIL_SUCCESS = exports.SEND_OUTPUT_BY_EMAIL_REQUEST = exports.SAVE_TRANSACTION_FAILURE = exports.SAVE_TRANSACTION_SUCCESS = exports.SAVE_TRANSACTION_REQUEST = exports.ADD_CARD_FAILURE = exports.ADD_CARD_SUCCESS = exports.ADD_CARD_REQUEST = exports.GET_CUSTOMER_FAILURE = exports.GET_CUSTOMER_SUCCESS = exports.GET_CUSTOMER_REQUEST = exports.PAY_FAILURE = exports.PAY_SUCCESS = exports.PAY_REQUEST = undefined;
 	exports.pay = pay;
 	exports.getCustomer = getCustomer;
 	exports.addCard = addCard;
+	exports.saveTransaction = saveTransaction;
+	exports.sendOutputByEmail = sendOutputByEmail;
 	
 	var _apiCaller = __webpack_require__(13);
 	
@@ -1017,6 +1020,14 @@
 	var ADD_CARD_REQUEST = exports.ADD_CARD_REQUEST = 'ADD_CARD_REQUEST';
 	var ADD_CARD_SUCCESS = exports.ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
 	var ADD_CARD_FAILURE = exports.ADD_CARD_FAILURE = 'ADD_CARD_FAILURE';
+	
+	var SAVE_TRANSACTION_REQUEST = exports.SAVE_TRANSACTION_REQUEST = 'SAVE_TRANSACTION_REQUEST';
+	var SAVE_TRANSACTION_SUCCESS = exports.SAVE_TRANSACTION_SUCCESS = 'SAVE_TRANSACTION_SUCCESS';
+	var SAVE_TRANSACTION_FAILURE = exports.SAVE_TRANSACTION_FAILURE = 'SAVE_TRANSACTION_FAILURE';
+	
+	var SEND_OUTPUT_BY_EMAIL_REQUEST = exports.SEND_OUTPUT_BY_EMAIL_REQUEST = 'SEND_OUTPUT_BY_EMAIL_REQUEST';
+	var SEND_OUTPUT_BY_EMAIL_SUCCESS = exports.SEND_OUTPUT_BY_EMAIL_SUCCESS = 'SEND_OUTPUT_BY_EMAIL_SUCCESS';
+	var SEND_OUTPUT_BY_EMAIL_FAILURE = exports.SEND_OUTPUT_BY_EMAIL_FAILURE = 'SEND_OUTPUT_BY_EMAIL_FAILURE';
 	
 	var SET_CARD = exports.SET_CARD = 'SET_CARD';
 	
@@ -1103,6 +1114,61 @@
 	var setCard = exports.setCard = function setCard(card) {
 	  return { type: SET_CARD, card: card };
 	};
+	
+	function saveTransaction(transactionId, template, data) {
+	
+	  return function (dispatch) {
+	    dispatch(saveTransactionRequest(transactionId, template, data));
+	
+	    return (0, _apiCaller2.default)('pay/transactions/save', 'POST', {
+	      transactionId: transactionId,
+	      template: template,
+	      data: data
+	    }).then(function (res) {
+	      return dispatch(saveTransactionSuccess(res));
+	    }, function (err) {
+	      return dispatch(saveTransactionFailure(err));
+	    });
+	  };
+	}
+	
+	var saveTransactionRequest = exports.saveTransactionRequest = function saveTransactionRequest(transactionId, template, data) {
+	  return { type: SAVE_TRANSACTION_REQUEST, transactionId: transactionId, template: template, data: data };
+	};
+	
+	var saveTransactionSuccess = exports.saveTransactionSuccess = function saveTransactionSuccess(result) {
+	  return { type: SAVE_TRANSACTION_SUCCESS, result: result };
+	};
+	
+	var saveTransactionFailure = exports.saveTransactionFailure = function saveTransactionFailure(err) {
+	  return { type: SAVE_TRANSACTION_FAILURE, err: err };
+	};
+	
+	function sendOutputByEmail(receiver, output) {
+	  return function (dispatch) {
+	    dispatch(sendOutputByEmailRequest(receiver, output));
+	    return (0, _apiCaller2.default)('pay/outputs/sendbyemail', 'POST', {
+	      receiver: receiver,
+	      output: output
+	    }).then(function (res) {
+	      return dispatch(sendOutputByEmailSuccess(res));
+	    }).catch(function (err) {
+	      return dispatch(sendOutputByEmailFailure(err));
+	    });
+	  };
+	}
+	
+	var sendOutputByEmailRequest = exports.sendOutputByEmailRequest = function sendOutputByEmailRequest(receiver, output) {
+	  return { type: SEND_OUTPUT_BY_EMAIL_REQUEST, receiver: receiver, output: output };
+	};
+	
+	var sendOutputByEmailSuccess = exports.sendOutputByEmailSuccess = function sendOutputByEmailSuccess(result) {
+	  return { type: SEND_OUTPUT_BY_EMAIL_SUCCESS, result: result };
+	};
+	
+	var sendOutputByEmailFailure = exports.sendOutputByEmailFailure = function sendOutputByEmailFailure(err) {
+	  return { type: SEND_OUTPUT_BY_EMAIL_FAILURE, err: err };
+	};
 
 /***/ },
 /* 17 */
@@ -1142,7 +1208,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _Program = __webpack_require__(114);
+	var _Program = __webpack_require__(115);
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
@@ -1184,7 +1250,7 @@
 	    currentActivity: state.programs.currentActivity,
 	    // docState: state.documents.state
 	    card: state.pay.card,
-	    payState: state.pay.state,
+	    pay: state.pay,
 	    user: state.auth.user
 	  };
 	}
@@ -1221,10 +1287,13 @@
 	    errorMessage: function errorMessage(option) {
 	      return dispatch(_reactNotificationSystemRedux2.default.error(option));
 	    },
+	    successMessage: function successMessage(option) {
+	      return dispatch(_reactNotificationSystemRedux2.default.success(option));
+	    },
 	    updateActivity: function updateActivity(id, data) {
 	      return dispatch((0, _actions2.updateActivity)(id, data));
 	    },
-	    pay: function pay(nonce, amount) {
+	    buy: function buy(nonce, amount) {
 	      return dispatch((0, _actions3.pay)(nonce, amount));
 	    },
 	    setCard: function setCard(card) {
@@ -1235,6 +1304,12 @@
 	    },
 	    addCard: function addCard(customerId, nonce, billingAddress, holderName) {
 	      return dispatch((0, _actions3.addCard)(customerId, nonce, billingAddress, holderName));
+	    },
+	    saveTransaction: function saveTransaction(transactionId, template, data) {
+	      return dispatch((0, _actions3.saveTransaction)(transactionId, template, data));
+	    },
+	    sendOutputByEmail: function sendOutputByEmail(receiver, output) {
+	      return dispatch((0, _actions3.sendOutputByEmail)(receiver, output));
 	    }
 	  };
 	}
@@ -1255,39 +1330,39 @@
 	
 	var _ca_professional_corp;
 	
-	var _incorporate = __webpack_require__(142);
+	var _incorporate = __webpack_require__(143);
 	
 	var _incorporate2 = _interopRequireDefault(_incorporate);
 	
-	var _sIncorporate = __webpack_require__(143);
+	var _sIncorporate = __webpack_require__(144);
 	
 	var _sIncorporate2 = _interopRequireDefault(_sIncorporate);
 	
-	var _de_corp = __webpack_require__(140);
+	var _de_corp = __webpack_require__(141);
 	
 	var _de_corp2 = _interopRequireDefault(_de_corp);
 	
-	var _de_s_corp = __webpack_require__(141);
+	var _de_s_corp = __webpack_require__(142);
 	
 	var _de_s_corp2 = _interopRequireDefault(_de_s_corp);
 	
-	var _transfertax = __webpack_require__(148);
+	var _transfertax = __webpack_require__(149);
 	
 	var _transfertax2 = _interopRequireDefault(_transfertax);
 	
-	var _incorporate3 = __webpack_require__(144);
+	var _incorporate3 = __webpack_require__(145);
 	
 	var _incorporate4 = _interopRequireDefault(_incorporate3);
 	
-	var _payroll = __webpack_require__(145);
+	var _payroll = __webpack_require__(146);
 	
 	var _payroll2 = _interopRequireDefault(_payroll);
 	
-	var _trademark = __webpack_require__(147);
+	var _trademark = __webpack_require__(148);
 	
 	var _trademark2 = _interopRequireDefault(_trademark);
 	
-	var _securitydeposit = __webpack_require__(146);
+	var _securitydeposit = __webpack_require__(147);
 	
 	var _securitydeposit2 = _interopRequireDefault(_securitydeposit);
 	
@@ -1338,7 +1413,7 @@
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bcryptNodejs = __webpack_require__(49);
+	var _bcryptNodejs = __webpack_require__(48);
 	
 	var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 	
@@ -1467,21 +1542,21 @@
 	
 	var _reactIntl = __webpack_require__(7);
 	
-	var _intl = __webpack_require__(161);
+	var _intl = __webpack_require__(165);
 	
 	var _intl2 = _interopRequireDefault(_intl);
 	
-	var _intlLocalesSupported = __webpack_require__(162);
+	var _intlLocalesSupported = __webpack_require__(166);
 	
 	var _intlLocalesSupported2 = _interopRequireDefault(_intlLocalesSupported);
 	
-	__webpack_require__(163);
+	__webpack_require__(167);
 	
-	var _en = __webpack_require__(171);
+	var _en = __webpack_require__(175);
 	
 	var _en2 = _interopRequireDefault(_en);
 	
-	var _en3 = __webpack_require__(78);
+	var _en3 = __webpack_require__(79);
 	
 	var _en4 = _interopRequireDefault(_en3);
 	
@@ -1706,7 +1781,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _activity = __webpack_require__(81);
+	var _activity = __webpack_require__(82);
 	
 	var _activity2 = _interopRequireDefault(_activity);
 	
@@ -1798,11 +1873,11 @@
 	
 	var _Button2 = _interopRequireDefault(_Button);
 	
-	var _reactSquareHostedFields = __webpack_require__(172);
+	var _reactSquareHostedFields = __webpack_require__(176);
 	
 	var _reactSquareHostedFields2 = _interopRequireDefault(_reactSquareHostedFields);
 	
-	var _config = __webpack_require__(80);
+	var _config = __webpack_require__(81);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1943,7 +2018,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _Billing = __webpack_require__(84);
+	var _Billing = __webpack_require__(85);
 	
 	var _Billing2 = _interopRequireDefault(_Billing);
 	
@@ -2005,7 +2080,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _Documents = __webpack_require__(89);
+	var _Documents = __webpack_require__(90);
 	
 	var _Documents2 = _interopRequireDefault(_Documents);
 	
@@ -2072,7 +2147,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _Profile = __webpack_require__(92);
+	var _Profile = __webpack_require__(93);
 	
 	var _Profile2 = _interopRequireDefault(_Profile);
 	
@@ -2163,7 +2238,7 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _NavBar = __webpack_require__(99);
+	var _NavBar = __webpack_require__(100);
 	
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 	
@@ -2227,13 +2302,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reduxDevtools = __webpack_require__(174);
+	var _reduxDevtools = __webpack_require__(178);
 	
-	var _reduxDevtoolsLogMonitor = __webpack_require__(176);
+	var _reduxDevtoolsLogMonitor = __webpack_require__(180);
 	
 	var _reduxDevtoolsLogMonitor2 = _interopRequireDefault(_reduxDevtoolsLogMonitor);
 	
-	var _reduxDevtoolsDockMonitor = __webpack_require__(175);
+	var _reduxDevtoolsDockMonitor = __webpack_require__(179);
 	
 	var _reduxDevtoolsDockMonitor2 = _interopRequireDefault(_reduxDevtoolsDockMonitor);
 	
@@ -2271,7 +2346,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _validator = __webpack_require__(54);
+	var _validator = __webpack_require__(55);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -2279,15 +2354,15 @@
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(50);
+	var _reactFacebookLogin = __webpack_require__(51);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(51);
+	var _reactGoogleLogin = __webpack_require__(52);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
-	var _betterReactSpinkit = __webpack_require__(159);
+	var _betterReactSpinkit = __webpack_require__(162);
 	
 	var _styles = {
 	  "page": "_3Ac1z31QYIXo16v83VLnXe",
@@ -2576,7 +2651,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _validator = __webpack_require__(54);
+	var _validator = __webpack_require__(55);
 	
 	var _validator2 = _interopRequireDefault(_validator);
 	
@@ -2584,11 +2659,11 @@
 	
 	var _reactNotificationSystemRedux2 = _interopRequireDefault(_reactNotificationSystemRedux);
 	
-	var _reactFacebookLogin = __webpack_require__(50);
+	var _reactFacebookLogin = __webpack_require__(51);
 	
 	var _reactFacebookLogin2 = _interopRequireDefault(_reactFacebookLogin);
 	
-	var _reactGoogleLogin = __webpack_require__(51);
+	var _reactGoogleLogin = __webpack_require__(52);
 	
 	var _reactGoogleLogin2 = _interopRequireDefault(_reactGoogleLogin);
 	
@@ -2933,7 +3008,7 @@
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Footer = __webpack_require__(108);
+	var _Footer = __webpack_require__(109);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
@@ -3078,7 +3153,7 @@
 	
 	var _LegalForms2 = _interopRequireDefault(_LegalForms);
 	
-	var _PageHeader = __webpack_require__(110);
+	var _PageHeader = __webpack_require__(111);
 	
 	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
@@ -3212,7 +3287,7 @@
 	
 	var _LegalTopics2 = _interopRequireDefault(_LegalTopics);
 	
-	var _PageHeader = __webpack_require__(111);
+	var _PageHeader = __webpack_require__(112);
 	
 	var _PageHeader2 = _interopRequireDefault(_PageHeader);
 	
@@ -3343,7 +3418,7 @@
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _Topic = __webpack_require__(128);
+	var _Topic = __webpack_require__(129);
 	
 	var _Topic2 = _interopRequireDefault(_Topic);
 	
@@ -3657,7 +3732,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -3666,12 +3741,15 @@
 	exports.createCustomer = createCustomer;
 	exports.retrieveCustomer = retrieveCustomer;
 	exports.createCustomerCard = createCustomerCard;
+	exports.createOutput = createOutput;
+	exports.saveTransaction = saveTransaction;
+	exports.sendOutputByEmail = sendOutputByEmail;
 	
-	var _document = __webpack_require__(47);
+	var _transaction = __webpack_require__(159);
 	
-	var _document2 = _interopRequireDefault(_document);
+	var _transaction2 = _interopRequireDefault(_transaction);
 	
-	var _https = __webpack_require__(160);
+	var _https = __webpack_require__(164);
 	
 	var _https2 = _interopRequireDefault(_https);
 	
@@ -3679,14 +3757,24 @@
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _querystring = __webpack_require__(169);
+	var _querystring = __webpack_require__(173);
 	
 	var _querystring2 = _interopRequireDefault(_querystring);
+	
+	var _fs = __webpack_require__(49);
+	
+	var _fs2 = _interopRequireDefault(_fs);
+	
+	var _nodemailer = __webpack_require__(169);
+	
+	var _nodemailer2 = _interopRequireDefault(_nodemailer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var LOCATION_ID = 'CBASEAQ6ZeZCimKPEDuocy7E4BogAQ'; // SandBox Location
 	var ACCESS_TOKEN = 'sandbox-sq0atb-O0DDvmE1XcZPMtj7SbFG7Q'; // SandBox Access Token
+	
+	var REPORTING_CLOUD_CREDENTIAL = 'Basic c25vd3NlYS5kcmVhbUBnbWFpbC5jb206U25vd3NlYTUh';
 	
 	function buy(req, res) {
 	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
@@ -3782,9 +3870,9 @@
 	
 	
 	    if (!response.ok) {
-	      res.status(500).json({ status: 500, err: json.errors });
+	      return res.status(500).json({ status: 500, err: json.errors });
 	    } else {
-	      res.status(200).json({ status: 200, customer: json.customer });
+	      return res.status(200).json({ status: 200, customer: json.customer });
 	    }
 	  });
 	}
@@ -3833,54 +3921,106 @@
 	    }
 	  });
 	}
+	
+	function createOutput(template, data) {
+	  return fetch('https://api.reporting.cloud/v1/document/merge?returnFormat=pdf&templateName=' + template + '.docx&test=true', {
+	    headers: {
+	      'content-type': 'application/json',
+	      'Authorization': REPORTING_CLOUD_CREDENTIAL
+	    },
+	    method: 'POST',
+	    body: JSON.stringify({ mergeData: data })
+	  }).then(function (response) {
+	    return response.json().then(function (json) {
+	      return { json: json, response: response };
+	    });
+	  });
+	}
+	
+	function saveTransaction(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var _req$body3 = req.body,
+	      transactionId = _req$body3.transactionId,
+	      template = _req$body3.template,
+	      data = _req$body3.data;
+	
+	
+	  if (!transactionId || !template || !data) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameters.' });
+	  }
+	
+	  var output = (0, _cuid2.default)();
+	  var path = __dirname + ('/../../dist/client/' + output + '.pdf');
+	
+	  createOutput(template, data).then(function (_ref4) {
+	    var json = _ref4.json,
+	        response = _ref4.response;
+	
+	    if (!response.ok) {
+	      return res.status(500).json({ status: 500, message: "Can't create output from template." });
+	    } else {
+	      var decoded = Buffer.from(json[0], 'base64');
+	      return new Promise(function (resolve, reject) {
+	        return _fs2.default.writeFile(path, decoded, function (err) {
+	          if (err) {
+	            reject(err);
+	          } else {
+	            var transaction = new _transaction2.default({
+	              transactionId: transactionId,
+	              doc: output + '.pdf'
+	            });
+	            resolve(transaction.save());
+	          }
+	        });
+	      });
+	    }
+	  }).then(function (saved) {
+	    return res.status(200).json({ status: 200, transaction: saved });
+	  }).catch(function (err) {
+	    res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
+	  });
+	}
+	
+	function sendOutputByEmail(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var _req$body4 = req.body,
+	      receiver = _req$body4.receiver,
+	      output = _req$body4.output;
+	
+	
+	  if (!receiver || !output) {
+	    return res.status(403).json({ status: 403, message: 'Missing Parameters.' });
+	  }
+	
+	  var transporter = _nodemailer2.default.createTransport({
+	    service: 'SendGrid',
+	    auth: {
+	      user: 'xpertcooldev',
+	      pass: 'xpertcooldev5'
+	    }
+	  });
+	
+	  var mailOptions = {
+	    from: 'support@legalmaven.com',
+	    to: receiver,
+	    subject: 'LegalMaven - Purchased Form',
+	    html: '<html>Thanks for using Legal Maven<br/><p><a href="https://legalmaven.herokuapp.com/' + output + '" download>Click here to receive the form.</a></p></html>'
+	  };
+	
+	  transporter.sendMail(mailOptions, function (err, info) {
+	    if (err) {
+	      res.status(500).json({ status: 500, message: 'Internal Server Error !', err: err });
+	    } else {
+	      res.status(200).json({ status: 200, message: 'Email Sent' });
+	    }
+	  });
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, "server/controllers"))
 
 /***/ },
 /* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _mongoose = __webpack_require__(12);
-	
-	var _mongoose2 = _interopRequireDefault(_mongoose);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Schema = _mongoose2.default.Schema;
-	
-	var documentSchema = new Schema({
-	  kind: {
-	    type: String,
-	    required: true
-	  },
-	  title: {
-	    type: String,
-	    default: ''
-	  },
-	  description: {
-	    type: String,
-	    default: ''
-	  },
-	  userId: {
-	    type: String,
-	    required: true
-	  },
-	  store: Schema.Types.Mixed,
-	  updated: {
-	    type: Date,
-	    default: Date.now
-	  }
-	});
-	
-	exports.default = _mongoose2.default.model('Document', documentSchema);
-
-/***/ },
-/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3937,43 +4077,55 @@
 	exports.default = _mongoose2.default.model('Program', programSchema);
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports) {
 
 	module.exports = require("bcrypt-nodejs");
 
 /***/ },
+/* 49 */
+/***/ function(module, exports) {
+
+	module.exports = require("fs");
+
+/***/ },
 /* 50 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-facebook-login");
+	module.exports = require("isomorphic-fetch");
 
 /***/ },
 /* 51 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-google-login");
+	module.exports = require("react-facebook-login");
 
 /***/ },
 /* 52 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-virtualized-select");
+	module.exports = require("react-google-login");
 
 /***/ },
 /* 53 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux");
+	module.exports = require("react-virtualized-select");
 
 /***/ },
 /* 54 */
 /***/ function(module, exports) {
 
-	module.exports = require("validator");
+	module.exports = require("redux");
 
 /***/ },
 /* 55 */
+/***/ function(module, exports) {
+
+	module.exports = require("validator");
+
+/***/ },
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4016,7 +4168,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(IntlWrapper);
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4035,7 +4187,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _App = __webpack_require__(101);
+	var _App = __webpack_require__(102);
 	
 	var _App2 = _interopRequireDefault(_App);
 	
@@ -4158,7 +4310,7 @@
 	})));
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4169,9 +4321,9 @@
 	});
 	exports.configureStore = configureStore;
 	
-	var _redux = __webpack_require__(53);
+	var _redux = __webpack_require__(54);
 	
-	var _reduxThunk = __webpack_require__(177);
+	var _reduxThunk = __webpack_require__(181);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -4179,7 +4331,7 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _reducers = __webpack_require__(149);
+	var _reducers = __webpack_require__(150);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -4214,7 +4366,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4247,14 +4399,14 @@
 	  });
 	};
 	
-	var _program = __webpack_require__(48);
+	var _program = __webpack_require__(47);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4266,7 +4418,7 @@
 	
 	var _express = __webpack_require__(11);
 	
-	var _activity = __webpack_require__(150);
+	var _activity = __webpack_require__(151);
 	
 	var ActivityController = _interopRequireWildcard(_activity);
 	
@@ -4287,7 +4439,7 @@
 	exports.default = router;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4338,7 +4490,7 @@
 	
 	var _express = __webpack_require__(11);
 	
-	var _auth = __webpack_require__(151);
+	var _auth = __webpack_require__(152);
 	
 	var authController = _interopRequireWildcard(_auth);
 	
@@ -4347,7 +4499,7 @@
 	var router = new _express.Router();
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4359,7 +4511,7 @@
 	
 	var _express = __webpack_require__(11);
 	
-	var _document = __webpack_require__(152);
+	var _document = __webpack_require__(153);
 	
 	var DocController = _interopRequireWildcard(_document);
 	
@@ -4378,7 +4530,7 @@
 	exports.default = router;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4402,11 +4554,13 @@
 	
 	router.route('/customers').post(PayController.retrieveCustomer);
 	router.route('/customers/cards').post(PayController.createCustomerCard);
+	router.route('/transactions/save').post(PayController.saveTransaction);
+	router.route('/outputs/sendbyemail').post(PayController.sendOutputByEmail);
 	
 	exports.default = router;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4418,7 +4572,7 @@
 	
 	var _express = __webpack_require__(11);
 	
-	var _post = __webpack_require__(153);
+	var _post = __webpack_require__(154);
 	
 	var PostController = _interopRequireWildcard(_post);
 	
@@ -4441,7 +4595,7 @@
 	exports.default = router;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4453,7 +4607,7 @@
 	
 	var _express = __webpack_require__(11);
 	
-	var _program = __webpack_require__(154);
+	var _program = __webpack_require__(155);
 	
 	var ProgramController = _interopRequireWildcard(_program);
 	
@@ -4473,7 +4627,7 @@
 	exports.default = router;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4484,7 +4638,7 @@
 	});
 	exports.fetchComponentData = fetchComponentData;
 	
-	var _promiseUtils = __webpack_require__(158);
+	var _promiseUtils = __webpack_require__(161);
 	
 	function fetchComponentData(store, components, params) {
 	  var needs = components.reduce(function (prev, current) {
@@ -4500,16 +4654,16 @@
 	  */
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
 	
 	var webpack = __webpack_require__(25);
-	var cssnext = __webpack_require__(166);
-	var postcssFocus = __webpack_require__(167);
-	var postcssReporter = __webpack_require__(168);
+	var cssnext = __webpack_require__(170);
+	var postcssFocus = __webpack_require__(171);
+	var postcssReporter = __webpack_require__(172);
 	
 	module.exports = {
 	  devtool: 'cheap-module-eval-source-map',
@@ -4574,73 +4728,73 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, ""))
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports) {
 
 	module.exports = require("body-parser");
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports) {
 
 	module.exports = require("compression");
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-flash");
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports) {
 
 	module.exports = require("connect-mongo");
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	module.exports = require("cookie-parser");
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports) {
 
 	module.exports = require("express-session");
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = require("passport-local");
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports) {
 
 	module.exports = require("path");
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports) {
 
 	module.exports = require("react-dom/server");
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-dev-middleware");
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = require("webpack-hot-middleware");
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4675,7 +4829,7 @@
 	};
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4781,7 +4935,7 @@
 	exports.default = InputDialog;
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4793,7 +4947,7 @@
 	var SQUAREUP_APP_ID = exports.SQUAREUP_APP_ID = 'sandbox-sq0idp-vfATW726v_OmG_AxXxA-gQ';
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4837,13 +4991,13 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactVirtualizedSelect = __webpack_require__(52);
+	var _reactVirtualizedSelect = __webpack_require__(53);
 	
 	var _reactVirtualizedSelect2 = _interopRequireDefault(_reactVirtualizedSelect);
 	
 	var _reactBootstrap = __webpack_require__(8);
 	
-	var _Item = __webpack_require__(82);
+	var _Item = __webpack_require__(83);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
@@ -5047,7 +5201,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5161,7 +5315,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5250,7 +5404,7 @@
 	exports.default = ActivityReducer;
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5306,11 +5460,11 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _SecurityPolicy = __webpack_require__(87);
+	var _SecurityPolicy = __webpack_require__(88);
 	
 	var _SecurityPolicy2 = _interopRequireDefault(_SecurityPolicy);
 	
-	var _NewCard = __webpack_require__(86);
+	var _NewCard = __webpack_require__(87);
 	
 	var _NewCard2 = _interopRequireDefault(_NewCard);
 	
@@ -5318,7 +5472,7 @@
 	
 	var _AddCard2 = _interopRequireDefault(_AddCard);
 	
-	var _Card = __webpack_require__(85);
+	var _Card = __webpack_require__(86);
 	
 	var _Card2 = _interopRequireDefault(_Card);
 	
@@ -5431,7 +5585,7 @@
 	exports.default = Billing;
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5540,7 +5694,7 @@
 	exports.default = Card;
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5635,7 +5789,7 @@
 	exports.default = NewCard;
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5749,7 +5903,7 @@
 	exports.default = SecurityPolicy;
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5795,7 +5949,7 @@
 	};
 	
 	var getCustomerFailure = function getCustomerFailure(state, action) {
-	  return _extends({}, state, { state: 'GET_CUSTOMER_FAILURE', err: action.err });
+	  return _extends({}, state, { state: 'GET_CUSTOMER_FAILURE', err: action.err.err });
 	};
 	
 	var addCardRequest = function addCardRequest(state, action) {
@@ -5814,11 +5968,38 @@
 	  return _extends({}, state, { state: 'SET_CARD', card: action.card });
 	};
 	
+	var saveTransactionRequest = function saveTransactionRequest(state, action) {
+	  return _extends({}, state, { state: 'SAVE_TRANSACTION_REQUEST' });
+	};
+	
+	var saveTransactionSuccess = function saveTransactionSuccess(state, action) {
+	  return _extends({}, state, { state: 'SAVE_TRANSACTION_SUCCESS', transaction: action.result.transaction, result: action.result });
+	};
+	
+	var saveTransactionFailure = function saveTransactionFailure(state, action) {
+	  return _extends({}, state, { state: 'SAVE_TRANSACTION_FAILURE', err: action.err });
+	};
+	
+	var sendOutputByEmailRequest = function sendOutputByEmailRequest(state, action) {
+	  return _extends({}, state, { state: 'SEND_OUTPUT_BY_EMAIL_REQUEST' });
+	};
+	
+	var sendOutputByEmailSuccess = function sendOutputByEmailSuccess(state, action) {
+	  return _extends({}, state, { state: 'SEND_OUTPUT_BY_EMAIL_SUCCESS', result: action.result });
+	};
+	
+	var sendOutputByEmailFailure = function sendOutputByEmailFailure(state, action) {
+	  return _extends({}, state, { state: 'SEND_OUTPUT_BY_EMAIL_FAILURE', err: action.err });
+	};
+	
 	var PayReducer = function PayReducer() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	    case Actions.PAY_REQUEST:
+	      return payRequest(state, action);
+	
 	    case Actions.PAY_SUCCESS:
 	      return paySuccess(state, action);
 	
@@ -5846,6 +6027,24 @@
 	    case Actions.ADD_CARD_FAILURE:
 	      return addCardFailure(state, action);
 	
+	    case Actions.SAVE_TRANSACTION_REQUEST:
+	      return saveTransactionRequest(state, action);
+	
+	    case Actions.SAVE_TRANSACTION_SUCCESS:
+	      return saveTransactionSuccess(state, action);
+	
+	    case Actions.SAVE_TRANSACTION_FAILURE:
+	      return saveTransactionFailure(state, action);
+	
+	    case Actions.SEND_OUTPUT_BY_EMAIL_REQUEST:
+	      return sendOutputByEmailRequest(state, action);
+	
+	    case Actions.SEND_OUTPUT_BY_EMAIL_SUCCESS:
+	      return sendOutputByEmailSuccess(state, action);
+	
+	    case Actions.SEND_OUTPUT_BY_EMAIL_FAILURE:
+	      return sendOutputByEmailFailure(state, action);
+	
 	    default:
 	      return state;
 	  }
@@ -5857,7 +6056,7 @@
 	exports.default = PayReducer;
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5909,17 +6108,17 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _reactVirtualizedSelect = __webpack_require__(52);
+	var _reactVirtualizedSelect = __webpack_require__(53);
 	
 	var _reactVirtualizedSelect2 = _interopRequireDefault(_reactVirtualizedSelect);
 	
 	var _reactBootstrap = __webpack_require__(8);
 	
-	var _SearchForms = __webpack_require__(91);
+	var _SearchForms = __webpack_require__(92);
 	
 	var _SearchForms2 = _interopRequireDefault(_SearchForms);
 	
-	var _Item = __webpack_require__(90);
+	var _Item = __webpack_require__(91);
 	
 	var _Item2 = _interopRequireDefault(_Item);
 	
@@ -6137,7 +6336,7 @@
 	exports.default = Activity;
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6259,7 +6458,7 @@
 	exports.default = Item;
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6369,7 +6568,7 @@
 	exports.default = SearchForms;
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6412,7 +6611,7 @@
 	
 	var _reactRouter = __webpack_require__(3);
 	
-	var _General = __webpack_require__(98);
+	var _General = __webpack_require__(99);
 	
 	var _General2 = _interopRequireDefault(_General);
 	
@@ -6481,7 +6680,7 @@
 	exports.default = Profile;
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6642,7 +6841,7 @@
 	exports.default = AddressEditor;
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6775,7 +6974,7 @@
 	exports.default = EmailEditor;
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6917,7 +7116,7 @@
 	exports.default = NameEditor;
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7084,7 +7283,7 @@
 	exports.default = PasswordEditor;
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7219,7 +7418,7 @@
 	exports.default = PhoneEditor;
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7260,23 +7459,23 @@
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
-	var _Name = __webpack_require__(95);
+	var _Name = __webpack_require__(96);
 	
 	var _Name2 = _interopRequireDefault(_Name);
 	
-	var _Email = __webpack_require__(94);
+	var _Email = __webpack_require__(95);
 	
 	var _Email2 = _interopRequireDefault(_Email);
 	
-	var _Password = __webpack_require__(96);
+	var _Password = __webpack_require__(97);
 	
 	var _Password2 = _interopRequireDefault(_Password);
 	
-	var _Address = __webpack_require__(93);
+	var _Address = __webpack_require__(94);
 	
 	var _Address2 = _interopRequireDefault(_Address);
 	
-	var _Phone = __webpack_require__(97);
+	var _Phone = __webpack_require__(98);
 	
 	var _Phone2 = _interopRequireDefault(_Phone);
 	
@@ -7433,7 +7632,7 @@
 	exports.default = General;
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7518,7 +7717,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7599,7 +7798,7 @@
 	"use strict";
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7640,15 +7839,15 @@
 	
 	var _DevTools2 = _interopRequireDefault(_DevTools);
 	
-	var _Header = __webpack_require__(104);
+	var _Header = __webpack_require__(105);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(103);
+	var _Footer = __webpack_require__(104);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _SearchBox = __webpack_require__(105);
+	var _SearchBox = __webpack_require__(106);
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
@@ -7773,7 +7972,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7812,7 +8011,7 @@
 	exports.default = AppReducer;
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7869,7 +8068,7 @@
 	exports.default = Footer;
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8116,7 +8315,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8149,7 +8348,7 @@
 	
 	var _reactIntl = __webpack_require__(7);
 	
-	var _reactAutosuggest = __webpack_require__(170);
+	var _reactAutosuggest = __webpack_require__(174);
 	
 	var _reactAutosuggest2 = _interopRequireDefault(_reactAutosuggest);
 	
@@ -8173,7 +8372,7 @@
 	
 	var _SearchBox2 = _interopRequireDefault(_SearchBox);
 	
-	var _SearchList = __webpack_require__(106);
+	var _SearchList = __webpack_require__(107);
 	
 	var _SearchList2 = _interopRequireDefault(_SearchList);
 	
@@ -8321,7 +8520,7 @@
 	exports.default = SearchBox;
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8372,7 +8571,7 @@
 	}];
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8483,7 +8682,7 @@
 	exports.default = AuthReducer;
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8603,7 +8802,7 @@
 	var _ref10 = _jsx('a', {}, void 0, 'Get started now');
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8650,7 +8849,7 @@
 	exports.default = IntlReducer;
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8750,7 +8949,7 @@
 	exports.default = PageHeader;
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8850,7 +9049,7 @@
 	exports.default = PageHeader;
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8940,7 +9139,7 @@
 	}
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8951,7 +9150,7 @@
 	});
 	exports.getPost = exports.getPosts = undefined;
 	
-	var _PostActions = __webpack_require__(112);
+	var _PostActions = __webpack_require__(113);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -9003,7 +9202,7 @@
 	exports.default = PostReducer;
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9035,31 +9234,31 @@
 	
 	var _Program2 = _interopRequireDefault(_Program);
 	
-	var _SideBar = __webpack_require__(139);
+	var _SideBar = __webpack_require__(140);
 	
 	var _SideBar2 = _interopRequireDefault(_SideBar);
 	
-	var _InputBox = __webpack_require__(137);
+	var _InputBox = __webpack_require__(138);
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
-	var _Form = __webpack_require__(126);
+	var _Form = __webpack_require__(127);
 	
 	var _Form2 = _interopRequireDefault(_Form);
 	
-	var _Topic = __webpack_require__(129);
+	var _Topic = __webpack_require__(130);
 	
 	var _Topic2 = _interopRequireDefault(_Topic);
 	
-	var _CalculateTax = __webpack_require__(127);
+	var _CalculateTax = __webpack_require__(128);
 	
 	var _CalculateTax2 = _interopRequireDefault(_CalculateTax);
 	
-	var _ContactDialog = __webpack_require__(116);
+	var _ContactDialog = __webpack_require__(117);
 	
 	var _ContactDialog2 = _interopRequireDefault(_ContactDialog);
 	
-	var _GoActivityDialog = __webpack_require__(130);
+	var _GoActivityDialog = __webpack_require__(131);
 	
 	var _GoActivityDialog2 = _interopRequireDefault(_GoActivityDialog);
 	
@@ -9067,7 +9266,7 @@
 	
 	var _InputDialog2 = _interopRequireDefault(_InputDialog);
 	
-	var _ModalDialog = __webpack_require__(79);
+	var _ModalDialog = __webpack_require__(80);
 	
 	var _ModalDialog2 = _interopRequireDefault(_ModalDialog);
 	
@@ -9075,11 +9274,11 @@
 	
 	var _AddCard2 = _interopRequireDefault(_AddCard);
 	
-	var _ConfirmCheckout = __webpack_require__(115);
+	var _ConfirmCheckout = __webpack_require__(116);
 	
 	var _ConfirmCheckout2 = _interopRequireDefault(_ConfirmCheckout);
 	
-	var _OrderConfirmed = __webpack_require__(138);
+	var _OrderConfirmed = __webpack_require__(139);
 	
 	var _OrderConfirmed2 = _interopRequireDefault(_OrderConfirmed);
 	
@@ -9103,14 +9302,15 @@
 	  function Program(props) {
 	    _classCallCheck(this, Program);
 	
-	    var _this = _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, (Program.__proto__ || Object.getPrototypeOf(Program)).call(this, props));
 	
-	    _this.state = {
+	    _this2.state = {
 	      showContact: false,
 	      showSaveStep: false,
 	      showGoActivity: false,
 	      showCheckout: false,
-	      checkoutStage: 'Card'
+	      checkoutStage: 'Card',
+	      receiveOption: 'download'
 	    };
 	
 	    props.fetchProgram(props.params.name);
@@ -9121,26 +9321,27 @@
 	    }
 	    props.setCurrentProgram(props.params.name);
 	
-	    _this.showContact = _this.showContact.bind(_this);
-	    _this.closeContact = _this.closeContact.bind(_this);
-	    _this.showSaveStep = _this.showSaveStep.bind(_this);
-	    _this.closeSaveStep = _this.closeSaveStep.bind(_this);
-	    _this.showGoActivity = _this.showGoActivity.bind(_this);
-	    _this.closeGoActivity = _this.closeGoActivity.bind(_this);
-	    _this.saveStep = _this.saveStep.bind(_this);
-	    _this.goActivity = _this.goActivity.bind(_this);
-	    _this.saveDoc = _this.saveDoc.bind(_this);
-	    _this.toggleCheckout = _this.toggleCheckout.bind(_this);
-	    _this.onCard = _this.onCard.bind(_this);
-	    _this.onConfirm = _this.onConfirm.bind(_this);
-	    _this.onConfirmed = _this.onConfirmed.bind(_this);
-	    return _this;
+	    _this2.showContact = _this2.showContact.bind(_this2);
+	    _this2.closeContact = _this2.closeContact.bind(_this2);
+	    _this2.showSaveStep = _this2.showSaveStep.bind(_this2);
+	    _this2.closeSaveStep = _this2.closeSaveStep.bind(_this2);
+	    _this2.showGoActivity = _this2.showGoActivity.bind(_this2);
+	    _this2.closeGoActivity = _this2.closeGoActivity.bind(_this2);
+	    _this2.saveStep = _this2.saveStep.bind(_this2);
+	    _this2.goActivity = _this2.goActivity.bind(_this2);
+	    _this2.saveDoc = _this2.saveDoc.bind(_this2);
+	    _this2.toggleCheckout = _this2.toggleCheckout.bind(_this2);
+	    _this2.onCard = _this2.onCard.bind(_this2);
+	    _this2.onConfirm = _this2.onConfirm.bind(_this2);
+	    _this2.onConfirmed = _this2.onConfirmed.bind(_this2);
+	    _this2.onReceiveOption = _this2.onReceiveOption.bind(_this2);
+	    return _this2;
 	  }
 	
 	  _createClass(Program, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      if (this.props.params.name !== nextProps.params.name) {
 	        this.props.fetchProgram(nextProps.params.name);
@@ -9149,7 +9350,7 @@
 	
 	      if (this.props.activities !== nextProps.activities && nextProps.activities && nextProps.history.length === 0) {
 	        if (nextProps.activities.find(function (e) {
-	          return e.program.name === _this2.props.program.name;
+	          return e.program.name === _this3.props.program.name;
 	        })) {
 	          this.showGoActivity();
 	        }
@@ -9161,10 +9362,25 @@
 	        }
 	      }
 	
-	      if (nextProps.payState !== this.props.payState) {
-	        if (nextProps.payState === 'PAY_SUCCESS') {
+	      if (nextProps.pay.state !== this.props.pay.state) {
+	        if (nextProps.pay.state === 'PAY_SUCCESS') {
+	          this.props.saveTransaction(nextProps.pay.result.transaction.id, this.props.finalData.form, this.props.finalData.info);
+	        } else if (nextProps.pay.state === 'SAVE_TRANSACTION_SUCCESS') {
 	          this.setState({ checkoutStage: 'Confirmed' });
-	          console.log('working');
+	          if (this.state.receiveOption === 'download') {
+	            var _this = this;
+	            setTimeout(function () {
+	              _this.outputLink.click();
+	            }, 100);
+	          } else {
+	            nextProps.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc);
+	          }
+	        } else if (nextProps.pay.state === 'SEND_OUTPUT_BY_EMAIL_SUCCESS') {
+	          this.props.successMessage({
+	            title: 'Send Form',
+	            message: 'The form is sent to your email',
+	            position: 'tr'
+	          });
 	        }
 	      }
 	    }
@@ -9288,7 +9504,7 @@
 	  }, {
 	    key: 'onConfirm',
 	    value: function onConfirm() {
-	      this.props.pay(this.props.card.nonce, 50 * 100);
+	      this.props.buy(this.props.card.nonce, 50 * 100);
 	    }
 	  }, {
 	    key: 'onConfirmed',
@@ -9297,8 +9513,15 @@
 	      this.toggleCheckout();
 	    }
 	  }, {
+	    key: 'onReceiveOption',
+	    value: function onReceiveOption(option) {
+	      this.setState({ receiveOption: option });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this4 = this;
+	
 	      var _props = this.props,
 	          showSideBar = _props.showSideBar,
 	          showFinalNode = _props.showFinalNode,
@@ -9306,7 +9529,8 @@
 	          finalData = _props.finalData,
 	          program = _props.program,
 	          history = _props.history,
-	          progress = _props.progress;
+	          progress = _props.progress,
+	          pay = _props.pay;
 	
 	
 	      var paddingLeft = 12;
@@ -9376,13 +9600,14 @@
 	      }), this.state.checkoutStage === 'Confirm' && _jsx(_ConfirmCheckout2.default, {
 	        checkout: this.onConfirm,
 	        form: program.description,
-	        order: '12345678',
-	        date: new Date().toString(),
-	        amount: 20
+	        amount: 50,
+	        onReceiveOption: this.onReceiveOption
 	      }), this.state.checkoutStage === 'Confirmed' && _jsx(_OrderConfirmed2.default, {
 	        noThanks: this.toggleCheckout,
 	        comment: this.onConfirmed
-	      })));
+	      }), _react2.default.createElement('a', { ref: function ref(input) {
+	          _this4.outputLink = input;
+	        }, href: pay.transaction ? '/' + pay.transaction.doc + ' ' : '', download: true })));
 	    }
 	  }]);
 	
@@ -9392,7 +9617,7 @@
 	exports.default = Program;
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9473,10 +9698,18 @@
 	    _this.state = {
 	      receiveOption: 'download'
 	    };
+	
+	    _this.onReceiveOption = _this.onReceiveOption.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(ConfirmCheckout, [{
+	    key: 'onReceiveOption',
+	    value: function onReceiveOption(option) {
+	      this.setState({ receiveOption: option });
+	      this.props.onReceiveOption(option);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -9498,12 +9731,12 @@
 	      }, void 0, _jsx('div', {
 	        className: _styles2.default.option + ' ' + (this.state.receiveOption === 'download' ? _styles2.default.active : ''),
 	        onClick: function onClick() {
-	          return _this2.setState({ receiveOption: 'download' });
+	          return _this2.onReceiveOption('download');
 	        }
 	      }, void 0, _ref, _ref2), _jsx('div', {
 	        className: _styles2.default.option + ' ' + (this.state.receiveOption === 'email' ? _styles2.default.active : ''),
 	        onClick: function onClick() {
-	          return _this2.setState({ receiveOption: 'email' });
+	          return _this2.onReceiveOption('email');
 	        }
 	      }, void 0, _ref3, _ref4)), _jsx('div', {
 	        className: 'col-xs-12'
@@ -9517,11 +9750,7 @@
 	        className: _styles2.default['info']
 	      }, void 0, _jsx('span', {
 	        className: _styles2.default['info-title']
-	      }, void 0, 'Order Number:'), '\xA0 ', this.props.order), _jsx('div', {
-	        className: _styles2.default['info']
-	      }, void 0, _jsx('span', {
-	        className: _styles2.default['info-title']
-	      }, void 0, 'Date:'), '\xA0 ', this.props.date), _jsx('div', {
+	      }, void 0, 'File format:'), '\xA0 PDF'), _jsx('div', {
 	        className: _styles2.default['info']
 	      }, void 0, _jsx('span', {
 	        className: _styles2.default['info-title']
@@ -9542,7 +9771,7 @@
 	exports.default = ConfirmCheckout;
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9660,7 +9889,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ContactDialog);
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9766,7 +9995,7 @@
 	}
 
 /***/ },
-/* 118 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9866,7 +10095,7 @@
 	}
 
 /***/ },
-/* 119 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9970,7 +10199,7 @@
 	}
 
 /***/ },
-/* 120 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10066,7 +10295,7 @@
 	}
 
 /***/ },
-/* 121 */
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10178,7 +10407,7 @@
 	}
 
 /***/ },
-/* 122 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10290,7 +10519,7 @@
 	}
 
 /***/ },
-/* 123 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10400,7 +10629,7 @@
 	}
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10510,7 +10739,7 @@
 	}
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10538,35 +10767,35 @@
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _CAFormProfessionalIncorporate = __webpack_require__(120);
+	var _CAFormProfessionalIncorporate = __webpack_require__(121);
 	
 	var _CAFormProfessionalIncorporate2 = _interopRequireDefault(_CAFormProfessionalIncorporate);
 	
-	var _CAFormProfessionalIncorporate3 = __webpack_require__(119);
+	var _CAFormProfessionalIncorporate3 = __webpack_require__(120);
 	
 	var _CAFormProfessionalIncorporate4 = _interopRequireDefault(_CAFormProfessionalIncorporate3);
 	
-	var _CAFormIncorporate = __webpack_require__(118);
+	var _CAFormIncorporate = __webpack_require__(119);
 	
 	var _CAFormIncorporate2 = _interopRequireDefault(_CAFormIncorporate);
 	
-	var _CAFormIncorporate3 = __webpack_require__(117);
+	var _CAFormIncorporate3 = __webpack_require__(118);
 	
 	var _CAFormIncorporate4 = _interopRequireDefault(_CAFormIncorporate3);
 	
-	var _DEFormIncorporate = __webpack_require__(122);
+	var _DEFormIncorporate = __webpack_require__(123);
 	
 	var _DEFormIncorporate2 = _interopRequireDefault(_DEFormIncorporate);
 	
-	var _DEFormIncorporate3 = __webpack_require__(121);
+	var _DEFormIncorporate3 = __webpack_require__(122);
 	
 	var _DEFormIncorporate4 = _interopRequireDefault(_DEFormIncorporate3);
 	
-	var _DEFormProfessionalIncorporate = __webpack_require__(124);
+	var _DEFormProfessionalIncorporate = __webpack_require__(125);
 	
 	var _DEFormProfessionalIncorporate2 = _interopRequireDefault(_DEFormProfessionalIncorporate);
 	
-	var _DEFormProfessionalIncorporate3 = __webpack_require__(123);
+	var _DEFormProfessionalIncorporate3 = __webpack_require__(124);
 	
 	var _DEFormProfessionalIncorporate4 = _interopRequireDefault(_DEFormProfessionalIncorporate3);
 	
@@ -10636,7 +10865,7 @@
 	exports.default = DocumentDialog;
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10682,11 +10911,11 @@
 	
 	var _actions = __webpack_require__(10);
 	
-	var _actions2 = __webpack_require__(100);
+	var _actions2 = __webpack_require__(101);
 	
 	var _reactNotificationSystemRedux = __webpack_require__(5);
 	
-	var _Document = __webpack_require__(125);
+	var _Document = __webpack_require__(126);
 	
 	var _Document2 = _interopRequireDefault(_Document);
 	
@@ -10846,7 +11075,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Form);
 
 /***/ },
-/* 127 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11113,7 +11342,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
 
 /***/ },
-/* 128 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11258,7 +11487,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Topic);
 
 /***/ },
-/* 129 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11457,7 +11686,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Topic);
 
 /***/ },
-/* 130 */
+/* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11590,7 +11819,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(GoActivityDialog);
 
 /***/ },
-/* 131 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11620,23 +11849,23 @@
 	
 	var _reactHtmlParser2 = _interopRequireDefault(_reactHtmlParser);
 	
-	var _NoteDialog = __webpack_require__(132);
+	var _NoteDialog = __webpack_require__(133);
 	
 	var _NoteDialog2 = _interopRequireDefault(_NoteDialog);
 	
-	var _county = __webpack_require__(135);
+	var _county = __webpack_require__(136);
 	
 	var _county2 = _interopRequireDefault(_county);
 	
-	var _city = __webpack_require__(133);
+	var _city = __webpack_require__(134);
 	
 	var _city2 = _interopRequireDefault(_city);
 	
-	var _county_exemption2 = __webpack_require__(136);
+	var _county_exemption2 = __webpack_require__(137);
 	
 	var countyExemption = _interopRequireWildcard(_county_exemption2);
 	
-	var _city_exemption2 = __webpack_require__(134);
+	var _city_exemption2 = __webpack_require__(135);
 	
 	var cityExemption = _interopRequireWildcard(_city_exemption2);
 	
@@ -12282,7 +12511,7 @@
 	exports.default = InputBox;
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12392,7 +12621,7 @@
 	exports.default = NoteDialog;
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12404,7 +12633,7 @@
 	exports.default = [{ county: 'Los Angeles', city: 'Santa Monica', tax: 1 }, { county: 'Los Angeles', city: 'Los Angeles', tax: 4.50 }, { county: 'Los Angeles', city: 'Pomona', tax: 2.20 }, { county: 'Los Angeles', city: 'Redondo Beach', tax: 2.20 }, { county: 'Los Angeles', city: 'Culver City', tax: 4.50 }, { county: 'Los Angeles', city: 'Arleta', tax: 4.50 }, { county: 'Los Angeles', city: 'Athens', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air', tax: 4.50 }, { county: 'Los Angeles', city: 'Bel Air Estates', tax: 4.50 }, { county: 'Los Angeles', city: 'Beverly Glen', tax: 4.50 }, { county: 'Los Angeles', city: 'Boyle Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Brentwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Cahuenga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Calabasas', tax: 4.50 }, { county: 'Los Angeles', city: 'Canoga Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Carson', tax: 4.50 }, { county: 'Los Angeles', city: 'Castellamare', tax: 4.50 }, { county: 'Los Angeles', city: 'Century City', tax: 4.50 }, { county: 'Los Angeles', city: 'Chatsworth', tax: 4.50 }, { county: 'Los Angeles', city: 'Crenshaw Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Eagle Rock', tax: 4.50 }, { county: 'Los Angeles', city: 'East L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'East San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'Echo Park', tax: 4.50 }, { county: 'Los Angeles', city: 'El Sereno', tax: 4.50 }, { county: 'Los Angeles', city: 'Elysian Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Encino', tax: 4.50 }, { county: 'Los Angeles', city: 'Gardena(Figueroa-Vermont)', tax: 4.50 }, { county: 'Los Angeles', city: 'Garvanza', tax: 4.50 }, { county: 'Los Angeles', city: 'Glassell Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Granada Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Hancock Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hansen Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Harbor City', tax: 4.50 }, { county: 'Los Angeles', city: 'Hidden Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Highland Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Hyde Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Inglewood', tax: 4.50 }, { county: 'Los Angeles', city: 'Korea Town', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeside Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lakeview Terrace', tax: 4.50 }, { county: 'Los Angeles', city: 'Larchmont District', tax: 4.50 }, { county: 'Los Angeles', city: 'La Tijera', tax: 4.50 }, { county: 'Los Angeles', city: 'Laurel Canyon', tax: 4.50 }, { county: 'Los Angeles', city: 'Leimert Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Lincoln Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Los Feliz', tax: 4.50 }, { county: 'Los Angeles', city: 'Marina Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Mar Vista', tax: 4.50 }, { county: 'Los Angeles', city: 'Mission Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Montecito Heights', tax: 4.50 }, { county: 'Los Angeles', city: 'Monterey Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Olympus', tax: 4.50 }, { county: 'Los Angeles', city: 'Mt. Washington', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'North Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Northridge', tax: 4.50 }, { county: 'Los Angeles', city: 'Olive View', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacific Palisades', tax: 4.50 }, { county: 'Los Angeles', city: 'Pacoima', tax: 4.50 }, { county: 'Los Angeles', city: 'Palasades Highlands', tax: 4.50 }, { county: 'Los Angeles', city: 'Palms', tax: 4.50 }, { county: 'Los Angeles', city: 'Panorama City', tax: 4.50 }, { county: 'Los Angeles', city: 'Playa Del Rey', tax: 4.50 }, { county: 'Los Angeles', city: 'Porter Ranch', tax: 4.50 }, { county: 'Los Angeles', city: 'Rancho Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Reseda', tax: 4.50 }, { county: 'Los Angeles', city: 'San Pedro', tax: 4.50 }, { county: 'Los Angeles', city: 'San Fernando', tax: 4.50 }, { county: 'Los Angeles', city: 'Sawtelle', tax: 4.50 }, { county: 'Los Angeles', city: 'Sepulveda', tax: 4.50 }, { county: 'Los Angeles', city: 'Sherman Oaks', tax: 4.50 }, { county: 'Los Angeles', city: 'Silver Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Studio City', tax: 4.50 }, { county: 'Los Angeles', city: 'Sunland', tax: 4.50 }, { county: 'Los Angeles', city: 'Sun Valley', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar', tax: 4.50 }, { county: 'Los Angeles', city: 'Sylmar Square', tax: 4.50 }, { county: 'Los Angeles', city: 'Tarzana', tax: 4.50 }, { county: 'Los Angeles', city: 'Terminal Island', tax: 4.50 }, { county: 'Los Angeles', city: 'Toluca Lake', tax: 4.50 }, { county: 'Los Angeles', city: 'Topanga', tax: 4.50 }, { county: 'Los Angeles', city: 'Torrance', tax: 4.50 }, { county: 'Los Angeles', city: 'Tjunga', tax: 4.50 }, { county: 'Los Angeles', city: 'Universal City', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Plaza', tax: 4.50 }, { county: 'Los Angeles', city: 'Valley Village', tax: 4.50 }, { county: 'Los Angeles', city: 'Van Nuys', tax: 4.50 }, { county: 'Los Angeles', city: 'Venice', tax: 4.50 }, { county: 'Los Angeles', city: 'Vernon', tax: 4.50 }, { county: 'Los Angeles', city: 'View Park', tax: 4.50 }, { county: 'Los Angeles', city: 'Warner Center', tax: 4.50 }, { county: 'Los Angeles', city: 'Watts', tax: 4.50 }, { county: 'Los Angeles', city: 'Westchester', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'West Hollywood', tax: 4.50 }, { county: 'Los Angeles', city: 'Westlake', tax: 4.50 }, { county: 'Los Angeles', city: 'West L.A.', tax: 4.50 }, { county: 'Los Angeles', city: 'Westwood', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilmington', tax: 4.50 }, { county: 'Los Angeles', city: 'Wilshire Distract', tax: 4.50 }, { county: 'Los Angeles', city: 'Windsor Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Winnetka', tax: 4.50 }, { county: 'Los Angeles', city: 'Woodland Hills', tax: 4.50 }, { county: 'Los Angeles', city: 'Malibu', tax: 1 }, { county: 'Alameda', city: 'Alameda', tax: 12.00 }, { county: 'Alameda', city: 'Albany', tax: 11.50 }, { county: 'Alameda', city: 'Berkeley', tax: 15.00 }, { county: 'Alameda', city: 'Emeryville', tax: 12.00 }, { county: 'Alameda', city: 'Hayward', tax: 4.50 }, { county: 'Alameda', city: 'Oakland', tax: 15.00 }, { county: 'Alameda', city: 'Piedmont', tax: 13.00 }, { county: 'Alameda', city: 'San Leandro', tax: 6.00 }, { county: 'Contra Costa', city: 'Richmond', tax: 7.00 }, { county: 'Marin', city: 'San Rafael', tax: 2.00 }, { county: 'Riverside', city: 'Riverside City', tax: 1.10 }, { county: 'Sacramento', city: 'Sacramento City', tax: 2.75 }, { county: 'San Mateo', city: 'Hillsborough', tax: 0.30 }, { county: 'San Mateo', city: 'San Mateo', tax: 5.00 }, { county: 'Santa Clara', city: 'Mountain View', tax: 3.30 }, { county: 'Santa Clara', city: 'Palo Alto', tax: 3.30 }, { county: 'Santa Clara', city: 'San Jose', tax: 3.30 }, { county: 'Solano', city: 'Santa Rosa', tax: 2.00 }, { county: 'Solano', city: 'Petaluma', tax: 2.00 }, { county: 'Yolo', city: 'Woodland', tax: 1.10 }];
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12440,7 +12669,7 @@
 	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12452,7 +12681,7 @@
 	exports.default = [{ name: 'Los Angeles', tax: 1.10 }, { name: 'San Francisco', tax: 3 }, { name: 'Alameda', tax: 1.10 }, { name: 'Alpine', tax: 1.10 }, { name: 'Amador', tax: 1.10 }, { name: 'Butte', tax: 1.10 }, { name: 'Calaveras', tax: 1.10 }, { name: 'Colusa', tax: 1.10 }, { name: 'Contra Costa', tax: 1.10 }, { name: 'Del Norte', tax: 1.10 }, { name: 'El Dorado', tax: 1.10 }, { name: 'Fresno', tax: 1.10 }, { name: 'Glenn', tax: 1.10 }, { name: 'Humboldt', tax: 1.10 }, { name: 'Imperial', tax: 1.10 }, { name: 'Inyo', tax: 1.10 }, { name: 'Kern', tax: 1.10 }, { name: 'Kings', tax: 1.10 }, { name: 'Lake', tax: 1.10 }, { name: 'Lassen', tax: 1.10 }, { name: 'Madera', tax: 1.10 }, { name: 'Marin', tax: 1.10 }, { name: 'Mariposa', tax: 1.10 }, { name: 'Mendocino', tax: 1.10 }, { name: 'Merced', tax: 1.10 }, { name: 'Modoc', tax: 1.10 }, { name: 'Mono', tax: 1.10 }, { name: 'Monterey', tax: 1.10 }, { name: 'Napa', tax: 1.10 }, { name: 'Nevada', tax: 1.10 }, { name: 'Orange', tax: 1.10 }, { name: 'Placer', tax: 1.10 }, { name: 'Plumas', tax: 1.10 }, { name: 'Riverside', tax: 1.10 }, { name: 'Sacramento', tax: 1.10 }, { name: 'San Benito', tax: 1.10 }, { name: 'San Bernardino', tax: 1.10 }, { name: 'San Diego', tax: 1.10 }, { name: 'San Francisco', tax: 1.10 }, { name: 'San Joaquin', tax: 1.10 }, { name: 'San Luis Obispo', tax: 1.10 }, { name: 'San Mateo', tax: 1.10 }, { name: 'Santa Barbara', tax: 1.10 }, { name: 'Santa Clara', tax: 1.10 }, { name: 'Santa Cruz', tax: 1.10 }, { name: 'Shasta', tax: 1.10 }, { name: 'Sierra', tax: 1.10 }, { name: 'Siskiyou', tax: 1.10 }, { name: 'Solano', tax: 1.10 }, { name: 'Sonoma', tax: 1.10 }, { name: 'Stanislaus', tax: 1.10 }, { name: 'Sutter', tax: 1.10 }, { name: 'Tehama', tax: 1.10 }, { name: 'Trinity', tax: 1.10 }, { name: 'Tulare', tax: 1.10 }, { name: 'Tuolumne', tax: 1.10 }, { name: 'Ventura', tax: 1.10 }, { name: 'Yolo', tax: 1.10 }, { name: 'Yuba', tax: 1.10 }];
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12488,7 +12717,7 @@
 	var indexArray = exports.indexArray = (0, _sort.getExemptionListIndexArray)(list);
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12504,7 +12733,7 @@
 	
 	var _reactRedux = __webpack_require__(2);
 	
-	var _InputBox = __webpack_require__(131);
+	var _InputBox = __webpack_require__(132);
 	
 	var _InputBox2 = _interopRequireDefault(_InputBox);
 	
@@ -12547,7 +12776,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_InputBox2.default);
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12587,7 +12816,7 @@
 	
 	var _green_check2 = _interopRequireDefault(_green_check);
 	
-	var _reactStarRatingComponent = __webpack_require__(173);
+	var _reactStarRatingComponent = __webpack_require__(177);
 	
 	var _reactStarRatingComponent2 = _interopRequireDefault(_reactStarRatingComponent);
 	
@@ -12681,7 +12910,7 @@
 	exports.default = ConfirmCheckout;
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12780,7 +13009,7 @@
 	exports.default = SideBar;
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -12945,7 +13174,7 @@
 	};
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13124,7 +13353,7 @@
 	};
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13276,7 +13505,7 @@
 	};
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13471,7 +13700,7 @@
 	};
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13696,7 +13925,7 @@
 	};
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13797,7 +14026,7 @@
 	};
 
 /***/ },
-/* 146 */
+/* 147 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -13903,7 +14132,7 @@
 	};
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -14172,7 +14401,7 @@
 	};
 
 /***/ },
-/* 148 */
+/* 149 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -14339,7 +14568,7 @@
 	};
 
 /***/ },
-/* 149 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14349,17 +14578,17 @@
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(53);
+	var _redux = __webpack_require__(54);
 	
-	var _AppReducer = __webpack_require__(102);
+	var _AppReducer = __webpack_require__(103);
 	
 	var _AppReducer2 = _interopRequireDefault(_AppReducer);
 	
-	var _PostReducer = __webpack_require__(113);
+	var _PostReducer = __webpack_require__(114);
 	
 	var _PostReducer2 = _interopRequireDefault(_PostReducer);
 	
-	var _IntlReducer = __webpack_require__(109);
+	var _IntlReducer = __webpack_require__(110);
 	
 	var _IntlReducer2 = _interopRequireDefault(_IntlReducer);
 	
@@ -14367,15 +14596,15 @@
 	
 	var _reducer2 = _interopRequireDefault(_reducer);
 	
-	var _AuthReducer = __webpack_require__(107);
+	var _AuthReducer = __webpack_require__(108);
 	
 	var _AuthReducer2 = _interopRequireDefault(_AuthReducer);
 	
-	var _reducer3 = __webpack_require__(83);
+	var _reducer3 = __webpack_require__(84);
 	
 	var _reducer4 = _interopRequireDefault(_reducer3);
 	
-	var _reducer5 = __webpack_require__(88);
+	var _reducer5 = __webpack_require__(89);
 	
 	var _reducer6 = _interopRequireDefault(_reducer5);
 	
@@ -14404,7 +14633,7 @@
 	 */
 
 /***/ },
-/* 150 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14419,7 +14648,7 @@
 	exports.updateActivity = updateActivity;
 	exports.deleteActivity = deleteActivity;
 	
-	var _activity = __webpack_require__(155);
+	var _activity = __webpack_require__(156);
 	
 	var _activity2 = _interopRequireDefault(_activity);
 	
@@ -14559,7 +14788,7 @@
 	}
 
 /***/ },
-/* 151 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14589,7 +14818,7 @@
 	
 	var _passport2 = _interopRequireDefault(_passport);
 	
-	var _bcryptNodejs = __webpack_require__(49);
+	var _bcryptNodejs = __webpack_require__(48);
 	
 	var _bcryptNodejs2 = _interopRequireDefault(_bcryptNodejs);
 	
@@ -14877,7 +15106,7 @@
 	}
 
 /***/ },
-/* 152 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14890,10 +15119,23 @@
 	exports.addDocument = addDocument;
 	exports.getDocument = getDocument;
 	exports.deleteDocument = deleteDocument;
+	exports.createOutput = createOutput;
 	
-	var _document = __webpack_require__(47);
+	var _document = __webpack_require__(157);
 	
 	var _document2 = _interopRequireDefault(_document);
+	
+	var _isomorphicFetch = __webpack_require__(50);
+	
+	var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+	
+	var _buffer = __webpack_require__(163);
+	
+	var _buffer2 = _interopRequireDefault(_buffer);
+	
+	var _fs = __webpack_require__(49);
+	
+	var _fs2 = _interopRequireDefault(_fs);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -14956,7 +15198,6 @@
 	}
 	
 	function deleteDocument(req, res) {
-	
 	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
 	
 	  var docId = req.params.docId;
@@ -14968,7 +15209,7 @@
 	
 	  _document2.default.findOne({ _id: docId }).exec(function (err, doc) {
 	    if (err) {
-	      return res.status(500).json({ status: 500, message: 'Server side Error', err: err });
+	      return res.status(500).json({ status: 500, message: 'Server Side Error', err: err });
 	    }
 	
 	    doc.remove(function () {
@@ -14976,9 +15217,20 @@
 	    });
 	  });
 	}
+	
+	function createOutput(req, res) {
+	  if (!req.user) return res.status(401).json({ status: 401, message: 'UnAuthorized' });
+	
+	  var _req$body2 = req.body,
+	      templateName = _req$body2.templateName,
+	      data = _req$body2.data;
+	
+	
+	  createDocument(templateName, data);
+	}
 
 /***/ },
-/* 153 */
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -14992,7 +15244,7 @@
 	exports.getPost = getPost;
 	exports.deletePost = deletePost;
 	
-	var _post = __webpack_require__(156);
+	var _post = __webpack_require__(158);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
@@ -15000,11 +15252,11 @@
 	
 	var _cuid2 = _interopRequireDefault(_cuid);
 	
-	var _limax = __webpack_require__(165);
+	var _limax = __webpack_require__(168);
 	
 	var _limax2 = _interopRequireDefault(_limax);
 	
-	var _sanitizeHtml = __webpack_require__(178);
+	var _sanitizeHtml = __webpack_require__(182);
 	
 	var _sanitizeHtml2 = _interopRequireDefault(_sanitizeHtml);
 	
@@ -15087,7 +15339,7 @@
 	}
 
 /***/ },
-/* 154 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15100,7 +15352,7 @@
 	exports.get = get;
 	exports.remove = remove;
 	
-	var _program = __webpack_require__(48);
+	var _program = __webpack_require__(47);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
@@ -15151,7 +15403,7 @@
 	}
 
 /***/ },
-/* 155 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15204,7 +15456,52 @@
 	exports.default = _mongoose2.default.model('Activity', activitySchema);
 
 /***/ },
-/* 156 */
+/* 157 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(12);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var documentSchema = new Schema({
+	  kind: {
+	    type: String,
+	    required: true
+	  },
+	  title: {
+	    type: String,
+	    default: ''
+	  },
+	  description: {
+	    type: String,
+	    default: ''
+	  },
+	  userId: {
+	    type: String,
+	    required: true
+	  },
+	  store: Schema.Types.Mixed,
+	  updated: {
+	    type: Date,
+	    default: Date.now
+	  }
+	});
+	
+	exports.default = _mongoose2.default.model('Document', documentSchema);
+
+/***/ },
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15234,7 +15531,43 @@
 	exports.default = _mongoose2.default.model('Post', postSchema);
 
 /***/ },
-/* 157 */
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _mongoose = __webpack_require__(12);
+	
+	var _mongoose2 = _interopRequireDefault(_mongoose);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Schema = _mongoose2.default.Schema;
+	
+	var paySchema = new Schema({
+	  transactionId: {
+	    type: String,
+	    required: true
+	  },
+	  doc: {
+	    type: String,
+	    default: ''
+	  },
+	  updated: {
+	    type: Date,
+	    default: Date.now
+	  }
+	});
+	
+	exports.default = _mongoose2.default.model('Pay', paySchema);
+
+/***/ },
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -15250,7 +15583,7 @@
 	
 	var _express2 = _interopRequireDefault(_express);
 	
-	var _compression = __webpack_require__(68);
+	var _compression = __webpack_require__(69);
 	
 	var _compression2 = _interopRequireDefault(_compression);
 	
@@ -15258,31 +15591,31 @@
 	
 	var _mongoose2 = _interopRequireDefault(_mongoose);
 	
-	var _bodyParser = __webpack_require__(67);
+	var _bodyParser = __webpack_require__(68);
 	
 	var _bodyParser2 = _interopRequireDefault(_bodyParser);
 	
-	var _path = __webpack_require__(74);
+	var _path = __webpack_require__(75);
 	
 	var _path2 = _interopRequireDefault(_path);
 	
-	var _IntlWrapper = __webpack_require__(55);
+	var _IntlWrapper = __webpack_require__(56);
 	
 	var _IntlWrapper2 = _interopRequireDefault(_IntlWrapper);
 	
-	var _connectFlash = __webpack_require__(69);
+	var _connectFlash = __webpack_require__(70);
 	
 	var _connectFlash2 = _interopRequireDefault(_connectFlash);
 	
-	var _cookieParser = __webpack_require__(71);
+	var _cookieParser = __webpack_require__(72);
 	
 	var _cookieParser2 = _interopRequireDefault(_cookieParser);
 	
-	var _expressSession = __webpack_require__(72);
+	var _expressSession = __webpack_require__(73);
 	
 	var _expressSession2 = _interopRequireDefault(_expressSession);
 	
-	var _connectMongo = __webpack_require__(70);
+	var _connectMongo = __webpack_require__(71);
 	
 	var _connectMongo2 = _interopRequireDefault(_connectMongo);
 	
@@ -15294,19 +15627,19 @@
 	
 	var _webpack2 = _interopRequireDefault(_webpack);
 	
-	var _webpackConfig = __webpack_require__(66);
+	var _webpackConfig = __webpack_require__(67);
 	
 	var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
 	
-	var _webpackDevMiddleware = __webpack_require__(76);
+	var _webpackDevMiddleware = __webpack_require__(77);
 	
 	var _webpackDevMiddleware2 = _interopRequireDefault(_webpackDevMiddleware);
 	
-	var _webpackHotMiddleware = __webpack_require__(77);
+	var _webpackHotMiddleware = __webpack_require__(78);
 	
 	var _webpackHotMiddleware2 = _interopRequireDefault(_webpackHotMiddleware);
 	
-	var _store = __webpack_require__(57);
+	var _store = __webpack_require__(58);
 	
 	var _reactRedux = __webpack_require__(2);
 	
@@ -15314,7 +15647,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _server = __webpack_require__(75);
+	var _server = __webpack_require__(76);
 	
 	var _reactRouter = __webpack_require__(3);
 	
@@ -15322,33 +15655,33 @@
 	
 	var _reactHelmet2 = _interopRequireDefault(_reactHelmet);
 	
-	var _routes = __webpack_require__(56);
+	var _routes = __webpack_require__(57);
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _fetchData = __webpack_require__(65);
+	var _fetchData = __webpack_require__(66);
 	
-	var _post = __webpack_require__(63);
+	var _post = __webpack_require__(64);
 	
 	var _post2 = _interopRequireDefault(_post);
 	
-	var _document = __webpack_require__(61);
+	var _document = __webpack_require__(62);
 	
 	var _document2 = _interopRequireDefault(_document);
 	
-	var _program = __webpack_require__(64);
+	var _program = __webpack_require__(65);
 	
 	var _program2 = _interopRequireDefault(_program);
 	
-	var _auth = __webpack_require__(60);
+	var _auth = __webpack_require__(61);
 	
 	var _auth2 = _interopRequireDefault(_auth);
 	
-	var _activity = __webpack_require__(59);
+	var _activity = __webpack_require__(60);
 	
 	var _activity2 = _interopRequireDefault(_activity);
 	
-	var _pay = __webpack_require__(62);
+	var _pay = __webpack_require__(63);
 	
 	var _pay2 = _interopRequireDefault(_pay);
 	
@@ -15356,7 +15689,7 @@
 	
 	var _user2 = _interopRequireDefault(_user);
 	
-	var _dummyData = __webpack_require__(58);
+	var _dummyData = __webpack_require__(59);
 	
 	var _dummyData2 = _interopRequireDefault(_dummyData);
 	
@@ -15366,7 +15699,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var LocalStrategy = __webpack_require__(73).Strategy;
+	var LocalStrategy = __webpack_require__(74).Strategy;
 	
 	// Webpack Requirements
 	
@@ -15516,7 +15849,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ },
-/* 158 */
+/* 161 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -15547,121 +15880,127 @@
 	}
 
 /***/ },
-/* 159 */
+/* 162 */
 /***/ function(module, exports) {
 
 	module.exports = require("better-react-spinkit");
 
 /***/ },
-/* 160 */
-/***/ function(module, exports) {
-
-	module.exports = require("https");
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	module.exports = require("intl");
-
-/***/ },
-/* 162 */
-/***/ function(module, exports) {
-
-	module.exports = require("intl-locales-supported");
-
-/***/ },
 /* 163 */
 /***/ function(module, exports) {
 
-	module.exports = require("intl/locale-data/jsonp/en");
+	module.exports = require("buffer");
 
 /***/ },
 /* 164 */
 /***/ function(module, exports) {
 
-	module.exports = require("isomorphic-fetch");
+	module.exports = require("https");
 
 /***/ },
 /* 165 */
 /***/ function(module, exports) {
 
-	module.exports = require("limax");
+	module.exports = require("intl");
 
 /***/ },
 /* 166 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-cssnext");
+	module.exports = require("intl-locales-supported");
 
 /***/ },
 /* 167 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-focus");
+	module.exports = require("intl/locale-data/jsonp/en");
 
 /***/ },
 /* 168 */
 /***/ function(module, exports) {
 
-	module.exports = require("postcss-reporter");
+	module.exports = require("limax");
 
 /***/ },
 /* 169 */
 /***/ function(module, exports) {
 
-	module.exports = require("querystring");
+	module.exports = require("nodemailer");
 
 /***/ },
 /* 170 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-autosuggest");
+	module.exports = require("postcss-cssnext");
 
 /***/ },
 /* 171 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-intl/locale-data/en");
+	module.exports = require("postcss-focus");
 
 /***/ },
 /* 172 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-square-hosted-fields");
+	module.exports = require("postcss-reporter");
 
 /***/ },
 /* 173 */
 /***/ function(module, exports) {
 
-	module.exports = require("react-star-rating-component");
+	module.exports = require("querystring");
 
 /***/ },
 /* 174 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools");
+	module.exports = require("react-autosuggest");
 
 /***/ },
 /* 175 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-dock-monitor");
+	module.exports = require("react-intl/locale-data/en");
 
 /***/ },
 /* 176 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-devtools-log-monitor");
+	module.exports = require("react-square-hosted-fields");
 
 /***/ },
 /* 177 */
 /***/ function(module, exports) {
 
-	module.exports = require("redux-thunk");
+	module.exports = require("react-star-rating-component");
 
 /***/ },
 /* 178 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools");
+
+/***/ },
+/* 179 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-dock-monitor");
+
+/***/ },
+/* 180 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-devtools-log-monitor");
+
+/***/ },
+/* 181 */
+/***/ function(module, exports) {
+
+	module.exports = require("redux-thunk");
+
+/***/ },
+/* 182 */
 /***/ function(module, exports) {
 
 	module.exports = require("sanitize-html");

@@ -11,7 +11,7 @@ import * as Actions from './actions'
 import { fetchActivities, setSelectedPrograms } from '../Account/Activity/actions'
 import { getCurrentProgram, getCurrentHistory, getCurrentProgress } from './reducer'
 import { updateActivity } from '../Account/Activity/actions'
-import { pay, setCard, addCard } from '../Account/Billing/actions'
+import { pay, setCard, addCard, saveTransaction, sendOutputByEmail } from '../Account/Billing/actions'
 import { fetchUserProfile } from '../Auth/AuthActions'
 
 
@@ -30,7 +30,7 @@ function mapStateToProps(state) {
     currentActivity: state.programs.currentActivity,
     // docState: state.documents.state
     card: state.pay.card,
-    payState: state.pay.state,
+    pay: state.pay,
     user: state.auth.user
   }
 }
@@ -46,11 +46,14 @@ function mapDispatchToProps(dispatch, ownProps) {
     fetchActivities: () => dispatch(fetchActivities()),
     setSelectedPrograms: (selectedPrograms) => dispatch(setSelectedPrograms(selectedPrograms)),
     errorMessage: (option) => dispatch(Notifications.error(option)),
+    successMessage: (option) => dispatch(Notifications.success(option)),
     updateActivity: (id, data) => dispatch(updateActivity(id, data)),
-    pay: (nonce, amount) => dispatch(pay(nonce, amount)),
+    buy: (nonce, amount) => dispatch(pay(nonce, amount)),
     setCard: (card) => dispatch(setCard(card)),
     fetchUserProfile: () => dispatch(fetchUserProfile()),
-    addCard: (customerId, nonce, billingAddress, holderName) => dispatch(addCard(customerId, nonce, billingAddress, holderName))
+    addCard: (customerId, nonce, billingAddress, holderName) => dispatch(addCard(customerId, nonce, billingAddress, holderName)),
+    saveTransaction: (transactionId, template, data) => dispatch(saveTransaction(transactionId, template, data)),
+    sendOutputByEmail: (receiver, output) => dispatch(sendOutputByEmail(receiver, output))
   }
 }
 
