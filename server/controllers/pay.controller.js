@@ -208,7 +208,7 @@ export function sendOutputByEmail(req, res) {
     from: 'support@legalmaven.com',
     to: receiver,
     subject: 'LegalMaven - Purchased Form',
-    html: `<html>Thanks for using Legal Maven<br/><p><a href="https://legalmaven.herokuapp.com/${output}" download>Click here to receive the form.</a></p></html>`
+    html: `<!DOCTYPE html><html><body>Thanks for using Legal Maven<br/><p><a href="https://legalmaven.herokuapp.com/${output}" download>Click here to receive the form.</a></p></body></html>`
   };
 
   transporter.sendMail(mailOptions, function(err, info) {
