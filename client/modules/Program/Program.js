@@ -84,7 +84,7 @@ class Program extends Component {
           const _this = this
           setTimeout(( ) => { _this.outputLink.click() }, 100)
         } else {
-          nextProps.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc)
+          this.props.sendOutputByEmail(nextProps.user.email, nextProps.pay.transaction.doc)
         }
       } else if (nextProps.pay.state === 'SEND_OUTPUT_BY_EMAIL_SUCCESS') {
         this.props.successMessage({
